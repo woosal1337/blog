@@ -1,18 +1,18 @@
 ---
-title: dotfiles
+title: Dotfiles
 date: 2021-09-01 17:12:41
 tags:
 ---
 
-## 🏹 my arch setup
+## 🏹 My Arch setup
 - ### [.ulauncher](https://github.com/woosal1337/dotfiles/blob/main/arch/.ulauncher)
 - ### [.zshrc](https://github.com/woosal1337/dotfiles/blob/main/arch/.zshrc)
 - ### [neovim/init.vim](https://github.com/woosal1337/dotfiles/blob/main/arch/init.vim)
 
-## 🏵️ my deb setup
+## 🏵️ My Deb setup
 - ### [.ulauncher](https://github.com/woosal1337/dotfiles/blob/main/deb/.ulauncher)
 - ### [.zshrc](https://github.com/woosal1337/dotfiles/blob/main/deb/.zshrc)
 - ### [neovim/init.vim](https://github.com/woosal1337/dotfiles/blob/main/deb/init.vim)
 
 
-### [🐙 my dotfiles on github](https://github.com/woosal1337/dotfiles)
+### [🐙 My Dotfiles on Github](https://github.com/woosal1337/dotfiles)

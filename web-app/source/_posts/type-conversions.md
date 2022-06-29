@@ -1,18 +1,18 @@
 ---
-title: type conversions
+title: Type Conversions
 date: 2021-09-02 11:41:56
 tags: py, python
 ---
 
-# introduction
+# Introduction
 
-- as programmers, we are most likely aware that the programming is about `getting/fetching data`, `manipulating it`, and finally `returning` the format, which would like to be acquired. working with various and multiple data types might get us frustrated due to the Error examples, which are shown below
+- As programmers, we are most likely aware that the programming is about `getting/fetching data`, `manipulating it`, and finally `returning` the format, which would like to be acquired. Working with various and multiple data types might get us frustrated due to the Error examples, which are shown below
 
 - `type conversions` help to resolve these kind of issues very easily, about which this article is about 
 
-- p.s the `input()` function in python gets all the input does not matter what in `string` format. so, if you are looking to get `integer`, `float`, or other type of data from the user, you might be required to manipulate it by one of the according `type conversion`s
+- p.s The `input()` function in python gets all the input does not matter what in `string` format. so, if you are looking to get `integer`, `float`, or other type of data from the user, you might be required to manipulate it by one of the according `type conversion`s
 
-# errors
+# Errors
 
 ```python
 >>> print(1 + "1")
@@ -21,7 +21,7 @@ print(1 + "1")
 TypeError: unsupported operand type(s) for +: 'int' and 'str'
 ```
 
-- as logical as it is, doing any mathematical operation on different kind of data types does not really make sense. by using `type conversion`s it is easy to solve these, let's show a couple of more example before moving to the `usage` part of them
+- As logical as it is, doing any mathematical operation on different kind of data types does not really make sense. By using `type conversion`s it is easy to solve these, let's show a couple of more example before moving to the `usage` part of them
 
 ```python
 >>> user_age = input("Please enter your age: ")
@@ -52,14 +52,14 @@ TypeError: unsupported operand type(s) for -: 'int' and 'str'
 11 + 22 = 1122 # wut?
 ```
 
-- the same case for all of them, let's see how to resolve it
+- The same case for all of them, let's see how to resolve it
 
-# usage
+# Usage
 
 ### `int()`
 
 - p.s `type conversion` functions are supposed to be assigned to the value after usage, else, they do not replace the value of the assigned variable instantly, a.k.a `inplace=False`
-- the function that converts the string type of integers to the integer type of integers. frustrated? no worries, check the examples below
+- The function that converts the string type of integers to the integer type of integers. frustrated? no worries, check the examples below
 
 ```python
 >>> usr_inp = input("Enter your age: ")
@@ -74,7 +74,7 @@ print(type(usr_inp))
 <class 'int'>
 ```
 
-- as was shown above, you can directly change the value of declared string as simple as that. however, how far can `int()` help you?
+- As was shown above, you can directly change the value of declared string as simple as that. however, how far can `int()` help you?
 
 ```python
 >>> usr_inp = input("Enter your age: ")
@@ -88,7 +88,7 @@ ValueError: invalid literal for int() with base 10: 'ihasidhas'
 
 ### `str()`
 
-- what was done in the `int()` section, where a `str` type of data was converted to `int`, the exact same operation can be done vice versa.
+- What was done in the `int()` section, where a `str` type of data was converted to `int`, the exact same operation can be done vice versa.
 
 ```python
 >>> a = 1337
@@ -110,7 +110,7 @@ print(len(a))
 TypeError: object of type 'int' has no len()
 ```
 
-- as was noticed above, `int` type of data can not have a `len` a.k.a length, however, `str` type of data can. so, we can just convert the `int` to string and find the length
+- As was noticed above, `int` type of data can not have a `len` a.k.a length, however, `str` type of data can. so, we can just convert the `int` to string and find the length
 
 ```python
 >>> a = 1337
@@ -123,7 +123,7 @@ TypeError: object of type 'int' has no len()
 
 ### float()
 
-- nothing different than the 2 mentioned and described above, besides, as the name suggests, `float()` converts the values into a `float` type of data :)
+- Nothing different than the 2 mentioned and described above, besides, as the name suggests, `float()` converts the values into a `float` type of data :)
 
 ```python
 >>> a = "3.0"
@@ -149,12 +149,12 @@ TypeError: object of type 'int' has no len()
 <class 'float'>
 ```
 
-- yes! you can also convert `integer`s to `float` values, not just the `string`s!
+- Yes! You can also convert `integer`s to `float` values, not just the `string`s!
 
 ### `complex()`
 
-- you probably have never seen this function before as long as you have messed with complex values in python
-- feel free to learn about [complex numbers](https://en.wikipedia.org/wiki/Complex_number) by [clicking here](https://en.wikipedia.org/wiki/Complex_number)
+- You probably have never seen this function before as long as you have messed with complex values in python
+- Feel free to learn about [complex numbers](https://en.wikipedia.org/wiki/Complex_number) by [clicking here](https://en.wikipedia.org/wiki/Complex_number)
 
 ```python
 >>> a = 13 + 37j
@@ -172,7 +172,7 @@ TypeError: object of type 'int' has no len()
 (25+49j) <class 'complex'>
 ```
 
-- if you are not knew to the topic of `complex numbers` or have read the wikipedia article above, then the mathematical operations should completely make sense. but can we also use `complex()` for the conversions? :))
+- If you are not knew to the topic of `complex numbers` or have read the wikipedia article above, then the mathematical operations should completely make sense. But can we also use `complex()` for the conversions? :))
 
 ```python
 >>> a = 1337
@@ -182,11 +182,11 @@ TypeError: object of type 'int' has no len()
 (1337+0j) <class 'complex'>
 ```
 
-- simple as that! as long as your variable does not have any imaginary part, `complex()` is going to assign it as `0` by default
+- Simple as that! As long as your variable does not have any imaginary part, `complex()` is going to assign it as `0` by default
 
-# interesting stuff
+# Interesting stuff
 
-- is `3.0` equal to `3` that to `3+0j`? :))
+- Is `3.0` equal to `3` that to `3+0j`? :))
 
 ```python
 >>> print(3 == 3.0)
@@ -200,4 +200,4 @@ True
 True
 ```
 
-- yes, if you are converting the same integer to other types, they all are going to be the same in value for python :)
+- Yes, if you are converting the same integer to other types, they all are going to be the same in value for python :)

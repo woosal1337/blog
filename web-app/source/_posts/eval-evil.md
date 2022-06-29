@@ -6,9 +6,9 @@ tags: py
 
 # evil() functions of python: `eval()` & `exec()`
 
-# introduction
+# Introduction
 
-- if you have never used these functions before, you will understand in a bit why i call it as `evil` functions
+- If you have never used these functions before, you will understand in a bit why I call it as `evil` functions.
 
 ```python
 >>> eval("print(5 + 10)")
@@ -16,7 +16,7 @@ tags: py
 15
 ```
 
-- is not python amazing?
+- Is not python amazing?
 
 ```python
 >>> a = 5
@@ -25,8 +25,8 @@ tags: py
 25
 ```
 
-- what is even interesting is actually with `exec()` is that, it gives you
-even superior permission
+- What is even interesting is actually with `exec()` is that, it gives you
+even superior permission.
 
 ```python
 >>> exec("a = 5")
@@ -35,9 +35,9 @@ even superior permission
 25
 ```
 
-- it gives you complete python control right within a function. as superior as
-it is, personally, i would almost never recommend you to use it. p.s not 
-everybody around us is well-intentioned
+- It gives you complete python control right within a function. As superior as
+it is, personally, I would almost never recommend you to use it. 
+p.s not everybody around us is well-intentioned
 
 ```python
 >>> exec("import os;print(next(os.walk('./'), (None, None, []))[2])")
@@ -45,15 +45,15 @@ everybody around us is well-intentioned
 .. main.py
 ```
 
-- the code snippet above literally prints out every file in the specified folder
+- The code snippet above literally prints out every file in the specified folder
 an experienced python developer can easily delete, manipulate, modify, create 
-and more that i can not think of right now if you do give such an access to a
-user. it is kind of replicating an `ssh`
+and more that I can not think of right now if you do give such an access to a
+user. It is kind of replicating an `ssh`
 
-- then how and when do we use these evil functions?
-    - you have no other way to use but this function in your program (almost 
+- Then how and when do we use these evil functions?
+    - You have no other way to use but this function in your program (almost 
     impossible)
-    - you do put a very advanced filtering on the user input before actually
+    - You do put a very advanced filtering on the user input before actually
     forwarding it to one of these functions (especially `exec()`)
     - p.s these functions are actually slower in speed in most scenarios than
     the functions, which can easily replace them
@@ -66,7 +66,7 @@ user. it is kind of replicating an `ssh`
 1337
 ```
 
-- need even more spacing for your code within `exec()`? say no more
+- Need even more spacing for your code within `exec()`? say no more
 
 ```python
 >>> exec("""
@@ -91,4 +91,4 @@ user. it is kind of replicating an `ssh`
 woosal 1337
 ```
 
-- put anything in as long as you want! *that is what she said*
+- Put anything in as long as you want! *that is what she said*

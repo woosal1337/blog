@@ -1,18 +1,18 @@
 ---
-title: cia
+title: CIA
 date: 2021-11-04 21:52:02
 tags:
 ---
 
 # cia factbook
-the world factbook, also known as the cia world factbook, is a reference resource produced by the central intelligence agency (cia) with almanac-style information about the countries of the world. the official print version is available from the government printing office. other companies—such as skyhorse publishing—also print a paper edition. the factbook is available in the form of a website that is partially updated every week. it is also available for download for use off-line. it provides a two- to three-page summary of the demographics, geography, communications, government, economy, and military of each of 267 international entities including u.s recognized countries, dependencies, and other areas in the world. the world factbook is prepared by the cia for the use of u.s. government officials, and its style, format, coverage, and content are primarily designed to meet their requirements. however, it is frequently used as a resource for academic research papers and news articles. as a work of the u.s. government, it is in the public domain in the united states.
+The World Factbook, also known as the CIA World Factbook, is a reference resource produced by the Central Intelligence Agency (CIA) with almanac-style information about the countries of the world. The official print version is available from the government printing office. other companies—such as Skyhorse publishing—also print a paper edition. The Factbook is available in the form of a website that is partially updated every week. It is also available for download for use off-line. It provides a two- to three-page summary of the demographics, geography, communications, government, economy, and military of each of 267 international entities including the U.S recognized countries, dependencies, and other areas in the world. The World Factbook is prepared by the CIA for the use of U.S. Government Officials, and its style, format, coverage, and content are primarily designed to meet their requirements. However, it is frequently used as a resource for academic research papers and news articles. As a work of the U.S. Government, it is in the public domain in the United States.
 
 <div align="center">
     <img src="https://camo.githubusercontent.com/31fe539057343c8f34d9d2507a2177edd303d1b05060a160928556c460883cd8/68747470733a2f2f75706c6f61642e77696b696d656469612e6f72672f77696b6970656469612f636f6d6d6f6e732f7468756d622f322f32332f4349415f6c6f676f5f253238323032312532392e7376672f3132303070782d4349415f6c6f676f5f253238323032312532392e7376672e706e67" width=25%/>
 </div>
 
-### about
-during the manipulation process, whole 66 columns of raw data provided by cia were all combined together under one `.csv` to make your use of the data easier. the columns and the include in the `.csv` file is as following:
+### About
+During the manipulation process, whole 66 columns of raw data provided by cia were all combined together under one `.csv` to make your use of the data easier. The columns and the include in the `.csv` file is as following:
 ```
 broadband_fixed_subscriptions.csv
 budget_surplus_deficit.csv
@@ -81,19 +81,19 @@ telephones_fixed_lines.csv
 telephones_mobile_cellular.csv
 unemployment_rate.csv
 ```
-you can access the regarding file by [clicking here](https://github.com/woosal1337/cia/blob/main/cia-factbook.csv).
+You can access the regarding file by [clicking here](https://github.com/woosal1337/cia/blob/main/cia-factbook.csv).
 
-### api
-at the same time, you can also use the api of the data, which is hosted on heroku. you can visit [https://cia-factbook.herokuapp.com/](https://cia-factbook.herokuapp.com/) or [click here](https://cia-factbook.herokuapp.com/) to visit the api page and use it. for the api docs, please [click here](https://github.com/woosal1337/cia/tree/main/api).
+### API
+At the same time, you can also use the api of the data, which is hosted on heroku. you can visit [https://cia-factbook.herokuapp.com/](https://cia-factbook.herokuapp.com/) or [click here](https://cia-factbook.herokuapp.com/) to visit the api page and use it. For the API docs, please [click here](https://github.com/woosal1337/cia/tree/main/api).
 
-### datawrapper format
-meanwhile, as [datawrapper](https://river.datawrapper.de/) has its own list of countries to color, a script was written to convert each of the dataset of each column to that format for easier use also. you can visit the link of the list of the datawrapper accepted format by [clicking here](https://github.com/woosal1337/cia/tree/main/datawrapper).
+### Datawrapper Format
+Meanwhile, as [datawrapper](https://river.datawrapper.de/) has its own list of countries to color, a script was written to convert each of the dataset of each column to that format for easier use also. you can visit the link of the list of the datawrapper accepted format by [clicking here](https://github.com/woosal1337/cia/tree/main/datawrapper).
 
-### acknowledgements
-[the cia](https://www.cia.gov/the-world-factbook/) is for sure deserves all of the appreciation. gathering this much data and most importantly making it public to everyone is whole another level. deep respect and appreciation go to the cia.
+### Acknowledgements
+[The CIA](https://www.cia.gov/the-world-factbook/) is for sure deserves all of the appreciation. Gathering this much data and most importantly making it public to everyone is whole another level. Deep respect and appreciation go to the cia.
 
-### inspiration
-every data scientist is different. what makes them different is each unique and special view that have on the provided datasets. currently, provided data will be visualized and analyzed by a team of two including deployment. however, please, as much as you can, also put your effort into it to make an even more unique analysis at the end.
+### Inspiration
+Every data scientist is different. What makes them different is each unique and special view that have on the provided datasets. Currently, provided data will be visualized and analyzed by a team of two including deployment. However, please, as much as you can, also put your effort into it to make an even more unique analysis at the end.
 
-### [kaggle](https://www.kaggle.com/woosal1337/ciafactbook)
-feel free to visit the [kaggle page](https://www.kaggle.com/woosal1337/ciafactbook) of the dataset and upvote if you wish to!
+### [Kaggle](https://www.kaggle.com/woosal1337/ciafactbook)
+Feel free to visit the [Kaggle page](https://www.kaggle.com/woosal1337/ciafactbook) of the dataset and upvote if you wish to!
