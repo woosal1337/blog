@@ -14,6 +14,7 @@ date: 2021-09-01 00:53:47
 - #### Blockchain
 - #### Data Science
 - #### Computer Vision
+- #### 
 - #### Bots / Scripting
 - #### Politics
 - #### History
@@ -28,12 +29,20 @@ date: 2021-09-01 00:53:47
     - [r/Medipol](https://www.reddit.com/r/Medipol/)
     - [r/Azerbaijan Discord](https://discord.gg/5nyxbGkTKq)
 
-- ### Learning Languages:
-    - Azerbaijani
-    - Turkish
-    - English
-    - Russian
-    - German
+### Programming Languages
+- #### Python (Native)
+- #### Solidity (Advanced)
+- #### JavaScript (Intermediate)
+- #### C/C++ (Intermediate)
+- #### Java (Intermediate)
+
+
+### Learning Languages:
+- #### Azerbaijani (Native)
+- #### Turkish (Native)
+- #### English (Native)
+- #### Russian (Advanced)
+- #### German (Beginner)
 
 ### Social Media:
 - [Reddit: u/woosal1337](https://www.reddit.com/user/woosal1337)
