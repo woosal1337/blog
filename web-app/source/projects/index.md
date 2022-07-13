@@ -1,5 +1,5 @@
 ---
-title: projects
+title: Projects
 date: 2021-09-01 01:15:58
 ---
 
