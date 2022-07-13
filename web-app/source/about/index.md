@@ -7,7 +7,7 @@ date: 2021-09-01 00:53:47
 - #### From: Azerbaijan
 - #### Live: Turkey
 - #### Age: 19
-- #### Study: Jr. Computer Engineering
+- #### Study: Sr. Computer Engineering
 
 ### Interested:
 - #### Coding / Programming
@@ -15,9 +15,11 @@ date: 2021-09-01 00:53:47
 - #### Data Science
 - #### Computer Vision
 - #### Defense Industry
-- #### Bots / Scripting
+- #### Sociology / Psychology
 - #### Politics
 - #### History
+- #### Space
+- #### Chess
 - #### Moderation 
     - [r/Turkey](https://www.reddit.com/r/Turkey/) 
     - [r/Azerbaijan](https://www.reddit.com/r/azerbaijan/) 
