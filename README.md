@@ -1,4 +1,5 @@
 <div align="center">
   <h1>blog</h1>
-  🕸️ my blog website.
+  <p>🕸️ my blog website.</p>
+  <img src="./src/website.png" width=71.337% />
 </div>
