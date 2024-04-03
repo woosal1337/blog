@@ -55,6 +55,14 @@ export default function Home() {
           >
             uniwave
           </Link>
+          ,{" "}
+          <Link
+            target="_blank"
+            href="https://altust.media"
+            className="underline duration-500 hover:text-zinc-300"
+          >
+            altüst
+          </Link>
           .
         </h2>
       </div>
