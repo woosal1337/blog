@@ -42,10 +42,10 @@ export default function Home() {
           currently building{" "}
           <Link
             target="_blank"
-            href="https://sorsor.org"
+            href="https://learnity.ai"
             className="underline duration-500 hover:text-zinc-300"
           >
-            sorsor
+            learnity
           </Link>
           ,{" "}
           <Link
