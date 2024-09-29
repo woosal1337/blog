@@ -21,6 +21,12 @@ export default function Notes() {
 			category: "Keyboard",
 			imageSrc: "/stack/keyboard.png",
 		},
+		{
+			name: "Quadcast S",
+			brand: "HyperX",
+			category: "Microphone",
+			imageSrc: "/stack/mic.png",
+		},
 	];
 
 	const everyday = [
@@ -42,12 +48,6 @@ export default function Notes() {
 			category: "Airpods",
 			imageSrc: "/stack/airpods.png",
 		},
-		{
-			name: "Cloud III Wireless",
-			brand: "HyperX",
-			category: "Headphones",
-			imageSrc: "/stack/head.png",
-		},
 	];
 
 	const gaming = [
@@ -62,6 +62,12 @@ export default function Notes() {
 			brand: "HP Omen",
 			category: "Mouse",
 			imageSrc: "/stack/gaming-mouse.png",
+		},
+		{
+			name: "Cloud III Wireless",
+			brand: "HyperX",
+			category: "Headphones",
+			imageSrc: "/stack/head.png",
 		},
 	];
 
