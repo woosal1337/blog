@@ -4,8 +4,8 @@ import { TwitterApiRateLimitPlugin } from "@twitter-api-v2/plugin-rate-limit";
 import { unstable_cache as cache } from "next/cache";
 import { TwitterApi } from "twitter-api-v2";
 
-const CACHE_DURATION = 3600 * 0.05; // 3 minutes
-const USE_MOCK_DATA_FOR_DEVELOPMENT = true;
+const CACHE_DURATION = 3600; // 1 hour
+const USE_MOCK_DATA_FOR_DEVELOPMENT = false;
 const DEFAULT_X_RESPONSE = {
 	data: { public_metrics: { followers_count: 805 } },
 };
