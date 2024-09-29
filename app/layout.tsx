@@ -2,7 +2,7 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import { Lexend } from "next/font/google";
-
+import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
@@ -79,6 +79,7 @@ export default function RootLayout({
 						</div>
 					</TooltipProvider>
 				</ThemeProvider>
+				<Analytics />
 			</body>
 		</html>
 	);
