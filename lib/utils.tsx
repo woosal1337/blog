@@ -3,6 +3,8 @@ import {IconSmashing} from "@/components/icons/smashing";
 import {type ClassValue, clsx} from "clsx";
 import {twMerge} from "tailwind-merge";
 import LearnityLogo from "@/components/blocks/learnity-logo";
+import AltustLogo from "@/components/blocks/altust-logo";
+import PurgeLogo from "@/components/blocks/purge-logo";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -388,5 +390,19 @@ export const projects = [
     description: "AI-powered learning platform with collaboration tools.",
     link: {href: "https://learnity.ai", label: "learnity.ai"},
     logo: <LearnityLogo className="size-10"/>,
+  },
+  {
+    name: "altüst",
+    released: "2024-08-01",
+    description: "Media platform empowering creativity and innovation in Azerbaijan.",
+    link: {href: "https://altust.media", label: "altust.media"},
+    logo: <AltustLogo className="size-10" />,
+  },
+  {
+    name: "Purge",
+    released: "2024-07-01",
+    description: "Tool for deleting all your social media and messaging platform data.",
+    link: {href: "https://purge.now", label: "purge.now"},
+    logo: <PurgeLogo className="size-10" />,
   },
 ];
