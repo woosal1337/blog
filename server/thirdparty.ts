@@ -7,7 +7,7 @@ import { TwitterApi } from "twitter-api-v2";
 const CACHE_DURATION = 3600; // 1 hour
 const USE_MOCK_DATA_FOR_DEVELOPMENT = false;
 const DEFAULT_X_RESPONSE = {
-	data: { public_metrics: { followers_count: 805 } },
+	data: { public_metrics: { followers_count: 888 } },
 };
 const DEFAULT_GITHUB_RESPONSE = {
 	data: {

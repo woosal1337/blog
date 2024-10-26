@@ -72,7 +72,7 @@ export default async function Readme() {
             href="https://linkedin.com/in/woosal"
             aria-label="Follow on LinkedIn"
             icon={LinkedInIcon}
-            count={2697}
+            count={2732}
             label="followers"
           />
         </div>

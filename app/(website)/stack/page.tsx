@@ -63,18 +63,24 @@ export default function Notes() {
       category: "Laptop",
       imageSrc: "/stack/gaming.png",
     },
-		{
-			name: "27C Curved QHD 240Hz",
-			brand: "HP Omen",
-			category: "Monitor",
-			imageSrc: "/stack/monitor-gaming.png",
-		},
-		{
-			name: "FK2-B",
-			brand: "Zowie",
-			category: "Mouse",
-			imageSrc: "/stack/mouse-gaming.png",
-		},
+    {
+      name: "27C Curved QHD 240Hz",
+      brand: "HP Omen",
+      category: "Monitor",
+      imageSrc: "/stack/monitor-gaming.png",
+    },
+    {
+      name: "Huntsman V3 Pro",
+      brand: "Razer",
+      category: "Keyboard",
+      imageSrc: "/stack/razer.png",
+    },
+    {
+      name: "FK2-B",
+      brand: "Zowie",
+      category: "Mouse",
+      imageSrc: "/stack/mouse-gaming.png",
+    },
     {
       name: "Cloud III Wireless",
       brand: "HyperX",
