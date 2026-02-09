@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* MonoLisa Font Face */
+@font-face {
+	font-family: 'MonoLisa';
+	src: url('/fonts/MonoLisa-Regular.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
 @layer base {
 	:root {
 		--background: 210 40% 98%;
@@ -71,10 +80,28 @@
 		@apply border-border;
 	}
 	html {
-		@apply antialiased min-h-screen bg-background text-foreground font-sans;
+		@apply antialiased min-h-screen bg-background text-foreground;
+		font-family: 'MonoLisa', monospace;
 	}
 	body {
-		@apply min-h-screen font-sans bg-background text-foreground;
+		@apply min-h-screen bg-background text-foreground;
+		font-family: 'MonoLisa', monospace;
+	}
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	p,
+	a,
+	span,
+	div,
+	li,
+	button,
+	input,
+	textarea {
+		font-family: 'MonoLisa', monospace;
 	}
 	h1,
 	h2,
@@ -82,11 +109,12 @@
 	h4,
 	h5,
 	h6 {
-		@apply font-serif !font-medium tracking-tight;
+		@apply font-medium tracking-tight;
 	}
 
 	.pro {
 		@apply prose prose-zinc dark:prose-invert;
+		font-family: 'MonoLisa', monospace;
 	}
 
 	a {

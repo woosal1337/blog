@@ -1,31 +1,39 @@
-import { GeistMono } from "geist/font/mono";
-import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
-import { Lexend } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
-const LexendFont = Lexend({
-	subsets: ["latin"],
-	variable: "--font-lexend",
-});
-
 export const metadata: Metadata = {
 	metadataBase: new URL("https://vusal.tr"),
-	title: {
-		default: "Vusal Ismayilov",
-		template: "%s | Vusal Ismayilov",
+	title: "ege",
+	description: "developer, entrepreneur, and creator.",
+	icons: {
+		icon: [
+			{ url: "/favicon.png", sizes: "32x32", type: "image/png" },
+			{ url: "/logo.png", sizes: "32x32", type: "image/png" },
+			{ url: "/avatar.png", sizes: "192x192", type: "image/png" },
+			{ url: "/avatar.png", sizes: "512x512", type: "image/png" },
+		],
+		apple: [
+			{ url: "/avatar.png", sizes: "180x180", type: "image/png" },
+		],
 	},
-	description: "Developer, entrepreneur, and creator.",
 	openGraph: {
-		title: "Vusal Ismayilov",
-		description: "Developer, entrepreneur, and creator.",
+		title: "ege",
+		description: "developer, entrepreneur, and creator.",
 		url: "https://vusal.tr",
-		siteName: "Vusal Ismayilov",
+		siteName: "ege",
 		locale: "en_US",
 		type: "website",
+		images: [
+			{
+				url: "/avatar.png",
+				width: 1200,
+				height: 630,
+				alt: "ege",
+			},
+		],
 	},
 	robots: {
 		index: true,
@@ -39,7 +47,7 @@ export const metadata: Metadata = {
 		},
 	},
 	twitter: {
-		title: "Vusal Ismayilov",
+		title: "ege",
 		card: "summary_large_image",
 	},
 	verification: {
@@ -56,7 +64,6 @@ export default function RootLayout({
 	return (
 		<html
 			lang="en"
-			className={`${GeistSans.variable} ${GeistMono.variable} ${LexendFont.variable}`}
 			suppressHydrationWarning
 		>
 			<body>

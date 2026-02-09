@@ -387,7 +387,7 @@ export const projects = [
   {
     name: "Learnity",
     released: "2024-09-01",
-    description: "AI-powered learning platform with collaboration tools.",
+    description: "AI-powered learning platform where students collaborate.",
     link: {href: "https://learnity.ai", label: "learnity.ai"},
     logo: <LearnityLogo className="size-10"/>,
   },
