@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { MusicProvider } from "@/components/providers/music-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://vusal.tr"),
+	metadataBase: new URL("https://chele.bi"),
 	title: "ege",
-	description: "developer, entrepreneur, and creator.",
+	description: "code, finance, entrepreneurship, music.",
 	icons: {
 		icon: [
 			{ url: "/favicon.png", sizes: "32x32", type: "image/png" },
@@ -21,8 +22,8 @@ export const metadata: Metadata = {
 	},
 	openGraph: {
 		title: "ege",
-		description: "developer, entrepreneur, and creator.",
-		url: "https://vusal.tr",
+		description: "code, finance, entrepreneurship, music.",
+		url: "https://chele.bi",
 		siteName: "ege",
 		locale: "en_US",
 		type: "website",
@@ -74,17 +75,19 @@ export default function RootLayout({
 					storageKey="ned.im.theme"
 					disableTransitionOnChange
 				>
-					<TooltipProvider
-						delayDuration={10}
-						skipDelayDuration={10}
-						disableHoverableContent
-					>
-						<div className="flex w-full h-full min-h-full">
-							<div className="relative flex w-full h-full flex-col">
-								{children}
+					<MusicProvider>
+						<TooltipProvider
+							delayDuration={10}
+							skipDelayDuration={10}
+							disableHoverableContent
+						>
+							<div className="flex w-full h-full min-h-full">
+								<div className="relative flex w-full h-full flex-col">
+									{children}
+								</div>
 							</div>
-						</div>
 					</TooltipProvider>
+					</MusicProvider>
 				</ThemeProvider>
 				<Analytics />
 			</body>

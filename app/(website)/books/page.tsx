@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { books, bookCategories, type BookCategory } from "@/data/books";
 import { useState, useMemo } from "react";
+import { useMusic } from "@/components/providers/music-provider";
 
 function BookImage({ src, alt, onClick }: { src: string; alt: string; onClick?: () => void }) {
     const [isLoading, setIsLoading] = useState(true);
@@ -45,6 +46,7 @@ export default function BooksPage() {
     const [selectedCategory, setSelectedCategory] = useState<BookCategory | "all">("all");
     const [sortOrder, setSortOrder] = useState<"default" | "a-z">("default");
     const [selectedBook, setSelectedBook] = useState<{ src: string; title: string; author: string } | null>(null);
+    const { isPlaying, togglePlay } = useMusic();
 
     const filteredBooks = useMemo(() => {
         let filtered = selectedCategory === "all" ? books : books.filter(book => book.category === selectedCategory);
@@ -220,6 +222,39 @@ export default function BooksPage() {
                     </div>
                 </div>
             )}
+
+            {/* Floating Music Widget */}
+            <div className="fixed top-20 right-4 z-50 animate-in fade-in slide-in-from-top-2 duration-500">
+                <div className="flex items-center gap-3 border border-border rounded px-3 py-2 bg-background/90 backdrop-blur-sm shadow-lg hover:shadow-xl transition-shadow">
+                    <div className="relative w-8 h-8 flex-shrink-0 rounded overflow-hidden border border-border">
+                        <Image
+                            src="/uzangibi.jpg"
+                            alt="uzan gibi cover"
+                            fill
+                            className="object-cover"
+                        />
+                    </div>
+                    <div className="min-w-0">
+                        <h3 className="text-xs font-medium truncate">uzan gibi</h3>
+                        <p className="text-[10px] text-muted-foreground">ege!</p>
+                    </div>
+                    <button
+                        onClick={togglePlay}
+                        className="flex-shrink-0 w-6 h-6 flex items-center justify-center border border-border rounded-full hover:bg-accent transition-colors"
+                        aria-label={isPlaying ? "Pause" : "Play"}
+                    >
+                        {isPlaying ? (
+                            <svg className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M5 3.5h2v9H5v-9zm4 0h2v9H9v-9z" />
+                            </svg>
+                        ) : (
+                            <svg className="w-2.5 h-2.5 ml-0.5" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M4 3v10l8-5-8-5z" />
+                            </svg>
+                        )}
+                    </button>
+                </div>
+            </div>
         </main>
     );
 }

@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import LearnityLogo from "@/components/blocks/learnity-logo";
 import {GitHubIcon} from "@/components/blocks/social-icons";
 import ProgrammingIcon from "@/components/icons/programming-icons";
+import { useMusic } from "@/components/providers/music-provider";
 
 function CornerButton({
                           href,
@@ -37,6 +40,7 @@ function CornerButton({
 
 export default function PortfolioPage() {
     const currentYear = new Date().getFullYear();
+    const { isPlaying, togglePlay } = useMusic();
 
     return (
         <main className="min-h-screen bg-background">
@@ -105,6 +109,44 @@ export default function PortfolioPage() {
                         <p className="text-base sm:text-lg text-muted-foreground mb-10 max-w-xl mx-auto">
                             code, finance, entrepreneurship, music.
                         </p>
+
+                        {/* Music Player */}
+                        <div className="max-w-md mx-auto mb-10">
+                            <div className="flex items-center gap-4 border border-border rounded px-4 py-3 bg-background/50 backdrop-blur-sm">
+                                {/* Album Cover */}
+                                <div className="relative w-12 h-12 flex-shrink-0 rounded overflow-hidden border border-border">
+                                    <Image
+                                        src="/uzangibi.jpg"
+                                        alt="uzan gibi cover"
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+
+                                {/* Track Info */}
+                                <div className="flex-1 min-w-0">
+                                    <h3 className="text-sm font-medium truncate">uzan gibi</h3>
+                                    <p className="text-xs text-muted-foreground">ege!</p>
+                                </div>
+
+                                {/* Play/Pause Button */}
+                                <button
+                                    onClick={togglePlay}
+                                    className="flex-shrink-0 w-8 h-8 flex items-center justify-center border border-border rounded-full hover:bg-accent transition-colors"
+                                    aria-label={isPlaying ? "Pause" : "Play"}
+                                >
+                                    {isPlaying ? (
+                                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M5 3.5h2v9H5v-9zm4 0h2v9H9v-9z" />
+                                        </svg>
+                                    ) : (
+                                        <svg className="w-3 h-3 ml-0.5" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M4 3v10l8-5-8-5z" />
+                                        </svg>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
 
                         {/* CTA Buttons */}
                         <div className="flex items-center justify-center gap-4 mb-16">
