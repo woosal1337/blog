@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import LearnityLogo from "@/components/blocks/learnity-logo";
 import {GitHubIcon} from "@/components/blocks/social-icons";
+import ProgrammingIcon from "@/components/icons/programming-icons";
 
 function CornerButton({
                           href,
@@ -57,13 +58,16 @@ export default function PortfolioPage() {
                         </Link>
                         <div className="flex items-center gap-6 text-xs text-muted-foreground">
                             <Link href="#projects" className="hover:text-foreground transition-colors">
-                                projects
+                                cv
                             </Link>
                             <Link href="#experience" className="hover:text-foreground transition-colors">
-                                experience
+                                xp
                             </Link>
                             <Link href="#education" className="hover:text-foreground transition-colors">
-                                education
+                                edu
+                            </Link>
+                            <Link href="/books" className="hover:text-foreground transition-colors">
+                                lib
                             </Link>
                             <Link href="#contact" className="hover:text-foreground transition-colors">
                                 contact
@@ -485,6 +489,106 @@ export default function PortfolioPage() {
                                         className="text-xs text-muted-foreground whitespace-nowrap">2019 · 2024</span>
                                 </div>
                                 <p className="text-xs text-muted-foreground">gpa 3.15 (honor).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Languages Section */}
+            <section id="languages" className="py-24 sm:py-32 border-t border-border/50">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+                    <div className="max-w-4xl mx-auto">
+                        <h2 className="text-2xl sm:text-3xl font-medium tracking-tight mb-12 text-center">
+                            languages
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {/* Spoken Languages */}
+                            <div>
+                                <div className="space-y-4">
+                                    <div className="border border-border p-5 hover:bg-accent hover:border-border/80 transition-all duration-200">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <span className="text-sm border border-border rounded px-1.5 py-0.5">🇬🇧</span>
+                                                <h4 className="text-sm font-medium">english</h4>
+                                            </div>
+                                            <span className="text-xs text-muted-foreground">native</span>
+                                        </div>
+                                    </div>
+                                    <div className="border border-border p-5 hover:bg-accent hover:border-border/80 transition-all duration-200">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <span className="text-sm border border-border rounded px-1.5 py-0.5">🇹🇷</span>
+                                                <h4 className="text-sm font-medium">turkish</h4>
+                                            </div>
+                                            <span className="text-xs text-muted-foreground">native</span>
+                                        </div>
+                                    </div>
+                                    <div className="border border-border p-5 hover:bg-accent hover:border-border/80 transition-all duration-200">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <span className="text-sm border border-border rounded px-1.5 py-0.5">🇦🇿</span>
+                                                <h4 className="text-sm font-medium">azerbaijani</h4>
+                                            </div>
+                                            <span className="text-xs text-muted-foreground">native</span>
+                                        </div>
+                                    </div>
+                                    <div className="border border-border p-5 hover:bg-accent hover:border-border/80 transition-all duration-200">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <span className="text-sm border border-border rounded px-1.5 py-0.5">🇷🇺</span>
+                                                <h4 className="text-sm font-medium">russian</h4>
+                                            </div>
+                                            <span className="text-xs text-muted-foreground">advanced</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Programming Languages */}
+                            <div>
+                                <div className="space-y-4">
+                                    <div className="border border-border p-5 hover:bg-accent hover:border-border/80 transition-all duration-200">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <ProgrammingIcon language="python" />
+                                                <h4 className="text-sm font-medium">.py</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="border border-border p-5 hover:bg-accent hover:border-border/80 transition-all duration-200">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <ProgrammingIcon language="typescript" />
+                                                <h4 className="text-sm font-medium">.ts</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="border border-border p-5 hover:bg-accent hover:border-border/80 transition-all duration-200">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <ProgrammingIcon language="javascript" />
+                                                <h4 className="text-sm font-medium">.js</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="border border-border p-5 hover:bg-accent hover:border-border/80 transition-all duration-200">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <ProgrammingIcon language="go" />
+                                                <h4 className="text-sm font-medium">.go</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="border border-border p-5 hover:bg-accent hover:border-border/80 transition-all duration-200">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <ProgrammingIcon language="solidity" />
+                                                <h4 className="text-sm font-medium">.sol</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
