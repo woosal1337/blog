@@ -5,7 +5,7 @@ import Link from "next/link";
 import { books, bookCategories, type BookCategory } from "@/data/books";
 import { useState, useMemo } from "react";
 
-function BookImage({ src, alt }: { src: string; alt: string }) {
+function BookImage({ src, alt, onClick }: { src: string; alt: string; onClick?: () => void }) {
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
@@ -18,7 +18,10 @@ function BookImage({ src, alt }: { src: string; alt: string }) {
     }
 
     return (
-        <div className="aspect-[2/3] rounded mb-3 overflow-hidden relative bg-accent/30">
+        <div
+            className="aspect-[2/3] rounded mb-3 overflow-hidden relative bg-accent/30 cursor-pointer"
+            onClick={onClick}
+        >
             {isLoading && (
                 <div className="absolute inset-0 bg-accent/50 animate-pulse" />
             )}
@@ -41,6 +44,7 @@ export default function BooksPage() {
     const currentYear = new Date().getFullYear();
     const [selectedCategory, setSelectedCategory] = useState<BookCategory | "all">("all");
     const [sortOrder, setSortOrder] = useState<"default" | "a-z">("default");
+    const [selectedBook, setSelectedBook] = useState<{ src: string; title: string; author: string } | null>(null);
 
     const filteredBooks = useMemo(() => {
         let filtered = selectedCategory === "all" ? books : books.filter(book => book.category === selectedCategory);
@@ -144,7 +148,11 @@ export default function BooksPage() {
                                 {filteredBooks.map((book, index) => (
                                     <div key={index} className="border border-border p-4 hover:bg-accent hover:border-border/80 transition-all duration-200">
                                         {book.cover ? (
-                                            <BookImage src={book.cover} alt={book.title} />
+                                            <BookImage
+                                                src={book.cover}
+                                                alt={book.title}
+                                                onClick={() => setSelectedBook({ src: book.cover!, title: book.title, author: book.author })}
+                                            />
                                         ) : (
                                             <div className="aspect-[2/3] bg-accent/50 rounded mb-3 flex items-center justify-center text-xs text-muted-foreground">
                                                 cover
@@ -174,6 +182,44 @@ export default function BooksPage() {
                     </div>
                 </div>
             </footer>
+
+            {/* Image Modal */}
+            {selectedBook && (
+                <div
+                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+                    onClick={() => setSelectedBook(null)}
+                >
+                    <div
+                        className="relative max-w-3xl max-h-[90vh] w-full animate-in zoom-in-95 duration-200"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Close button */}
+                        <button
+                            onClick={() => setSelectedBook(null)}
+                            className="absolute -top-12 right-0 text-white/80 hover:text-white text-sm transition-colors"
+                        >
+                            close ✕
+                        </button>
+
+                        {/* Image */}
+                        <div className="relative w-full aspect-[2/3] bg-background border border-border rounded overflow-hidden shadow-2xl">
+                            <Image
+                                src={selectedBook.src}
+                                alt={selectedBook.title}
+                                fill
+                                className="object-contain"
+                                quality={100}
+                            />
+                        </div>
+
+                        {/* Book info */}
+                        <div className="mt-4 text-center text-white">
+                            <h3 className="text-lg font-medium mb-1">{selectedBook.title}</h3>
+                            <p className="text-sm text-white/70">{selectedBook.author}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </main>
     );
 }
