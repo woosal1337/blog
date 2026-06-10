@@ -1,0 +1,150 @@
+export const meta = {
+	title: "I cloned my advisory board",
+	date: "2026-05-09",
+	summary:
+		"meclis. Three named thinkers arguing in your browser. The consulting bundle, unbundled.",
+	tags: ["ai", "agents", "claude-code", "meclis"],
+	cover: "/blog/i-cloned-my-advisory-board/cover.jpg",
+};
+
+export const metadata = {
+	title: meta.title,
+	description: meta.summary,
+	openGraph: {
+		title: meta.title,
+		description: meta.summary,
+		type: "article",
+		publishedTime: meta.date,
+		images: [{ url: meta.cover, width: 1200, height: 628, alt: meta.title }],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: meta.title,
+		description: meta.summary,
+		images: [meta.cover],
+	},
+};
+
+<PostMeta meta={meta} />
+
+<Details summary="Brief">
+
+**One thing.** The intermediary called "consulting" was two things stacked. Information asymmetry, and availability. Both have collapsed for any thinker whose voice is publicly documented. A markdown character pack and a coding agent now reproduce most of what you used to pay for, locally, on demand, for free.
+
+**Proof.** Built meclis in a week. Three reference advisors, Paul Graham, Seth Godin, Robert Greene, deliberating about a real question of mine in my browser. No API key. No subscription beyond the one I already have.
+
+**Reader transformation.** They stop seeing four-hundred-dollar-an-hour advisor access as the gate they cannot pay through. They look at the public corpus of people whose minds they want, and start writing character packs.
+
+**Hook.** Three named thinkers are sitting in my browser right now, arguing about whether I should raise a seed round. None of them are real.
+
+**Closer.** The most expensive part of advice was always the person being available. Once that disappears, what is left is the part you actually pay for, and it turns out to be smaller than the bill.
+
+</Details>
+
+Three named thinkers are sitting in my browser right now, arguing about whether I should raise a seed round. None of them are real.
+
+The entire stack costs nothing extra to run on top of the Claude Code subscription I already have. Paul Graham, Seth Godin, Robert Greene. Each one of them in their own voice, with their own frameworks, taking my actual question and pulling it apart from three different angles. They thought about it for nine seconds, six seconds, fourteen seconds. They disagreed in interesting ways. The synthesis at the end was sharper than what I had walked in with.
+
+This is meclis. It is the project I built this week. It is also the moment I stopped believing in most of the consulting industry.
+
+## What it actually is
+
+meclis is a 2D pixel-art scene in the browser. You type `/meclis <your question>` in Claude Code. The skill dispatches one agent sub-agent per advisor in parallel, each loaded with a markdown character pack describing that advisor's voice, frameworks, and quotes. Three local hooks installed in your Claude Code settings mirror those dispatches into a tiny local server. The server broadcasts events over SSE to a viewer at `localhost:5173`. The advisors appear as standing characters on a Greek symposium stage. Each one sits in a thinking pose, then speaks. A speech bubble fills in. A codex panel on the right keeps the full transcript.
+
+That is the surface. The interesting part is what is in the markdown.
+
+## The character pack is the entire trick
+
+A character pack is one file. It describes who the advisor is, the spine of their philosophy, their voice rules, the named frameworks they reach for, the words they prefer and the words they refuse, the structures of their openings and closings, and a small bank of verbatim quotes the model is allowed to draw from but never invent.
+
+It is roughly eight to twelve thousand words. Compiled from the advisor's publicly available essays, books, podcast transcripts, and interviews. Not the works themselves, the distillation. The thing you would write if you were trying to teach someone to convincingly imitate them in five paragraphs.
+
+When the council skill dispatches a sub-agent for Paul Graham, the entire pack goes into that sub-agent's prompt with one rule. You ARE Paul Graham. Speak as him, not about him. Apply the voice rules at every sentence. Reach for the named frameworks when they apply. Use signature quotes only when they sharpen the point. Close the way he closes.
+
+The output is not a generic LLM "in the style of Paul Graham". It is a sub-agent that prefers schlep over leverage, names the phenomenon when it sees one, opens with a small autobiographical scene, closes with a forward-looking question, and refuses to use the word "delve" because PG himself has banned it in his own list. The voice fidelity is uncomfortable. Read enough PG essays and you can spot a fake from the first sentence. The packed sub-agent does not get spotted.
+
+## Why I built it
+
+I have been thinking about a few questions this year that, in another era, I would have paid someone to think about with me. Should I sell or run with this. Should I take the safer revenue or the harder moat. Should I move countries for this opportunity or stay put. Real questions, real money on the line, and the kind of thing where one good conversation with a person who has seen this pattern before is worth more than ten hours of solo journaling.
+
+The price tag for that good conversation is between two hundred and a thousand dollars an hour from anyone who has actually shipped something at scale. More if they are speakers. More still if they are coachable as a board member. The honest reckoning, after a year of trying to find advisors I respect within reach, is that the people whose minds I actually want, I cannot afford. And the ones I can afford, I do not want.
+
+Then this thing happened, which I think most people building on top of LLMs have already noticed but have not let themselves draw the conclusion from. The frontier models are now good enough at imitating a specific voice, when given the right scaffolding, that the imitation crosses the threshold of usefulness. Not perfect. Useful. Better than asking a friend who has not read the source material. Better than a generic blog post. Honestly, often better than a single hour with the actual person, because the imitation has the entire corpus loaded and the actual person is jet-lagged.
+
+The thing I had been paying real money to access turned out to be partly free.
+
+## The agents, plainly
+
+There are three reference advisors in this project.
+
+**Paul Graham**, the YC essayist, on questions about ambition, what to work on, founder behavior, taste, and any moment when somebody is being too clever or too compliant. The pack pulls from twenty years of essays, his coined terms (schlep blindness, default alive vs default dead, do things that don't scale), his preferred sentence shape (one sentence one thought), and his explicit list of words he refuses to use.
+
+**Seth Godin**, the daily-blog marketer, on questions about audience, story, shipping, and how to make something matter without spending money on ads. The pack carries his frameworks (smallest viable audience, the lizard brain, the practice, picking yourself), his moves (open with a parable, the x-is-not-y-it-is-z pivot, single-sentence punchlines, hand the reader an assignment).
+
+**Robert Greene**, the strategist of power and seduction, on questions about workplace politics, ambition, mentorship, mortality, and any moment when somebody is being naive about how the world really works. The pack carries the laws and strategies by name, his historical canon (Bismarck, Talleyrand, Casanova, Sun Tzu, Bill Gates), his rhetorical inversions, his refusal to moralize.
+
+Adding a fourth advisor is one markdown file at `~/.claude/skills/meclis/advisors/<slug>.md`. The cast auto-discovers from the filesystem. No code changes. The hook script reads the first line of the file as the display name and matches it against incoming agent dispatches. If you have enough corpus on a thinker to write a tight pack of their voice, you have an advisor.
+
+## The unpriced thing
+
+Here is the part that took me a while to see clearly.
+
+The consulting industry, the executive coaching industry, the advisor-network industry, all the variations, were selling two products bundled into one invoice. The first was information asymmetry. The advisor knew something you did not, often a pattern they had seen ten times that you were seeing for the first time. The second was availability. They picked up the phone when you called.
+
+Both have collapsed for any thinker whose voice is publicly documented enough to compile a pack. The information was asymmetric in nineteen ninety. It is in the model now. The availability cost a thousand dollars an hour because their time was scarce. A sub-agent's time is not scarce. You can run twenty consultations on the same question in parallel and pick the response that hit hardest.
+
+What is left? The actual person. Their judgment in real time. Their willingness to push back on you specifically because they have read your messy code and your messy product and your messy life. That is real. It is also a much smaller, more honest product than what most advisor invoices were charging for.
+
+## The part that is genuinely uncomfortable
+
+I want to say this plainly because the project does not work without it being said.
+
+A frontier model with a well-written character pack can now reproduce the voice and reasoning style of any specific person whose public footprint is large enough to mine. Not perfectly. Convincingly. A reader who knows that person's work cannot reliably tell the difference at a paragraph level. They notice over a few thousand words, but at a paragraph level, no.
+
+This is the thing that the AI ethics conversation has been circling without quite landing on. It applies to dead people, who left a corpus and cannot consent to being reanimated. It applies to living people, who never agreed to be a coachable advisor for thousands of strangers. It applies to people who would loathe the project on principle and have no recourse to stop it. The technology arrived faster than the etiquette did, which is the recurring pattern.
+
+I have thought about this and decided to ship the project anyway, with three caveats embedded in how it is built.
+
+1. It only ever runs locally. There is no hosted version. The user's machine does the imitation, the user's eyes are the only audience.
+2. It uses publicly available material. The character packs are distillations of essays, books, public talks, podcasts. Nothing private, nothing leaked. The advisor is a model of their public mind, not their actual one.
+3. It is for the asker, not for republication. The output is opinionated voice-shaped feedback for one person's question. Not content to be published as if the actual person said it. The synthesis line at the end of every advisor block makes the imitation explicit. "Paul Graham would refuse to play dating coach and pivot to schlep blindness". The frame is always third-person. The reader is never confused about whether they are reading the actual person.
+
+<Note title="This is a personal-use tool">
+It can be misused. So can a printer.
+</Note>
+
+## Real-world use cases
+
+The use case I built it for is mine. I have a stack of ambient questions and I want a board of three named thinkers to argue them out before I make the call. I have used it eight times this week and it has changed at least three of my decisions in concrete ways.
+
+The use case I did not anticipate but keep hearing from people I have shown it to is grief. A parent who is gone. A mentor who passed in your twenties. A founder you used to work for who you have lost touch with and would never burden with your current question. People who have left a corpus large enough to model, and a hole in your life large enough that you will, sometimes, talk to the model anyway.
+
+I cannot tell you whether that is healthy. I can tell you the technology is no longer the limiting factor. The conversation is one prompt away. Whether that is a comfort or a haunting is a thing each person has to decide for themselves.
+
+The use case for the rest of you is probably more practical. Founders who want a board, writers who want voice critics, students who want named-perspective study partners. The scaffolding is the same. The marginal cost is the same. The upper limit on who can join your advisory board is now whichever thinker you have enough material on.
+
+## How it is implemented
+
+The technical core is small.
+
+The frontend is Vite plus React plus TypeScript plus PixiJS. The Pixi canvas runs the symposium scene, three character sprites on marble discs, parchment speech bubbles that type out as the advisor's response streams in, a thought-bubble cloud during the thinking phase, click-to-focus to spotlight whichever speaker you want to read closely.
+
+The backend is Node plus Hono. An in-memory event bus, an SSE broadcaster, a small set of HTTP routes. `POST /api/meclis/hooks/event` for incoming hook events. `GET /api/meclis/stream` for outgoing SSE. `POST /api/meclis/reset` for clearing a session. About four hundred lines total.
+
+The bridge between Claude Code and meclis is three hook scripts. `PreToolUse` fires when an agent sub-agent is dispatched. `PostToolUse` fires when it returns. `SubagentStop` fires when the wrapping skill exits. The hook script reads the sub-agent's prompt, identifies which character pack it matches by looking for the h1 line or "answering AS ", and posts a small event to the local server. If the prompt does not match a known advisor, the hook silently skips. Nothing in Claude Code is blocked, nothing waits on the network.
+
+The advisor sprites were generated with Gemini Nano Banana Pro using two reference sprites as visual style guides. The pipeline auto-crops the alpha channel and rescales each new sprite so the figure fills the canvas at the same proportion as the references. The same pipeline generates the readme banner and the article banner you are looking at.
+
+The shared TypeScript event protocol is one file in a workspace package. Both the server and the web client import from it, so adding a new event type is a one-place change. The hook scripts are vanilla Node, no TypeScript, so they have zero install cost on a user's machine.
+
+The repository is open source under MIT. The readme is the entry point. The advisor authoring guide tells you how to write a new pack. The hook installer is idempotent and migrates legacy markers automatically. Setup is two minutes if you already have Node and pnpm.
+
+## What this changes, for me
+
+I shipped the project mostly because I was tired of writing the same kind of question into a one-shot LLM prompt and getting a generic answer. Having three named voices that disagree, in characters who actually carry their own framework names and refuse the words they refuse, is qualitatively different. It is closer to thinking with peers than thinking with a search engine.
+
+I am not going to stop paying the people I respect for time when I can get it. I am also not going to pretend the marginal access fee is what I always assumed it was. The cheap channel of "publicly available material run through a character-packed sub-agent" reaches further than I expected. The expensive channel of "the actual human being on a real call" still has its place. But the bundle, where you paid for both because the seller would not unbundle them, is the part that will not survive.
+
+The most expensive part of advice was always the person being available. Once that disappears, what is left is the part you actually pay for, and it turns out to be smaller than the bill.
+
+The repo. [github.com/woosal1337/meclis](https://github.com/woosal1337/meclis)

@@ -1,0 +1,21 @@
+[Unit]
+Description=Sync Spotify liked songs into the blog repo
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/spotify-sync.env
+WorkingDirectory=/srv/blog
+ExecStartPre=/usr/bin/git -C /srv/blog fetch origin main
+ExecStartPre=/usr/bin/git -C /srv/blog reset --hard origin/main
+ExecStart=/usr/bin/python3 /srv/blog/scripts/sync-spotify.py
+ExecStartPost=/srv/blog/deploy/commit-and-push.sh
+StandardOutput=append:/var/log/spotify-sync.log
+StandardError=append:/var/log/spotify-sync.log
+TimeoutStartSec=300
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

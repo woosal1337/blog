@@ -1,0 +1,250 @@
+export const meta = {
+	title: "The 95% failure rate is not about the models",
+	date: "2026-05-17",
+	summary:
+		"5% of enterprise AI projects deliver value. The number has not moved through three generations of frontier models. The operational layer is the moat, and context engineering is the discipline that builds it.",
+	tags: ["ai", "agents", "enterprise", "context-engineering", "architecture"],
+	cover: "/blog/the-95-percent-failure-rate-is-not-about-the-models/cover.jpg",
+};
+
+export const metadata = {
+	title: meta.title,
+	description: meta.summary,
+	openGraph: {
+		title: meta.title,
+		description: meta.summary,
+		type: "article",
+		publishedTime: meta.date,
+		images: [{ url: meta.cover, width: 1200, height: 628, alt: meta.title }],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: meta.title,
+		description: meta.summary,
+		images: [meta.cover],
+	},
+};
+
+<PostMeta meta={meta} />
+
+<Details summary="Brief">
+
+**One thing.** Five percent of enterprise AI projects deliver value. Ninety-five percent do not. The failure rate is flat through GPT-3, GPT-4, GPT-5, Claude 2 through 4.7, and Gemini 1 through 3. Every model generation has the same failure rate, which means the model is not the bottleneck. The operational layer underneath is. The model is already strong. People are not feeding it the right context at the right moment, and that is the entire game.
+
+**Proof.** MIT NANDA's August 2025 GenAI Divide report puts integrated pilot success at 5%. BCG independently measured 4%. Deloitte 6%. RAND 80%+ failure. IBM 75%. McKinsey 78% with zero EBIT impact. Six methodologies, six teams, the same number. AI works for one group, software engineers (Copilot 55% faster, Anthropic internal study 80% faster, Sundar Pichai 75% of new code at Google). Every other category, sales, finance, marketing, ops, has flat metrics across the same period. Sierra's Neil Rahilly names the discipline that explains the gap, context engineering, deciding what information an agent has access to at each moment and when it should be used.
+
+**Reader transformation.** They stop asking "which model should we buy" and start asking "what is the operational layer underneath that lets the model do real work." The tactical level is then unlocked, audit before build, decompose so most of the work is deterministic, single orchestration platform, model-agnostic routing, continuous tuning, progressive disclosure of context with conditions instead of hardcoded flows.
+
+**Hook.** Five percent of enterprise AI projects deliver value. The number has not moved through three generations of frontier models. The model is not the problem. The model is already strong. The context engineering around it is missing.
+
+**Closer.** The "models got smart" chapter is already over. The next decade belongs to the teams that build the operational layer underneath, the ones who let the model drive and feed it the right context at the right moment, not the ones who spend another five years pouring frontier AI onto a mess of systems and wondering why nothing changed.
+
+</Details>
+
+Five percent of enterprise AI projects deliver value. The number has not moved through three generations of frontier models. The model is not the problem. The model is already strong. What is missing is the layer underneath that gets the right context to it at the right moment.
+
+This is the headline finding of the most quietly important data set in AI right now. It also explains why the conversation in every C-suite room has the same shape. They spent millions on AI. The AP team is still doing AP the same way. Month-end close is still 22 days. Reps still hit quota at 24%. The CRM still has the same 30% data decay it had in 2022. Every leader believes in "going AI-first" and almost none of them can name a metric that has moved.
+
+[@vasuman](https://x.com/vasuman), who runs Varick Agents and has spent eighteen months deploying AI inside enterprise teams at companies doing $500m to $5b, just published the cleanest articulation of why. Sierra's [@neilrahilly](https://x.com/neilrahilly) published the cleanest articulation of how to fix it, naming the missing discipline directly, context engineering, deciding what information an agent has access to at each moment and when it should be used. This article restates Vasuman's thesis, layers in Rahilly's framework, brings in the supporting data the broader literature has produced, and then takes it one step further. The operational layer is the moat. Context engineering is the discipline that builds it. The teams that build both now will own the next decade. The teams that wait for AGI will keep flatlining.
+
+## The data is consistent across six independent studies
+
+Pick any methodology you like. They converge.
+
+| Study | Year | Headline number |
+|---|---|---|
+| MIT NANDA, GenAI Divide | August 2025 | 5% of integrated AI pilots pull millions in value, the other 95% have nothing to show |
+| BCG | 2025 | 4% have hit AI value at scale |
+| Deloitte | 2025 | 6% achieve AI ROI within a year |
+| RAND | 2025 | 80%+ of AI projects fail, twice the rate of normal IT projects |
+| IBM | 2025 | 75% of AI initiatives have not delivered expected ROI |
+| McKinsey | 2025 | 78% of orgs use AI regularly, 80%+ report zero EBIT impact |
+
+The numbers cluster. The methodologies do not. The cluster is not a measurement artifact, it is the actual rate. And critically, the number has been flat through every model generation. GPT-3, GPT-4, GPT-5. Claude 2 through Claude Opus 4.7. Gemini 1 through Gemini 3. Each generation arrived with claims that "this is the one that fixes enterprise." Each generation arrived to the same 5%.
+
+A flat number across model generations is the strongest possible evidence that the model is not the bottleneck. If it were, we would have seen at least one generation move the number. Three generations have shipped, the number has not moved, the bottleneck is somewhere else.
+
+## What did move, AI for engineers
+
+There is one group for whom AI is working. At scale. Repeatedly measured. Across multiple methodologies.
+
+| Source | Finding |
+|---|---|
+| GitHub Copilot study, 2024 | 55% faster on real tasks. 1h 11m vs 2h 41m on the same work. |
+| Anthropic internal study, August 2025 | 132 engineers, 100k real Claude conversations. ~80% reduction in task completion time. |
+| Sundar Pichai, January 2026 | 75% of new code at Google is AI-generated and engineer-approved. The number was 30% in April 2025. |
+
+Engineers got 2x to 5x more productive. Sales reps did not. Finance teams did not. Marketing teams did not. Ops teams did not.
+
+The natural follow-up question is the entire load-bearing argument of this article. Why?
+
+## The four properties that explain everything
+
+Software engineering has four properties that almost no other enterprise function has. These properties are what makes AI useful inside engineering and useless outside it. Naming them is more important than any tool, framework, or model.
+
+**1. Bounded.** A function takes inputs and returns outputs. The scope of "fix this bug" lives inside a file or a module. Dependencies are explicit and importable. The agent can see the perimeter of the problem.
+
+**2. Checkable.** Compilers tell you in milliseconds whether the code parses. Tests tell you whether it works. Type systems catch entire classes of error before runtime. Feedback loop, seconds. The agent gets a verdict on every action.
+
+**3. Structured substrate.** Code lives in files, in version control, with a deterministic build pipeline. Same input, same output. Any state can be replayed. The environment is reproducible.
+
+**4. Verifiable output.** A pull request is a discrete artifact. A reviewer can look at the diff in ten minutes and say yes or no. The work has a clean go/no-go gate.
+
+Now contrast that with a finance close.
+
+A finance close involves AP, AR, intercompany reconciliations, FX, accruals, journal entries, and exception handling that spans NetSuite, Concur, three banks, two ERPs from acquisitions, a custom intake form, and a Slack channel where the controller flags weird stuff. The "process" is documented in an SOP that does not match what actually happens. The output is "the close was clean," which takes two senior accountants two days to verify.
+
+None of the four properties hold. Not bounded (the work touches twelve systems). Not checkable (no millisecond feedback). Not structured (state is scattered). Not verifiable (the output requires expert judgment over two days). And the same is true for sales ops, marketing ops, customer success, recruiting, legal review, supply chain.
+
+This is also why every "AI for sales / finance / marketing / ops" startup pitches the same demo and dies in the same way. The demo runs against a clean toy version of the workflow. The actual workflow is the messy one. Generic AI pointed at a non-bounded, non-checkable, non-structured, non-verifiable workflow gives negative ROI. The operator was doing the work in 30 minutes. Now they are doing the work in 30 minutes plus another 30 minutes correcting the AI's mistakes.
+
+The labs (OpenAI, Anthropic, Cursor) poured everything they had into engineering because that is where the four properties hold. They got engineering working. They have not solved the rest, because the rest does not have the substrate.
+
+## Context engineering, the discipline that builds the substrate
+
+The four-property test tells you whether the substrate exists. Context engineering is the discipline of building the substrate when it does not. Sierra's Neil Rahilly published the cleanest framing, three eras of customer interaction map exactly onto three eras of enterprise AI.
+
+**Era 1, IVR.** No reasoning. A menu. Press 1 for billing, press 2 for returns. If the customer's issue does not match the menu, they are stuck.
+
+**Era 2, flow.** Most AI agents shipped today live here. A predefined flowchart, a digitized SOP, an "if this, then that" tree. Customers can speak naturally, but the system still operates on rigid branches. As more SOPs are added, the system becomes harder to manage. When a real-world problem falls outside the flow, the agent escalates or hallucinates.
+
+**Era 3, context engineering.** The agent is guided by goals, constrained by guardrails, and the model itself drives the conversation. The job of the platform is not to script the agent. The job is to deliver the right context, at the right time, so the model can reason effectively and act correctly.
+
+Two ideas do the heavy lifting.
+
+**Progressive disclosure.** As tokens grow, recall and accuracy decline. Every irrelevant token competes for the model's attention with the tokens that actually matter. The fix is to provide only the minimum, most relevant information at each moment. A customer calls about an international shipment. The agent does not need rules for every country upfront. It needs Germany-specific guidance only after it learns the destination is Germany. Until then, the rest is noise.
+
+**Conditions.** What makes progressive disclosure work is conditions, the rules that decide when a piece of context becomes relevant. State-based, the customer is authenticated, a subscription is loaded, a tool returned specific data. Observation-based, the customer mentioned a topic, expressed a desire to cancel, asked about a specific product. Once a condition is met, the relevant context is unlocked. The conversation starts minimal and grows precisely as needed. Workflows do not disappear. A regulated intake process still needs one. The shift is that the workflow becomes just another piece of context made available when conditions are met, not the organizing paradigm for the entire system.
+
+This is the same pattern agents.md, design.md, vault-as-context, and progressive task disclosure all converge on. Sierra named the discipline. The discipline is the answer to "how do you build the substrate when the work is finance, sales, ops, support, not engineering."
+
+<Tip title="The line most readers will skim">
+A smarter model doesn't replace the need for context engineering. But it does amplify the payoff for doing it right.
+</Tip>
+
+This is exactly what the flat 5% number is telling us. The model is not the bottleneck. The model is already strong. What is missing is the layer that gets the right context to it at the right moment. Hardcode logic into your agent and you cap its capability at your foresight. Build context engineering and your agent inherits every model improvement that ships. An agent that handles five journeys can survive with loose context management. One that handles fifty cannot. Without the discipline, the model gets overwhelmed and the experience degrades, regardless of how smart the underlying weights become.
+
+The teams hitting 95% failure are the ones still living in era 2, scripting flows around an era 3 model. The teams in the 5% are the ones who let the model drive and built the discipline of feeding it context on purpose.
+
+## The four failure modes
+
+Vasuman names four. Each one is a real pattern across his eighteen months of enterprise deployments. Each one I have seen in the codebases of every team I have audited. Together they account for almost every failed AI initiative.
+
+### 1. They skip the audit
+
+The single biggest predictor of failure. The team starts building before they understand the workflow they are supposedly automating.
+
+The actual workflow always includes things the SOP does not mention. The "I always check this spreadsheet first" step. The "I email Sarah directly because the system notification does not work" step. The seventeen exception types the team handles every month. The unwritten rule that anything over $5m loops in the controller, even though the threshold says $10m.
+
+Vasuman calls the gap between SOP and reality the conformance gap. In typical engagements he sees 30%. In exception-heavy workflows like AP exception handling or supply chain disruption, he routinely sees over 70%.
+
+When you build for the documented process, you automate 70% of the volume and break on 30%. The 30% that breaks creates more work than the team had before, because now they have to fix the AI's mistakes on top of doing the work. The audit takes four weeks minimum. It does not feel like AI work, which is why most teams skip it. It is also the medicine you have to take before surgery, and AI implementations are surgery.
+
+### 2. They throw everything at the LLM
+
+Once you have an LLM, every problem looks LLM-shaped. Need to extract a value from a document? Ask the model. Compare two values? Ask the model. Route based on a number? Ask the model.
+
+The team builds an architecture that is 90% LLM calls and 10% code. The system is slow, expensive, and hallucinates 10% of the time, which is fine for a chat interface and unacceptable for AP automation.
+
+<Tip title="Boring is the goal">
+Production systems that actually work look almost boring. They are 85% code and 15% LLM. The LLM goes where judgment lives, pulling structured data out of an unstructured invoice, classifying an exception into one of 31 known patterns, drafting an explanation for a human reviewer. The rest is database queries, comparisons, deterministic logic, branch routing.
+</Tip>
+
+This compounds with the audit problem. Teams that did not audit do not know which parts are pattern-matchable and which need real judgment. So they default to the LLM for everything and ship something that breaks. A boring agent is a working agent.
+
+### 3. Agent sprawl
+
+The most silent and most deadly failure mode. It only shows up after month six. By the time you notice, the budget is gone.
+
+Sarah in AP builds her own agent in Lovable to classify invoices. The controller spins up a separate one for intercompany. The FP&A lead vibe-codes a variance reporter. The CRO's chief of staff has a personal agent for QBR prep. The marketing manager built a content agent. The recruiting coordinator built a candidate screener.
+
+Multiply that across a 200-person operations org. Fifty to a hundred separate AI workflows. Each built by a different person. Each with its own quirks. Each solving similar problems in seven different ways. No common spine. No shared memory. No shared knowledge of how the company actually runs.
+
+Marketing's content agent has zero awareness that customer support is dealing with fifty tickets about the exact thing it is writing copy about. Finance's invoice agent has no idea that procurement just blacklisted that vendor last week.
+
+Then the inevitable. A model gets deprecated. An API endpoint changes. An employee leaves. A vendor pushes a breaking change. Fifty of the hundred agents break in production. Nobody is on call (vibe-coders can build, they cannot fix). The CTO's engineering team is suddenly playing janitor for AI workflows nobody owns.
+
+Worse than maintenance, the security and compliance shape is unbounded. Every personal agent carries its own API keys, its own data access, its own potential for exfiltration. The legal team finds out three months later that someone's marketing agent has been blasting customer data into a third-party LLM API that was not on the approved vendor list.
+
+The fix is architectural and has to be planned from day one. A single orchestration layer that sits on top of the existing stack. Shared infrastructure for ingestion, approvals, audit logging, model routing, knowledge. Every new use case lands as configuration on top of one platform. No more bespoke vibe-coded side projects.
+
+The economics of this compound. The first agent on the platform takes 12 weeks. The next takes 9. The third takes 4. Without the platform, every agent costs roughly the same to build and the integration debt eventually consumes the entire AI budget.
+
+### 4. They treat AI as a side-project instead of infrastructure
+
+The slowest, hardest-to-spot, most expensive failure mode over time.
+
+Most companies budget AI like any other software project. Plan, build, ship, declare victory, move on. That logic works for traditional software because once you build it, it stays built. AI is the opposite. Every quarter, something underneath shifts. A new release is dramatically better at your workload, or worse, the model you depended on quietly gets distilled and degrades.
+
+Anthropic alone retired roughly 9 models in 18 months. OpenAI retired even more. Pricing changes quarterly. Rate limits get tightened with no warning. In April 2026 Anthropic publicly acknowledged that engineering errors had degraded Claude Code performance for over a month, and that paid Max subscribers were hitting their quota in 19 minutes instead of the advertised 5 hours. Production workloads built on those guarantees had already broken.
+
+The deployments that actually pay off treat AI as continuously evolving infrastructure with a dedicated team that owns ongoing optimization. They monitor quality. They swap models when better ones ship. They retire agents that have stopped earning their keep. They renegotiate when something breaks underneath them. Most importantly they avoid vendor lock-in.
+
+A six-month project plan against a market that moves quarterly is a project plan that is wrong by month two.
+
+## The five things the 5% do
+
+Vasuman's pattern, distilled.
+
+1. **Audit before build.** Four weeks minimum of mapping the actual workflow before anyone touches a model. Output is a digital twin, a live map of how work moves through the org, where the conformance gaps are, what is pattern-matchable, what genuinely needs human judgment. The document matters less than the alignment it forces between the AI team and the operators.
+
+2. **Decompose until most of the work is deterministic, then context-engineer the rest.** LLM goes only where judgment is required. Plain code goes everywhere else. Most production systems end up as 5 to 10 deterministic steps with maybe one or two model calls in specific places. Where the LLM does run, treat its inputs as a context engineering problem, not a prompt problem. Build composable context blocks each guarded by a state or observation condition, and disclose them progressively as the conversation unfolds. The blocks that should be live at minute zero are tiny. The blocks for "international shipment to Germany with a disputed charge" only load when those conditions hit. Boring in production is the goal.
+
+3. **Build a single orchestration layer.** Finance, sales, ops, and engineering agents all live on the same platform. They share context. They can talk when they need to. Every new use case lands as configuration (context blocks plus conditions) on top of the platform. Sprawl is dead on arrival.
+
+4. **Stay model-agnostic.** Abstractions get built at the task level, not the model level. Each step routes to the best-fit model at any given moment. When OpenAI deprecates a model or Anthropic ships something dramatically better, the routing layer absorbs the change. The workflow keeps running.
+
+5. **Treat the deployment as continuously evolving infrastructure.** A real team is responsible for ongoing tuning. Agents that are not earning their keep get retired. Improvements ship every quarter, often every month. The deployments that pay off over five years are the ones tuned monthly. Not the ones declared "done" at go-live.
+
+## The same pattern, applied at the engineer's scale
+
+Vasuman is writing for the C-suite. The same pattern applies at the level of an individual engineer building an agent.
+
+The four properties (bounded, checkable, structured, verifiable) are also the test for whether you are about to ship a working agent or a failing one.
+
+| Engineer-scale question | What to do if the answer is no |
+|---|---|
+| Is the task bounded? Can you draw a perimeter? | Reduce scope until you can. Ship a smaller agent first. |
+| Is the output checkable? Can a script verify it? | Build the verifier first. Without it, you have no signal. |
+| Is the substrate structured? Files in git, replayable state, reproducible build? | Invest in the substrate before the agent. The substrate is the agent's environment. Credentials, versioned filesystem, orchestration. |
+| Is the output verifiable? Can a reviewer say yes or no in ten minutes? | Define the artifact and the gate before the agent. PRs work because the diff is the artifact and the review is the gate. |
+
+The four-property test is also the first audit step at engineer scale. Before writing the prompt or picking the framework, ask whether the work itself has the four properties. If it does not, build the missing properties into the environment first. The environment is the project. The model is one component inside it.
+
+This is the same conclusion the harness-engineering literature has reached from a different angle. Same model, different harness, 52.8% to 66.5% on Terminal Bench 2.0, a 14-point swing from the harness alone. If you are not the model, you are the harness. The harness is the operational layer. The operational layer is the moat.
+
+## The labs are conceding the same point
+
+The clearest signal that the operational layer is the bottleneck comes from the labs themselves.
+
+OpenAI shipped Codex Cloud, which is OpenAI doing the operational fieldwork inside customer organizations. Anthropic shipped managed agents and Claude design, which are Anthropic doing the same thing in different surfaces. Cursor's ARR moved past Anthropic's API revenue because Cursor is not selling the model, it is selling the harness around the model. Sierra is doing the same thing on the customer-experience surface, the entire product is context engineering as a service, with Ghostwriter generating context blocks and conditions from existing SOPs, Journeys giving operators a no-code editor, and an agent SDK for teams that want to manage the layer as code. Every model lab and every serious agent vendor has now figured out that selling the model alone is not enough. Selling the runtime alone is not enough. You need the model plus the runtime plus the context engineering discipline plus a team that goes and embeds inside the enterprise and figures out what to actually build for it.
+
+<Tip title="The bottleneck, named">
+Process is the bottleneck. It has been the bottleneck the whole time, and unless something dramatic changes, it is going to stay the bottleneck.
+</Tip>
+
+The labs are making the same bet from the supply side. The 5% of enterprises winning are making the same bet from the demand side. If you are an engineer building agents, you are now in the same business as the labs. The work is operational, not algorithmic. The leverage is in the harness, not the weights.
+
+## The bet I would take
+
+If a CEO walked in tomorrow with $1m and six months and said "deploy AI in our enterprise, please do not fail," Vasuman's path is correct.
+
+| Month | Work |
+|---|---|
+| 1 | Audit. Embed with operators. Map conformance gap. Produce digital twin |
+| 2 | Architect highest-leverage workflow. Decide pattern vs judgment. Pick model per step. Define HITL touchpoints and audit logs |
+| 2.5–4 | Build. Soft launch with humans approving every action. Track accuracy daily. Fix what breaks before going wider |
+| 4–6 | Go live. Humans still in the loop on high-stakes decisions. Watch the metrics that matter (cycle time, error rate, throughput) for at least two weeks before declaring a win |
+| 6 | Stand up the continuous-tuning function. The model market will change next quarter. Your workflow will change next quarter |
+
+By the end of six months you have one workflow live in production with real ROI on the books, a platform that absorbs the next workflow in 8 weeks instead of 24, and a tuning team that keeps the whole thing alive going forward.
+
+The same shape, scaled to a personal project. Spend the first week on the workflow audit, not the prompt. Spend the second week on the orchestration layer that the next four agents will land on top of. Build the first agent in week three, watch it for a week, ship the second agent in week five at half the cost.
+
+## Closing
+
+The "models got smart" chapter is already over. We had a glorious run. The model is already strong enough. It has been strong enough for at least two generations. The next decade belongs to the teams that build the operational layer underneath the models, the ones who let the model drive and feed it the right context at the right moment, not the ones who spend another five years pouring frontier AI onto a mess of systems and wondering why nothing changed.
+
+The discipline has a name now. Sierra called it. Context engineering. Progressive disclosure of relevant information, gated by state and observation conditions, built on a single orchestration layer, tuned continuously as the model market moves underneath it. The 5% are not lucky. They are operational, and operational means context-engineered. That is the whole game.
+
+Sources. Vasuman, [the operational layer is the moat](https://x.com/vasuman/status/2049659161005470071). Neil Rahilly, [context engineering, the key to great agents](https://x.com/neilrahilly/status/2051723442928664620). 5% / 95% framing originates with MIT NANDA's GenAI Divide report, August 2025. Convergence across BCG, Deloitte, RAND, IBM, McKinsey gives the number its weight.

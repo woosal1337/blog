@@ -1,0 +1,110 @@
+export const meta = {
+	title: "Ears without eyes",
+	date: "2026-04-20",
+	summary:
+		"An agent watching video should default to listening, and only open its eyes when audio admits it missed something.",
+	tags: ["ai", "agents", "multimodal", "video"],
+	cover: "/blog/ears-without-eyes/cover.jpg",
+};
+
+export const metadata = {
+	title: meta.title,
+	description: meta.summary,
+	openGraph: {
+		title: meta.title,
+		description: meta.summary,
+		type: "article",
+		publishedTime: meta.date,
+		images: [{ url: meta.cover, width: 1200, height: 628, alt: meta.title }],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: meta.title,
+		description: meta.summary,
+		images: [meta.cover],
+	},
+};
+
+<PostMeta meta={meta} />
+
+<Details summary="Brief">
+
+**One thing.** An agent watching video should default to listening and only open its eyes when the audio channel admits it missed something. The model already knows when that is.
+
+**Proof.** A 47 second Instagram reel. The audio transcription got a proper noun wrong at p=0.33. Instead of running vision on all 47 seconds, the agent took 3 frames at the 3 timestamps where transcription flagged itself as unsure. Recovered the correct information. 3 vision calls instead of 1,410 at 30fps.
+
+**Reader transformation.** They stop thinking about multimodal agents as "vision + audio, both always on." They start thinking about them as "cheap channel by default, expensive channel on demand, with the cheap channel deciding when."
+
+**Hook.** Watching video is expensive. Listening to it is almost free.
+
+**Closer.** An agent that knows when to open its eyes does more work, cheaper, more accurately, than one that keeps them open all the time.
+
+</Details>
+
+Watching video is expensive. Listening to it is almost free.
+
+A ten minute video at thirty frames per second is eighteen thousand frames. If you run a vision model on every one of them, you pay for eighteen thousand vision calls. At sixty frames per second you pay for thirty six. At one twenty you pay for seventy two. At two forty you pay for a hundred and forty four thousand vision calls on a single ten minute clip. The multiplier is the framerate, and the framerate is whatever the camera that shot the clip was set to, which you do not get to negotiate.
+
+Audio at the same length is a single transcription pass. Whisper runs on a local machine in seconds on a small model. No per-token cost, no rate limits, no API quota burning down in real time. The asymmetry between the two channels is at least three orders of magnitude, sometimes four, depending on which vision model you route to.
+
+Most multimodal agents do not acknowledge this asymmetry. They either open their eyes on every frame and get expensive fast, or they keep their eyes closed and miss anything that was written on screen but not said out loud. Both are wrong. And the second failure mode is the one that quietly poisons accuracy, because the agent sounds fluent while being silently incomplete.
+
+## Why OCR is not the answer
+
+The obvious patch is OCR. Pipe every frame through a text recognition model, catch the letters, call it a day. This is the pattern most video agents have landed on, and I have written one of them myself.
+
+It fails in two directions.
+
+First, OCR is a separate model. You now have two reasoning systems looking at the same pixels, one reading strings, one reading meaning, and they do not agree. Diagrams are invisible to OCR. Charts are invisible. UI elements that rely on shape rather than text are invisible. Faces, gestures, framing, camera movement. All invisible. OCR gives you the letters on the screen. The letters are not always the content.
+
+Second, running OCR on every frame still costs. It is cheaper than a full vision LLM but not free, and the rate limit pressure does not go away. You are paying to extract a small slice of the frame when the frame might have been telling you something different entirely.
+
+The right model for reading a frame is the same model doing the rest of the reasoning. One model, one view, end to end. The question is not whether to use vision. The question is when.
+
+## The cheap channel knows when it failed
+
+Here is the part that took me a while to see. The audio model already tells you when it was guessing.
+
+Run `whisper-cli` with the `--output-json-full` flag and every token comes back with a probability score. The confident words sit at 0.9 and above. The guessed ones sit at 0.3, 0.4, sometimes lower. Whisper is not hiding its uncertainty, it is printing it. The signal has always been there, it just was not being read.
+
+<Tip title="The asymmetric free lunch">
+Audio is cheap. And when audio fails, it tells you. You do not need a second model to decide when the first model is unreliable. The first model is its own supervisor.
+</Tip>
+
+Once you read the probabilities, you can build the rest of the system around them. Tokens below a threshold form uncertainty zones. Each zone carries a timestamp, the midpoint of when Whisper got confused. That timestamp is a question addressed to the expensive channel. Not "show me the video", but "show me this specific half second, because I was lost."
+
+There is a softer signal next to the hard one. Speakers often point at things. "check our site", "in the bio", "this command right here", "visit the link". These phrases almost never carry the actual information the speaker is referencing. The information is on screen. A small regex over the transcription surfaces these phrases with their own timestamps. They are a weaker signal than low-confidence tokens, but they stack.
+
+Together, confidence zones and demonstrative phrases give the model a shortlist of moments where looking would actually add something. Everywhere else, the transcription is enough.
+
+## What glimpsing looks like
+
+When the agent does decide to look, it does not sweep. It does not run at one frame per second and analyze a strip. It takes one frame. Maybe two, spread across a zone. The timestamps come from the audio signal, not from a video scan.
+
+In a recent test I pointed an agent at a 47 second Instagram reel. The creator was naming three tools, fast, with strong accents and short consonants. Whisper transcribed one of them as `Emil Koval`. The probability on the second syllable came back at 0.33, which is the model saying I have essentially no idea. Two other moments in the same clip triggered similar low-confidence flags.
+
+The agent looked at exactly those three moments. Not at any of the other 44 seconds. The frames it got back showed the real names, typed cleanly on screen by the creator precisely because they knew nobody would hear them. The correct information was recovered. Three vision calls. On a ten minute version of the same behavior, this is three calls instead of eighteen thousand. The accuracy is not compromised by the efficiency, the accuracy comes from the efficiency, because the three frames the model did look at were the three where looking mattered.
+
+The same pattern extends beyond speech. Any cheap channel that can report its own uncertainty can drive a more expensive channel on demand. Metadata can defer to vision. A language model can defer to a retrieval call. Retrieval can defer to a web fetch. The architecture is the same at every layer. The model default is to trust the cheap channel and ask the expensive one only when the cheap one admits it cannot answer.
+
+## What it feels like in practice
+
+The first thing you notice is that rate limits stop being a concern for normal use. You can point a small agent at dozens of videos a day without thinking about API quota, because most of the work is done in transcription locally and the vision budget only gets spent at the moments that genuinely need it.
+
+The second thing is that the agent stops being confidently wrong. This is the less obvious upgrade. Before, when a transcription mangled a proper noun, the agent would pass the mangled name forward and the user would not know it was wrong until they tried to act on it. Now, when the confidence score flags the token, either the agent looks at a frame and resolves the ambiguity, or it surfaces the uncertainty back to the user directly. No silent confabulation. The failure mode becomes visible, which means it can be fixed.
+
+The third thing, and this is the one I did not expect, is that writing code for this pattern is simpler than writing code for the alternatives. You do not need a separate OCR pipeline, you do not need a vision scheduler, you do not need a confidence estimator. You get all three from one line of command flags on the audio model. The work is in wiring the signal through cleanly, and then trusting the model to use it.
+
+## The project that made this concrete
+
+I built this into media-mcp. Every transcription tool now runs `whisper-cli -ojf`, parses per-token probabilities, reports contiguous low-confidence spans, and scans the transcript for demonstrative phrases. A new companion tool, `get_video_frames_at`, takes an array of timestamps and returns one frame per timestamp. Videos cache locally by a hash of the URL so follow-up calls on the same clip do not re-download.
+
+The code is under a hundred lines for the core pattern. The rest of the commit is plumbing. What matters is the interface. Any agent using media-mcp can now point at a video, read the transcript, see where the transcript flags itself, and ask for frames only at those moments. One model, two channels, one deciding when to use the other.
+
+Repo. [github.com/woosal1337/media-mcp](https://github.com/woosal1337/media-mcp)
+
+## Closing
+
+The general shape of the pattern is simple. Default to the cheap channel. Make the cheap channel surface its own uncertainty. Let the agent spend the expensive channel on the specific moments the cheap channel flagged. Trust the model to do this without a hand-written rule for every case.
+
+An agent that knows when to open its eyes does more work, cheaper, more accurately, than one that keeps them open all the time.

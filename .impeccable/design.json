@@ -1,0 +1,439 @@
+{
+	"schemaVersion": 2,
+	"generatedAt": "2026-06-10T15:00:00.000Z",
+	"title": "Design System: chele.bi",
+	"extensions": {
+		"colorMeta": {
+			"action-blue": {
+				"role": "primary",
+				"displayName": "Action Blue",
+				"canonical": "#0071e3",
+				"tonalRamp": [
+					"#001d3a",
+					"#003a73",
+					"#0055a8",
+					"#0066cc",
+					"#0071e3",
+					"#3a8fe8",
+					"#84b8f0",
+					"#d6e7fa"
+				]
+			},
+			"link-blue": {
+				"role": "primary",
+				"displayName": "Link Blue",
+				"canonical": "#0066cc",
+				"tonalRamp": [
+					"#001d3a",
+					"#003a73",
+					"#0055a8",
+					"#0066cc",
+					"#0071e3",
+					"#3a8fe8",
+					"#84b8f0",
+					"#d6e7fa"
+				]
+			},
+			"link-blue-dark": {
+				"role": "primary",
+				"displayName": "Link Blue Dark",
+				"canonical": "#2997ff",
+				"tonalRamp": [
+					"#0b3a66",
+					"#125a99",
+					"#1a7acc",
+					"#2997ff",
+					"#54acff",
+					"#7fc0ff",
+					"#aad5ff",
+					"#d4eaff"
+				]
+			},
+			"ink": {
+				"role": "neutral",
+				"displayName": "Ink",
+				"canonical": "#1d1d1f",
+				"tonalRamp": [
+					"#0a0a0b",
+					"#161617",
+					"#1d1d1f",
+					"#333336",
+					"#6e6e73",
+					"#86868b",
+					"#d2d2d7",
+					"#f5f5f7"
+				]
+			},
+			"ink-secondary": {
+				"role": "neutral",
+				"displayName": "Ink Secondary",
+				"canonical": "#6e6e73",
+				"tonalRamp": [
+					"#0a0a0b",
+					"#161617",
+					"#1d1d1f",
+					"#333336",
+					"#6e6e73",
+					"#86868b",
+					"#d2d2d7",
+					"#f5f5f7"
+				]
+			},
+			"canvas": {
+				"role": "neutral",
+				"displayName": "Canvas",
+				"canonical": "#ffffff",
+				"tonalRamp": [
+					"#1d1d1f",
+					"#333336",
+					"#6e6e73",
+					"#86868b",
+					"#aeaeb3",
+					"#d2d2d7",
+					"#e8e8ed",
+					"#ffffff"
+				]
+			},
+			"canvas-tint": {
+				"role": "neutral",
+				"displayName": "Canvas Tint",
+				"canonical": "#f5f5f7",
+				"tonalRamp": [
+					"#1d1d1f",
+					"#333336",
+					"#6e6e73",
+					"#86868b",
+					"#aeaeb3",
+					"#d2d2d7",
+					"#e8e8ed",
+					"#f5f5f7"
+				]
+			},
+			"canvas-dark": {
+				"role": "neutral",
+				"displayName": "Canvas Dark",
+				"canonical": "#000000",
+				"tonalRamp": [
+					"#000000",
+					"#161617",
+					"#1d1d1f",
+					"#333336",
+					"#424245",
+					"#6e6e73",
+					"#86868b",
+					"#f5f5f7"
+				]
+			},
+			"hairline": {
+				"role": "neutral",
+				"displayName": "Hairline",
+				"canonical": "#d2d2d7",
+				"tonalRamp": [
+					"#1d1d1f",
+					"#333336",
+					"#6e6e73",
+					"#86868b",
+					"#aeaeb3",
+					"#d2d2d7",
+					"#e8e8ed",
+					"#f5f5f7"
+				]
+			}
+		},
+		"typographyMeta": {
+			"display": {
+				"displayName": "Display",
+				"purpose": "Post titles and page heroes. One per page, maximum."
+			},
+			"headline": {
+				"displayName": "Headline",
+				"purpose": "Major section openers on home and projects."
+			},
+			"title": {
+				"displayName": "Title",
+				"purpose": "Story card titles and article h2."
+			},
+			"eyebrow": {
+				"displayName": "Eyebrow",
+				"purpose": "Short kicker above a headline. Sparingly, never repeated section grammar."
+			},
+			"subhead": {
+				"displayName": "Subhead",
+				"purpose": "Article deks and section intros."
+			},
+			"body": {
+				"displayName": "Body",
+				"purpose": "All interface copy at lh 1.47. Article prose raises lh to 1.65."
+			},
+			"label": {
+				"displayName": "Label",
+				"purpose": "Uppercase category labels on story cards, nothing else."
+			},
+			"caption": {
+				"displayName": "Caption",
+				"purpose": "Dates, image captions, legal, footnotes."
+			},
+			"code": {
+				"displayName": "Code",
+				"purpose": "Code blocks and inline code, on the system mono stack."
+			}
+		},
+		"shadows": [
+			{
+				"name": "story-rest",
+				"value": "2px 4px 12px rgba(0, 0, 0, 0.08)",
+				"purpose": "Resting shadow on Newsroom-style story cards over Canvas Tint. The only component shadowed at rest."
+			},
+			{
+				"name": "story-hover",
+				"value": "2px 4px 16px rgba(0, 0, 0, 0.16)",
+				"purpose": "Story card hover, paired with a 2px rise, 300ms house curve."
+			},
+			{
+				"name": "focus-ring",
+				"value": "0 0 0 3px rgba(0, 113, 227, 0.5)",
+				"purpose": "focus-visible ring on every interactive element."
+			}
+		],
+		"motion": [
+			{
+				"name": "ease-house",
+				"value": "cubic-bezier(0.4, 0, 0.25, 1)",
+				"purpose": "The One Curve Rule. Every transition on the site."
+			},
+			{
+				"name": "ease-curtain",
+				"value": "cubic-bezier(0.4, 0, 0.6, 1)",
+				"purpose": "Sanctioned exception, mobile nav flyout curtain only."
+			},
+			{
+				"name": "duration-instant",
+				"value": "100ms",
+				"purpose": "Paddles and small-control hovers."
+			},
+			{
+				"name": "duration-nav",
+				"value": "240ms",
+				"purpose": "Nav scrim and chrome transitions."
+			},
+			{
+				"name": "duration-state",
+				"value": "300ms",
+				"purpose": "Color and state changes, card hovers."
+			},
+			{
+				"name": "duration-enter",
+				"value": "400ms",
+				"purpose": "Element entrances inside the page."
+			},
+			{
+				"name": "duration-reveal",
+				"value": "800ms",
+				"purpose": "Scroll-entry reveal, opacity 0 to 1 plus 16px rise, plays once."
+			},
+			{
+				"name": "reveal-stagger",
+				"value": "0s, 0.05s, 0.2s, 0.4s",
+				"purpose": "Apple Newsroom cascade levels for grouped reveals."
+			}
+		],
+		"breakpoints": [
+			{ "name": "small", "value": "734px" },
+			{ "name": "medium", "value": "1068px" },
+			{ "name": "large", "value": "1440px" }
+		]
+	},
+	"components": [
+		{
+			"name": "Primary Button",
+			"kind": "button",
+			"refersTo": "button-primary",
+			"description": "Apple pill CTA. Blue fill, white text, no transform on hover.",
+			"html": "<button class=\"ds-btn-primary\">read the blog</button>",
+			"css": ".ds-btn-primary { background: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; line-height: 1.17; letter-spacing: -0.022em; font-weight: 400; padding: 12px 22px; border: none; border-radius: 980px; cursor: pointer; transition: background 300ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-btn-primary:hover { background: #0076df; } .ds-btn-primary:active { background: #006edb; } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); }"
+		},
+		{
+			"name": "Secondary Button",
+			"kind": "button",
+			"refersTo": "button-secondary",
+			"description": "Quiet gray pill for secondary actions.",
+			"html": "<button class=\"ds-btn-secondary\">all projects</button>",
+			"css": ".ds-btn-secondary { background: #e8e8ed; color: #1d1d1f; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; line-height: 1.17; letter-spacing: -0.022em; font-weight: 400; padding: 12px 22px; border: none; border-radius: 980px; cursor: pointer; transition: background 300ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-btn-secondary:hover { background: #dededf; } .ds-btn-secondary:active { background: #d2d2d7; } .ds-btn-secondary:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); }"
+		},
+		{
+			"name": "CTA Text Link",
+			"kind": "custom",
+			"refersTo": "link-blue",
+			"description": "Apple learn-more link. Blue text, static chevron, hover underlines text only.",
+			"html": "<a href=\"#\" class=\"ds-link-cta\">all posts <span class=\"ds-link-cta-chevron\">&#8250;</span></a>",
+			"css": ".ds-link-cta { color: #0066cc; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; letter-spacing: -0.022em; text-decoration: none; } .ds-link-cta:hover { text-decoration: underline; } .ds-link-cta:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); border-radius: 4px; } .ds-link-cta-chevron { text-decoration: none; display: inline-block; margin-left: 2px; }"
+		},
+		{
+			"name": "Global Nav",
+			"kind": "nav",
+			"refersTo": "nav-global",
+			"description": "44px frosted bar, transparent at top of page, scrim after scroll. Quiet 12px links.",
+			"html": "<nav class=\"ds-nav\"><span class=\"ds-nav-wordmark\">ege</span><div class=\"ds-nav-links\"><a href=\"#\" class=\"ds-nav-link ds-nav-link-active\">blog</a><a href=\"#\" class=\"ds-nav-link\">projects</a><a href=\"#\" class=\"ds-nav-link\">about</a><a href=\"#\" class=\"ds-nav-link\">music</a><a href=\"#\" class=\"ds-nav-link\">books</a></div></nav>",
+			"css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; height: 44px; padding: 0 22px; background: rgba(250, 250, 252, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid #d2d2d7; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-nav-wordmark { font-size: 17px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.022em; } .ds-nav-links { display: flex; gap: 24px; } .ds-nav-link { font-size: 12px; letter-spacing: -0.01em; color: rgba(29, 29, 31, 0.8); text-decoration: none; transition: color 200ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-nav-link:hover { color: #1d1d1f; } .ds-nav-link-active { color: #1d1d1f; } .ds-nav-link:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); border-radius: 4px; }"
+		},
+		{
+			"name": "Story Card",
+			"kind": "card",
+			"refersTo": "card-story",
+			"description": "Apple Newsroom tile. Image leads, label, title, summary, date. Whole card is the link.",
+			"html": "<a href=\"#\" class=\"ds-story\"><div class=\"ds-story-media\"></div><div class=\"ds-story-well\"><span class=\"ds-story-label\">FOLIO</span><h3 class=\"ds-story-title\">meeting recorder for macOS, local-first transcription</h3><p class=\"ds-story-summary\">whisper.cpp, diarization, and zero cloud round trips.</p><span class=\"ds-story-date\">June 9, 2026</span></div></a>",
+			"css": ".ds-story { display: block; max-width: 420px; background: #ffffff; border-radius: 18px; overflow: hidden; text-decoration: none; box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08); transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.25, 1), transform 300ms cubic-bezier(0.4, 0, 0.25, 1); font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-story:hover { transform: translateY(-2px); box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16); } .ds-story:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); } .ds-story-media { height: 180px; background: #e8e8ed; } .ds-story-well { padding: 24px; } .ds-story-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #86868b; } .ds-story-title { font-size: 24px; font-weight: 600; line-height: 1.14; letter-spacing: 0.007em; color: #1d1d1f; margin: 8px 0 8px; } .ds-story-summary { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; margin: 0 0 12px; } .ds-story-date { font-size: 12px; letter-spacing: -0.01em; color: #86868b; }"
+		},
+		{
+			"name": "Post List Row",
+			"kind": "custom",
+			"refersTo": "card-story",
+			"description": "Sparse archive row. Title left, date right, siblings dim on hover.",
+			"html": "<div class=\"ds-postlist\"><a href=\"#\" class=\"ds-postrow\"><span class=\"ds-postrow-title\">ears without eyes</span><span class=\"ds-postrow-date\">May 2026</span></a><a href=\"#\" class=\"ds-postrow\"><span class=\"ds-postrow-title\">i cloned my advisory board</span><span class=\"ds-postrow-date\">Apr 2026</span></a><a href=\"#\" class=\"ds-postrow\"><span class=\"ds-postrow-title\">the next sessions</span><span class=\"ds-postrow-date\">Mar 2026</span></a></div>",
+			"css": ".ds-postlist { max-width: 560px; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-postlist:hover .ds-postrow { opacity: 0.5; } .ds-postlist:hover .ds-postrow:hover { opacity: 1; } .ds-postrow { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 16px 0; border-bottom: 1px solid #d2d2d7; text-decoration: none; transition: opacity 300ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-postrow:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); border-radius: 4px; } .ds-postrow-title { font-size: 17px; letter-spacing: -0.022em; color: #1d1d1f; } .ds-postrow-date { font-size: 12px; letter-spacing: -0.01em; color: #86868b; white-space: nowrap; }"
+		},
+		{
+			"name": "Segmented Filter",
+			"kind": "chip",
+			"refersTo": "chip-filter",
+			"description": "Apple 'Explore the lineup' control. One gray pill container, monochrome ink inversion when selected, never blue.",
+			"html": "<div class=\"ds-seg\"><button class=\"ds-seg-opt ds-seg-opt-selected\">all</button><button class=\"ds-seg-opt\">code</button><button class=\"ds-seg-opt\">strat</button><button class=\"ds-seg-opt\">sci</button></div>",
+			"css": ".ds-seg { display: inline-flex; gap: 2px; background: #e8e8ed; border-radius: 980px; padding: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-seg-opt { background: transparent; color: #1d1d1f; font-size: 14px; letter-spacing: -0.016em; padding: 8px 16px; border: none; border-radius: 980px; cursor: pointer; transition: background 200ms cubic-bezier(0.4, 0, 0.25, 1), color 200ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-seg-opt:hover { color: #000000; } .ds-seg-opt:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); } .ds-seg-opt-selected { background: #1d1d1f; color: #ffffff; } .ds-seg-opt-selected:hover { color: #ffffff; }"
+		},
+		{
+			"name": "Search Input",
+			"kind": "input",
+			"refersTo": "input-search",
+			"description": "Hairline-bordered field, blue focus ring, no border morph.",
+			"html": "<input class=\"ds-input\" type=\"text\" placeholder=\"search books\" />",
+			"css": ".ds-input { background: #ffffff; color: #1d1d1f; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; letter-spacing: -0.022em; padding: 12px 16px; border: 1px solid #d2d2d7; border-radius: 12px; width: 280px; } .ds-input::placeholder { color: #86868b; } .ds-input:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); }"
+		},
+		{
+			"name": "Outline Button",
+			"kind": "button",
+			"refersTo": "button-outline",
+			"description": "Apple Style Guide 'Helpful? Yes, No' pair. Paired low-emphasis choices only.",
+			"html": "<div class=\"ds-outline-pair\"><button class=\"ds-btn-outline\">yes</button><button class=\"ds-btn-outline\">no</button></div>",
+			"css": ".ds-outline-pair { display: flex; gap: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-btn-outline { background: transparent; color: #0066cc; font-size: 14px; letter-spacing: -0.016em; padding: 8px 24px; border: 1px solid #0066cc; border-radius: 10px; cursor: pointer; transition: background 300ms cubic-bezier(0.4, 0, 0.25, 1), color 300ms cubic-bezier(0.4, 0, 0.25, 1), border-color 300ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-btn-outline:hover { background: #0076df; border-color: #0076df; color: #ffffff; } .ds-btn-outline:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); }"
+		},
+		{
+			"name": "Theme Switcher",
+			"kind": "custom",
+			"refersTo": "footer",
+			"description": "developer.apple.com footer segmented pill. Light, Dark, Auto. Selected segment fills Action Blue.",
+			"html": "<div class=\"ds-theme\" role=\"radiogroup\" aria-label=\"theme\"><button class=\"ds-theme-opt\">light</button><button class=\"ds-theme-opt\">dark</button><button class=\"ds-theme-opt ds-theme-opt-selected\">auto</button></div>",
+			"css": ".ds-theme { display: inline-flex; align-items: center; gap: 2px; border: 1px solid #d2d2d7; border-radius: 980px; padding: 2px; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-theme-opt { background: transparent; border: none; color: #6e6e73; font-size: 12px; letter-spacing: -0.01em; padding: 4px 12px; border-radius: 980px; cursor: pointer; transition: color 200ms cubic-bezier(0.4, 0, 0.25, 1), background 200ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-theme-opt:hover { color: #1d1d1f; } .ds-theme-opt:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); } .ds-theme-opt-selected { background: #0071e3; color: #ffffff; } .ds-theme-opt-selected:hover { color: #ffffff; }"
+		}
+	],
+	"narrative": {
+		"northStar": "The Quiet Keynote",
+		"overview": "A keynote slide does one thing. One idea, enormous clarity, generous emptiness around it, and a presenter who never raises their voice. This system rebuilds chele.bi the way Apple builds apple.com and Apple Newsroom: white or true black canvases, one type family, blue reserved for things you can touch, motion that states a fact and stops. Every token was extracted from Apple's production CSS in June 2026. This system explicitly rejects what the current site became: crowded, too much information collapsing into each other. It retires the retro 8-bit language and gamified self-presentation on every new surface. The blog reads like Newsroom. The projects page presents like a product page.",
+		"keyCharacteristics": [
+			"Apple-faithful tokens, taken verbatim from apple.com, not approximated.",
+			"Readability is the metric. Article measure capped at 68ch, body 17px.",
+			"Flat at rest. Depth comes from alternating canvases, not borders or shadows.",
+			"One easing curve, four durations. Scroll reveals play once and never repeat.",
+			"Blue means interactive, everywhere, with zero decorative exceptions.",
+			"Shared primitives first. Pages compose Nav, Tile, StoryCard, Prose, Chip, Gallery."
+		],
+		"rules": [
+			{
+				"name": "The One Curve Rule",
+				"body": "Every transition uses cubic-bezier(0.4, 0, 0.25, 1). The single sanctioned exception is the nav flyout curtain at cubic-bezier(0.4, 0, 0.6, 1). No springs, no bounce, no elastic on new surfaces.",
+				"section": "overview"
+			},
+			{
+				"name": "The Four Durations Rule",
+				"body": "100ms instant feedback, 240ms nav and scrim, 300 to 400ms state and color, 800ms scroll reveals. Nothing else.",
+				"section": "overview"
+			},
+			{
+				"name": "The Play Once Rule",
+				"body": "Scroll reveals are a single fade plus 16px rise, 800ms, staggered 0s / 0.05s / 0.2s / 0.4s, once per page load. Render the final state immediately under prefers-reduced-motion.",
+				"section": "overview"
+			},
+			{
+				"name": "The Silence Rule",
+				"body": "Keyboard-triggered actions, theme switching and pagination are instant.",
+				"section": "overview"
+			},
+			{
+				"name": "The Blue Is Interactive Rule",
+				"body": "Blue appears only on elements that respond to a click or tap. If something blue does nothing when clicked, that is a bug.",
+				"section": "colors"
+			},
+			{
+				"name": "The Two Canvases Rule",
+				"body": "Light-mode depth is alternating #ffffff and #f5f5f7 sections. If a section boundary is unclear, switch the canvas, do not draw a line.",
+				"section": "colors"
+			},
+			{
+				"name": "The True Black Rule",
+				"body": "Dark mode's page canvas is #000000. Surfaces climb #161617, #1d1d1f, #333336 strictly in elevation order.",
+				"section": "colors"
+			},
+			{
+				"name": "The No New Colors Rule",
+				"body": "The system never adds a hue beyond blue and the grays. Project logos and photography are the only saturation on any page.",
+				"section": "colors"
+			},
+			{
+				"name": "The Semibold Ceiling Rule",
+				"body": "No weight above 600, ever. Emphasis beyond semibold comes from size.",
+				"section": "typography"
+			},
+			{
+				"name": "The 68ch Rule",
+				"body": "Article prose never exceeds the 692px column.",
+				"section": "typography"
+			},
+			{
+				"name": "The Optical Tracking Rule",
+				"body": "Tracking follows SF Pro's optical curve, -0.022em at 17px tightening toward zero as sizes grow. Never uniform across sizes.",
+				"section": "typography"
+			},
+			{
+				"name": "The One Family Rule",
+				"body": "The system stack everywhere, the system mono only inside code. A third family is prohibited.",
+				"section": "typography"
+			},
+			{
+				"name": "The Flat-At-Rest Rule",
+				"body": "Surfaces are flat at rest. Shadow is a response to hover, blur is a response to scroll.",
+				"section": "elevation"
+			},
+			{
+				"name": "The Two Blurs Rule",
+				"body": "backdrop-filter exists in exactly two places, the global nav scrim and the dialog backdrop. Glass cards and decorative frosted panels are prohibited.",
+				"section": "elevation"
+			},
+			{
+				"name": "The 44 Point Rule",
+				"body": "Every interactive element presents a hit area of at least 44px by 44px. Visually smaller controls gain it through padding, never through visual size.",
+				"section": "components"
+			}
+		],
+		"dos": [
+			"Do take values from this file literally. #0071e3 means #0071e3, 17px means 17px, 600 means 600.",
+			"Do alternate #ffffff and #f5f5f7 to separate sections, and #000000, #161617, #1d1d1f in dark mode, in ladder order.",
+			"Do cap article prose at the 692px column and interface rows at the 980px shell.",
+			"Do use cubic-bezier(0.4, 0, 0.25, 1) with the four durations for every transition, playing scroll reveals once.",
+			"Do keep blog posts as the MDX files they are today. The redesign touches mdx-components.tsx, never the posts.",
+			"Do compose new pages from Story Card, Post List Row, Project Tile, Chip, Gallery and the prose surface before inventing anything.",
+			"Do render the final state immediately under prefers-reduced-motion.",
+			"Do give every interactive element a 44px by 44px hit area, padding visually smaller controls up to it."
+		],
+		"donts": [
+			"Don't recreate 'too crowded, too much information collapsing into each other.' One idea per fold.",
+			"Don't carry the 8-bit language onto new surfaces: no dashed borders, pixel fonts, kanji marquee, glitch, scramble, shimmer or scanlines.",
+			"Don't use skill bars, lvl badges, quests or guild logs.",
+			"Don't put blue on anything that is not interactive, and don't use any accent hue beyond the blue ramp.",
+			"Don't use weights above 600, a third font family, or uniform letter-spacing across sizes.",
+			"Don't use gradient text, bento grids, glassmorphism beyond the nav scrim and dialog backdrop, colored side stripes, or hover scales above 1.015.",
+			"Don't substitute gray-900 dark backgrounds for true black.",
+			"Don't add springs, bounce, parallax, scroll-scrubbing or re-triggering reveals.",
+			"Don't let the nav change height or gain layout-shifting borders on scroll.",
+			"Don't ship a modal where an inline treatment works."
+		]
+	}
+}
