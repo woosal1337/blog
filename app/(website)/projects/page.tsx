@@ -39,13 +39,19 @@ export default function ProjectsPage() {
 									headline={tile.desc}
 									theme="tint"
 									actions={
-										<CTALink
-											href={tile.href}
-											external={tile.external}
-											className="text-footnote"
-										>
-											{tile.cta}
-										</CTALink>
+										tile.comingSoon ? (
+											<span className="text-footnote font-semibold text-[#f56300]">
+												Coming soon
+											</span>
+										) : (
+											<CTALink
+												href={tile.href}
+												external={tile.external}
+												className="text-footnote"
+											>
+												{tile.cta}
+											</CTALink>
+										)
 									}
 									icon={
 										tile.logo ? (

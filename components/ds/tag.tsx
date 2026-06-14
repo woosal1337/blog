@@ -26,3 +26,13 @@ export function NewLabel({ className }: { className?: string }) {
 		</span>
 	);
 }
+
+export function SoonLabel({ className }: { className?: string }) {
+	return (
+		<span
+			className={cn("text-caption font-semibold text-[#f56300]", className)}
+		>
+			soon
+		</span>
+	);
+}

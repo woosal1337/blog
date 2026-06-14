@@ -89,6 +89,7 @@ export default async function HomePage() {
 									logo={work.logo}
 									logoInverts={work.logoInverts}
 									isNew={work.isNew}
+									comingSoon={work.comingSoon}
 								/>
 							</GalleryItem>
 						))}

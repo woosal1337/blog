@@ -30,7 +30,7 @@ const config = {
 					"sans-serif",
 				],
 				mono: [
-						"ui-monospace",
+					"ui-monospace",
 					"SF Mono",
 					"SFMono-Regular",
 					"Menlo",

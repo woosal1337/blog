@@ -1,5 +1,5 @@
 import { Button } from "@/components/ds/button";
-import { NewLabel } from "@/components/ds/tag";
+import { NewLabel, SoonLabel } from "@/components/ds/tag";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +16,7 @@ export type LineupCardProps = {
 	logoInverts?: boolean;
 
 	isNew?: boolean;
+	comingSoon?: boolean;
 	className?: string;
 };
 
@@ -28,6 +29,7 @@ export function LineupCard({
 	logo,
 	logoInverts = false,
 	isNew = false,
+	comingSoon = false,
 	className,
 }: LineupCardProps) {
 	return (
@@ -54,23 +56,32 @@ export function LineupCard({
 				)}
 			</div>
 			<p
-				className={cn("mt-6 leading-none", !isNew && "invisible")}
-				aria-hidden={!isNew}
+				className={cn(
+					"mt-6 leading-none",
+					!isNew && !comingSoon && "invisible",
+				)}
+				aria-hidden={!isNew && !comingSoon}
 			>
-				<NewLabel />
+				{comingSoon ? <SoonLabel /> : <NewLabel />}
 			</p>
 			<h3 className="mt-1.5 text-title">{name}</h3>
 			<p className="mt-2 text-footnote text-muted-foreground">{description}</p>
 			<div className="mt-auto pt-5">
-				<Button asChild variant="primary" size="sm">
-					{external ? (
-						<a href={href} target="_blank" rel="noopener noreferrer">
-							{ctaLabel}
-						</a>
-					) : (
-						<Link href={href}>{ctaLabel}</Link>
-					)}
-				</Button>
+				{comingSoon ? (
+					<Button variant="secondary" size="sm" disabled>
+						Coming soon
+					</Button>
+				) : (
+					<Button asChild variant="primary" size="sm">
+						{external ? (
+							<a href={href} target="_blank" rel="noopener noreferrer">
+								{ctaLabel}
+							</a>
+						) : (
+							<Link href={href}>{ctaLabel}</Link>
+						)}
+					</Button>
+				)}
 			</div>
 		</div>
 	);

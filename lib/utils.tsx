@@ -152,7 +152,16 @@ export const allProjects: Array<{
 	logoInverts?: boolean;
 	external: boolean;
 	isNew?: boolean;
+	comingSoon?: boolean;
 }> = [
+	{
+		name: "CompanyOS",
+		desc: "A multi-tenant coordination layer for companies. Projects, tasks, meetings and notes in one place.",
+		href: "#",
+		logo: "/companyos-logo.png",
+		external: false,
+		comingSoon: true,
+	},
 	{
 		name: "Folio",
 		desc: "Meeting recorder for macOS. Local-first transcription and diarization, no cloud.",
