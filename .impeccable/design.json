@@ -1,205 +1,159 @@
 {
 	"schemaVersion": 2,
-	"generatedAt": "2026-06-10T15:00:00.000Z",
+	"generatedAt": "2026-06-24T00:00:00.000Z",
 	"title": "Design System: chele.bi",
 	"extensions": {
 		"colorMeta": {
-			"action-blue": {
-				"role": "primary",
-				"displayName": "Action Blue",
-				"canonical": "#0071e3",
+			"paper": {
+				"role": "neutral",
+				"displayName": "Paper",
+				"canonical": "#000000",
 				"tonalRamp": [
-					"#001d3a",
-					"#003a73",
-					"#0055a8",
-					"#0066cc",
-					"#0071e3",
-					"#3a8fe8",
-					"#84b8f0",
-					"#d6e7fa"
-				]
-			},
-			"link-blue": {
-				"role": "primary",
-				"displayName": "Link Blue",
-				"canonical": "#0066cc",
-				"tonalRamp": [
-					"#001d3a",
-					"#003a73",
-					"#0055a8",
-					"#0066cc",
-					"#0071e3",
-					"#3a8fe8",
-					"#84b8f0",
-					"#d6e7fa"
-				]
-			},
-			"link-blue-dark": {
-				"role": "primary",
-				"displayName": "Link Blue Dark",
-				"canonical": "#2997ff",
-				"tonalRamp": [
-					"#0b3a66",
-					"#125a99",
-					"#1a7acc",
-					"#2997ff",
-					"#54acff",
-					"#7fc0ff",
-					"#aad5ff",
-					"#d4eaff"
+					"#000000",
+					"#0a0a0a",
+					"#141414",
+					"#1c1c1c",
+					"#404040",
+					"#5a5a5a",
+					"#a0a0a0",
+					"#f5f5f5"
 				]
 			},
 			"ink": {
 				"role": "neutral",
 				"displayName": "Ink",
-				"canonical": "#1d1d1f",
+				"canonical": "#f5f5f5",
 				"tonalRamp": [
-					"#0a0a0b",
-					"#161617",
-					"#1d1d1f",
-					"#333336",
-					"#6e6e73",
-					"#86868b",
-					"#d2d2d7",
-					"#f5f5f7"
-				]
-			},
-			"ink-secondary": {
-				"role": "neutral",
-				"displayName": "Ink Secondary",
-				"canonical": "#6e6e73",
-				"tonalRamp": [
-					"#0a0a0b",
-					"#161617",
-					"#1d1d1f",
-					"#333336",
-					"#6e6e73",
-					"#86868b",
-					"#d2d2d7",
-					"#f5f5f7"
-				]
-			},
-			"canvas": {
-				"role": "neutral",
-				"displayName": "Canvas",
-				"canonical": "#ffffff",
-				"tonalRamp": [
-					"#1d1d1f",
-					"#333336",
-					"#6e6e73",
-					"#86868b",
-					"#aeaeb3",
-					"#d2d2d7",
-					"#e8e8ed",
+					"#000000",
+					"#1c1c1c",
+					"#404040",
+					"#5a5a5a",
+					"#787878",
+					"#a0a0a0",
+					"#f5f5f5",
 					"#ffffff"
 				]
 			},
-			"canvas-tint": {
+			"ink-soft": {
 				"role": "neutral",
-				"displayName": "Canvas Tint",
-				"canonical": "#f5f5f7",
-				"tonalRamp": [
-					"#1d1d1f",
-					"#333336",
-					"#6e6e73",
-					"#86868b",
-					"#aeaeb3",
-					"#d2d2d7",
-					"#e8e8ed",
-					"#f5f5f7"
-				]
-			},
-			"canvas-dark": {
-				"role": "neutral",
-				"displayName": "Canvas Dark",
-				"canonical": "#000000",
+				"displayName": "Ink Soft",
+				"canonical": "#a0a0a0",
 				"tonalRamp": [
 					"#000000",
-					"#161617",
-					"#1d1d1f",
-					"#333336",
-					"#424245",
-					"#6e6e73",
-					"#86868b",
-					"#f5f5f7"
+					"#1c1c1c",
+					"#404040",
+					"#5a5a5a",
+					"#787878",
+					"#a0a0a0",
+					"#d0d0d0",
+					"#f5f5f5"
 				]
 			},
-			"hairline": {
+			"ink-mute": {
 				"role": "neutral",
-				"displayName": "Hairline",
-				"canonical": "#d2d2d7",
+				"displayName": "Ink Mute",
+				"canonical": "#787878",
 				"tonalRamp": [
-					"#1d1d1f",
-					"#333336",
-					"#6e6e73",
-					"#86868b",
-					"#aeaeb3",
-					"#d2d2d7",
-					"#e8e8ed",
-					"#f5f5f7"
+					"#000000",
+					"#1c1c1c",
+					"#404040",
+					"#5a5a5a",
+					"#787878",
+					"#a0a0a0",
+					"#d0d0d0",
+					"#f5f5f5"
+				]
+			},
+			"line": {
+				"role": "neutral",
+				"displayName": "Line",
+				"canonical": "#404040",
+				"tonalRamp": [
+					"#000000",
+					"#141414",
+					"#1c1c1c",
+					"#404040",
+					"#5a5a5a",
+					"#787878",
+					"#a0a0a0",
+					"#f5f5f5"
+				]
+			},
+			"line-strong": {
+				"role": "neutral",
+				"displayName": "Line Strong",
+				"canonical": "#5a5a5a",
+				"tonalRamp": [
+					"#000000",
+					"#141414",
+					"#1c1c1c",
+					"#404040",
+					"#5a5a5a",
+					"#787878",
+					"#a0a0a0",
+					"#f5f5f5"
 				]
 			}
 		},
 		"typographyMeta": {
 			"display": {
 				"displayName": "Display",
-				"purpose": "Post titles and page heroes. One per page, maximum."
+				"purpose": "Post titles and page heroes. clamp(34px,6vw,52px), weight 600, tracking -0.025em. One per page."
 			},
 			"headline": {
 				"displayName": "Headline",
-				"purpose": "Major section openers on home and projects."
+				"purpose": "Major section openers. clamp(30px,5vw,40px), weight 600, tracking -0.02em."
 			},
 			"title": {
 				"displayName": "Title",
-				"purpose": "Story card titles and article h2."
-			},
-			"eyebrow": {
-				"displayName": "Eyebrow",
-				"purpose": "Short kicker above a headline. Sparingly, never repeated section grammar."
+				"purpose": "Story card titles and article h2. clamp(22px,3vw,28px), weight 600."
 			},
 			"subhead": {
 				"displayName": "Subhead",
-				"purpose": "Article deks and section intros."
+				"purpose": "Article deks and section intros. 18px, lh 1.5."
+			},
+			"eyebrow": {
+				"displayName": "Eyebrow",
+				"purpose": "Section kicker above a headline. clamp(18px,2vw,22px), weight 500."
 			},
 			"body": {
 				"displayName": "Body",
-				"purpose": "All interface copy at lh 1.47. Article prose raises lh to 1.65."
+				"purpose": "Interface copy at 15px, lh 1.7. Article prose stays 15px, lh 1.7."
+			},
+			"footnote": {
+				"displayName": "Footnote",
+				"purpose": "Nav links, captions, secondary rows. 13.5px, lh 1.55."
 			},
 			"label": {
-				"displayName": "Label",
-				"purpose": "Uppercase category labels on story cards, nothing else."
+				"displayName": "Label / Meta",
+				"purpose": "Uppercase tracked terminal labels and meta lines. 12px, tracking 0.14em, prefixed // or $."
 			},
 			"caption": {
 				"displayName": "Caption",
-				"purpose": "Dates, image captions, legal, footnotes."
+				"purpose": "Dates, image captions, copyright. 12px."
 			},
 			"code": {
 				"displayName": "Code",
-				"purpose": "Code blocks and inline code, on the system mono stack."
+				"purpose": "Code blocks and inline code. Same Geist Mono as the rest of the site, on a bordered black panel."
 			}
 		},
 		"shadows": [
 			{
-				"name": "story-rest",
-				"value": "2px 4px 12px rgba(0, 0, 0, 0.08)",
-				"purpose": "Resting shadow on Newsroom-style story cards over Canvas Tint. The only component shadowed at rest."
-			},
-			{
-				"name": "story-hover",
-				"value": "2px 4px 16px rgba(0, 0, 0, 0.16)",
-				"purpose": "Story card hover, paired with a 2px rise, 300ms house curve."
+				"name": "none",
+				"value": "none",
+				"purpose": "The system is flat. Nothing is shadowed at rest or on hover. Depth comes from 1px hairlines, never shadow."
 			},
 			{
 				"name": "focus-ring",
-				"value": "0 0 0 3px rgba(0, 113, 227, 0.5)",
-				"purpose": "focus-visible ring on every interactive element."
+				"value": "0 0 0 2px rgba(245, 245, 245, 0.7)",
+				"purpose": "focus-visible ring (2px solid ink at 70%, 3px offset) on every interactive element."
 			}
 		],
 		"motion": [
 			{
 				"name": "ease-house",
-				"value": "cubic-bezier(0.4, 0, 0.25, 1)",
-				"purpose": "The One Curve Rule. Every transition on the site."
+				"value": "cubic-bezier(0.16, 1, 0.3, 1)",
+				"purpose": "The One Curve Rule. Ease-out-expo on every transition on the site."
 			},
 			{
 				"name": "ease-curtain",
@@ -207,40 +161,36 @@
 				"purpose": "Sanctioned exception, mobile nav flyout curtain only."
 			},
 			{
-				"name": "duration-instant",
-				"value": "100ms",
-				"purpose": "Paddles and small-control hovers."
+				"name": "duration-hover",
+				"value": "200ms",
+				"purpose": "Link and small-control color/border hovers."
 			},
 			{
 				"name": "duration-nav",
 				"value": "240ms",
-				"purpose": "Nav scrim and chrome transitions."
-			},
-			{
-				"name": "duration-state",
-				"value": "300ms",
-				"purpose": "Color and state changes, card hovers."
+				"purpose": "Nav and chrome transitions, hamburger morph."
 			},
 			{
 				"name": "duration-enter",
 				"value": "400ms",
-				"purpose": "Element entrances inside the page."
+				"purpose": "Page fade-in on route enter."
 			},
 			{
 				"name": "duration-reveal",
-				"value": "800ms",
-				"purpose": "Scroll-entry reveal, opacity 0 to 1 plus 16px rise, plays once."
+				"value": "700ms",
+				"purpose": "Scroll-entry reveal, opacity 0 to 1 plus 12px rise, plays once."
 			},
 			{
-				"name": "reveal-stagger",
-				"value": "0s, 0.05s, 0.2s, 0.4s",
-				"purpose": "Apple Newsroom cascade levels for grouped reveals."
+				"name": "caret-blink",
+				"value": "1.1s steps(1) infinite",
+				"purpose": "Blinking block caret on the home hero (oak-caret)."
 			}
 		],
 		"breakpoints": [
-			{ "name": "small", "value": "734px" },
-			{ "name": "medium", "value": "1068px" },
-			{ "name": "large", "value": "1440px" }
+			{ "name": "small", "value": "640px" },
+			{ "name": "medium", "value": "768px" },
+			{ "name": "large", "value": "1024px" },
+			{ "name": "frame", "value": "1120px" }
 		]
 	},
 	"components": [
@@ -248,191 +198,177 @@
 			"name": "Primary Button",
 			"kind": "button",
 			"refersTo": "button-primary",
-			"description": "Apple pill CTA. Blue fill, white text, no transform on hover.",
+			"description": "White block CTA. White fill, black text, inverts to bordered-black on hover. Sharp corners.",
 			"html": "<button class=\"ds-btn-primary\">read the blog</button>",
-			"css": ".ds-btn-primary { background: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; line-height: 1.17; letter-spacing: -0.022em; font-weight: 400; padding: 12px 22px; border: none; border-radius: 980px; cursor: pointer; transition: background 300ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-btn-primary:hover { background: #0076df; } .ds-btn-primary:active { background: #006edb; } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); }"
+			"css": ".ds-btn-primary { background: #f5f5f5; color: #000000; font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace; font-size: 13.5px; font-weight: 500; padding: 10px 20px; border: 1px solid #f5f5f5; border-radius: 0; cursor: pointer; transition: background 240ms cubic-bezier(0.16, 1, 0.3, 1), color 240ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover { background: #000000; color: #f5f5f5; } .ds-btn-primary:focus-visible { outline: 2px solid rgba(245, 245, 245, 0.7); outline-offset: 3px; }"
 		},
 		{
 			"name": "Secondary Button",
 			"kind": "button",
 			"refersTo": "button-secondary",
-			"description": "Quiet gray pill for secondary actions.",
+			"description": "Bordered terminal button. Transparent fill, hairline border brightens on hover.",
 			"html": "<button class=\"ds-btn-secondary\">all projects</button>",
-			"css": ".ds-btn-secondary { background: #e8e8ed; color: #1d1d1f; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; line-height: 1.17; letter-spacing: -0.022em; font-weight: 400; padding: 12px 22px; border: none; border-radius: 980px; cursor: pointer; transition: background 300ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-btn-secondary:hover { background: #dededf; } .ds-btn-secondary:active { background: #d2d2d7; } .ds-btn-secondary:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); }"
+			"css": ".ds-btn-secondary { background: transparent; color: #f5f5f5; font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace; font-size: 13.5px; font-weight: 500; padding: 10px 20px; border: 1px solid #404040; border-radius: 0; cursor: pointer; transition: border-color 240ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-secondary:hover { border-color: #f5f5f5; } .ds-btn-secondary:focus-visible { outline: 2px solid rgba(245, 245, 245, 0.7); outline-offset: 3px; }"
 		},
 		{
 			"name": "CTA Text Link",
 			"kind": "custom",
-			"refersTo": "link-blue",
-			"description": "Apple learn-more link. Blue text, static chevron, hover underlines text only.",
-			"html": "<a href=\"#\" class=\"ds-link-cta\">all posts <span class=\"ds-link-cta-chevron\">&#8250;</span></a>",
-			"css": ".ds-link-cta { color: #0066cc; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; letter-spacing: -0.022em; text-decoration: none; } .ds-link-cta:hover { text-decoration: underline; } .ds-link-cta:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); border-radius: 4px; } .ds-link-cta-chevron { text-decoration: none; display: inline-block; margin-left: 2px; }"
+			"refersTo": "link-cta",
+			"description": "Mono learn-more link. White text, trailing arrow nudges right on hover, underline on hover.",
+			"html": "<a href=\"#\" class=\"ds-link-cta\">all posts <span class=\"ds-link-cta-arrow\">&#8594;</span></a>",
+			"css": ".ds-link-cta { color: #f5f5f5; font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace; font-size: 13.5px; text-decoration: none; display: inline-flex; align-items: baseline; gap: 4px; } .ds-link-cta:hover { text-decoration: underline; text-underline-offset: 4px; } .ds-link-cta:hover .ds-link-cta-arrow { transform: translateX(2px); } .ds-link-cta-arrow { display: inline-block; transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-link-cta:focus-visible { outline: 2px solid rgba(245, 245, 245, 0.7); outline-offset: 3px; }"
 		},
 		{
 			"name": "Global Nav",
 			"kind": "nav",
 			"refersTo": "nav-global",
-			"description": "44px frosted bar, transparent at top of page, scrim after scroll. Quiet 12px links.",
-			"html": "<nav class=\"ds-nav\"><span class=\"ds-nav-wordmark\">ege</span><div class=\"ds-nav-links\"><a href=\"#\" class=\"ds-nav-link ds-nav-link-active\">blog</a><a href=\"#\" class=\"ds-nav-link\">projects</a><a href=\"#\" class=\"ds-nav-link\">about</a><a href=\"#\" class=\"ds-nav-link\">music</a><a href=\"#\" class=\"ds-nav-link\">books</a></div></nav>",
-			"css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; height: 44px; padding: 0 22px; background: rgba(250, 250, 252, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid #d2d2d7; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-nav-wordmark { font-size: 17px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.022em; } .ds-nav-links { display: flex; gap: 24px; } .ds-nav-link { font-size: 12px; letter-spacing: -0.01em; color: rgba(29, 29, 31, 0.8); text-decoration: none; transition: color 200ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-nav-link:hover { color: #1d1d1f; } .ds-nav-link-active { color: #1d1d1f; } .ds-nav-link:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); border-radius: 4px; }"
+			"description": "Solid black bar, 48px, hairline bottom border (never transparent or frosted). Pixel cursor mark plus ege wordmark, quiet mono links, GitHub text link and white RSS button on the right.",
+			"html": "<nav class=\"ds-nav\"><a href=\"/\" class=\"ds-nav-brand\"><span class=\"ds-nav-mark\"></span>ege</a><div class=\"ds-nav-links\"><a href=\"#\" class=\"ds-nav-link ds-nav-link-active\">Blog</a><a href=\"#\" class=\"ds-nav-link\">Projects</a><a href=\"#\" class=\"ds-nav-link\">About</a><a href=\"#\" class=\"ds-nav-link\">Books</a></div></nav>",
+			"css": ".ds-nav { display: flex; align-items: center; gap: 16px; height: 48px; padding: 0 24px; background: #000000; border-bottom: 1px solid #404040; font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace; } .ds-nav-brand { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; color: #f5f5f5; text-decoration: none; } .ds-nav-mark { width: 20px; height: 20px; background: #f5f5f5; image-rendering: pixelated; } .ds-nav-links { display: flex; gap: 4px; } .ds-nav-link { font-size: 13.5px; color: #a0a0a0; text-decoration: none; padding: 4px 8px; transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-nav-link:hover, .ds-nav-link-active { color: #f5f5f5; } .ds-nav-link:focus-visible { outline: 2px solid rgba(245, 245, 245, 0.7); outline-offset: 3px; }"
 		},
 		{
 			"name": "Story Card",
 			"kind": "card",
 			"refersTo": "card-story",
-			"description": "Apple Newsroom tile. Image leads, label, title, summary, date. Whole card is the link.",
-			"html": "<a href=\"#\" class=\"ds-story\"><div class=\"ds-story-media\"></div><div class=\"ds-story-well\"><span class=\"ds-story-label\">FOLIO</span><h3 class=\"ds-story-title\">meeting recorder for macOS, local-first transcription</h3><p class=\"ds-story-summary\">whisper.cpp, diarization, and zero cloud round trips.</p><span class=\"ds-story-date\">June 9, 2026</span></div></a>",
-			"css": ".ds-story { display: block; max-width: 420px; background: #ffffff; border-radius: 18px; overflow: hidden; text-decoration: none; box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08); transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.25, 1), transform 300ms cubic-bezier(0.4, 0, 0.25, 1); font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-story:hover { transform: translateY(-2px); box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16); } .ds-story:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); } .ds-story-media { height: 180px; background: #e8e8ed; } .ds-story-well { padding: 24px; } .ds-story-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #86868b; } .ds-story-title { font-size: 24px; font-weight: 600; line-height: 1.14; letter-spacing: 0.007em; color: #1d1d1f; margin: 8px 0 8px; } .ds-story-summary { font-size: 17px; line-height: 1.47; letter-spacing: -0.022em; color: #6e6e73; margin: 0 0 12px; } .ds-story-date { font-size: 12px; letter-spacing: -0.01em; color: #86868b; }"
+			"description": "Bordered terminal tile. Sharp corners, hairline border, fill stays black, border brightens on hover. Optional bordered media, uppercase tracked label, title, summary, date.",
+			"html": "<a href=\"#\" class=\"ds-story\"><div class=\"ds-story-media\"></div><div class=\"ds-story-well\"><span class=\"ds-story-label\">// folio</span><h3 class=\"ds-story-title\">Folio - who said what</h3><p class=\"ds-story-summary\">On-device transcription and diarization, no cloud.</p><span class=\"ds-story-date\">JUNE 9, 2026</span></div></a>",
+			"css": ".ds-story { display: block; max-width: 420px; background: #000000; border: 1px solid #404040; border-radius: 0; overflow: hidden; text-decoration: none; transition: border-color 240ms cubic-bezier(0.16, 1, 0.3, 1); font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace; } .ds-story:hover { border-color: #5a5a5a; } .ds-story:focus-visible { outline: 2px solid rgba(245, 245, 245, 0.7); outline-offset: 3px; } .ds-story-media { height: 180px; background: #000000; border-bottom: 1px solid #404040; } .ds-story-well { padding: 20px; } .ds-story-label { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #787878; } .ds-story-title { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; color: #f5f5f5; margin: 12px 0 8px; } .ds-story-summary { font-size: 13.5px; line-height: 1.55; color: #a0a0a0; margin: 0 0 16px; } .ds-story-date { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #787878; }"
 		},
 		{
 			"name": "Post List Row",
 			"kind": "custom",
-			"refersTo": "card-story",
-			"description": "Sparse archive row. Title left, date right, siblings dim on hover.",
-			"html": "<div class=\"ds-postlist\"><a href=\"#\" class=\"ds-postrow\"><span class=\"ds-postrow-title\">ears without eyes</span><span class=\"ds-postrow-date\">May 2026</span></a><a href=\"#\" class=\"ds-postrow\"><span class=\"ds-postrow-title\">i cloned my advisory board</span><span class=\"ds-postrow-date\">Apr 2026</span></a><a href=\"#\" class=\"ds-postrow\"><span class=\"ds-postrow-title\">the next sessions</span><span class=\"ds-postrow-date\">Mar 2026</span></a></div>",
-			"css": ".ds-postlist { max-width: 560px; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-postlist:hover .ds-postrow { opacity: 0.5; } .ds-postlist:hover .ds-postrow:hover { opacity: 1; } .ds-postrow { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 16px 0; border-bottom: 1px solid #d2d2d7; text-decoration: none; transition: opacity 300ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-postrow:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); border-radius: 4px; } .ds-postrow-title { font-size: 17px; letter-spacing: -0.022em; color: #1d1d1f; } .ds-postrow-date { font-size: 12px; letter-spacing: -0.01em; color: #86868b; white-space: nowrap; }"
+			"refersTo": "card-archive",
+			"description": "Terminal archive table. Hairline row dividers, prompt caret on hover, title left, uppercase tracked date right. Year groups use a // label.",
+			"html": "<div class=\"ds-archive\"><a href=\"#\" class=\"ds-archive-row\"><span class=\"ds-archive-title\">ears without eyes</span><span class=\"ds-archive-date\">MAY 2026</span></a><a href=\"#\" class=\"ds-archive-row\"><span class=\"ds-archive-title\">i cloned my advisory board</span><span class=\"ds-archive-date\">APR 2026</span></a></div>",
+			"css": ".ds-archive { max-width: 560px; border-top: 1px solid #404040; font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace; } .ds-archive-row { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 14px 0; border-bottom: 1px solid #404040; text-decoration: none; } .ds-archive-row:hover .ds-archive-title { text-decoration: underline; text-underline-offset: 4px; } .ds-archive-title { font-size: 13.5px; color: #f5f5f5; } .ds-archive-date { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #787878; white-space: nowrap; } .ds-archive-row:focus-visible { outline: 2px solid rgba(245, 245, 245, 0.7); outline-offset: 3px; }"
 		},
 		{
 			"name": "Segmented Filter",
 			"kind": "chip",
 			"refersTo": "chip-filter",
-			"description": "Apple 'Explore the lineup' control. One gray pill container, monochrome ink inversion when selected, never blue.",
-			"html": "<div class=\"ds-seg\"><button class=\"ds-seg-opt ds-seg-opt-selected\">all</button><button class=\"ds-seg-opt\">code</button><button class=\"ds-seg-opt\">strat</button><button class=\"ds-seg-opt\">sci</button></div>",
-			"css": ".ds-seg { display: inline-flex; gap: 2px; background: #e8e8ed; border-radius: 980px; padding: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-seg-opt { background: transparent; color: #1d1d1f; font-size: 14px; letter-spacing: -0.016em; padding: 8px 16px; border: none; border-radius: 980px; cursor: pointer; transition: background 200ms cubic-bezier(0.4, 0, 0.25, 1), color 200ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-seg-opt:hover { color: #000000; } .ds-seg-opt:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); } .ds-seg-opt-selected { background: #1d1d1f; color: #ffffff; } .ds-seg-opt-selected:hover { color: #ffffff; }"
+			"description": "Terminal tab row. Bordered options, sharp corners, the selected one inverts to white-on-black. Monochrome, never colored.",
+			"html": "<div class=\"ds-seg\"><button class=\"ds-seg-opt ds-seg-opt-selected\">All</button><button class=\"ds-seg-opt\">Code</button><button class=\"ds-seg-opt\">Strat</button><button class=\"ds-seg-opt\">Sci</button></div>",
+			"css": ".ds-seg { display: inline-flex; border: 1px solid #404040; font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace; } .ds-seg-opt { background: transparent; color: #a0a0a0; font-size: 13.5px; padding: 6px 14px; border: none; border-right: 1px solid #404040; border-radius: 0; cursor: pointer; transition: color 200ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-seg-opt:last-child { border-right: none; } .ds-seg-opt:hover { color: #f5f5f5; } .ds-seg-opt-selected { background: #f5f5f5; color: #000000; } .ds-seg-opt:focus-visible { outline: 2px solid rgba(245, 245, 245, 0.7); outline-offset: 3px; }"
 		},
 		{
 			"name": "Search Input",
 			"kind": "input",
 			"refersTo": "input-search",
-			"description": "Hairline-bordered field, blue focus ring, no border morph.",
-			"html": "<input class=\"ds-input\" type=\"text\" placeholder=\"search books\" />",
-			"css": ".ds-input { background: #ffffff; color: #1d1d1f; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; letter-spacing: -0.022em; padding: 12px 16px; border: 1px solid #d2d2d7; border-radius: 12px; width: 280px; } .ds-input::placeholder { color: #86868b; } .ds-input:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); }"
+			"description": "Bordered terminal field with a dim prompt prefix. Sharp corners, hairline border, white focus ring.",
+			"html": "<div class=\"ds-search\"><span class=\"ds-search-prompt\">$ grep</span><input class=\"ds-search-input\" type=\"text\" placeholder=\"find in shelf\" /></div>",
+			"css": ".ds-search { display: inline-flex; align-items: center; gap: 8px; background: #000000; border: 1px solid #404040; border-radius: 0; padding: 0 12px; width: 280px; } .ds-search:focus-within { outline: 2px solid rgba(245, 245, 245, 0.7); outline-offset: 3px; } .ds-search-prompt { font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace; font-size: 13.5px; color: #787878; } .ds-search-input { flex: 1; background: transparent; color: #f5f5f5; font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace; font-size: 13.5px; padding: 10px 0; border: none; outline: none; } .ds-search-input::placeholder { color: #787878; }"
 		},
 		{
-			"name": "Outline Button",
-			"kind": "button",
-			"refersTo": "button-outline",
-			"description": "Apple Style Guide 'Helpful? Yes, No' pair. Paired low-emphasis choices only.",
-			"html": "<div class=\"ds-outline-pair\"><button class=\"ds-btn-outline\">yes</button><button class=\"ds-btn-outline\">no</button></div>",
-			"css": ".ds-outline-pair { display: flex; gap: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-btn-outline { background: transparent; color: #0066cc; font-size: 14px; letter-spacing: -0.016em; padding: 8px 24px; border: 1px solid #0066cc; border-radius: 10px; cursor: pointer; transition: background 300ms cubic-bezier(0.4, 0, 0.25, 1), color 300ms cubic-bezier(0.4, 0, 0.25, 1), border-color 300ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-btn-outline:hover { background: #0076df; border-color: #0076df; color: #ffffff; } .ds-btn-outline:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); }"
-		},
-		{
-			"name": "Theme Switcher",
+			"name": "Progress Bar",
 			"kind": "custom",
-			"refersTo": "footer",
-			"description": "developer.apple.com footer segmented pill. Light, Dark, Auto. Selected segment fills Action Blue.",
-			"html": "<div class=\"ds-theme\" role=\"radiogroup\" aria-label=\"theme\"><button class=\"ds-theme-opt\">light</button><button class=\"ds-theme-opt\">dark</button><button class=\"ds-theme-opt ds-theme-opt-selected\">auto</button></div>",
-			"css": ".ds-theme { display: inline-flex; align-items: center; gap: 2px; border: 1px solid #d2d2d7; border-radius: 980px; padding: 2px; font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; } .ds-theme-opt { background: transparent; border: none; color: #6e6e73; font-size: 12px; letter-spacing: -0.01em; padding: 4px 12px; border-radius: 980px; cursor: pointer; transition: color 200ms cubic-bezier(0.4, 0, 0.25, 1), background 200ms cubic-bezier(0.4, 0, 0.25, 1); } .ds-theme-opt:hover { color: #1d1d1f; } .ds-theme-opt:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.5); } .ds-theme-opt-selected { background: #0071e3; color: #ffffff; } .ds-theme-opt-selected:hover { color: #ffffff; }"
+			"refersTo": "bar-progress",
+			"description": "Read-progress bar (books detail, reading progress). Solid white fill in a hairline track, sharp corners. No block glyphs.",
+			"html": "<div class=\"ds-bar\"><div class=\"ds-bar-fill\" style=\"width: 100%\"></div></div>",
+			"css": ".ds-bar { height: 10px; width: 260px; border: 1px solid #404040; border-radius: 0; } .ds-bar-fill { height: 100%; background: #f5f5f5; }"
+		},
+		{
+			"name": "Code Block",
+			"kind": "custom",
+			"refersTo": "panel-terminal",
+			"description": "Code and terminal panels. Bordered black panel, optional uppercase title bar, Geist Mono throughout. Sharp corners.",
+			"html": "<figure class=\"ds-code\"><figcaption class=\"ds-code-title\">cli.rs</figcaption><pre class=\"ds-code-pre\"><code>$ oak switch --help</code></pre></figure>",
+			"css": ".ds-code { margin: 1.6em 0; border: 1px solid #404040; border-radius: 0; background: #000000; overflow: hidden; font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace; } .ds-code-title { font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: #948f82; padding: 0.55rem 1rem; border-bottom: 1px solid #242427; } .ds-code-pre { margin: 0; padding: 1rem; font-size: 13px; line-height: 1.65; color: #ece8dc; overflow-x: auto; }"
 		}
 	],
 	"narrative": {
-		"northStar": "The Quiet Keynote",
-		"overview": "A keynote slide does one thing. One idea, enormous clarity, generous emptiness around it, and a presenter who never raises their voice. This system rebuilds chele.bi the way Apple builds apple.com and Apple Newsroom: white or true black canvases, one type family, blue reserved for things you can touch, motion that states a fact and stops. Every token was extracted from Apple's production CSS in June 2026. This system explicitly rejects what the current site became: crowded, too much information collapsing into each other. It retires the retro 8-bit language and gamified self-presentation on every new surface. The blog reads like Newsroom. The projects page presents like a product page.",
+		"northStar": "The Quiet Terminal",
+		"overview": "A terminal does one thing per line and never raises its voice. This system rebuilds chele.bi the way oak.space builds its site: a solid black screen, one monospace family, off-white text, 1px hairlines for every boundary, and motion that states a fact and stops. It is a deliberate, one-to-one homage to oak.space, personalized for Ege Çelebi. Migrated June 2026 from the previous Apple-faithful system: white-and-blue and the system font stack are gone, replaced by pure black, Geist Mono, sharp corners and monochrome ink. The blog still reads like longform writing; every surface now reads like a developer's terminal.",
 		"keyCharacteristics": [
-			"Apple-faithful tokens, taken verbatim from apple.com, not approximated.",
-			"Readability is the metric. Article measure capped at 68ch, body 17px.",
-			"Flat at rest. Depth comes from alternating canvases, not borders or shadows.",
-			"One easing curve, four durations. Scroll reveals play once and never repeat.",
-			"Blue means interactive, everywhere, with zero decorative exceptions.",
-			"Shared primitives first. Pages compose Nav, Tile, StoryCard, Prose, Chip, Gallery."
+			"Monochrome. Pure black #000000 and off-white #f5f5f5 with two grays of ink and two of line. No chroma anywhere except project logos and photography.",
+			"One family, Geist Mono, on everything. Sans equals mono. A second family is prohibited.",
+			"Zero border-radius. Every corner is sharp. Pills and rounded cards are retired.",
+			"Flat. No shadows at rest or on hover. Structure comes from 1px hairlines, never elevation.",
+			"Dark only. There is no light mode and no theme switcher; the canvas is always #000000.",
+			"Terminal motifs: // section labels, $ command prompts, middot meta lines, uppercase tracked eyebrows, a pixel cursor mark, a blinking block caret.",
+			"Shared primitives first. Pages compose Nav, Footer, Story Card, Post List Row, Segmented Filter, Search Input, Gallery and the prose surface before inventing anything."
 		],
 		"rules": [
 			{
-				"name": "The One Curve Rule",
-				"body": "Every transition uses cubic-bezier(0.4, 0, 0.25, 1). The single sanctioned exception is the nav flyout curtain at cubic-bezier(0.4, 0, 0.6, 1). No springs, no bounce, no elastic on new surfaces.",
-				"section": "overview"
+				"name": "The Solid Black Rule",
+				"body": "Every surface is #000000. Cards, panels, the modal, code blocks and section bands all share the page canvas. There are no gray fills; separation is a 1px #404040 hairline. If a boundary is unclear, draw a line, never tint the background.",
+				"section": "colors"
 			},
 			{
-				"name": "The Four Durations Rule",
-				"body": "100ms instant feedback, 240ms nav and scrim, 300 to 400ms state and color, 800ms scroll reveals. Nothing else.",
+				"name": "The Monochrome Rule",
+				"body": "The palette is black, off-white and grays only. Links, focus, buttons and accents are all ink, never a hue. Project logos and cover art are the only saturation on any page.",
+				"section": "colors"
+			},
+			{
+				"name": "The Zero Radius Rule",
+				"body": "border-radius is 0 everywhere. No pills, no rounded cards, no rounded inputs. Sharp corners are the brand.",
+				"section": "elevation"
+			},
+			{
+				"name": "The Flat Rule",
+				"body": "Nothing is shadowed at rest or on hover. Depth and hierarchy come from hairlines and spacing. The only sanctioned blur is the mobile nav curtain and the dialog backdrop.",
+				"section": "elevation"
+			},
+			{
+				"name": "The One Family Rule",
+				"body": "Geist Mono everywhere, with JetBrains Mono and the system mono stack as fallback. Sans resolves to mono. A third family is prohibited.",
+				"section": "typography"
+			},
+			{
+				"name": "The Semibold Ceiling Rule",
+				"body": "No weight above 600. Geist Mono ships 400, 500, 600. Emphasis beyond semibold comes from size and from the white-on-black inversion.",
+				"section": "typography"
+			},
+			{
+				"name": "The Tracked Label Rule",
+				"body": "Eyebrows, meta lines and column headers are 12px, uppercase, letter-spacing 0.14em, ink-mute, prefixed with // for sections or $ for commands. Body and headings stay tight and sentence case.",
+				"section": "typography"
+			},
+			{
+				"name": "The One Curve Rule",
+				"body": "Every transition uses cubic-bezier(0.16, 1, 0.3, 1), ease-out-expo. The single exception is the mobile nav curtain at cubic-bezier(0.4, 0, 0.6, 1). No springs, bounce or elastic.",
 				"section": "overview"
 			},
 			{
 				"name": "The Play Once Rule",
-				"body": "Scroll reveals are a single fade plus 16px rise, 800ms, staggered 0s / 0.05s / 0.2s / 0.4s, once per page load. Render the final state immediately under prefers-reduced-motion.",
+				"body": "Scroll reveals are a single fade plus 12px rise, 700ms, once per page load. Render the final state immediately under prefers-reduced-motion.",
 				"section": "overview"
 			},
 			{
-				"name": "The Silence Rule",
-				"body": "Keyboard-triggered actions, theme switching and pagination are instant.",
-				"section": "overview"
-			},
-			{
-				"name": "The Blue Is Interactive Rule",
-				"body": "Blue appears only on elements that respond to a click or tap. If something blue does nothing when clicked, that is a bug.",
+				"name": "The Dark Only Rule",
+				"body": "The theme is forced dark. There is no light mode, no system following and no theme switcher. Never introduce a light surface.",
 				"section": "colors"
 			},
 			{
-				"name": "The Two Canvases Rule",
-				"body": "Light-mode depth is alternating #ffffff and #f5f5f7 sections. If a section boundary is unclear, switch the canvas, do not draw a line.",
-				"section": "colors"
-			},
-			{
-				"name": "The True Black Rule",
-				"body": "Dark mode's page canvas is #000000. Surfaces climb #161617, #1d1d1f, #333336 strictly in elevation order.",
-				"section": "colors"
-			},
-			{
-				"name": "The No New Colors Rule",
-				"body": "The system never adds a hue beyond blue and the grays. Project logos and photography are the only saturation on any page.",
-				"section": "colors"
-			},
-			{
-				"name": "The Semibold Ceiling Rule",
-				"body": "No weight above 600, ever. Emphasis beyond semibold comes from size.",
+				"name": "The Article Column Rule",
+				"body": "Article prose stays within the 720px column. Interface rows cap at the 1120px frame.",
 				"section": "typography"
-			},
-			{
-				"name": "The 68ch Rule",
-				"body": "Article prose never exceeds the 692px column.",
-				"section": "typography"
-			},
-			{
-				"name": "The Optical Tracking Rule",
-				"body": "Tracking follows SF Pro's optical curve, -0.022em at 17px tightening toward zero as sizes grow. Never uniform across sizes.",
-				"section": "typography"
-			},
-			{
-				"name": "The One Family Rule",
-				"body": "The system stack everywhere, the system mono only inside code. A third family is prohibited.",
-				"section": "typography"
-			},
-			{
-				"name": "The Flat-At-Rest Rule",
-				"body": "Surfaces are flat at rest. Shadow is a response to hover, blur is a response to scroll.",
-				"section": "elevation"
-			},
-			{
-				"name": "The Two Blurs Rule",
-				"body": "backdrop-filter exists in exactly two places, the global nav scrim and the dialog backdrop. Glass cards and decorative frosted panels are prohibited.",
-				"section": "elevation"
 			},
 			{
 				"name": "The 44 Point Rule",
-				"body": "Every interactive element presents a hit area of at least 44px by 44px. Visually smaller controls gain it through padding, never through visual size.",
+				"body": "Every interactive element presents a hit area of at least 44px by 44px, gained through padding, never visual size.",
 				"section": "components"
 			}
 		],
 		"dos": [
-			"Do take values from this file literally. #0071e3 means #0071e3, 17px means 17px, 600 means 600.",
-			"Do alternate #ffffff and #f5f5f7 to separate sections, and #000000, #161617, #1d1d1f in dark mode, in ladder order.",
-			"Do cap article prose at the 692px column and interface rows at the 980px shell.",
-			"Do use cubic-bezier(0.4, 0, 0.25, 1) with the four durations for every transition, playing scroll reveals once.",
+			"Do take values from this file literally. #000000 means #000000, #f5f5f5 means #f5f5f5, 0 radius means 0.",
+			"Do keep every surface solid black and separate sections with 1px #404040 hairlines, not gray bands or shadows.",
+			"Do set everything in Geist Mono and keep weights at or below 600.",
+			"Do use the terminal motifs: // section labels, $ prompts, middot meta lines, uppercase tracked eyebrows.",
+			"Do use cubic-bezier(0.16, 1, 0.3, 1) for every transition and play scroll reveals once.",
 			"Do keep blog posts as the MDX files they are today. The redesign touches mdx-components.tsx, never the posts.",
-			"Do compose new pages from Story Card, Post List Row, Project Tile, Chip, Gallery and the prose surface before inventing anything.",
-			"Do render the final state immediately under prefers-reduced-motion.",
-			"Do give every interactive element a 44px by 44px hit area, padding visually smaller controls up to it."
+			"Do compose new pages from Story Card, Post List Row, Segmented Filter, Search Input, Gallery and the prose surface before inventing anything.",
+			"Do render the final state immediately under prefers-reduced-motion, and give every control a 44px hit area."
 		],
 		"donts": [
-			"Don't recreate 'too crowded, too much information collapsing into each other.' One idea per fold.",
-			"Don't carry the 8-bit language onto new surfaces: no dashed borders, pixel fonts, kanji marquee, glitch, scramble, shimmer or scanlines.",
-			"Don't use skill bars, lvl badges, quests or guild logs.",
-			"Don't put blue on anything that is not interactive, and don't use any accent hue beyond the blue ramp.",
-			"Don't use weights above 600, a third font family, or uniform letter-spacing across sizes.",
-			"Don't use gradient text, bento grids, glassmorphism beyond the nav scrim and dialog backdrop, colored side stripes, or hover scales above 1.015.",
-			"Don't substitute gray-900 dark backgrounds for true black.",
+			"Don't add any chroma. No blue, no accent hue, no gradient text. Links and focus are ink, not color.",
+			"Don't use border-radius. No pills, rounded cards, rounded inputs or rounded images.",
+			"Don't add shadows, glassmorphism beyond the nav curtain and dialog backdrop, or gray surface fills. Black plus hairlines only.",
+			"Don't introduce a light mode, a theme switcher or a second font family.",
+			"Don't use weights above 600 or a non-mono typeface.",
+			"Don't draw a tinted band to separate sections; use a hairline.",
+			"Don't render solid bars or block art with block glyphs (Geist Mono's full block gaps); use a CSS fill bar instead.",
 			"Don't add springs, bounce, parallax, scroll-scrubbing or re-triggering reveals.",
-			"Don't let the nav change height or gain layout-shifting borders on scroll.",
+			"Don't reference music or Spotify; that surface was removed.",
 			"Don't ship a modal where an inline treatment works."
 		]
 	}
