@@ -30,24 +30,24 @@ function TrackRow({ song }: { song: Song }) {
 					src={song.cover}
 					alt=""
 					loading="lazy"
-					className="size-10 shrink-0 rounded-[4px] object-cover"
+					className="size-10 shrink-0 border border-line object-cover"
 				/>
 			)}
 			<span className="min-w-0 flex-1">
 				<span className="block truncate text-footnote text-foreground">
 					{song.title}
 				</span>
-				<span className="block truncate text-caption text-tertiary">
-					{song.artist} – {song.album}
+				<span className="block truncate text-caption text-ink-soft">
+					{song.artist} <span className="text-line">·</span> {song.album}
 				</span>
 			</span>
-			<span className="shrink-0 text-caption text-tertiary">
+			<span className="shrink-0 text-caption text-ink-mute tabular-nums">
 				{song.duration}
 			</span>
 		</>
 	);
 	const rowClasses =
-		"-mx-3 flex items-center gap-3 rounded-lg px-3 py-2 transition-colors duration-200 ease-house hover:bg-muted";
+		"flex items-center gap-4 px-3 py-2.5 transition-colors duration-240 ease-house hover:bg-paper-2";
 	if (song.spotifyUrl) {
 		return (
 			<a
@@ -114,11 +114,13 @@ export default function MusicPage() {
 		<>
 			<PageHero
 				title="Music"
+				eyebrow="music"
 				caption={`${musicLibrary.length} artists · ${allSongs.length} tracks in the library`}
 			/>
 
 			<Section tint>
 				<Shell>
+					<p className="oak-label mb-3 text-ink-mute">// artists</p>
 					<h2 className="text-headline">Artists</h2>
 				</Shell>
 				<Gallery ariaLabel="Artists" className="mt-8">
@@ -133,12 +135,12 @@ export default function MusicPage() {
 									src={entry.artistImage}
 									alt=""
 									loading="lazy"
-									className="aspect-square w-full rounded-lg object-cover transition-opacity duration-200 ease-house group-hover:opacity-85"
+									className="aspect-square w-full border border-line object-cover transition-colors duration-240 ease-house group-hover:border-line-strong"
 								/>
 								<span className="mt-3 block truncate text-footnote text-foreground">
 									{entry.artist}
 								</span>
-								<span className="block text-caption text-tertiary">
+								<span className="block text-caption text-ink-mute">
 									{entry.songs.length} track
 									{entry.songs.length !== 1 ? "s" : ""}
 								</span>
@@ -147,8 +149,8 @@ export default function MusicPage() {
 					))}
 					{filteredArtists.length === 0 && (
 						<GalleryItem>
-							<p className="py-8 text-body text-muted-foreground">
-								No artists match.
+							<p className="py-8 text-footnote text-ink-soft">
+								<span className="text-ink-mute">$</span> no artists match
 							</p>
 						</GalleryItem>
 					)}
@@ -157,10 +159,11 @@ export default function MusicPage() {
 
 			<Section>
 				<Shell>
+					<p className="oak-label mb-3 text-ink-mute">// library</p>
 					<div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
 						<h2 className="text-headline">Songs</h2>
 						<SearchInput
-							placeholder="Find in library"
+							placeholder="$ grep library"
 							value={search}
 							onChange={(e) => {
 								setSearch(e.target.value);
@@ -171,7 +174,7 @@ export default function MusicPage() {
 						/>
 					</div>
 
-					<div className="mt-8 flex items-center gap-4 rounded-xl bg-muted p-3">
+					<div className="mt-8 flex items-center gap-4 border border-line bg-paper p-3">
 						{shuffled ? (
 							<>
 								{shuffled.cover && (
@@ -179,21 +182,22 @@ export default function MusicPage() {
 									<img
 										src={shuffled.cover}
 										alt=""
-										className="size-10 shrink-0 rounded-[4px] object-cover"
+										className="size-10 shrink-0 border border-line object-cover"
 									/>
 								)}
 								<span className="min-w-0 flex-1">
 									<span className="block truncate text-footnote text-foreground">
 										{shuffled.title}
 									</span>
-									<span className="block truncate text-caption text-tertiary">
-										{shuffled.artist} – {shuffled.album}
+									<span className="block truncate text-caption text-ink-soft">
+										{shuffled.artist} <span className="text-line">·</span>{" "}
+										{shuffled.album}
 									</span>
 								</span>
 							</>
 						) : (
-							<span className="flex-1 px-1 text-footnote text-muted-foreground">
-								Feeling lucky? Shuffle the library.
+							<span className="flex-1 px-1 text-footnote text-ink-soft">
+								<span className="text-ink-mute">$</span> shuffle --random
 							</span>
 						)}
 						<Button variant="secondary" size="sm" onClick={handleShuffle}>
@@ -207,20 +211,21 @@ export default function MusicPage() {
 						</Button>
 					</div>
 
-					<ul className="mt-6">
+					<div className="mt-8 flex items-center justify-between border-b border-line px-3 pb-2">
+						<span className="oak-label text-ink-mute">track</span>
+						<span className="oak-label text-ink-mute">time</span>
+					</div>
+					<ul className="divide-y divide-line">
 						{shownSongs.map((song, index) => (
-							<li
-								key={`${song.title}-${song.artist}-${index}`}
-								className="border-b border-border/60 last:border-0"
-							>
+							<li key={`${song.title}-${song.artist}-${index}`}>
 								<TrackRow song={song} />
 							</li>
 						))}
 					</ul>
 
 					{filteredSongs.length === 0 && (
-						<p className="py-16 text-center text-body text-muted-foreground">
-							No results found.
+						<p className="py-16 text-center text-footnote text-ink-soft">
+							<span className="text-ink-mute">$</span> no results found
 						</p>
 					)}
 
@@ -248,7 +253,7 @@ export default function MusicPage() {
 							<img
 								src={selectedArtist.artistImage}
 								alt=""
-								className="size-16 shrink-0 rounded-pill object-cover"
+								className="size-16 shrink-0 border border-line object-cover"
 							/>
 							<div>
 								<SheetDialogTitle className="mt-0">
@@ -261,12 +266,9 @@ export default function MusicPage() {
 							</div>
 						</div>
 
-						<ul className="mt-6 max-h-[50vh] overflow-y-auto">
+						<ul className="mt-6 max-h-[50vh] divide-y divide-line overflow-y-auto">
 							{selectedArtist.songs.map((song, index) => (
-								<li
-									key={`${song.title}-${index}`}
-									className="border-b border-border/60 last:border-0"
-								>
+								<li key={`${song.title}-${index}`}>
 									<TrackRow song={song} />
 								</li>
 							))}

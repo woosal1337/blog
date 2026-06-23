@@ -38,10 +38,13 @@ function BookRow({
 		<button
 			type="button"
 			onClick={() => onSelect(book)}
-			className="-mx-3 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition-colors duration-200 ease-house hover:bg-muted"
+			className="flex w-full items-center gap-4 px-3 py-3 text-left transition-colors duration-240 ease-house hover:bg-paper-2"
 		>
+			<span aria-hidden="true" className="shrink-0 text-footnote text-ink-mute">
+				$
+			</span>
 			{book.cover ? (
-				<div className="relative h-12 w-8 shrink-0 overflow-hidden rounded-[4px] bg-muted">
+				<div className="relative h-12 w-8 shrink-0 overflow-hidden border border-line bg-paper-2">
 					<Image
 						src={book.cover}
 						alt=""
@@ -51,17 +54,20 @@ function BookRow({
 					/>
 				</div>
 			) : (
-				<div className="h-12 w-8 shrink-0 rounded-[4px] bg-muted" />
+				<div className="h-12 w-8 shrink-0 border border-line bg-paper-2" />
 			)}
 			<span className="min-w-0 flex-1">
 				<span className="block truncate text-footnote text-foreground">
 					{book.title}
 				</span>
-				<span className="block truncate text-caption text-tertiary">
+				<span className="block truncate text-caption text-ink-mute">
 					{book.author}
 				</span>
 			</span>
-			<span className="shrink-0 text-caption text-tertiary">
+			<span className="shrink-0 text-caption tabular-nums text-ink-soft">
+				{book.progress}%
+			</span>
+			<span className="oak-label hidden shrink-0 text-ink-mute sm:inline">
 				{categoryLabel.get(book.category) ?? book.category}
 			</span>
 		</button>
@@ -99,12 +105,14 @@ export default function BooksPage() {
 	return (
 		<>
 			<PageHero
+				eyebrow="books"
 				title="Books"
 				caption={`${completed} of ${books.length} read to the last page`}
 			/>
 
 			<Section tint>
 				<Shell>
+					<p className="oak-label mb-3 text-ink-mute">// shelf</p>
 					<h2 className="text-headline">Shelf</h2>
 				</Shell>
 				<Gallery ariaLabel="Shelf" className="mt-8">
@@ -116,18 +124,18 @@ export default function BooksPage() {
 								className="group w-[120px] text-left sm:w-[140px]"
 							>
 								{book.cover ? (
-									<div className="relative aspect-[2/3] w-full overflow-hidden rounded-md bg-background">
+									<div className="relative aspect-[2/3] w-full overflow-hidden border border-line bg-paper transition-colors duration-240 ease-house group-hover:border-line-strong">
 										<Image
 											src={book.cover}
 											alt=""
 											fill
 											sizes="140px"
-											className="object-cover transition-opacity duration-200 ease-house group-hover:opacity-85"
+											className="object-cover transition-opacity duration-240 ease-house group-hover:opacity-80"
 										/>
 									</div>
 								) : (
-									<div className="flex aspect-[2/3] w-full items-center justify-center rounded-md bg-background p-3">
-										<span className="text-center text-caption text-muted-foreground">
+									<div className="flex aspect-[2/3] w-full items-center justify-center border border-line bg-paper p-3 transition-colors duration-240 ease-house group-hover:border-line-strong">
+										<span className="text-center text-caption text-ink-soft">
 											{book.title}
 										</span>
 									</div>
@@ -135,7 +143,7 @@ export default function BooksPage() {
 								<span className="mt-3 block truncate text-footnote text-foreground">
 									{book.title}
 								</span>
-								<span className="block truncate text-caption text-tertiary">
+								<span className="block truncate text-caption text-ink-mute">
 									{book.author}
 								</span>
 							</button>
@@ -143,9 +151,7 @@ export default function BooksPage() {
 					))}
 					{filtered.length === 0 && (
 						<GalleryItem>
-							<p className="py-8 text-body text-muted-foreground">
-								No books match.
-							</p>
+							<p className="py-8 text-body text-ink-soft">No books match.</p>
 						</GalleryItem>
 					)}
 				</Gallery>
@@ -153,10 +159,11 @@ export default function BooksPage() {
 
 			<Section>
 				<Shell>
+					<p className="oak-label mb-3 text-ink-mute">// all-books</p>
 					<div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
 						<h2 className="text-headline">All books</h2>
 						<SearchInput
-							placeholder="Find in shelf"
+							placeholder="find in shelf"
 							value={search}
 							onChange={(e) => setSearch(e.target.value)}
 							className="sm:w-64"
@@ -172,19 +179,16 @@ export default function BooksPage() {
 						className="mt-6"
 					/>
 
-					<ul className="mt-6">
+					<ul className="mt-6 divide-y divide-line border-y border-line">
 						{filtered.map((book) => (
-							<li
-								key={`${book.title}-${book.author}`}
-								className="border-b border-border/60 last:border-0"
-							>
+							<li key={`${book.title}-${book.author}`}>
 								<BookRow book={book} onSelect={setSelected} />
 							</li>
 						))}
 					</ul>
 
 					{filtered.length === 0 && (
-						<p className="py-16 text-center text-body text-muted-foreground">
+						<p className="border-y border-line py-16 text-center text-body text-ink-soft">
 							No books match. Try a different search or filter.
 						</p>
 					)}
@@ -198,7 +202,7 @@ export default function BooksPage() {
 				{selected && (
 					<SheetDialogContent className="max-w-[560px]">
 						{selected.cover && (
-							<div className="relative mx-auto mb-6 h-48 w-32 overflow-hidden rounded-md bg-muted">
+							<div className="relative mx-auto mb-6 h-48 w-32 overflow-hidden border border-line bg-paper-2">
 								<Image
 									src={selected.cover}
 									alt=""
@@ -208,16 +212,33 @@ export default function BooksPage() {
 								/>
 							</div>
 						)}
-						<SheetDialogTitle className="sr-only">
+						<SheetDialogTitle className="text-center text-title text-foreground">
 							{selected.title}
 						</SheetDialogTitle>
-						<SheetDialogDescription className="mt-1 text-center">
+						<SheetDialogDescription className="mt-1 text-center text-ink-soft">
 							By {selected.author}
 						</SheetDialogDescription>
-						<div className="mt-4 flex items-center justify-center gap-2">
+						<div className="mt-5 flex items-center justify-center gap-2">
 							<Tag>
 								{categoryLabel.get(selected.category) ?? selected.category}
 							</Tag>
+						</div>
+						<div className="mx-auto mt-6 max-w-[260px]">
+							<div className="flex items-center justify-between">
+								<span className="oak-label text-ink-mute">progress</span>
+								<span className="text-caption tabular-nums text-ink-soft">
+									{selected.progress}%
+								</span>
+							</div>
+							<div
+								aria-hidden="true"
+								className="mt-2 h-2.5 w-full border border-line"
+							>
+								<div
+									className="h-full bg-foreground"
+									style={{ width: `${selected.progress}%` }}
+								/>
+							</div>
 						</div>
 					</SheetDialogContent>
 				)}

@@ -29,23 +29,15 @@ const Polaroid = ({
 			onClick={onClick}
 			animate={{ rotate: fullscreen ? 0 : randomRotation }}
 			whileHover={{ rotate: 0, scale: 1.2, zIndex: 20, cursor: "zoom-in" }}
-			className={cn(
-				"w-20 h-auto shadow-polaroid z-10 relative",
-				fullscreen && "w-full h-full",
-			)}
+			className={cn("w-20 h-auto z-10 relative", fullscreen && "w-full h-full")}
 		>
 			<motion.div
 				className={cn(
-					"w-auto h-auto relative",
+					"w-auto h-auto relative border border-line bg-paper-2",
 					fullscreen ? "h-auto min-w-72" : variantClasses,
 				)}
 			>
-				<Image
-					fill
-					className="object-contain bg-white p-1.5"
-					src={src}
-					alt=""
-				/>
+				<Image fill className="object-contain p-1.5" src={src} alt="" />
 			</motion.div>
 		</motion.div>
 	);

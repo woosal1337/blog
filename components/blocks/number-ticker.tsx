@@ -48,6 +48,9 @@ export default function NumberTicker({
 	return typeof value === "string" ? (
 		<>{value}</>
 	) : (
-		<span className={cn("inline-block tabular-nums", className)} ref={ref} />
+		<span
+			className={cn("inline-block font-mono tabular-nums", className)}
+			ref={ref}
+		/>
 	);
 }

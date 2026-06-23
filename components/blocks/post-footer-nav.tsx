@@ -25,36 +25,36 @@ export function PostFooterNav({ posts }: { posts: PostNavItem[] }) {
 			{(newer || older) && (
 				<Shell width="wide">
 					<div className="mx-auto w-full max-w-article">
-						<div className="mb-16 mt-4 flex justify-between gap-8 border-t border-border pt-8">
+						<div className="mb-16 mt-4 grid grid-cols-1 gap-3 border-t border-line pt-8 sm:grid-cols-2">
 							{older ? (
 								<Link
 									href={`/blog/${older.slug}`}
-									className="group max-w-[45%]"
+									className="group flex flex-col border border-line bg-paper p-4 transition-colors duration-240 ease-house hover:border-line-strong hover:bg-paper-2"
 								>
-									<span className="block text-body text-foreground">
-										<span aria-hidden="true">‹</span> Previous
+									<span className="oak-label text-ink-mute">
+										<span aria-hidden="true">←</span> prev
 									</span>
-									<span className="mt-1 block text-body text-link group-hover:underline">
+									<span className="mt-2 block text-footnote text-ink-soft transition-colors duration-240 ease-house group-hover:text-foreground">
 										{older.title}
 									</span>
 								</Link>
 							) : (
-								<span />
+								<span className="hidden sm:block" />
 							)}
 							{newer ? (
 								<Link
 									href={`/blog/${newer.slug}`}
-									className="group max-w-[45%] text-right"
+									className="group flex flex-col items-end border border-line bg-paper p-4 text-right transition-colors duration-240 ease-house hover:border-line-strong hover:bg-paper-2"
 								>
-									<span className="block text-body text-foreground">
-										Next <span aria-hidden="true">›</span>
+									<span className="oak-label text-ink-mute">
+										next <span aria-hidden="true">→</span>
 									</span>
-									<span className="mt-1 block text-body text-link group-hover:underline">
+									<span className="mt-2 block text-footnote text-ink-soft transition-colors duration-240 ease-house group-hover:text-foreground">
 										{newer.title}
 									</span>
 								</Link>
 							) : (
-								<span />
+								<span className="hidden sm:block" />
 							)}
 						</div>
 					</div>

@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import * as React from "react";
 
 const SHELL_INLINE = "max(22px, calc((100vw - 936px) / 2))";
@@ -84,7 +83,7 @@ function GalleryPaddle({
 	disabled: boolean;
 	onClick: () => void;
 }) {
-	const Icon = direction === "previous" ? ChevronLeft : ChevronRight;
+	const glyph = direction === "previous" ? "←" : "→";
 	return (
 		<button
 			type="button"
@@ -92,11 +91,13 @@ function GalleryPaddle({
 			disabled={disabled}
 			onClick={onClick}
 			className={cn(
-				"flex size-9 items-center justify-center rounded-pill bg-secondary text-foreground transition-[background,opacity] duration-100",
-				disabled ? "pointer-events-none opacity-30" : "hover:bg-secondary/70",
+				"flex size-9 items-center justify-center border border-line bg-paper text-subhead text-ink-soft transition-colors duration-240 ease-house",
+				disabled
+					? "pointer-events-none opacity-30"
+					: "hover:border-line-strong hover:bg-paper-2 hover:text-foreground",
 			)}
 		>
-			<Icon size={18} strokeWidth={1.5} aria-hidden="true" />
+			<span aria-hidden="true">{glyph}</span>
 		</button>
 	);
 }

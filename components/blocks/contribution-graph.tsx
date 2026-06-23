@@ -44,24 +44,28 @@ export function ContributionGraph({
 						<motion.div
 							variants={item}
 							className={cn(
-								"size-2 relative rounded-[0.05rem] hover:scale-125 transition-transform duration-150",
+								"size-2 relative hover:scale-125 transition-transform duration-150",
 								day.contributionCount === 0
-									? "bg-zinc-200 dark:bg-zinc-900"
+									? "bg-paper-2"
 									: day.contributionCount < 5
-										? "bg-zinc-300 dark:bg-zinc-700"
+										? "bg-ink-mute"
 										: day.contributionCount < 10
-											? "bg-zinc-500"
-											: "bg-zinc-900 dark:bg-zinc-50",
+											? "bg-ink-soft"
+											: "bg-white",
 							)}
 						/>
 					</TooltipTrigger>
-					<TooltipContent className="text-xs" align="center" side="top">
-						{formattedDate(day.date)} —
+					<TooltipContent
+						className="font-mono text-caption tabular-nums"
+						align="center"
+						side="top"
+					>
+						{formattedDate(day.date)} <span className="text-line">·</span>{" "}
 						{day.contributionCount === 1
-							? " 1 contribution 😶"
+							? "1 contribution"
 							: day.contributionCount === 0
-								? " Rest day 🏖"
-								: ` ${day.contributionCount} contributions`}
+								? "rest day"
+								: `${day.contributionCount} contributions`}
 					</TooltipContent>
 				</Tooltip>
 			))}

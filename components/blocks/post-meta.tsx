@@ -34,13 +34,20 @@ export function PostMeta({ meta }: PostMetaProps) {
 	}, [meta.readingMinutes]);
 
 	return (
-		<header className="not-prose mb-12">
-			<p className="text-caption text-tertiary">
-				{formatPostDate(meta.date)}
-				{readingMinutes ? ` · ${readingMinutes} min read` : null}
+		<header className="not-prose mb-10">
+			<p className="oak-label flex flex-wrap items-center gap-x-2 gap-y-1 text-ink-soft">
+				<span>{formatPostDate(meta.date)}</span>
+				{readingMinutes ? (
+					<>
+						<span className="text-line">·</span>
+						<span>{readingMinutes} min read</span>
+					</>
+				) : null}
+				<span className="text-line">·</span>
+				<span>Ege Çelebi</span>
 			</p>
-			<h1 className="mt-3 text-display">{meta.title}</h1>
-			<p className="mt-4 text-subhead text-muted-foreground">{meta.summary}</p>
+			<h1 className="mt-5 text-display text-foreground">{meta.title}</h1>
+			<p className="mt-4 text-body text-ink-soft">{meta.summary}</p>
 			{meta.tags && meta.tags.length > 0 && (
 				<div className="mt-5 flex flex-wrap gap-2">
 					{meta.tags.map((tag) => (
@@ -49,13 +56,13 @@ export function PostMeta({ meta }: PostMetaProps) {
 				</div>
 			)}
 			{meta.cover ? (
-				<div className="relative mt-8 aspect-[1200/628] overflow-hidden rounded-xl bg-muted">
+				<div className="relative mt-8 aspect-[1200/628] overflow-hidden border border-line bg-paper-2">
 					<Image
 						src={meta.cover}
 						alt={meta.coverAlt ?? meta.title}
 						fill
 						priority
-						sizes="(max-width: 1024px) 100vw, 692px"
+						sizes="(max-width: 1024px) 100vw, 720px"
 						className="object-cover"
 					/>
 				</div>

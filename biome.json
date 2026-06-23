@@ -27,11 +27,13 @@
 			},
 			"suspicious": {
 				"noPrototypeBuiltins": "off",
-				"noArrayIndexKey": "off"
+				"noArrayIndexKey": "off",
+				"noCommentText": "off"
 			},
 			"a11y": {
 				"noSvgWithoutTitle": "off",
-				"useButtonType": "off"
+				"useButtonType": "off",
+				"useSemanticElements": "off"
 			},
 			"correctness": {
 				"noUnknownProperty": "off",

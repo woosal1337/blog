@@ -3,6 +3,7 @@ import { PageHero } from "@/components/ds/page-hero";
 import { ProjectTile } from "@/components/ds/project-tile";
 import { Reveal } from "@/components/ds/reveal";
 import { Section, Shell } from "@/components/ds/shell";
+import { SoonLabel } from "@/components/ds/tag";
 import { allProjects } from "@/lib/utils";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -21,6 +22,7 @@ export default function ProjectsPage() {
 	return (
 		<>
 			<PageHero
+				eyebrow="projects"
 				title="Projects"
 				caption="What I am building now and what already shipped"
 			/>
@@ -40,9 +42,7 @@ export default function ProjectsPage() {
 									theme="tint"
 									actions={
 										tile.comingSoon ? (
-											<span className="text-footnote font-semibold text-[#f56300]">
-												Coming soon
-											</span>
+											<SoonLabel />
 										) : (
 											<CTALink
 												href={tile.href}
@@ -58,12 +58,12 @@ export default function ProjectsPage() {
 											<Image
 												src={tile.logo}
 												alt={`${tile.name} logo`}
-												width={48}
-												height={48}
+												width={40}
+												height={40}
 												className={
 													tile.logoInverts
-														? "size-12 object-contain invert dark:invert-0"
-														: "size-12 object-contain"
+														? "size-10 object-contain invert dark:invert-0"
+														: "size-10 object-contain"
 												}
 											/>
 										) : undefined

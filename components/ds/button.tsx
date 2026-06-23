@@ -4,25 +4,28 @@ import { type VariantProps, cva } from "class-variance-authority";
 import * as React from "react";
 
 const buttonVariants = cva(
-	"inline-flex items-center justify-center whitespace-nowrap font-sans font-normal transition-colors duration-300 ease-house disabled:pointer-events-none disabled:opacity-40",
+	"inline-flex items-center justify-center whitespace-nowrap border font-sans font-medium transition-colors duration-240 ease-house disabled:pointer-events-none disabled:opacity-40",
 	{
 		variants: {
 			variant: {
+				// white pill → inverts on hover (oak primary)
 				primary:
-					"bg-action text-white hover:bg-action-hover active:bg-action-active",
+					"border-foreground bg-foreground text-background hover:bg-background hover:text-foreground",
+				// bordered terminal button
 				secondary:
-					"bg-secondary text-secondary-foreground hover:bg-secondary/70 active:bg-secondary/90",
+					"border-line bg-paper-2 text-foreground hover:border-line-strong hover:bg-paper-3",
+				// ghost outline
 				outline:
-					"border border-link bg-transparent text-link hover:border-action-hover hover:bg-action-hover hover:text-white",
+					"border-line bg-transparent text-foreground hover:border-foreground hover:bg-foreground hover:text-background",
 			},
 			size: {
-				sm: "rounded-pill px-4 py-[9px] text-footnote",
+				sm: "px-4 py-[7px] text-footnote",
 
-				md: "rounded-pill px-[22px] py-3 text-body",
+				md: "px-5 py-2.5 text-footnote",
 
-				compact: "rounded-md px-6 py-2 text-footnote",
+				compact: "px-4 py-1.5 text-footnote",
 
-				block: "w-full rounded-lg px-[22px] py-3 text-body",
+				block: "w-full px-5 py-2.5 text-footnote",
 			},
 		},
 		defaultVariants: {

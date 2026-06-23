@@ -8,7 +8,7 @@ export function Kbd({
 	return (
 		<kbd
 			className={cn(
-				"inline-flex items-center rounded-sm border border-border bg-card px-1.5 py-0.5 font-mono text-caption text-muted-foreground",
+				"inline-flex items-center border border-line bg-paper-2 px-1.5 py-0.5 font-mono text-caption uppercase tracking-wide text-ink-soft",
 				className,
 			)}
 		>

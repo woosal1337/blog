@@ -1,11 +1,12 @@
 import { NAV_ITEMS } from "@/components/ds/nav-items";
 import { Shell } from "@/components/ds/shell";
-import { ThemeSwitcher } from "@/components/ds/theme-switcher";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import Link from "next/link";
 
+const PAGES = [{ href: "/", label: "Home" }, ...NAV_ITEMS] as const;
+
 const ELSEWHERE = [
-	{ href: "/blog/rss.xml", label: "RSS", external: false },
 	{ href: "https://x.com/woosal1337", label: "X", external: true },
 	{ href: "https://github.com/woosal1337", label: "GitHub", external: true },
 	{
@@ -19,6 +20,7 @@ const ELSEWHERE = [
 		external: true,
 	},
 	{ href: "mailto:ege@chele.bi", label: "Email", external: true },
+	{ href: "/blog/rss.xml", label: "RSS", external: false },
 ] as const;
 
 export type BreadcrumbItem = {
@@ -31,11 +33,15 @@ export function BreadcrumbBand({
 	className,
 }: { items: BreadcrumbItem[]; className?: string }) {
 	return (
-		<div className={cn("bg-muted dark:bg-card", className)}>
-			<Shell className="flex flex-wrap items-center gap-2 border-b border-border py-[17px] text-caption text-tertiary">
+		<div className={cn("border-b border-line bg-paper", className)}>
+			<Shell className="flex flex-wrap items-center gap-2 py-3 font-mono text-caption text-ink-soft">
 				{items.map((item, index) => (
 					<span key={item.label} className="flex items-center gap-2">
-						{index > 0 && <span aria-hidden="true">›</span>}
+						{index > 0 && (
+							<span aria-hidden="true" className="text-ink-mute">
+								/
+							</span>
+						)}
 						{item.href ? (
 							<Link
 								href={item.href}
@@ -44,7 +50,7 @@ export function BreadcrumbBand({
 								{item.label}
 							</Link>
 						) : (
-							<span className="max-w-[40ch] truncate text-muted-foreground">
+							<span className="max-w-[40ch] truncate text-foreground">
 								{item.label}
 							</span>
 						)}
@@ -56,30 +62,57 @@ export function BreadcrumbBand({
 }
 
 const quietLink =
-	"transition-colors duration-200 ease-house hover:text-foreground";
+	"text-ink-soft transition-colors duration-200 ease-house hover:text-foreground";
+
+function FooterColumn({
+	label,
+	children,
+}: { label: string; children: React.ReactNode }) {
+	return (
+		<div>
+			<p className="oak-label mb-3 text-ink-mute">// {label}</p>
+			<ul className="space-y-2 text-footnote">{children}</ul>
+		</div>
+	);
+}
 
 export function SiteFooter() {
+	const year = new Date().getFullYear();
 	return (
-		<footer className="bg-muted text-caption text-tertiary dark:bg-card">
-			<Shell>
-				<div className="grid grid-cols-2 gap-8 py-10 sm:max-w-md">
-					<div>
-						<p className="mb-3 font-semibold text-muted-foreground">Site</p>
-						<ul className="space-y-2">
-							{NAV_ITEMS.map((item) => (
+		<footer className="mt-auto border-t border-line bg-paper">
+			<Shell className="py-12">
+				<div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between sm:gap-16">
+					<div className="max-w-sm">
+						<Link
+							href="/"
+							className="flex items-center gap-2 text-[15px] leading-none text-foreground transition-opacity hover:opacity-80"
+						>
+							<Image
+								src="/logo.png"
+								alt=""
+								width={28}
+								height={28}
+								className="h-7 w-7"
+							/>
+							<span className="font-medium tracking-tight">ege</span>
+						</Link>
+						<p className="mt-3 text-footnote leading-relaxed text-ink-soft">
+							Code, finance, entrepreneurship and AI. Building tools for humans
+							and agents.
+						</p>
+					</div>
+
+					<div className="flex gap-16">
+						<FooterColumn label="pages">
+							{PAGES.map((item) => (
 								<li key={item.href}>
 									<Link href={item.href} className={quietLink}>
 										{item.label}
 									</Link>
 								</li>
 							))}
-						</ul>
-					</div>
-					<div>
-						<p className="mb-3 font-semibold text-muted-foreground">
-							Elsewhere
-						</p>
-						<ul className="space-y-2">
+						</FooterColumn>
+						<FooterColumn label="elsewhere">
 							{ELSEWHERE.map((item) =>
 								item.external ? (
 									<li key={item.label}>
@@ -106,19 +139,20 @@ export function SiteFooter() {
 									</li>
 								),
 							)}
-						</ul>
+						</FooterColumn>
 					</div>
 				</div>
 
-				<div className="flex flex-wrap items-center justify-between gap-4 border-t border-border py-4">
-					<p>
-						© {new Date().getFullYear()} Ege Çelebi
-						<span className="mx-3 text-border">|</span>
-						<Link href="/blog/rss.xml" className={quietLink}>
+				<div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-6 text-caption text-ink-mute">
+					<p>© {year} Ege Çelebi</p>
+					<p className="flex items-center gap-3">
+						<Link
+							href="/blog/rss.xml"
+							className="transition-colors hover:text-foreground"
+						>
 							RSS
 						</Link>
 					</p>
-					<ThemeSwitcher />
 				</div>
 			</Shell>
 		</footer>

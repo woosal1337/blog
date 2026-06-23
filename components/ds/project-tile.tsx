@@ -2,11 +2,11 @@ import { cn } from "@/lib/utils";
 import type * as React from "react";
 
 const themes = {
-	canvas: "bg-background text-foreground",
+	canvas: "bg-paper text-foreground",
 
-	tint: "bg-muted text-foreground",
+	tint: "bg-paper text-foreground",
 
-	dark: "dark bg-background text-foreground",
+	dark: "bg-paper-2 text-foreground",
 } as const;
 
 export type ProjectTileProps = {
@@ -39,29 +39,40 @@ export function ProjectTile({
 	return (
 		<div
 			className={cn(
-				"flex h-full flex-col items-center overflow-hidden text-center",
+				"flex h-full flex-col overflow-hidden border border-line transition-colors duration-240 ease-house hover:border-line-strong hover:bg-paper-2",
 				themes[theme],
-				!full && "rounded-2xl",
 				className,
 			)}
 		>
+			<div className="flex items-center justify-between border-b border-line px-5 py-2">
+				<span className="oak-label text-ink-mute">{"// project"}</span>
+			</div>
 			<div
 				className={cn(
-					"flex flex-col items-center px-6",
-					full ? "gap-2 pt-14" : "gap-1 pb-8 pt-8",
-					full && !media && "pb-14",
+					"flex flex-col px-5",
+					full ? "gap-2 pt-8" : "gap-1 pb-6 pt-6",
+					full && !media && "pb-8",
 				)}
 			>
-				{icon && <div className="mb-4">{icon}</div>}
-				<p className={cn(full ? "text-eyebrow" : "text-subhead font-semibold")}>
+				{icon && (
+					<div className="mb-4 flex size-14 items-center justify-center border border-line bg-paper">
+						{icon}
+					</div>
+				)}
+				<p
+					className={cn(
+						"text-foreground",
+						full ? "text-title" : "text-subhead font-semibold",
+					)}
+				>
 					{eyebrow}
 				</p>
 				<h3
 					className={cn(
-						"max-w-[24ch]",
+						"max-w-[40ch]",
 						full
-							? "text-headline"
-							: "mt-1 text-footnote font-normal text-muted-foreground",
+							? "text-body text-ink-soft"
+							: "mt-1 text-footnote font-normal text-ink-soft",
 					)}
 				>
 					{headline}
@@ -69,8 +80,8 @@ export function ProjectTile({
 				{actions && (
 					<div
 						className={cn(
-							"flex items-center justify-center gap-6",
-							full ? "mt-3" : "mt-2 text-footnote",
+							"flex items-center gap-6",
+							full ? "mt-4" : "mt-3 text-footnote",
 						)}
 					>
 						{actions}

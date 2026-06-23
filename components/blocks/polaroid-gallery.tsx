@@ -39,15 +39,23 @@ const PolaroidGallery = ({
 			</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>{event}</DialogTitle>
-					<DialogDescription>{title}</DialogDescription>
+					<DialogTitle className="font-mono text-title text-foreground">
+						{event}
+					</DialogTitle>
+					<DialogDescription className="font-mono text-footnote text-ink-soft">
+						{title}
+					</DialogDescription>
 				</DialogHeader>
 				<div>
 					<Carousel>
 						<CarouselContent>
 							{images.map((image) => (
 								<CarouselItem key={image.src}>
-									<img src={image.src} alt="" />
+									<img
+										src={image.src}
+										alt=""
+										className="border border-line bg-paper-2"
+									/>
 								</CarouselItem>
 							))}
 						</CarouselContent>

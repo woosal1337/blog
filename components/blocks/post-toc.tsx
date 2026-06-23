@@ -50,12 +50,10 @@ export function PostToc() {
 	return (
 		<nav
 			aria-label="Table of contents"
-			className="sticky top-20 hidden max-h-[calc(100vh-6rem)] self-start overflow-y-auto xl:block"
+			className="no-scrollbar sticky top-20 hidden max-h-[calc(100vh-6rem)] self-start overflow-y-auto xl:block"
 		>
-			<p className="mb-3 text-caption font-semibold text-muted-foreground">
-				On this page
-			</p>
-			<ul className="space-y-2">
+			<p className="oak-label mb-3 text-ink-mute">{"// on-this-page"}</p>
+			<ul className="space-y-1.5 border-l border-line pl-3">
 				{entries.map((entry) => {
 					const isActive = entry.id === activeId;
 					return (
@@ -66,10 +64,19 @@ export function PostToc() {
 									"block text-caption leading-snug transition-colors duration-200 ease-house",
 									entry.level === 3 ? "pl-4" : "",
 									isActive
-										? "font-semibold text-foreground"
-										: "text-tertiary hover:text-foreground",
+										? "text-foreground"
+										: "text-ink-mute hover:text-foreground",
 								)}
 							>
+								<span
+									aria-hidden="true"
+									className={cn(
+										"mr-1.5 select-none",
+										isActive ? "text-foreground" : "text-line",
+									)}
+								>
+									{isActive ? "›" : "·"}
+								</span>
 								{entry.text}
 							</a>
 						</li>

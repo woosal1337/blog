@@ -20,13 +20,20 @@ export function CTALink({
 	chevron = true,
 }: CTALinkProps) {
 	const classes = cn(
-		"group inline-flex items-baseline gap-1 text-body text-link",
+		"group inline-flex items-baseline gap-1 text-footnote text-foreground underline-offset-4 hover:underline",
 		className,
 	);
 	const inner = (
 		<>
-			<span className="group-hover:underline">{children}</span>
-			{chevron && <span aria-hidden="true">›</span>}
+			<span>{children}</span>
+			{chevron && (
+				<span
+					aria-hidden="true"
+					className="transition-transform duration-240 ease-house group-hover:translate-x-0.5"
+				>
+					→
+				</span>
+			)}
 		</>
 	);
 	if (external) {

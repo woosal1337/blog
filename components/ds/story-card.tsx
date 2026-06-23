@@ -34,7 +34,7 @@ export function StoryCard({
 		<Link
 			href={href}
 			className={cn(
-				"group block overflow-hidden rounded-xl bg-card shadow-story transition-[transform,box-shadow] duration-300 ease-house hover:-translate-y-0.5 hover:shadow-story-hover",
+				"group block overflow-hidden border border-line bg-paper transition-colors duration-240 ease-house hover:border-line-strong hover:bg-paper-2",
 				featured && "md:grid md:grid-cols-2",
 				className,
 			)}
@@ -42,8 +42,9 @@ export function StoryCard({
 			{cover && (
 				<div
 					className={cn(
-						"relative aspect-[2/1] overflow-hidden bg-muted",
-						featured && "md:aspect-auto md:h-full md:min-h-[320px]",
+						"relative aspect-[2/1] overflow-hidden border-b border-line bg-paper-2",
+						featured &&
+							"md:aspect-auto md:h-full md:min-h-[320px] md:border-b-0 md:border-r",
 					)}
 				>
 					<Image
@@ -65,21 +66,24 @@ export function StoryCard({
 					featured && "md:flex md:flex-col md:justify-center md:p-10",
 				)}
 			>
-				{label && <p className="text-label uppercase text-tertiary">{label}</p>}
-				{isNew && (
-					<p className="mt-2">
-						<NewLabel />
-					</p>
-				)}
-				<h3 className={cn("mt-2 text-title", featured && "md:text-headline")}>
+				<div className="flex items-center gap-2">
+					{label && <p className="oak-label text-ink-mute">{label}</p>}
+					{isNew && <NewLabel />}
+				</div>
+				<h3
+					className={cn(
+						"mt-3 text-title text-foreground transition-colors group-hover:text-foreground",
+						featured && "md:text-headline",
+					)}
+				>
 					{title}
 				</h3>
 				{summary && (
-					<p className="mt-2 line-clamp-2 text-body text-muted-foreground">
+					<p className="mt-2 line-clamp-2 text-footnote text-ink-soft">
 						{summary}
 					</p>
 				)}
-				<p className="mt-4 text-caption text-tertiary">{date}</p>
+				<p className="oak-label mt-4 text-ink-mute">{date}</p>
 			</div>
 		</Link>
 	);

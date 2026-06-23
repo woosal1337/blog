@@ -1,42 +1,13 @@
-import { cn } from "@/lib/utils";
-import {
-	ChevronDown,
-	Flame,
-	Info,
-	Lightbulb,
-	TriangleAlert,
-	Zap,
-} from "lucide-react";
 import type { ReactNode } from "react";
 
 type CalloutKind = "note" | "tip" | "warn" | "danger" | "lvl-up";
 
-const CALLOUT_PRESETS: Record<
-	CalloutKind,
-	{ label: string; icon: ReactNode; accent?: string }
-> = {
-	note: {
-		label: "note",
-		icon: <Info size={17} strokeWidth={1.5} aria-hidden="true" />,
-	},
-	tip: {
-		label: "tip",
-		icon: <Lightbulb size={17} strokeWidth={1.5} aria-hidden="true" />,
-	},
-	warn: {
-		label: "warn",
-		icon: <TriangleAlert size={17} strokeWidth={1.5} aria-hidden="true" />,
-		accent: "text-[#f56300]",
-	},
-	danger: {
-		label: "danger",
-		icon: <Flame size={17} strokeWidth={1.5} aria-hidden="true" />,
-		accent: "text-destructive",
-	},
-	"lvl-up": {
-		label: "lvl up",
-		icon: <Zap size={17} strokeWidth={1.5} aria-hidden="true" />,
-	},
+const CALLOUT_PRESETS: Record<CalloutKind, { label: string }> = {
+	note: { label: "NOTE" },
+	tip: { label: "TIP" },
+	warn: { label: "WARN" },
+	danger: { label: "DANGER" },
+	"lvl-up": { label: "LVL UP" },
 };
 
 interface CalloutProps {
@@ -48,12 +19,19 @@ interface CalloutProps {
 export function Callout({ kind = "note", title, children }: CalloutProps) {
 	const preset = CALLOUT_PRESETS[kind];
 	return (
-		<div className="my-7 rounded-lg bg-muted p-5">
-			<p className="flex items-center gap-2 text-body font-semibold text-foreground">
-				<span className={cn("shrink-0", preset.accent)}>{preset.icon}</span>
-				{title ?? preset.label}
+		<div className="my-7 border border-line border-l-2 border-l-line-strong bg-paper-2 p-5">
+			<p className="oak-label flex items-center gap-2 text-ink-soft">
+				<span aria-hidden="true" className="text-ink-mute">
+					{"//"}
+				</span>
+				{preset.label}
+				{title ? (
+					<span className="text-ink-mute normal-case tracking-normal">
+						{title}
+					</span>
+				) : null}
 			</p>
-			<div className="mt-2 text-body leading-[1.65] text-muted-foreground [&_p]:my-1 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0">
+			<div className="mt-3 text-footnote leading-[1.65] text-ink-soft [&_a]:text-foreground [&_a]:underline [&_p:first-child]:mt-0 [&_p:last-child]:mb-0 [&_p]:my-1">
 				{children}
 			</div>
 		</div>
@@ -83,17 +61,15 @@ interface DetailsProps {
 
 export function Details({ summary, children }: DetailsProps) {
 	return (
-		<details className="group my-6 rounded-lg bg-muted p-5">
-			<summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-body font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+		<details className="group my-6 border border-line bg-paper-2 p-5">
+			<summary className="oak-label flex cursor-pointer list-none items-center gap-2.5 text-ink-soft transition-colors duration-240 ease-house hover:text-foreground [&::-webkit-details-marker]:hidden">
+				<span aria-hidden="true" className="select-none text-ink-mute">
+					<span className="group-open:hidden">+</span>
+					<span className="hidden group-open:inline">−</span>
+				</span>
 				{summary}
-				<ChevronDown
-					size={17}
-					strokeWidth={1.5}
-					aria-hidden="true"
-					className="shrink-0 text-tertiary transition-transform duration-200 ease-house group-open:rotate-180"
-				/>
 			</summary>
-			<div className="mt-3 text-body leading-[1.65] text-muted-foreground">
+			<div className="mt-3 text-footnote leading-[1.65] text-ink-soft [&_a]:text-foreground [&_a]:underline">
 				{children}
 			</div>
 		</details>

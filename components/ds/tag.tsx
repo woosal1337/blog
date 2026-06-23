@@ -8,7 +8,7 @@ export function Tag({
 	return (
 		<span
 			className={cn(
-				"inline-flex items-center rounded-pill bg-muted px-2.5 py-1 text-caption text-muted-foreground",
+				"inline-flex items-center border border-line bg-transparent px-2 py-[3px] text-caption text-ink-soft",
 				className,
 			)}
 		>
@@ -20,7 +20,10 @@ export function Tag({
 export function NewLabel({ className }: { className?: string }) {
 	return (
 		<span
-			className={cn("text-caption font-semibold text-[#f56300]", className)}
+			className={cn(
+				"inline-flex items-center bg-foreground px-1.5 py-[1px] text-[10px] font-semibold uppercase tracking-[0.12em] text-background",
+				className,
+			)}
 		>
 			new
 		</span>
@@ -30,7 +33,10 @@ export function NewLabel({ className }: { className?: string }) {
 export function SoonLabel({ className }: { className?: string }) {
 	return (
 		<span
-			className={cn("text-caption font-semibold text-[#f56300]", className)}
+			className={cn(
+				"inline-flex items-center border border-line px-1.5 py-[1px] text-[10px] font-medium uppercase tracking-[0.12em] text-ink-soft",
+				className,
+			)}
 		>
 			soon
 		</span>

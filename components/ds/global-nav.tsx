@@ -1,12 +1,12 @@
 "use client";
 
+import { NAV_ITEMS } from "@/components/ds/nav-items";
 import { Shell } from "@/components/ds/shell";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
-
-import { NAV_ITEMS } from "@/components/ds/nav-items";
 
 const SOCIAL_ITEMS = [
 	{ href: "https://x.com/woosal1337", label: "X" },
@@ -17,22 +17,7 @@ const SOCIAL_ITEMS = [
 
 export function GlobalNav() {
 	const pathname = usePathname();
-	const [scrolled, setScrolled] = React.useState(false);
 	const [open, setOpen] = React.useState(false);
-
-	React.useEffect(() => {
-		let raf = 0;
-		const onScroll = () => {
-			cancelAnimationFrame(raf);
-			raf = requestAnimationFrame(() => setScrolled(window.scrollY > 0));
-		};
-		onScroll();
-		window.addEventListener("scroll", onScroll, { passive: true });
-		return () => {
-			cancelAnimationFrame(raf);
-			window.removeEventListener("scroll", onScroll);
-		};
-	}, []);
 
 	// biome-ignore lint/correctness/useExhaustiveDependencies: close the curtain on route change
 	React.useEffect(() => {
@@ -52,37 +37,62 @@ export function GlobalNav() {
 	return (
 		<header className="sticky top-0 z-50">
 			<nav
-				className={cn(
-					"h-11 border-b transition-colors duration-240 ease-house md:h-11",
-					scrolled || open
-						? "nav-scrim border-border"
-						: "border-transparent bg-transparent",
-				)}
+				className="relative z-10 border-b border-line bg-paper"
 				aria-label="Global"
 			>
-				<Shell className="flex h-full items-center justify-between">
-					<Link
-						href="/"
-						className="text-[17px] font-semibold tracking-[-0.022em] text-foreground"
-					>
-						Ege
-					</Link>
+				<Shell className="flex h-12 items-center justify-between gap-4">
+					<div className="flex min-w-0 flex-1 items-center gap-4">
+						<Link
+							href="/"
+							aria-label="Home"
+							className="flex shrink-0 select-none items-center gap-1.5 leading-none text-foreground transition-opacity duration-240 ease-house hover:opacity-80"
+						>
+							<Image
+								src="/logo.png"
+								alt=""
+								width={28}
+								height={28}
+								priority
+								className="h-7 w-7"
+							/>
+							<span className="text-[15px] font-medium tracking-tight">
+								ege
+							</span>
+						</Link>
 
-					<div className="hidden h-full items-center gap-7 md:flex">
-						{NAV_ITEMS.map((item) => (
-							<Link
-								key={item.href}
-								href={item.href}
-								className={cn(
-									"flex h-full items-center text-caption transition-colors duration-200 ease-house",
-									isActive(item.href)
-										? "text-foreground"
-										: "text-foreground/80 hover:text-foreground",
-								)}
-							>
-								{item.label}
-							</Link>
-						))}
+						<div className="hidden items-center gap-1 md:flex">
+							{NAV_ITEMS.map((item) => (
+								<Link
+									key={item.href}
+									href={item.href}
+									className={cn(
+										"whitespace-nowrap px-2 py-1 text-footnote transition-colors duration-200 ease-house",
+										isActive(item.href)
+											? "text-foreground"
+											: "text-ink-soft hover:text-foreground",
+									)}
+								>
+									{item.label}
+								</Link>
+							))}
+						</div>
+					</div>
+
+					<div className="hidden items-center gap-3 md:flex">
+						<a
+							href="https://github.com/woosal1337"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-footnote text-ink-soft transition-colors duration-200 ease-house hover:text-foreground"
+						>
+							GitHub
+						</a>
+						<a
+							href="/blog/rss.xml"
+							className="border border-line bg-foreground px-3 py-1 text-footnote font-medium text-background transition-colors duration-200 ease-house hover:bg-background hover:text-foreground"
+						>
+							RSS
+						</a>
 					</div>
 
 					<button
@@ -90,7 +100,7 @@ export function GlobalNav() {
 						onClick={() => setOpen((v) => !v)}
 						aria-expanded={open}
 						aria-label={open ? "Close menu" : "Open menu"}
-						className="-mr-3 flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden"
+						className="-mr-2 flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden"
 					>
 						<span
 							className={cn(
@@ -110,7 +120,7 @@ export function GlobalNav() {
 
 			<div
 				className={cn(
-					"fixed inset-0 -z-10 bg-raised transition-transform [transition-duration:320ms] ease-curtain md:hidden",
+					"fixed inset-0 -z-10 bg-paper transition-transform [transition-duration:320ms] ease-curtain md:hidden",
 					open ? "translate-y-0" : "-translate-y-full",
 				)}
 				aria-hidden={!open}
@@ -123,11 +133,11 @@ export function GlobalNav() {
 								href={item.href}
 								tabIndex={open ? 0 : -1}
 								className={cn(
-									"text-[28px] font-semibold leading-tight tracking-[-0.003em] text-foreground transition-opacity duration-500",
+									"text-[28px] font-medium leading-tight tracking-tight text-foreground transition-opacity duration-500",
 									open ? "opacity-100" : "opacity-0",
 								)}
 								style={{
-									transitionDelay: open ? `${260 + index * 20}ms` : "0ms",
+									transitionDelay: open ? `${220 + index * 20}ms` : "0ms",
 								}}
 							>
 								{item.label}
@@ -139,7 +149,7 @@ export function GlobalNav() {
 							"mt-10 flex gap-6 transition-opacity duration-500",
 							open ? "opacity-100" : "opacity-0",
 						)}
-						style={{ transitionDelay: open ? "400ms" : "0ms" }}
+						style={{ transitionDelay: open ? "360ms" : "0ms" }}
 					>
 						{SOCIAL_ITEMS.map((item) => (
 							<a
@@ -152,7 +162,7 @@ export function GlobalNav() {
 										? "noopener noreferrer"
 										: undefined
 								}
-								className="text-caption text-muted-foreground hover:text-foreground"
+								className="text-footnote text-ink-soft hover:text-foreground"
 							>
 								{item.label}
 							</a>

@@ -1,8 +1,8 @@
 import { PageHero } from "@/components/ds/page-hero";
-import { PostList, PostListRow } from "@/components/ds/post-list";
 import { Reveal } from "@/components/ds/reveal";
 import { SectionHeader } from "@/components/ds/section-header";
 import { Section, Shell } from "@/components/ds/shell";
+import { Tag } from "@/components/ds/tag";
 import { awards, education, fellowships, workExperience } from "@/lib/utils";
 import type { Metadata } from "next";
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const orgLink =
-	"text-link transition-colors duration-200 ease-house hover:underline";
+	"text-foreground underline decoration-line underline-offset-[3px] transition-colors duration-200 ease-house hover:decoration-line-strong";
 
 function OrgLink({ href, children }: { href: string; children: string }) {
 	return (
@@ -27,10 +27,75 @@ function OrgLink({ href, children }: { href: string; children: string }) {
 	);
 }
 
+type ResumeRowProps = {
+	href?: string;
+	title: string;
+	right: string;
+	subtitle?: React.ReactNode;
+	tags?: string[];
+	active?: boolean;
+};
+
+function ResumeRow({
+	href,
+	title,
+	right,
+	subtitle,
+	tags,
+	active = false,
+}: ResumeRowProps) {
+	const inner = (
+		<>
+			<div className="min-w-0 flex-1">
+				<div className="flex items-baseline gap-2">
+					{active && (
+						<span className="shrink-0 text-foreground" aria-label="current">
+							●
+						</span>
+					)}
+					<span className="text-body text-foreground">{title}</span>
+				</div>
+				{subtitle && (
+					<p className="mt-1 text-footnote text-ink-soft">{subtitle}</p>
+				)}
+				{tags && tags.length > 0 && (
+					<div className="mt-3 flex flex-wrap gap-1.5">
+						{tags.map((tag) => (
+							<Tag key={tag}>{tag}</Tag>
+						))}
+					</div>
+				)}
+			</div>
+			<span className="oak-label shrink-0 whitespace-nowrap pt-[3px] text-ink-mute">
+				{right}
+			</span>
+		</>
+	);
+
+	const classes =
+		"flex items-baseline justify-between gap-6 py-5 transition-colors duration-240 ease-house";
+
+	if (!href) {
+		return <div className={classes}>{inner}</div>;
+	}
+
+	return (
+		<a
+			href={href}
+			target="_blank"
+			rel="noopener noreferrer"
+			className={`${classes} group hover:bg-paper-2`}
+		>
+			{inner}
+		</a>
+	);
+}
+
 export default function AboutPage() {
 	return (
 		<>
 			<PageHero
+				eyebrow="about"
 				title="About"
 				caption="Developer, entrepreneur, and researcher"
 			/>
@@ -38,7 +103,8 @@ export default function AboutPage() {
 			<Section>
 				<Shell>
 					<Reveal>
-						<div className="max-w-article space-y-5 text-body leading-[1.65]">
+						<p className="oak-label mb-6 text-ink-mute">$ cat readme.txt</p>
+						<div className="max-w-article space-y-5 text-body leading-[1.7]">
 							<p>
 								I&apos;m Ege. I work as an AI engineer at{" "}
 								<OrgLink href="https://refikanadolstudio.com/">
@@ -61,78 +127,77 @@ export default function AboutPage() {
 								master&apos;s the same year. I speak English, Turkish,
 								Azerbaijani and Russian.
 							</p>
-							<p>
-								This site is where the writing, the music library and the
-								bookshelf live. Everything else is on GitHub and X.
-							</p>
 						</div>
 					</Reveal>
 				</Shell>
 			</Section>
 
-			<Section tint>
-				<Shell>
-					<SectionHeader title="Work" />
-					<PostList className="mt-8">
+			<Section tint flush>
+				<Shell className="py-[clamp(48px,8vw,96px)]">
+					<SectionHeader eyebrow="experience" title="Work" />
+					<div className="mt-8 divide-y divide-line border-t border-line">
 						{workExperience.map((job) => (
-							<PostListRow
+							<ResumeRow
 								key={`${job.company}-${job.period}`}
 								href={job.url}
-								external
 								title={`${job.title} · ${job.company}`}
-								subtitle={job.description}
 								right={job.period}
+								subtitle={job.description}
+								tags={job.tags}
+								active={job.active}
 							/>
 						))}
-					</PostList>
+					</div>
 
-					<SectionHeader title="Fellowships" className="mt-16" />
-					<PostList className="mt-8">
+					<SectionHeader
+						eyebrow="fellowships"
+						title="Fellowships"
+						className="mt-16"
+					/>
+					<div className="mt-8 divide-y divide-line border-t border-line">
 						{fellowships.map((fellowship) => (
-							<PostListRow
+							<ResumeRow
 								key={fellowship.org}
 								href={fellowship.url}
-								external
 								title={`${fellowship.title} · ${fellowship.org}`}
-								subtitle={fellowship.description}
 								right={fellowship.period}
+								subtitle={fellowship.description}
 							/>
 						))}
-					</PostList>
+					</div>
 				</Shell>
 			</Section>
 
 			<Section>
 				<Shell>
-					<SectionHeader title="Awards" />
-					<PostList className="mt-8">
+					<SectionHeader eyebrow="awards" title="Awards" />
+					<div className="mt-8 divide-y divide-line border-t border-line">
 						{awards.map((award) => (
-							<PostListRow
+							<ResumeRow
 								key={award.name}
 								title={`${award.name} · ${award.place}`}
-								subtitle={award.description}
 								right={award.year}
+								subtitle={award.description}
 							/>
 						))}
-					</PostList>
+					</div>
 				</Shell>
 			</Section>
 
-			<Section tint>
-				<Shell>
-					<SectionHeader title="Education" />
-					<PostList className="mt-8">
+			<Section tint flush>
+				<Shell className="py-[clamp(48px,8vw,96px)]">
+					<SectionHeader eyebrow="education" title="Education" />
+					<div className="mt-8 divide-y divide-line border-t border-line">
 						{education.map((entry) => (
-							<PostListRow
+							<ResumeRow
 								key={entry.title}
 								href={entry.url}
-								external
 								title={entry.title}
-								subtitle={entry.description}
 								right={entry.period}
+								subtitle={entry.description}
 							/>
 						))}
-					</PostList>
+					</div>
 				</Shell>
 			</Section>
 		</>

@@ -22,24 +22,28 @@ export function GithubStars({
 	return (
 		<Tooltip>
 			<TooltipTrigger asChild>
-				<motion.div className="absolute top-1 -right-24 group-hover:right-0 opacity-10 transition-all duration-150 group-hover:opacity-100 text-sm flex gap-1 items-center font-mono delay-300">
+				<motion.div className="absolute top-1 -right-24 group-hover:right-0 opacity-10 transition-all duration-150 group-hover:opacity-100 text-footnote flex gap-1 items-center font-mono text-foreground tabular-nums delay-300">
 					<NumberTicker play={play} value={totalStars} />
-					<IconStarFilled className="size-4" />
+					<IconStarFilled className="size-4 text-foreground" />
 				</motion.div>
 			</TooltipTrigger>
 			<TooltipContent align="center" side="top">
-				{repoStats.map((repo, index) => (
-					<div
-						key={`repo-${index}`}
-						className="flex items-center gap-2 text-xs"
-					>
-						<span className="truncate max-w-32">{repo.name}</span>
-						<span className="grow" />
-						<span className="text-muted-foreground font-mono tabular-nums">
-							{repo.stargazerCount}
-						</span>
-					</div>
-				))}
+				<div className="divide-y divide-line">
+					{repoStats.map((repo, index) => (
+						<div
+							key={`repo-${index}`}
+							className="flex items-center gap-2 py-1 font-mono text-caption first:pt-0 last:pb-0"
+						>
+							<span className="truncate max-w-32 text-foreground">
+								{repo.name}
+							</span>
+							<span className="grow" />
+							<span className="text-ink-soft tabular-nums">
+								{repo.stargazerCount}
+							</span>
+						</div>
+					))}
+				</div>
 			</TooltipContent>
 		</Tooltip>
 	);

@@ -23,19 +23,27 @@ export function PromoTile({
 	className,
 }: PromoTileProps) {
 	const classes = cn(
-		"group block rounded-2xl bg-action px-6 py-16 text-center text-white transition-colors duration-300 ease-house hover:bg-action-hover",
+		"group block border border-line bg-paper px-6 py-14 text-foreground transition-colors duration-240 ease-house hover:border-line-strong hover:bg-paper-2",
 		className,
 	);
 	const inner = (
 		<>
-			{icon && <div className="mb-5 flex justify-center">{icon}</div>}
-			<h3 className="text-headline text-white">{headline}</h3>
-			<p className="mx-auto mt-3 max-w-[52ch] text-body text-white/80">
-				{body}
-			</p>
-			<span className="mt-6 inline-block text-body">
+			{icon && (
+				<div className="mb-5 flex size-14 items-center justify-center border border-line bg-paper">
+					{icon}
+				</div>
+			)}
+			<p className="oak-label text-ink-mute">{"// promo"}</p>
+			<h3 className="mt-3 text-headline text-foreground">{headline}</h3>
+			<p className="mt-3 max-w-[52ch] text-body text-ink-soft">{body}</p>
+			<span className="mt-6 inline-flex items-baseline gap-1 text-body text-foreground">
 				<span className="group-hover:underline">{ctaLabel}</span>{" "}
-				<span aria-hidden="true">›</span>
+				<span
+					aria-hidden="true"
+					className="transition-transform duration-240 ease-house group-hover:translate-x-0.5"
+				>
+					→
+				</span>
 			</span>
 		</>
 	);

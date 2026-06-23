@@ -50,17 +50,25 @@ export default async function BlogIndexPage() {
 	return (
 		<>
 			<PageHero
-				title="Writing"
-				caption={`${posts.length} ${posts.length === 1 ? "essay" : "essays"} and field reports`}
+				eyebrow="blog"
+				title="~/writing"
+				caption={`${posts.length} ${posts.length === 1 ? "essay" : "essays"} and field reports. Essays, notes, and signals from the work.`}
 				action={<CTALink href="/blog/rss.xml">Subscribe via RSS</CTALink>}
 			/>
 
 			{posts.length === 0 ? (
 				<Section>
 					<Shell>
-						<p className="text-body text-muted-foreground">
-							No entries yet. Drop an MDX file under app/(website)/blog/(post)/.
-						</p>
+						<div className="border border-line bg-paper p-5">
+							<p className="text-body text-ink-soft">
+								<span className="text-ink-mute">$</span> ls
+								app/(website)/blog/(post)/
+							</p>
+							<p className="mt-2 text-footnote text-ink-mute">
+								No entries yet. Drop an MDX file under
+								app/(website)/blog/(post)/ to publish your first post.
+							</p>
+						</div>
 					</Shell>
 				</Section>
 			) : (
@@ -100,7 +108,7 @@ export default async function BlogIndexPage() {
 
 					<Section>
 						<Shell>
-							<SectionHeader title="All posts" />
+							<SectionHeader eyebrow="archive" title="All posts" />
 							<PostList className="mt-8">
 								{groupByYear(posts).map(([year, yearPosts]) => (
 									<PostListGroup key={year} label={year}>
@@ -109,7 +117,17 @@ export default async function BlogIndexPage() {
 												key={post.slug}
 												href={`/blog/${post.slug}`}
 												title={post.title}
-												right={rowDate(post.date)}
+												right={
+													<span className="oak-label inline-flex items-center gap-2 text-ink-mute">
+														{post.tags?.[0] && (
+															<>
+																<span>{post.tags[0]}</span>
+																<span className="text-line">·</span>
+															</>
+														)}
+														<span>{rowDate(post.date)}</span>
+													</span>
+												}
 											/>
 										))}
 									</PostListGroup>

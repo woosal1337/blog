@@ -27,7 +27,7 @@ export function SegmentedFilter<T extends string>({
 			role="radiogroup"
 			aria-label={ariaLabel}
 			className={cn(
-				"no-scrollbar inline-flex max-w-full gap-0.5 overflow-x-auto rounded-pill bg-secondary p-1",
+				"no-scrollbar inline-flex max-w-full overflow-x-auto border border-line bg-paper",
 				className,
 			)}
 		>
@@ -41,10 +41,10 @@ export function SegmentedFilter<T extends string>({
 						aria-checked={selected}
 						onClick={() => onChange(option.value)}
 						className={cn(
-							"whitespace-nowrap rounded-pill px-4 py-2 text-footnote transition-colors duration-200 ease-house",
+							"whitespace-nowrap border-line px-4 py-2 text-meta uppercase tracking-[0.12em] transition-colors duration-240 ease-house [&:not(:first-child)]:border-l",
 							selected
 								? "bg-foreground text-background"
-								: "text-foreground hover:text-foreground/70",
+								: "text-ink-soft hover:bg-paper-2 hover:text-foreground",
 						)}
 					>
 						{option.label}

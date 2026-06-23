@@ -35,11 +35,15 @@ export function LineupCard({
 	return (
 		<div
 			className={cn(
-				"flex h-full w-[260px] flex-col items-center text-center sm:w-[300px]",
+				"flex h-full w-[260px] flex-col border border-line bg-paper transition-colors duration-240 ease-house hover:border-line-strong hover:bg-paper-2 sm:w-[300px]",
 				className,
 			)}
 		>
-			<div className="flex aspect-[4/5] w-full shrink-0 items-center justify-center rounded-xl bg-muted">
+			<div className="flex items-center justify-between border-b border-line px-4 py-2">
+				<span className="oak-label text-ink-mute">{"// project"}</span>
+				{comingSoon ? <SoonLabel /> : isNew ? <NewLabel /> : null}
+			</div>
+			<div className="flex aspect-[4/5] w-full shrink-0 items-center justify-center border-b border-line bg-paper">
 				{logo ? (
 					<Image
 						src={logo}
@@ -47,41 +51,34 @@ export function LineupCard({
 						width={112}
 						height={112}
 						className={cn(
-							"size-24 rounded-2xl object-contain",
+							"size-24 object-contain",
 							logoInverts && "invert dark:invert-0",
 						)}
 					/>
 				) : (
-					<span className="px-6 text-title text-tertiary">{name}</span>
+					<span className="px-6 text-title text-ink-mute">{name}</span>
 				)}
 			</div>
-			<p
-				className={cn(
-					"mt-6 leading-none",
-					!isNew && !comingSoon && "invisible",
-				)}
-				aria-hidden={!isNew && !comingSoon}
-			>
-				{comingSoon ? <SoonLabel /> : <NewLabel />}
-			</p>
-			<h3 className="mt-1.5 text-title">{name}</h3>
-			<p className="mt-2 text-footnote text-muted-foreground">{description}</p>
-			<div className="mt-auto pt-5">
-				{comingSoon ? (
-					<Button variant="secondary" size="sm" disabled>
-						Coming soon
-					</Button>
-				) : (
-					<Button asChild variant="primary" size="sm">
-						{external ? (
-							<a href={href} target="_blank" rel="noopener noreferrer">
-								{ctaLabel}
-							</a>
-						) : (
-							<Link href={href}>{ctaLabel}</Link>
-						)}
-					</Button>
-				)}
+			<div className="flex flex-1 flex-col px-4 py-4">
+				<h3 className="text-title text-foreground">{name}</h3>
+				<p className="mt-2 text-footnote text-ink-soft">{description}</p>
+				<div className="mt-auto pt-5">
+					{comingSoon ? (
+						<Button variant="secondary" size="sm" disabled>
+							Coming soon
+						</Button>
+					) : (
+						<Button asChild variant="primary" size="sm">
+							{external ? (
+								<a href={href} target="_blank" rel="noopener noreferrer">
+									{ctaLabel}
+								</a>
+							) : (
+								<Link href={href}>{ctaLabel}</Link>
+							)}
+						</Button>
+					)}
+				</div>
 			</div>
 		</div>
 	);

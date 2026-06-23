@@ -20,9 +20,9 @@ export function SectionHeader({
 		<div className={cn("flex items-end justify-between gap-6", className)}>
 			<div className="min-w-0">
 				{eyebrow && (
-					<p className="mb-1 text-eyebrow text-muted-foreground">{eyebrow}</p>
+					<p className="oak-label mb-2 text-ink-mute">// {eyebrow}</p>
 				)}
-				<h2 className="text-headline">{title}</h2>
+				<h2 className="text-headline text-foreground">{title}</h2>
 			</div>
 			{action && <div className="shrink-0 pb-1">{action}</div>}
 		</div>

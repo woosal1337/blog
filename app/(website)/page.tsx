@@ -29,7 +29,11 @@ export default async function HomePage() {
 			<Section>
 				<Shell>
 					<Reveal>
-						<h1 className="text-display">Hi, I&apos;m Ege.</h1>
+						<p className="oak-label mb-5 text-ink-mute">// whoami</p>
+						<h1 className="text-display text-foreground">
+							Hi, I&apos;m Ege.
+							<span className="oak-caret ml-1.5 align-baseline" aria-hidden />
+						</h1>
 						<p className="mt-6 max-w-[56ch] text-subhead text-muted-foreground">
 							AI engineer at{" "}
 							<a
@@ -42,14 +46,22 @@ export default async function HomePage() {
 							</a>
 							. I write about code, finance, entrepreneurship and AI.
 						</p>
+						<div className="oak-label mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-mute">
+							<span>Istanbul</span>
+							<span className="text-line">·</span>
+							<span>AI / Code / Finance</span>
+							<span className="text-line">·</span>
+							<span>$ status: building</span>
+						</div>
 					</Reveal>
 				</Shell>
 			</Section>
 
-			<Section tint>
+			<Section className="border-t border-line">
 				<Shell>
 					<Reveal>
 						<SectionHeader
+							eyebrow="latest-writing"
 							title="Latest writing"
 							action={<CTALink href="/blog">All posts</CTALink>}
 						/>
@@ -67,10 +79,11 @@ export default async function HomePage() {
 				</Shell>
 			</Section>
 
-			<Section>
+			<Section className="border-t border-line">
 				<Shell>
 					<Reveal>
 						<SectionHeader
+							eyebrow="selected-work"
 							title="Selected work"
 							action={<CTALink href="/projects">All projects</CTALink>}
 						/>
@@ -97,10 +110,11 @@ export default async function HomePage() {
 				</Reveal>
 			</Section>
 
-			<Section tint>
+			<Section className="border-t border-line">
 				<Shell>
 					<Reveal>
 						<SectionHeader
+							eyebrow="now-playing"
 							title="Now playing"
 							action={<CTALink href="/music">Music library</CTALink>}
 						/>

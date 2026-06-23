@@ -35,10 +35,10 @@ export function ReadingProgress() {
 
 	return (
 		<div
-			className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[2px]"
+			className="pointer-events-none fixed inset-x-0 top-0 z-[60] h-[2px] bg-line/30"
 			aria-hidden="true"
 		>
-			<div className="h-full bg-action" style={{ width: `${progress}%` }} />
+			<div className="h-full bg-foreground" style={{ width: `${progress}%` }} />
 		</div>
 	);
 }

@@ -18,18 +18,22 @@ const SheetDialogContent = React.forwardRef<
 		<DialogPrimitive.Content
 			ref={ref}
 			className={cn(
-				"fixed left-1/2 top-1/2 z-50 max-h-[85vh] w-[calc(100%-32px)] max-w-[816px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-xl bg-card p-6 text-card-foreground outline-none sm:p-12",
+				"fixed left-1/2 top-1/2 z-50 max-h-[85vh] w-[calc(100%-32px)] max-w-[816px] -translate-x-1/2 -translate-y-1/2 overflow-y-auto border border-line bg-paper text-foreground outline-none",
 				"data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-bottom-2 data-[state=open]:duration-400",
 				"data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:duration-150",
 				className,
 			)}
 			{...props}
 		>
-			{children}
-			<DialogPrimitive.Close className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-pill bg-secondary text-foreground transition-colors duration-100 hover:bg-secondary/70">
-				<X size={18} strokeWidth={1.5} aria-hidden="true" />
-				<span className="sr-only">close</span>
-			</DialogPrimitive.Close>
+			<div className="flex items-center justify-between border-b border-line px-5 py-3">
+				<p className="oak-label text-ink-mute">// book</p>
+				<DialogPrimitive.Close className="oak-label flex items-center gap-1.5 text-ink-soft transition-colors duration-100 hover:text-foreground">
+					<span aria-hidden="true">[esc]</span>
+					<X size={14} strokeWidth={1.5} aria-hidden="true" />
+					<span className="sr-only">close</span>
+				</DialogPrimitive.Close>
+			</div>
+			<div className="p-6 sm:p-10">{children}</div>
 		</DialogPrimitive.Content>
 	</DialogPrimitive.Portal>
 ));
@@ -39,7 +43,7 @@ const SheetDialogEyebrow = ({
 	children,
 	className,
 }: { children: React.ReactNode; className?: string }) => (
-	<p className={cn("text-body text-muted-foreground", className)}>{children}</p>
+	<p className={cn("oak-label text-ink-mute", className)}>{children}</p>
 );
 
 const SheetDialogTitle = React.forwardRef<
@@ -60,7 +64,7 @@ const SheetDialogDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
 	<DialogPrimitive.Description
 		ref={ref}
-		className={cn("mt-4 text-body text-muted-foreground", className)}
+		className={cn("mt-4 text-body text-ink-soft", className)}
 		{...props}
 	/>
 ));
