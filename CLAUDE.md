@@ -18,9 +18,9 @@ Package manager is **Bun**. Runtime requires Node >= 20.
 ## Architecture
 
 - **`app/layout.tsx`** — Root layout wraps everything in ThemeProvider and TooltipProvider, plus Vercel Analytics.
-- **`app/(website)/`** — Main route group: home (`page.tsx`), `/books`, `/music`. The website layout sets site-wide metadata.
-- **`components/`** — organized into `ds/` (Apple design-system primitives), `blocks/` (domain-specific: post chrome, polaroids, contribution graph, Spotify row), `ui/` (shadcn/ui primitives), `hooks/`, and `providers/` (theme provider wrapping `next-themes`).
-- **`data/`** — static data files (`books.ts`, `music-library.ts`).
+- **`app/(website)/`** — Main route group: home (`page.tsx`), `/books`. The website layout sets site-wide metadata.
+- **`components/`** — organized into `ds/` (design-system primitives), `blocks/` (domain-specific: post chrome, polaroids, contribution graph), `ui/` (shadcn/ui primitives), `hooks/`, and `providers/` (theme provider wrapping `next-themes`).
+- **`data/`** — static data files (`books.ts`).
 - **`lib/utils.tsx`** — `cn()` class merge helper, navigation items, career timeline, changelog entries, and project definitions. This is the central data file for site content.
 - **`server/thirdparty.ts`** — server-side data fetching for GitHub (GraphQL) and X/Twitter APIs, cached for 1 hour via `unstable_cache`. Has a `USE_MOCK_DATA_FOR_DEVELOPMENT` flag with mock data fallbacks.
 - **`mdx-components.tsx`** — custom MDX overrides (responsive images via `next/image`, external link icons).

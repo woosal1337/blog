@@ -10,9 +10,6 @@
 	"organizeImports": {
 		"enabled": true
 	},
-	"files": {
-		"ignore": ["data/music-library.json"]
-	},
 	"linter": {
 		"enabled": true,
 		"rules": {

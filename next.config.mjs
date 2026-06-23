@@ -14,16 +14,6 @@ const nextConfig = {
 		mdxRs: false,
 	},
 	images: {
-		remotePatterns: [
-			{
-				protocol: "https",
-				hostname: "i.scdn.co",
-			},
-			{
-				protocol: "https",
-				hostname: "mosaic.scdn.co",
-			},
-		],
 		minimumCacheTTL: 60 * 60 * 24 * 30,
 	},
 };

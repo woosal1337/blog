@@ -1,4 +1,3 @@
-import { SpotifyNowPlaying } from "@/components/blocks/spotify-now-playing";
 import { CTALink } from "@/components/ds/cta-link";
 import { Gallery, GalleryItem } from "@/components/ds/gallery";
 import { LineupCard } from "@/components/ds/lineup-card";
@@ -108,21 +107,6 @@ export default async function HomePage() {
 						))}
 					</Gallery>
 				</Reveal>
-			</Section>
-
-			<Section className="border-t border-line">
-				<Shell>
-					<Reveal>
-						<SectionHeader
-							eyebrow="now-playing"
-							title="Now playing"
-							action={<CTALink href="/music">Music library</CTALink>}
-						/>
-						<div className="mt-6">
-							<SpotifyNowPlaying />
-						</div>
-					</Reveal>
-				</Shell>
 			</Section>
 		</>
 	);
