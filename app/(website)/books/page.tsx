@@ -107,7 +107,7 @@ export default function BooksPage() {
 		<>
 			<PageHero
 				eyebrow="books"
-				title="Books"
+				title="~/books"
 				caption={`${completed} of ${books.length} read to the last page`}
 			/>
 

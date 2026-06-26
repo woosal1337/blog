@@ -97,15 +97,15 @@ export default function AboutPage() {
 		<>
 			<PageHero
 				eyebrow="about"
-				title="About"
+				title="~/about"
 				caption="Developer, entrepreneur, and researcher"
 			/>
 
 			<Section>
 				<Shell>
-					<Reveal>
+					<Reveal className="mx-auto max-w-article">
 						<p className="oak-label mb-6 text-ink-mute">$ cat readme.txt</p>
-						<div className="max-w-article space-y-5 text-body leading-[1.7]">
+						<div className="space-y-5 text-body leading-[1.7]">
 							<p>
 								I&apos;m Ege. I work as an AI engineer at{" "}
 								<OrgLink href="https://refikanadolstudio.com/">
@@ -129,7 +129,7 @@ export default function AboutPage() {
 								Azerbaijani and Russian.
 							</p>
 						</div>
-						<AsciiDonut className="mt-10 h-[280px] max-w-article" />
+						<AsciiDonut className="mt-10 h-[280px] w-full" />
 					</Reveal>
 				</Shell>
 			</Section>

@@ -24,7 +24,7 @@ export default function ProjectsPage() {
 		<>
 			<PageHero
 				eyebrow="projects"
-				title="Projects"
+				title="~/projects"
 				caption="What I am building now and what already shipped"
 			/>
 
