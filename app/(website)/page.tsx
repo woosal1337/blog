@@ -1,3 +1,4 @@
+import { MatrixRain } from "@/components/blocks/ascii/matrix-rain";
 import { CTALink } from "@/components/ds/cta-link";
 import { Gallery, GalleryItem } from "@/components/ds/gallery";
 import { LineupCard } from "@/components/ds/lineup-card";
@@ -25,8 +26,12 @@ export default async function HomePage() {
 
 	return (
 		<>
-			<Section>
-				<Shell>
+			<Section className="relative overflow-hidden">
+				<MatrixRain
+					aria-hidden="true"
+					className="pointer-events-none absolute inset-0 opacity-[0.2]"
+				/>
+				<Shell className="relative">
 					<Reveal>
 						<p className="oak-label mb-5 text-ink-mute">// whoami</p>
 						<h1 className="text-display text-foreground">

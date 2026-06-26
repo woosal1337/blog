@@ -1,5 +1,6 @@
 "use client";
 
+import { AsciiStars } from "@/components/blocks/ascii/ascii-stars";
 import { Gallery, GalleryItem } from "@/components/ds/gallery";
 import { PageHero } from "@/components/ds/page-hero";
 import { SearchInput } from "@/components/ds/search-input";
@@ -112,6 +113,7 @@ export default function BooksPage() {
 
 			<Section tint>
 				<Shell>
+					<AsciiStars className="mb-8 h-[240px]" />
 					<p className="oak-label mb-3 text-ink-mute">// shelf</p>
 					<h2 className="text-headline">Shelf</h2>
 				</Shell>

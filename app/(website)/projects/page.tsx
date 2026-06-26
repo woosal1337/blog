@@ -1,3 +1,4 @@
+import { AsciiFlow } from "@/components/blocks/ascii/ascii-flow";
 import { CTALink } from "@/components/ds/cta-link";
 import { PageHero } from "@/components/ds/page-hero";
 import { ProjectTile } from "@/components/ds/project-tile";
@@ -29,6 +30,9 @@ export default function ProjectsPage() {
 
 			<Section>
 				<Shell>
+					<Reveal className="mb-8">
+						<AsciiFlow className="h-[220px]" />
+					</Reveal>
 					<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 						{tiles.map((tile, index) => (
 							<Reveal

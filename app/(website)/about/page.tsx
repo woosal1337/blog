@@ -1,3 +1,4 @@
+import { AsciiDonut } from "@/components/blocks/ascii/ascii-donut";
 import { PageHero } from "@/components/ds/page-hero";
 import { Reveal } from "@/components/ds/reveal";
 import { SectionHeader } from "@/components/ds/section-header";
@@ -128,6 +129,7 @@ export default function AboutPage() {
 								Azerbaijani and Russian.
 							</p>
 						</div>
+						<AsciiDonut className="mt-10 h-[280px] max-w-article" />
 					</Reveal>
 				</Shell>
 			</Section>

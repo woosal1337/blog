@@ -1,3 +1,4 @@
+import { AsciiPlasma } from "@/components/blocks/ascii/ascii-plasma";
 import { CTALink } from "@/components/ds/cta-link";
 import { PageHero } from "@/components/ds/page-hero";
 import {
@@ -75,6 +76,9 @@ export default async function BlogIndexPage() {
 				<>
 					<Section tint>
 						<Shell>
+							<Reveal className="mb-6">
+								<AsciiPlasma className="h-[160px]" />
+							</Reveal>
 							<Reveal>
 								<StoryCard
 									featured
