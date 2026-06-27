@@ -156,11 +156,10 @@ export const allProjects: Array<{
 }> = [
 	{
 		name: "CompanyOS",
-		desc: "A multi-tenant coordination layer for companies. Projects, tasks, meetings and notes in one place.",
-		href: "#",
+		desc: "Jira for your agents. An agent-native platform where humans and agents run projects, tasks and meetings together.",
+		href: "https://github.com/woosal1337/companyos",
 		logo: "/companyos-logo.png",
-		external: false,
-		comingSoon: true,
+		external: true,
 	},
 	{
 		name: "Folio",

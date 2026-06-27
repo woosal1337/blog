@@ -1,0 +1,185 @@
+export const meta = {
+	title: "CompanyOS - Jira for your agents",
+	date: "2026-06-27",
+	summary:
+		"For thirty years a project tracker was a thing a person kept in sync by hand. That busywork is your agents' job now, and they need a durable environment to do it in, not a chat window that forgets. CompanyOS is that environment, multi-tenant, audited, live, over a built-in MCP server, on your own keys. It is also the thing you share. One invitation and a new teammate or a new agent inherits the entire living project, the tasks, the roadmap, and the full history, with nothing to explain and nothing to transfer. You do not fill it in. You check the progress. Here is how it works.",
+	tags: ["ai", "agents", "mcp", "multi-tenant", "fastapi", "self-hosted", "byok"],
+	cover: "/blog/companyos/cover.jpg",
+};
+
+export const metadata = {
+	title: meta.title,
+	description: meta.summary,
+	openGraph: {
+		title: meta.title,
+		description: meta.summary,
+		type: "article",
+		publishedTime: meta.date,
+		images: [{ url: meta.cover, width: 1200, height: 628, alt: meta.title }],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: meta.title,
+		description: meta.summary,
+		images: [meta.cover],
+	},
+};
+
+<PostMeta meta={meta} />
+
+<Details summary="Brief">
+
+**One thing.** A project tracker was always a thing a person kept in sync by hand. You turned real work into tickets, wrote the descriptions, set the status, moved the cards, checked them off. None of that was the work. It was the data entry you did so everyone else could see the work, a tax you paid for a shared picture. That tax is exactly what an agent can pay now. So CompanyOS is not a tracker for you to fill in. It is the durable environment your agents run in, multi-tenant, audited, and live, reached over a built-in MCP server on your own key. They keep the board. You check the progress when you want to. And because that environment holds the whole living project, the tasks, the roadmap, and every move since day one, inviting a new teammate or a new agent is one click. They inherit all of it instantly, with nothing for you to explain.
+
+**Proof.** The backend is a FastAPI modular monolith on Postgres 17 with pooled multi-tenancy, an `org_id` on every tenant row and no global list endpoints, so an agent's token can only ever address the one org it was granted. Tasks are Linear-style, a per-project key and a concurrency-safe counter giving you `DEMO-42`, and every mutation writes an activity event, which is the agent's durable memory between runs. Provider keys are sealed with AES-256-GCM under a 32-byte key-encryption key, and every model call, human or agent, writes an audit row. The MCP server speaks streamable HTTP over OAuth 2.1 and is bidirectional, the agent writes back into the system of record, not just reads it.
+
+**Reader transformation.** They stop seeing a tracker as a place they do data entry to keep everyone aligned. They start seeing it as the long-running workspace their agents operate in and their team shares, where the agents create and maintain the work, a person checks in optionally, and a new member is caught up by one invitation instead of a week of catch-up calls.
+
+**Hook.** You stop filling in the tracker. Your agents do that now. CompanyOS is where they do it.
+
+**Closer.** The busywork of coordination was never the work. It was the tax you paid to keep a shared picture. Hand it to the agents, give them a durable place to run, and your job shrinks to the one part that needed you, deciding what matters and checking that it happened.
+
+</Details>
+
+You stop filling in the tracker. Your agents do that now. CompanyOS is where they do it.
+
+I made CompanyOS public on GitHub today. It is a coordination platform for a company, projects, tasks with a board, meetings with transcripts and summaries, notes, calendar, and a complete activity history, all in one connected system. The thing that makes it worth writing about is who it is built for. Not a person clicking through a tracker, but the agents that now do the work a person used to do, and the durable environment they need to do it in. It is open source, Apache-2.0, and the whole stack comes up with one `docker compose up`.
+
+## The tracker was never the work
+
+For about thirty years the deal with a project tracker was the same. A person keeps it in sync by hand. You take the real work, the conversation, the decision, the bug, and you translate it into a ticket. You write the title and the description, you set the status and the priority, you assign it, you drag it across the board, and when it is done you check it off. None of that is the work. It is the data entry you do so that everyone else can see the work. It was always a tax, the price of a shared picture.
+
+That tax is exactly what an agent can pay now. An agent that can write the code can also open the task, write the description, move it to in review, and close it with a note about what changed. The thing that used to need a person, keeping the board honest, is the thing agents are good at. So the person whose job was to operate the tracker stops being necessary. You do not need to be the one filling it in.
+
+What an agent does need is somewhere to do it. And a chat window is not that. A chat window forgets between runs, holds no shared state, has no concept of a board or a backlog or a history, and cannot be safely handed the run of a company. An agent needs a durable environment. Something that persists across runs, remembers everything that happened, holds the whole org's context, is safe to operate unattended, and exposes every action over a stable interface it can call again tomorrow.
+
+That is what CompanyOS is. Not a tracker for you to fill in. The long-running environment your agents operate in. They create the tasks, write the descriptions, move the cards, and close them out. The board is theirs to keep. Your part shrinks to the one part that actually needed you. Deciding what matters, and checking, when you feel like it, that it happened.
+
+The rest of this post is the architecture that makes that safe and durable. The multi-tenancy that isolates the environment, the task model the agents read and write, the MCP server that is their hands, the key custody that runs their calls on your account, and the live stream that lets you check in without touching anything.
+
+## The shape of the thing
+
+Two deployables and a database.
+
+```
+   you                         your agents
+   (web app, to check in)      (mcp, to operate)
+       │                              │
+       └──────────────┬───────────────┘
+                      ▼
+              companyos-api
+          fastapi modular monolith
+                      │  one service layer, one activity log
+                      ▼
+                postgres 17
+         org_id on every tenant row
+```
+
+`companyos-api` is a FastAPI modular monolith. A `core/` package owns config, database, security, crypto, and the request dependencies, and a `modules/` package holds one self-contained slice per domain, auth, orgs, teams, projects, tasks, meetings, notes, comments, activity, and AI, each with its own router, service, models, and schemas. Postgres 17 underneath, SQLAlchemy 2 async, Alembic migrations, UUIDv7 primary keys so they sort by time. `companyos-web` is a Next.js app in a Bun and Turborepo workspace, talking to the API through a same-origin `/api` proxy so the browser only ever sees one origin and an httpOnly cookie.
+
+The web app is the window you look through. The agents do not use it. They talk to the same API through a door built for them, the MCP server, and both doors lead to the same service layer, so an agent creating a task and a person opening that same view are reading and writing the same rows. The state is in one place, it persists, and it does not care who is looking.
+
+## A durable, isolated place to run
+
+If agents are going to run unattended inside your company's coordination layer, the walls around that environment have to be real. So CompanyOS is multi-tenant on a pooled database, and the isolation is enforced in code on every single read.
+
+Every tenant row carries an `org_id`. Every request that touches tenant data resolves an `OrgContext` first, a dependency that reads the org from the path, looks up the caller's membership, and hands the service layer a `{ org, member, role }` it can trust. Services refuse to run a tenant query without it. And there are no global list endpoints over tenant data, none, every read is parameterized by the org you belong to. There is no `GET /tasks` that returns tasks. There is only `GET /orgs/{org_id}/...`, and you are not in the org, you get nothing.
+
+When an agent authenticates it gets a token scoped to exactly one organization. Because there is no endpoint that is not org-scoped, the agent cannot address another tenant's rows. It is not asked nicely to stay in its lane. There is no lane to leave. The same property that keeps two customers' data apart is the property that makes it safe to let a semi-autonomous program run loose inside one of them, all day, while you are not watching.
+
+<Note title="Application-level today, RLS tomorrow">
+Tenant isolation is enforced in the service layer in v1, every query goes through a context that requires the org. Postgres row-level security with a `SET LOCAL` GUC is the planned belt-and-suspenders for v2, a second wall behind the first. The v1 rule, no tenant read without an `OrgContext`, is asserted in the tests so it cannot quietly erode.
+</Note>
+
+## Tasks are what the agent fills in now
+
+The work needs a shape, and in CompanyOS that shape is a task, deliberately Linear-grade. This is the layer you used to maintain by hand, and it is the layer the agent maintains instead.
+
+Each project gets a permanent key, `DEMO`, and a per-project counter that hands out `DEMO-1`, `DEMO-2`, `DEMO-42`. The counter is concurrency-safe the boring correct way, a `SELECT FOR UPDATE` on the project row so two simultaneous creates can never collide on a number. A task has a status from a fixed set, backlog, todo, in progress, in review, done, cancelled, a priority from none to urgent, a single assignee in the Linear sense, and labels. It moves across a board, a list, and a table view, and it carries a stable identifier that never changes.
+
+That stable identifier is the quiet thing that makes the whole agent story work. `DEMO-42` is a name anything can point at, a meeting, a comment, the agent that opened it, or the agent that picks it up next week. Every mutation, a status transition, an assignment, a label, writes a row to an activity log. So the history of a task is not reconstructed, it is recorded. An agent does not write the description and forget it. It writes it once, and it is there, with the trail of everything that happened since, the next time any agent or any person looks.
+
+An agent moving `DEMO-42` from in progress to in review is not calling some special agent API. It is calling the same service a person's drag would call, with the same validation, the same activity event, and the same broadcast. The board does not know or care whether the hand on it was carbon or silicon. Which means you can stop being the hand.
+
+## The MCP server is the agent's hands
+
+This is the piece that turns "an AI feature" into "an environment agents run in," and the gap between those two is the whole point.
+
+CompanyOS ships a built-in MCP server that exposes the entire workspace, projects, tasks, meetings, notes, calendar, vocabulary, and the activity history, to any MCP-aware client. Claude Code, Claude Desktop, Cursor, your own agents. It is a single streamable-HTTP endpoint at `/api/v1/mcp`. The authentication is OAuth 2.1, so there is nothing to copy-paste and no long-lived key to leak. The first time a client connects it walks you through a browser consent screen, you approve the org and the scope once, and from then on the agent holds a properly scoped grant it can refresh. A stable interface it can call again tomorrow, and the week after.
+
+The important word is bidirectional. Most "AI" integrations are read-only, they let a model see your data and summarize it back to you. The CompanyOS MCP gives an agent the operations a member has. It creates tasks, transitions their status, assigns them, writes notes, leaves comments, books calendar events, and asks a meeting a question. It writes back into the system of record. That is the line most tools do not cross, and it is the line between an agent that drafts a summary of what should happen and an agent that goes and makes it happen, on the board, where the next run picks it up.
+
+<Tip title="One line to put an agent to work">
+Connecting a coding agent is a single command, `claude mcp add --transport http companyos https://<your-host>/api/v1/mcp`, then `/mcp` to approve the consent screen in your browser. There is a project init script too, it drops a scoped `.mcp.json` and a routing block into a repo so the agent reaches for CompanyOS on any "find" or "save" about the company. No key pasted anywhere.
+</Tip>
+
+## Your keys, every call on your ledger
+
+If an agent is going to run in here unattended, you want to know what it is spending and on whose account. CompanyOS is bring-your-own-key, and BYOK here is the custody model the whole AI layer is built on.
+
+An organization connects its own OpenAI or Anthropic key once. That key is sealed with AES-256-GCM envelope encryption under a 32-byte key-encryption key held in the server's environment, the `COMPANYOS_KEK`. Only the ciphertext and nonce are stored. API responses ever only expose the last four characters, never the key. On save there is a validation ping so a bad key fails loudly at the door instead of silently at runtime. And the key is never written to a log, anywhere, ever.
+
+Then every AI call runs on that key and writes an audit row, an `AIRun` recording the provider, the model, the purpose, the token counts, and the status. This is what makes unattended agents something you can actually allow. When an agent summarizes a meeting or drafts a plan, it spends your tokens, on your account, and the spend is attributable, you can see which agent did what and what it cost. Agents get budgets and a spending cap, so an autonomous program cannot run your bill to the moon. "The AI runs on your own key" stops being a marketing line and becomes a ledger you can read.
+
+<Warn title="The KEK is the thing that protects the keys">
+Every stored provider key is only as safe as the `COMPANYOS_KEK` that seals it. The dev defaults that ship in `docker-compose.yml` are for local evaluation, and in production the API refuses to boot unless the KEK and the JWT secret are set to strong, non-default values. Generate fresh ones, keep the KEK out of your logs and your git history, and rotate it like the root secret it is.
+</Warn>
+
+## You check the progress, you do not do the work
+
+Here is the part where you come back in, and it is the only part. A workspace that agents run unattended is only useful if you can glance at it and trust what you see. So CompanyOS has a live sync path, built without WebSockets on purpose, to survive enterprise proxies.
+
+A single `asyncpg` consumer runs `LISTEN` on a dedicated connection, outside the SQLAlchemy pool, started in the app lifespan. Postgres `NOTIFY` fires on activity, the consumer fans each event into bounded per-org queues, and the queues drain out to the browser over Server-Sent Events at `GET /api/v1/orgs/{org_id}/stream`, an `text/event-stream` guarded by the same org context as everything else. It is keyed on the event id, so a client that drops and reconnects sends `Last-Event-ID` and replays exactly the gap it missed, no silent staleness. On the browser, each event invalidates the relevant TanStack Query keys by prefix, and the affected views refetch.
+
+The effect is the one that matters. You open the board and watch the agents work it in real time. A task appears, a status moves, a note lands, a meeting gets summarized, all without a refresh and all without you touching anything. You are not the operator. You are the supervisor, and supervising is a glance. When you do want to step in, notes support real-time co-editing with Yjs, so you and an agent can be in the same document at the same time, but that is an option you reach for, not a chore the system needs from you.
+
+## One invite, and they already know everything
+
+There is a second thing a durable environment gives you, and it is the one that turns CompanyOS from your agents' workspace into a place you actually share with a team.
+
+Think about what it costs to bring someone new onto a project today. Not an agent, a person, a teammate, a contractor, a co-founder. You schedule a call. You explain what the project is. You explain where it was left off. You walk them through the planned work and the roadmap, what is done, what is not, and why. You point them at a doc that is already stale and a chat history they will never read. The context lives in your head and scattered across a dozen tools, and the only way to move it is to spend hours narrating it, badly, and then to do it again for the next person. This is the cold start, the bootstrapping tax on every new collaborator, and it gets paid in full every single time.
+
+It gets paid because the project's context was never written down in one living place. In CompanyOS it is. The tasks with their status, the roadmap, the initiatives and releases, the notes, the meetings with their summaries, and the activity log of every decision and every move since day one, all of it is already in the environment, current, structured, and complete. So inviting someone is not the start of an onboarding. It is the end of one.
+
+You send one invitation. They click it, they sign in, and they are in the org with a role, looking at the same board you are. Instantly. There is nothing to transfer, because nothing was ever stuck in your head. Everything that has happened in the project so far, and the full history of how it got there, is theirs the moment they accept. You do not explain what the project is, where you left off, what is planned, or what is done. They open it and read it, the way they would read their own work. The data does not migrate, because it was already home.
+
+And it is symmetric. The same one click works for an agent, which inherits the same complete context over the MCP and starts operating with it. A new teammate and a new agent are onboarded the same way, by being handed an environment that already knows everything, instead of being told a story that is already out of date. That is what a collaborative platform looks like once the context lives in one durable place. The cold start does not get faster. It disappears.
+
+## Meetings become work without you in the loop
+
+One more loop, because it shows the inversion end to end.
+
+[Folio](/blog/folio) is my local-first meeting recorder. It runs Whisper and pyannote on your Mac, labels who said what, and writes a Markdown file per meeting. CompanyOS imports Folio's output directly, its transcript JSON of speaker-tagged segments plus the Markdown, into a first-class meeting with ordered transcript segments. Summaries and "ask the meeting" ground on those segments, so the answers cite the actual words.
+
+Now put the MCP server on top. An agent reads the meeting, finds the decisions and the owners, and turns them into tasks on the right project, write-back, in the same org, on your key. Nobody sat there after the call typing tickets out of their notes. The conversation happened, and the work showed up on the board. The recorder captures it locally and privately, the coordination layer turns it into tracked work, and the human who used to be the glue between those two is free to do something else.
+
+## Why agent-native and self-hosted is the whole point
+
+Everything above converges on one stance. The era where a person operates the tracker is ending, and most "AI for work" has not noticed. It bolts a chatbot onto a SaaS you do not control, running on the vendor's key, with your company's data on the vendor's servers, and it still expects you to keep the actual board in sync by hand. CompanyOS inverts all of that.
+
+Agents are not a sidebar, they are the ones doing the coordination work, on the same board, tasks, and meetings, through the same service layer, with a role and a budget and an audit trail. The AI is not the vendor's, it runs on your key, and every call is yours to see. The data is not on someone else's infrastructure, the whole thing is Apache-2.0 and self-hosted, your Postgres, your machines, your keys. And the environment is durable, it persists between runs, it remembers, and it is safe to leave an agent alone in, because the multi-tenancy is strict, the keys are sealed, the calls are logged, and isolation is enforced on every read.
+
+And the same durability is what makes it a place you share. Because the whole project lives in one environment instead of in your head, handing it to a new teammate is one invitation, and they inherit all of it, the work, the roadmap, the history, with nothing for you to narrate. The thing that lets an agent run unattended is the thing that lets a person join with zero cold start. An environment that already knows everything is the right home for both.
+
+That unglamorous control-plane work, the `org_id` on every row, the counter that cannot collide, the single function every key passes through, the audit row on every call, the activity log that is the agent's memory, is exactly the work that earns the right to hand an agent the run of your company and walk away. You cannot do that on top of a chat window. You can do it on top of an environment.
+
+## Try it
+
+CompanyOS is on GitHub, Apache-2.0. The whole stack, Postgres, the API, and the web app, comes up with one command.
+
+```sh
+git clone https://github.com/woosal1337/companyos.git
+cd companyos
+cp .env.example .env
+docker compose up --build
+```
+
+The web app is on `http://localhost:3000`, the API on `http://localhost:8000`, and database migrations run on start. Connect your own OpenAI or Anthropic key in settings, point an MCP client at `/api/v1/mcp`, and your agents have a place to work.
+
+Repo. [github.com/woosal1337/companyos](https://github.com/woosal1337/companyos)
+
+## Closing
+
+The busywork of coordination was never the work. Creating the ticket, writing the description, moving the card, checking it off, that was the tax you paid to keep a shared picture, and you paid it by hand for thirty years. Agents can pay it now. What they needed was not a smarter chat box. It was a durable place to run, multi-tenant, audited, live, on your own keys, where the work persists between runs and every action has a stable name. And because it persists, it is also the thing you share. One invitation hands a new teammate or a new agent the entire living project, the work, the roadmap, the history, with nothing to explain and no cold start to pay.
+
+You stop filling in the tracker. Your agents do that now. CompanyOS is where they do it, and now the whole thing is open source. Jira for your agents.
