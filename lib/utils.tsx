@@ -157,9 +157,9 @@ export const allProjects: Array<{
 	{
 		name: "CompanyOS",
 		desc: "Jira for your agents. An agent-native platform where humans and agents run projects, tasks and meetings together.",
-		href: "https://github.com/woosal1337/companyos",
+		href: "/blog/companyos",
 		logo: "/companyos-logo.png",
-		external: true,
+		external: false,
 	},
 	{
 		name: "Folio",
