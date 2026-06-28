@@ -97,8 +97,8 @@ export function SiteFooter() {
 							<span className="font-medium tracking-tight">ege</span>
 						</Link>
 						<p className="mt-3 text-footnote leading-relaxed text-ink-soft">
-							Code, finance, entrepreneurship and AI. Building tools for humans
-							and agents.
+							Code, entrepreneurship and AI. Building tools for humans and
+							agents.
 						</p>
 					</div>
 

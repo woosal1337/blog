@@ -160,6 +160,7 @@ export const allProjects: Array<{
 		href: "/blog/companyos",
 		logo: "/companyos-logo.png",
 		external: false,
+		isNew: true,
 	},
 	{
 		name: "Folio",
@@ -167,7 +168,6 @@ export const allProjects: Array<{
 		href: "/blog/folio",
 		logo: "/folio-logo.png",
 		external: false,
-		isNew: true,
 	},
 	{
 		name: "Soft Club UI",
@@ -175,7 +175,6 @@ export const allProjects: Array<{
 		href: "https://github.com/cobanov/soft-club-ui",
 		logo: "/soft-club-ui-logo.png",
 		external: true,
-		isNew: true,
 	},
 	{
 		name: "Pulsar",

@@ -48,12 +48,12 @@ export default async function HomePage() {
 							>
 								Refik Anadol Studio
 							</a>
-							. I write about code, finance, entrepreneurship and AI.
+							. I write about code, entrepreneurship and AI.
 						</p>
 						<div className="oak-label mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-mute">
 							<span>Istanbul</span>
 							<span className="text-line">·</span>
-							<span>AI / Code / Finance</span>
+							<span>AI / Code</span>
 							<span className="text-line">·</span>
 							<span>$ status: building</span>
 						</div>

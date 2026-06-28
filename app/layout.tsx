@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 		default: "Ege",
 		template: "%s · Ege",
 	},
-	description: "Code, finance, entrepreneurship and AI.",
+	description: "Code, entrepreneurship and AI.",
 	icons: {
 		icon: [
 			{ url: "/favicon.ico", sizes: "any" },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 		],
 	},
 	openGraph: {
-		description: "Code, finance, entrepreneurship and AI.",
+		description: "Code, entrepreneurship and AI.",
 		siteName: "Ege",
 		locale: "en_US",
 		type: "website",
