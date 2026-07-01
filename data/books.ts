@@ -27,6 +27,13 @@ export const bookCategories: { key: BookCategory; label: string }[] = [
 
 export const books: Book[] = [
 	{
+		title: "The Hitchhiker's Guide to Agentic AI",
+		author: "Haggai Roitman",
+		cover: "/books/hitchhikersagenticai.png",
+		progress: 0,
+		category: "programming",
+	},
+	{
 		title: "Cosmos: A Personal Voyage",
 		author: "Carl Sagan",
 		cover: "/books/cosmos.png",
