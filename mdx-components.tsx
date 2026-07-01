@@ -1,3 +1,4 @@
+import { ContourPlayground } from "@/components/blocks/contour-playground";
 import {
 	Callout,
 	Danger,
@@ -55,17 +56,18 @@ function GithubMark({ className }: { className?: string }) {
 const LINK_ICON_CLASS =
 	"mr-[0.3em] inline-block h-[1em] w-[1em] align-[-0.15em] opacity-70 transition-opacity duration-200 ease-house group-hover/link:opacity-100";
 
-function LinkLeadingIcon({ href }: { href: string }) {
-	let host = "";
+function hasLinkIcon(href: string): boolean {
 	try {
-		host = new URL(href).hostname.replace(/^www\./, "");
+		const host = new URL(href).hostname.replace(/^www\./, "");
+		return host === "github.com" || host.endsWith(".github.com");
 	} catch {
-		return null;
+		return false;
 	}
-	if (host === "github.com" || host.endsWith(".github.com")) {
-		return <GithubMark className={LINK_ICON_CLASS} />;
-	}
-	return null;
+}
+
+function LinkLeadingIcon({ href }: { href: string }) {
+	if (!hasLinkIcon(href)) return null;
+	return <GithubMark className={LINK_ICON_CLASS} />;
 }
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
@@ -292,7 +294,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 						href={href}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="group/link text-ink underline decoration-line underline-offset-[3px] transition-colors duration-200 ease-house hover:decoration-ink-soft"
+						className={cn(
+							"group/link text-ink underline decoration-line underline-offset-[3px] transition-colors duration-200 ease-house hover:decoration-ink-soft",
+							hasLinkIcon(href) && "whitespace-nowrap",
+						)}
 						{...props}
 					>
 						<LinkLeadingIcon href={href} />
@@ -312,6 +317,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 		Badge: ({ children }: { children: React.ReactNode }) => (
 			<Tag>{children}</Tag>
 		),
+		ContourPlayground,
 		Kbd,
 		KbdGroup,
 		PostMeta,

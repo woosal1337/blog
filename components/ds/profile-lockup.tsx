@@ -8,11 +8,6 @@ type ProfileLockupProps = {
 	className?: string;
 };
 
-/** Avatar + name + role lockup that opens the editorial column (the site's
- * de-facto header on the landing page). Renders `avatar` as a plain `<img>`
- * (no next/image optimizer pass) so an SVG source stays pixel-exact against
- * the page background — Next's image pipeline re-encodes PNGs through sharp,
- * which can reintroduce a color/gamma mismatch a raster source already fixed. */
 export function ProfileLockup({
 	name,
 	tagline,
@@ -22,8 +17,8 @@ export function ProfileLockup({
 	return (
 		<div className={cn("flex items-center gap-4", className)}>
 			<Link
-				href="/"
-				aria-label="Home"
+				href="/blog/contour"
+				aria-label="The story of this mark"
 				className="shrink-0 transition-opacity duration-200 ease-house hover:opacity-80"
 			>
 				{/* eslint-disable-next-line @next/next/no-img-element */}

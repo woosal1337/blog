@@ -3,14 +3,14 @@ import { PostStamp } from "@/components/blocks/post-stamp";
 import { PostToc } from "@/components/blocks/post-toc";
 import { PostTopBar } from "@/components/blocks/post-top-bar";
 import { ReadingProgress } from "@/components/blocks/reading-progress";
-import { getAllPosts } from "@/lib/blog";
+import { getAllPosts, getAllPostsWithHidden } from "@/lib/blog";
 
 export default async function PostLayout({
 	children,
 }: Readonly<{ children: React.ReactNode }>) {
 	const posts = await getAllPosts();
 	const items = posts.map((post) => ({ slug: post.slug, title: post.title }));
-	const stampEntries = posts.map((post) => ({
+	const stampEntries = (await getAllPostsWithHidden()).map((post) => ({
 		slug: post.slug,
 		date: post.date,
 	}));
@@ -19,8 +19,6 @@ export default async function PostLayout({
 		<>
 			<ReadingProgress />
 			<div className="relative mx-auto max-w-column px-6 py-14 sm:py-20">
-				{/* Table of contents on the left rail on wide screens; the reading
-				    measure stays centered. */}
 				<aside className="absolute right-full top-0 hidden h-full w-[260px] pr-10 xl:block">
 					<div className="sticky top-24">
 						<PostToc />

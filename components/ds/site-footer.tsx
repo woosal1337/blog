@@ -96,8 +96,8 @@ export function SiteFooter() {
 					</FooterColumn>
 
 					<Link
-						href="/"
-						aria-label="Home"
+						href="/blog/contour"
+						aria-label="The story of this mark"
 						className="flex justify-center transition-opacity duration-200 ease-house hover:opacity-80"
 					>
 						{/* eslint-disable-next-line @next/next/no-img-element */}

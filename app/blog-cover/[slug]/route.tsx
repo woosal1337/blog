@@ -4,12 +4,6 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "nodejs";
 
-/**
- * Auto-generated post banner: a deterministic Contour mark
- * (github.com/woosal1337/contour) seeded by the post title, centered on the
- * near-black field. Same title always yields the same mark. Used for the post
- * header, blog list cards, and OpenGraph/Twitter previews alike.
- */
 export async function GET(
 	_request: Request,
 	{ params }: { params: { slug: string } },

@@ -1,0 +1,134 @@
+export const meta = {
+	title: "Contour, the mark drawn from π",
+	date: "2026-07-02",
+	summary:
+		"The story of the circular mark you keep seeing on this site. How a name becomes a SHA-256 hash, how the hash walks the digits of pi, and how eight perturbed rings turn that walk into a little topographic identity. With the full algorithm explained, and a generator so you can draw your own.",
+	tags: ["design", "algorithms"],
+	cover: "/blog-cover/contour",
+	hidden: true,
+};
+
+export const metadata = {
+	title: meta.title,
+	description: meta.summary,
+	robots: { index: false, follow: false },
+	openGraph: {
+		title: meta.title,
+		description: meta.summary,
+		type: "article",
+		publishedTime: meta.date,
+		images: [{ url: "/blog-og/contour", width: 1200, height: 628, alt: meta.title }],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: meta.title,
+		description: meta.summary,
+		images: ["/blog-og/contour"],
+	},
+};
+
+<PostMeta meta={meta} />
+
+You clicked the logo. This page is not linked from the blog index, the sitemap, or the RSS feed. It exists only for people who wondered what that circular scribble actually is. Welcome.
+
+The short answer: it is my name, hashed, walked through the digits of π, and drawn as a topographic map. The long answer is this post.
+
+## The problem with initials
+
+When I rebuilt this site as a dark editorial space, it needed a mark. Every option on the usual list felt wrong. A monogram is a font choice pretending to be an identity. A photo avatar ages, and gets recompressed into mush at 32 pixels. An abstract blob from a logo generator belongs to nobody, least of all to me.
+
+What I actually wanted was a mark that is *derived* from me rather than designed for me. Something a machine could recompute from scratch, byte for byte, given only my name. If the mark is a pure function of the name, it is not a decoration on top of the identity. It is the identity, projected into geometry.
+
+I also happen to love topographic maps. The nested iso-lines of a hill on a hiking map are one of those rare graphics that are pure data and still beautiful. So the goal became concrete: turn a string into terrain.
+
+That became Contour, a small private project of mine. The entire generator is about a hundred lines of TypeScript, no dependencies, and it runs anywhere there is Web Crypto, browser or server. This site uses it in four places you have already seen. The rest of this post walks through exactly what those hundred lines do.
+
+## From name to number
+
+Everything starts with SHA-256. The input string is prefixed with a domain tag and hashed:
+
+```ts
+const bytes = await sha256Bytes(`pi-scribble-logo:${seed}`);
+```
+
+Two details matter here.
+
+First, the prefix. Hashing `pi-scribble-logo:ege` instead of a bare `ege` is domain separation. If some other tool ever hashes the same names for a different purpose, its outputs will not collide with these marks. The generator also appends a variant suffix to the seed, `:variant:2`, which acts as a version knob. Bump the variant and every mark changes at once, without touching the algorithm.
+
+Second, the avalanche effect. SHA-256 guarantees that `ege` and `egee` produce hash bytes that share nothing. That is what makes near-identical names produce completely unrelated marks. A hand-rolled checksum would leak similarity between inputs. A cryptographic hash erases it.
+
+The result is 32 bytes. Those bytes never draw anything directly. They steer a walk.
+
+## Borrowing randomness from π
+
+The generator carries the first 1,000 decimal digits of π as a constant. π is the noise source. The hash decides where in that noise to start and how to move through it.
+
+The starting cursor is a weighted sum of the hash bytes:
+
+```ts
+let cursor =
+	bytes.reduce((sum, byte, index) => sum + byte * (index + 1), 0) %
+	PI_DIGITS.length;
+```
+
+The weighting by position means two hashes with the same bytes in a different order land on different cursors. From there, the stream produces numbers on demand. Each digit it emits is a π digit *mixed* with a hash byte:
+
+```ts
+const piDigit = Number(PI_DIGITS[cursor % PI_DIGITS.length]);
+const mixedDigit = (piDigit + bytes[(cursor + turn) % bytes.length]) % 10;
+```
+
+And the cursor does not step evenly. It advances one to three positions, with the stride itself chosen by the hash:
+
+```ts
+cursor += 1 + (bytes[(turn + cursor) % bytes.length] % 3);
+```
+
+Six mixed digits are glued together and divided by 10⁶, giving a uniform number in [0, 1). That is the whole random number generator. No `Math.random`, no state outside the cursor. Because π is a fixed constant and SHA-256 is a fixed function, the same name always produces the same stream of numbers, on any machine, in any year. The mark is reproducible forever, which is the property a logo actually needs.
+
+Could this have been a plain seeded PRNG? Sure. But then the mark would be drawn from some Mersenne Twister's internals. This way it is drawn, literally, from the digits of π. Given that the whole point was a mark derived from something real, the poetry earns its keep.
+
+## Drawing the terrain
+
+With the stream in hand, the generator draws a handful of parameters that define one specific piece of terrain:
+
+- **Stroke width**, between 1.4 and 2.2 units. Some marks are wispy, some are bold.
+- **Four harmonics**, each with an integer frequency from 2 to 6, an amplitude from 4 to 12, and a phase anywhere on the circle. These are the shape of the hill.
+- **A centre drift**, up to ±1.5 units per ring in x and y. This is the direction the hill leans.
+
+Then it draws eight concentric rings. The base radii step evenly from 18 out to just under 100 on a 256-unit canvas. Each ring is sampled at 200 points, and at every angle θ the radius is perturbed by all four harmonics at once:
+
+```ts
+let r = base;
+for (const h of harmonics)
+	r += h.amp * Math.sin(h.freq * theta + h.phase) * grow;
+```
+
+`grow` is the detail that makes it read as elevation. It scales from 0.4 on the innermost ring to roughly 0.95 on the outermost, so the peak sits calm in the middle while the foothills wobble. The same four sine waves shape every ring, only louder as they move out, and the centre of each ring slides along the drift vector as `c` grows.
+
+Each ring closes into a polyline with round caps and joins, and the eight paths are emitted as a single transparent SVG. No fills, no gradients, just strokes, which is why the mark sits happily on any background.
+
+## Why it reads as a map
+
+The trick is that the eight rings are not eight independent shapes. They are eight samples of *one* underlying surface. Real iso-lines on a real map are horizontal slices through one mountain, which is why neighbouring lines run roughly parallel and bulge in the same places. Here the shared harmonics play that role: every ring bulges where the sine waves say to bulge, so the bumps align radially into ridges and valleys. The drift tips the whole stack sideways, the way a real summit is rarely dead centre in its foothills.
+
+Break either property, by giving each ring its own harmonics or removing the shared drift, and the output collapses into random wobbly circles. Keep them, and a hundred lines of arithmetic reliably produce something a cartographer would nod at.
+
+## One mark, everywhere
+
+Once the generator existed, it quietly took over the whole site:
+
+- **The logo and favicon** are the mark for my own name, exported once to SVG.
+- **Every blog banner** is generated at request time by seeding the generator with the post title. No cover images are designed or stored. The banner of this very page is the terrain of its own title.
+- **The 404 page** ghosts the mark across the full screen at 1.5% opacity.
+- **The passport stamps** at the end of each post carry the mark as their centre glyph.
+
+One function, one identity, every surface. Adding a new post automatically mints a new, never-seen-before mark, and nobody has to open a design tool.
+
+## Make your own
+
+This is the actual generator, the same code that draws everything above, running entirely in your browser. Nothing you type leaves the page. Type your name, watch your terrain appear, and take the SVG or PNG with you.
+
+<ContourPlayground />
+
+Same string in, same mark out, until π runs out of digits.

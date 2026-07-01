@@ -12,6 +12,7 @@ export type BlogPostMeta = {
 	summary: string;
 	tags?: string[];
 	draft?: boolean;
+	hidden?: boolean;
 	cover?: string;
 	readingMinutes: number;
 };
@@ -114,12 +115,16 @@ async function loadMeta(slug: string): Promise<BlogPostMeta | null> {
 	}
 }
 
-export async function getAllPosts(): Promise<BlogPostMeta[]> {
+export async function getAllPostsWithHidden(): Promise<BlogPostMeta[]> {
 	const slugs = listSlugs();
 	const posts = await Promise.all(slugs.map(loadMeta));
 	return posts
 		.filter((p): p is BlogPostMeta => Boolean(p) && !p?.draft)
 		.sort((a, b) => +new Date(b.date) - +new Date(a.date));
+}
+
+export async function getAllPosts(): Promise<BlogPostMeta[]> {
+	return (await getAllPostsWithHidden()).filter((p) => !p.hidden);
 }
 
 export async function getPostMeta(slug: string): Promise<BlogPostMeta | null> {
