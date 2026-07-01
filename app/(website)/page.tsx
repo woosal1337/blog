@@ -66,7 +66,7 @@ export default async function HomePage() {
 				</div>
 
 				{/* Social links */}
-				<div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-ui text-[15px] sm:justify-start">
+				<div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-ui text-[15px]">
 					<span className="inline-flex items-center gap-2">
 						<span className="-mx-1 inline-flex items-center">
 							{SOCIALS.map(({ href, label, Icon }) => (
