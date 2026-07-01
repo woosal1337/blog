@@ -23,7 +23,7 @@ export function BooksShelf({ className }: { className?: string }) {
 
 	return (
 		<>
-			<Gallery ariaLabel="Shelf" className={className}>
+			<Gallery ariaLabel="Shelf" className={className} startCentered>
 				{books.map((book) => (
 					<GalleryItem key={`${book.title}-${book.author}`}>
 						<button
