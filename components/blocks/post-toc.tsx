@@ -103,7 +103,7 @@ export function PostToc() {
 									aria-hidden="true"
 									className="flex h-2.5 items-center gap-2.5"
 								>
-									<span className="h-px w-2.5 shrink-0 bg-line" />
+									<span className="h-px w-1.5 shrink-0 bg-line" />
 								</li>
 							)}
 						</Fragment>
