@@ -24,20 +24,10 @@ A dark, editorial personal site — writing, projects, and a reading shelf — b
 
 ```bash
 bun install
-cp .env.example .env.local   # fill in your own tokens
 bun dev
 ```
 
-Requires Node >= 20 and Bun.
-
-## Environment variables
-
-| Variable | Used for |
-|---|---|
-| `GITHUB_TOKEN` | GitHub repository data |
-| `X_API_KEY`, `X_API_SECRET`, `X_MY_ACCESS_TOKEN`, `X_MY_ACCESS_TOKEN_SECRET` | X profile data |
-
-All third-party fetches fall back to mock data when tokens are absent.
+Requires Node >= 20 and Bun. No environment variables required.
 
 ## Commands
 

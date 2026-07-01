@@ -22,7 +22,6 @@ Package manager is **Bun**. Runtime requires Node >= 20.
 - **`components/`** — organized into `ds/` (design-system primitives), `blocks/` (domain-specific: post chrome, polaroids, contribution graph), `ui/` (shadcn/ui primitives), `hooks/`, and `providers/` (theme provider wrapping `next-themes`).
 - **`data/`** — static data files (`books.ts`).
 - **`lib/utils.tsx`** — `cn()` class merge helper, navigation items, career timeline, changelog entries, and project definitions. This is the central data file for site content.
-- **`server/thirdparty.ts`** — server-side data fetching for GitHub (GraphQL) and X/Twitter APIs, cached for 1 hour via `unstable_cache`. Has a `USE_MOCK_DATA_FOR_DEVELOPMENT` flag with mock data fallbacks.
 - **`mdx-components.tsx`** — custom MDX overrides (responsive images via `next/image`, external link icons).
 
 ## Key Conventions
@@ -43,14 +42,6 @@ Motion uses one easing curve `cubic-bezier(0.16, 1, 0.3, 1)`, scroll reveals pla
 - **CSS only** for nearly everything: hovers, the nav scrim, the gallery (scroll-snap), reveals.
 - **framer-motion** survives only in kept legacy components: polaroids, number ticker, contribution graph, github stars.
 - GSAP and animejs were removed from the project.
-
-## Environment Variables
-
-Required in `.env.local` (see `.env.example`):
-
-- `GITHUB_TOKEN` — GitHub API token for contribution graph and repository data
-- `X_API_KEY`, `X_API_SECRET` — X/Twitter API app credentials
-- `X_MY_ACCESS_TOKEN`, `X_MY_ACCESS_TOKEN_SECRET` — X/Twitter user tokens
 
 ## SEO
 

@@ -27,7 +27,6 @@ Package manager is Bun. Runtime requires Node `>=20`.
 - `components/providers/`, app providers, including theme support via `next-themes`.
 - `data/`, static data files.
 - `lib/utils.tsx`, shared `cn()` helper plus central site content data such as navigation, career timeline, changelog entries, and projects.
-- `server/thirdparty.ts`, server-side GitHub and X/Twitter data fetching with cached mock-data fallbacks.
 - `mdx-components.tsx`, custom MDX component overrides.
 
 ## Conventions
@@ -62,16 +61,6 @@ Prefer CSS for animation and interaction:
 - Scroll reveals should play once via `components/ds/reveal.tsx`.
 - `framer-motion` remains only for selected legacy components such as polaroids, number ticker, contribution graph, and GitHub stars.
 - Do not reintroduce GSAP or animejs.
-
-## Environment
-
-Third-party integrations read from `.env.local`. Missing tokens should fall back to mock data where existing code supports it.
-
-Expected variables include:
-
-- `GITHUB_TOKEN`, for contribution graph and repository data.
-- `X_API_KEY`, `X_API_SECRET`, `X_MY_ACCESS_TOKEN`, `X_MY_ACCESS_TOKEN_SECRET`, for X/Twitter data.
-
 
 ## SEO
 
