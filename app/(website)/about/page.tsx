@@ -1,10 +1,18 @@
 import { AsciiDonut } from "@/components/blocks/ascii/ascii-donut";
-import { PageHero } from "@/components/ds/page-hero";
+import { BackButton } from "@/components/ds/back-button";
+import { IconLink } from "@/components/ds/icon-link";
 import { Reveal } from "@/components/ds/reveal";
-import { SectionHeader } from "@/components/ds/section-header";
+import { SectionLabel } from "@/components/ds/section-label";
 import { Section, Shell } from "@/components/ds/shell";
 import { Tag } from "@/components/ds/tag";
-import { awards, education, fellowships, workExperience } from "@/lib/utils";
+import { formatTag } from "@/lib/blog-utils";
+import {
+	awards,
+	cn,
+	education,
+	fellowships,
+	workExperience,
+} from "@/lib/utils";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,24 +20,46 @@ export const metadata: Metadata = {
 	description: "Developer, entrepreneur, and researcher.",
 };
 
-const orgLink =
-	"text-foreground underline decoration-line underline-offset-[3px] transition-colors duration-200 ease-house hover:decoration-line-strong";
-
-function OrgLink({ href, children }: { href: string; children: string }) {
+function Lang({ flag, children }: { flag: string; children: string }) {
 	return (
-		<a
-			href={href}
-			target="_blank"
-			rel="noopener noreferrer"
-			className={orgLink}
-		>
+		<span className="whitespace-nowrap">
+			<span aria-hidden="true" className="mr-[0.3em]">
+				{flag}
+			</span>
 			{children}
-		</a>
+		</span>
+	);
+}
+
+/** A resume-row leading icon: an explicit iconSrc when given, otherwise the
+ * favicon of the linked site. */
+function RowIcon({ href, iconSrc }: { href?: string; iconSrc?: string }) {
+	let src = iconSrc;
+	if (!src && href) {
+		try {
+			const host = new URL(href).hostname.replace(/^www\./, "");
+			src = `https://www.google.com/s2/favicons?domain=${host}&sz=64`;
+		} catch {
+			src = undefined;
+		}
+	}
+	if (!src) return null;
+	return (
+		// eslint-disable-next-line @next/next/no-img-element
+		<img
+			src={src}
+			alt=""
+			width={16}
+			height={16}
+			loading="lazy"
+			className="size-4 shrink-0 rounded-[3px]"
+		/>
 	);
 }
 
 type ResumeRowProps = {
 	href?: string;
+	iconSrc?: string;
 	title: string;
 	right: string;
 	subtitle?: React.ReactNode;
@@ -39,6 +69,7 @@ type ResumeRowProps = {
 
 function ResumeRow({
 	href,
+	iconSrc,
 	title,
 	right,
 	subtitle,
@@ -48,33 +79,38 @@ function ResumeRow({
 	const inner = (
 		<>
 			<div className="min-w-0 flex-1">
-				<div className="flex items-baseline gap-2">
+				<div className="flex items-center gap-2">
 					{active && (
-						<span className="shrink-0 text-foreground" aria-label="current">
+						<span className="shrink-0 text-[8px] text-ink" aria-label="current">
 							●
 						</span>
 					)}
-					<span className="text-body text-foreground">{title}</span>
+					{(iconSrc || href) && <RowIcon href={href} iconSrc={iconSrc} />}
+					<span className="font-ui text-[15px] font-medium text-ink">
+						{title}
+					</span>
 				</div>
 				{subtitle && (
-					<p className="mt-1 text-footnote text-ink-soft">{subtitle}</p>
+					<p className="mt-1 font-ui text-[14px] leading-snug text-ink-mute">
+						{subtitle}
+					</p>
 				)}
 				{tags && tags.length > 0 && (
 					<div className="mt-3 flex flex-wrap gap-1.5">
 						{tags.map((tag) => (
-							<Tag key={tag}>{tag}</Tag>
+							<Tag key={tag}>{formatTag(tag)}</Tag>
 						))}
 					</div>
 				)}
 			</div>
-			<span className="oak-label shrink-0 whitespace-nowrap pt-[3px] text-ink-mute">
+			<span className="shrink-0 whitespace-nowrap pt-[3px] font-ui text-[13px] text-ink-mute">
 				{right}
 			</span>
 		</>
 	);
 
 	const classes =
-		"flex items-baseline justify-between gap-6 py-5 transition-colors duration-240 ease-house";
+		"group -mx-3 flex items-start justify-between gap-6 rounded-[10px] px-3 py-4 transition-colors duration-200 ease-house";
 
 	if (!href) {
 		return <div className={classes}>{inner}</div>;
@@ -85,63 +121,85 @@ function ResumeRow({
 			href={href}
 			target="_blank"
 			rel="noopener noreferrer"
-			className={`${classes} group hover:bg-paper-2`}
+			className={cn(classes, "hover:bg-white/[0.02]")}
 		>
 			{inner}
 		</a>
 	);
 }
 
+function ResumeGroup({
+	label,
+	children,
+	className,
+}: {
+	label: string;
+	children: React.ReactNode;
+	className?: string;
+}) {
+	return (
+		<div className={className}>
+			<SectionLabel>{label}</SectionLabel>
+			<div className="mt-2 flex flex-col">{children}</div>
+		</div>
+	);
+}
+
 export default function AboutPage() {
 	return (
 		<>
-			<PageHero
-				eyebrow="about"
-				title="~/about"
-				caption="Developer, entrepreneur, and researcher"
-			/>
-
-			<Section>
-				<Shell>
-					<Reveal className="mx-auto max-w-article">
-						<p className="oak-label mb-6 text-ink-mute">$ cat readme.txt</p>
-						<div className="space-y-5 text-body leading-[1.7]">
+			<Section className="pb-[clamp(24px,4vw,44px)]">
+				<Shell width="column">
+					<BackButton className="mb-8" />
+					<Reveal>
+						<div className="space-y-5 font-ui text-[16px] leading-[1.65] text-ink-soft">
 							<p>
 								I&apos;m Ege. I work as an AI engineer at{" "}
-								<OrgLink href="https://refikanadolstudio.com/">
+								<IconLink
+									href="https://refikanadolstudio.com/"
+									iconSrc="/icons/refikanadol.gif"
+								>
 									Refik Anadol Studio
-								</OrgLink>
+								</IconLink>
 								, and I love contributing to the open source products on the
 								side. Before that I shipped stealth fintech at{" "}
-								<OrgLink href="https://www.ahlatci.com.tr/">
+								<IconLink href="https://www.etrapay.com/">Etrapay</IconLink> /{" "}
+								<IconLink href="https://www.ahlatci.com.tr/">
 									Ahlatcı Holding
-								</OrgLink>
+								</IconLink>
 								, consulted for{" "}
-								<OrgLink href="https://aa.com.tr/">Anadolu Ajansı</OrgLink>. In
-								the past I founded companies providing end-to-end blockchain and
+								<IconLink href="https://aa.com.tr/">Anadolu Ajansı</IconLink>.
+								In the past I founded companies providing E2E blockchain and
 								software products for B2B clients in Miami, Dubai, and Istanbul.
 							</p>
 							<p>
-								I studied computer engineering at{" "}
-								<OrgLink href="https://www.medipol.edu.tr/">Medipol</OrgLink>,
+								I studied CS at{" "}
+								<IconLink href="https://www.medipol.edu.tr/">Medipol</IconLink>,
 								finished the bachelor&apos;s in 2024 and started the
-								master&apos;s the same year. I speak English, Turkish,
-								Azerbaijani and Russian.
+								master&apos;s the same year. I speak{" "}
+								<Lang flag="🇬🇧">English</Lang>, <Lang flag="🇹🇷">Turkish</Lang>,{" "}
+								<Lang flag="🇦🇿">Azerbaijani</Lang> and{" "}
+								<Lang flag="🇷🇺">Russian</Lang>.
 							</p>
 						</div>
-						<AsciiDonut className="mt-10 h-[280px] w-full" />
+
+						<AsciiDonut className="mt-4 h-[200px] w-full" />
 					</Reveal>
 				</Shell>
 			</Section>
 
-			<Section tint flush>
-				<Shell className="py-[clamp(48px,8vw,96px)]">
-					<SectionHeader eyebrow="experience" title="Work" />
-					<div className="mt-8 divide-y divide-line border-t border-line">
+			<Section className="pt-[clamp(24px,4vw,44px)]">
+				<Shell width="column">
+					<ResumeGroup label="Work">
 						{workExperience.map((job) => (
 							<ResumeRow
 								key={`${job.company}-${job.period}`}
 								href={job.url}
+								iconSrc={
+									job.company === "Refik Anadol Studio"
+										? "/icons/refikanadol.gif"
+										: undefined
+								}
 								title={`${job.title} · ${job.company}`}
 								right={job.period}
 								subtitle={job.description}
@@ -149,14 +207,12 @@ export default function AboutPage() {
 								active={job.active}
 							/>
 						))}
-					</div>
+					</ResumeGroup>
 
-					<SectionHeader
-						eyebrow="fellowships"
-						title="Fellowships"
-						className="mt-16"
-					/>
-					<div className="mt-8 divide-y divide-line border-t border-line">
+					<ResumeGroup
+						label="Fellowships"
+						className="mt-10 border-t border-line pt-10"
+					>
 						{fellowships.map((fellowship) => (
 							<ResumeRow
 								key={fellowship.org}
@@ -166,30 +222,32 @@ export default function AboutPage() {
 								subtitle={fellowship.description}
 							/>
 						))}
-					</div>
-				</Shell>
-			</Section>
+					</ResumeGroup>
 
-			<Section>
-				<Shell>
-					<SectionHeader eyebrow="awards" title="Awards" />
-					<div className="mt-8 divide-y divide-line border-t border-line">
+					<ResumeGroup
+						label="Awards"
+						className="mt-10 border-t border-line pt-10"
+					>
 						{awards.map((award) => (
 							<ResumeRow
 								key={award.name}
+								href={award.url}
+								iconSrc={
+									award.name === "Teknofest"
+										? "/icons/teknofest.png"
+										: undefined
+								}
 								title={`${award.name} · ${award.place}`}
 								right={award.year}
 								subtitle={award.description}
 							/>
 						))}
-					</div>
-				</Shell>
-			</Section>
+					</ResumeGroup>
 
-			<Section tint flush>
-				<Shell className="py-[clamp(48px,8vw,96px)]">
-					<SectionHeader eyebrow="education" title="Education" />
-					<div className="mt-8 divide-y divide-line border-t border-line">
+					<ResumeGroup
+						label="Education"
+						className="mt-10 border-t border-line pt-10"
+					>
 						{education.map((entry) => (
 							<ResumeRow
 								key={entry.title}
@@ -199,7 +257,7 @@ export default function AboutPage() {
 								subtitle={entry.description}
 							/>
 						))}
-					</div>
+					</ResumeGroup>
 				</Shell>
 			</Section>
 		</>

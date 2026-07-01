@@ -4,7 +4,7 @@ export const meta = {
 	summary:
 		"For thirty years a project tracker was a thing a person kept in sync by hand. That busywork is your agents' job now, and they need a durable environment to do it in, not a chat window that forgets. CompanyOS is that environment, multi-tenant, audited, live, over a built-in MCP server, on your own keys. It is also the thing you share. One invitation and a new teammate or a new agent inherits the entire living project, the tasks, the roadmap, and the full history, with nothing to explain and nothing to transfer. You do not fill it in. You check the progress. Here is how it works.",
 	tags: ["ai", "agents", "mcp", "multi-tenant", "fastapi", "self-hosted", "byok"],
-	cover: "/blog/companyos/cover.jpg",
+	cover: "/blog-cover/companyos",
 };
 
 export const metadata = {
@@ -26,20 +26,6 @@ export const metadata = {
 };
 
 <PostMeta meta={meta} />
-
-<Details summary="Brief">
-
-**One thing.** A project tracker was always a thing a person kept in sync by hand. You turned real work into tickets, wrote the descriptions, set the status, moved the cards, checked them off. None of that was the work. It was the data entry you did so everyone else could see the work, a tax you paid for a shared picture. That tax is exactly what an agent can pay now. So CompanyOS is not a tracker for you to fill in. It is the durable environment your agents run in, multi-tenant, audited, and live, reached over a built-in MCP server on your own key. They keep the board. You check the progress when you want to. And because that environment holds the whole living project, the tasks, the roadmap, and every move since day one, inviting a new teammate or a new agent is one click. They inherit all of it instantly, with nothing for you to explain.
-
-**Proof.** The backend is a FastAPI modular monolith on Postgres 17 with pooled multi-tenancy, an `org_id` on every tenant row and no global list endpoints, so an agent's token can only ever address the one org it was granted. Tasks are Linear-style, a per-project key and a concurrency-safe counter giving you `DEMO-42`, and every mutation writes an activity event, which is the agent's durable memory between runs. Provider keys are sealed with AES-256-GCM under a 32-byte key-encryption key, and every model call, human or agent, writes an audit row. The MCP server speaks streamable HTTP over OAuth 2.1 and is bidirectional, the agent writes back into the system of record, not just reads it.
-
-**Reader transformation.** They stop seeing a tracker as a place they do data entry to keep everyone aligned. They start seeing it as the long-running workspace their agents operate in and their team shares, where the agents create and maintain the work, a person checks in optionally, and a new member is caught up by one invitation instead of a week of catch-up calls.
-
-**Hook.** You stop filling in the tracker. Your agents do that now. CompanyOS is where they do it.
-
-**Closer.** The busywork of coordination was never the work. It was the tax you paid to keep a shared picture. Hand it to the agents, give them a durable place to run, and your job shrinks to the one part that needed you, deciding what matters and checking that it happened.
-
-</Details>
 
 You stop filling in the tracker. Your agents do that now. CompanyOS is where they do it.
 

@@ -1,9 +1,8 @@
-import { GlitchText } from "@/components/blocks/ascii/glitch-text";
+import { ParentalAdvisory } from "@/components/blocks/parental-advisory";
 import { PostFooterNav } from "@/components/blocks/post-footer-nav";
-import { PostNavSidebar } from "@/components/blocks/post-nav-sidebar";
 import { PostToc } from "@/components/blocks/post-toc";
+import { PostTopBar } from "@/components/blocks/post-top-bar";
 import { ReadingProgress } from "@/components/blocks/reading-progress";
-import { Shell } from "@/components/ds/shell";
 import { getAllPosts } from "@/lib/blog";
 
 export default async function PostLayout({
@@ -15,25 +14,23 @@ export default async function PostLayout({
 	return (
 		<>
 			<ReadingProgress />
-			<Shell width="wide" className="py-12 sm:py-16">
-				<div className="xl:grid xl:grid-cols-[200px_minmax(0,1fr)_220px] xl:gap-12">
-					<aside className="hidden xl:block">
-						<PostNavSidebar posts={items} />
-					</aside>
-					<article className="mx-auto w-full min-w-0 max-w-article">
-						{children}
-						<div className="mt-20 flex justify-center border-t border-line pt-8">
-							<GlitchText
-								text="EOF"
-								className="text-[28px] font-semibold tracking-[0.2em]"
-							/>
-						</div>
-					</article>
-					<aside className="hidden xl:block">
+			<div className="relative mx-auto max-w-column px-6 py-14 sm:py-20">
+				{/* Table of contents on the left rail on wide screens; the reading
+				    measure stays centered. */}
+				<aside className="absolute right-full top-0 hidden h-full w-[260px] pr-10 xl:block">
+					<div className="sticky top-24">
 						<PostToc />
-					</aside>
-				</div>
-			</Shell>
+					</div>
+				</aside>
+				<PostTopBar />
+				<article className="w-full min-w-0">
+					{children}
+					{/* Easter egg: explicit-content stamp at the end of every post. */}
+					<div className="mt-20 flex justify-center">
+						<ParentalAdvisory className="h-auto w-[180px] opacity-80 [transform:rotate(-5deg)] transition-opacity duration-300 ease-house hover:opacity-100" />
+					</div>
+				</article>
+			</div>
 			<PostFooterNav posts={items} />
 		</>
 	);

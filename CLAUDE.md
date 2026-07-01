@@ -18,7 +18,7 @@ Package manager is **Bun**. Runtime requires Node >= 20.
 ## Architecture
 
 - **`app/layout.tsx`** — Root layout wraps everything in ThemeProvider and TooltipProvider, plus Vercel Analytics.
-- **`app/(website)/`** — Main route group: home (`page.tsx`), `/books`. The website layout sets site-wide metadata.
+- **`app/(website)/`** — Main route group: home (`page.tsx`), blog, projects, about. The website layout sets site-wide metadata.
 - **`components/`** — organized into `ds/` (design-system primitives), `blocks/` (domain-specific: post chrome, polaroids, contribution graph), `ui/` (shadcn/ui primitives), `hooks/`, and `providers/` (theme provider wrapping `next-themes`).
 - **`data/`** — static data files (`books.ts`).
 - **`lib/utils.tsx`** — `cn()` class merge helper, navigation items, career timeline, changelog entries, and project definitions. This is the central data file for site content.
@@ -28,7 +28,7 @@ Package manager is **Bun**. Runtime requires Node >= 20.
 ## Key Conventions
 
 - Path alias: `@/*` maps to project root.
-- Apple-faithful design system documented in **DESIGN.md** (normative). Sans is the system font stack (renders SF Pro on Apple devices); code uses the system mono stack (SF Mono on Apple devices).
+- Dark-only editorial design system. Body and UI use Geist Sans; code uses Geist Mono. Surfaces are near-black with 1px hairline borders.
 - CSS variables hold RGB triplets consumed as `rgb(var(--x) / <alpha>)` in Tailwind. Light and dark are both first-class, `class` strategy via `next-themes`, default `system`.
 - Reusable primitives live in `components/ds/` (direct file imports, no barrel). Compose these before inventing new components.
 - UI components follow shadcn/ui patterns with Radix UI primitives. Config in `components.json`.
@@ -38,7 +38,7 @@ Package manager is **Bun**. Runtime requires Node >= 20.
 
 ## Animation Approach
 
-Motion follows DESIGN.md: one easing curve `cubic-bezier(0.4, 0, 0.25, 1)`, durations 100/240/300-400/800ms, scroll reveals play once (`components/ds/reveal.tsx`), filtering and theme switches are instant.
+Motion uses one easing curve `cubic-bezier(0.16, 1, 0.3, 1)`, scroll reveals play once (`components/ds/reveal.tsx`), and filtering is instant.
 
 - **CSS only** for nearly everything: hovers, the nav scrim, the gallery (scroll-snap), reveals.
 - **framer-motion** survives only in kept legacy components: polaroids, number ticker, contribution graph, github stars.

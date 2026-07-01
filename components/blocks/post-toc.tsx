@@ -27,22 +27,33 @@ export function PostToc() {
 		}));
 		setEntries(collected);
 
-		if (!collected.length) return;
+		if (!nodes.length) return;
 
-		const observer = new IntersectionObserver(
-			(records) => {
-				const visible = records
-					.filter((r) => r.isIntersecting)
-					.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-				if (visible[0]) {
-					setActiveId(visible[0].target.id);
-				}
-			},
-			{ rootMargin: "-30% 0px -60% 0px", threshold: 0 },
-		);
+		// Active = the last heading scrolled past a line near the top of the
+		// viewport. This stays correct when a TOC link is clicked (the heading
+		// jumps to the top) and while scrolling up or down.
+		const TOP = 140;
+		const update = () => {
+			let current = nodes[0].id;
+			for (const node of nodes) {
+				if (node.getBoundingClientRect().top <= TOP) current = node.id;
+			}
+			// At the very bottom of the page, force the final heading active so
+			// short trailing sections can still highlight.
+			const atBottom =
+				window.innerHeight + window.scrollY >=
+				document.documentElement.scrollHeight - 2;
+			if (atBottom) current = nodes[nodes.length - 1].id;
+			setActiveId(current);
+		};
 
-		for (const node of nodes) observer.observe(node);
-		return () => observer.disconnect();
+		update();
+		window.addEventListener("scroll", update, { passive: true });
+		window.addEventListener("resize", update, { passive: true });
+		return () => {
+			window.removeEventListener("scroll", update);
+			window.removeEventListener("resize", update);
+		};
 	}, []);
 
 	if (entries.length < 2) return null;
@@ -50,10 +61,9 @@ export function PostToc() {
 	return (
 		<nav
 			aria-label="Table of contents"
-			className="no-scrollbar sticky top-20 hidden max-h-[calc(100vh-6rem)] self-start overflow-y-auto xl:block"
+			className="no-scrollbar max-h-[calc(100vh-8rem)] overflow-y-auto"
 		>
-			<p className="oak-label mb-3 text-ink-mute">{"// on-this-page"}</p>
-			<ul className="space-y-1.5 border-l border-line pl-3">
+			<ul className="space-y-2">
 				{entries.map((entry) => {
 					const isActive = entry.id === activeId;
 					return (
@@ -61,23 +71,29 @@ export function PostToc() {
 							<a
 								href={`#${entry.id}`}
 								className={cn(
-									"block text-caption leading-snug transition-colors duration-200 ease-house",
-									entry.level === 3 ? "pl-4" : "",
-									isActive
-										? "text-foreground"
-										: "text-ink-mute hover:text-foreground",
+									"group flex items-center gap-2.5",
+									entry.level === 3 && "pl-3",
 								)}
 							>
 								<span
 									aria-hidden="true"
 									className={cn(
-										"mr-1.5 select-none",
-										isActive ? "text-foreground" : "text-line",
+										"h-px shrink-0 transition-all duration-200 ease-house",
+										isActive
+											? "w-5 bg-ink"
+											: "w-2.5 bg-line group-hover:w-3.5 group-hover:bg-ink-mute",
+									)}
+								/>
+								<span
+									className={cn(
+										"font-ui text-[11.5px] leading-snug transition-colors duration-200 ease-house",
+										isActive
+											? "text-ink"
+											: "text-ink-mute group-hover:text-ink-soft",
 									)}
 								>
-									{isActive ? "›" : "·"}
+									{entry.text}
 								</span>
-								{entry.text}
 							</a>
 						</li>
 					);

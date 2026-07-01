@@ -1,16 +1,19 @@
 import { NAV_ITEMS } from "@/components/ds/nav-items";
 import { Shell } from "@/components/ds/shell";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 
-const PAGES = [{ href: "/", label: "Home" }, ...NAV_ITEMS] as const;
+const PAGES = [
+	{ href: "/", label: "Home" },
+	...NAV_ITEMS,
+	{ href: "/blog/rss.xml", label: "RSS" },
+] as const;
 
 const ELSEWHERE = [
 	{ href: "https://x.com/woosal1337", label: "X", external: true },
 	{ href: "https://github.com/woosal1337", label: "GitHub", external: true },
 	{
-		href: "https://linkedin.com/in/woosal1337",
+		href: "https://linkedin.com/in/woosal",
 		label: "LinkedIn",
 		external: true,
 	},
@@ -20,7 +23,6 @@ const ELSEWHERE = [
 		external: true,
 	},
 	{ href: "mailto:ege@chele.bi", label: "Email", external: true },
-	{ href: "/blog/rss.xml", label: "RSS", external: false },
 ] as const;
 
 export type BreadcrumbItem = {
@@ -62,99 +64,80 @@ export function BreadcrumbBand({
 }
 
 const quietLink =
-	"text-ink-soft transition-colors duration-200 ease-house hover:text-foreground";
+	"font-ui text-ink-mute transition-colors duration-200 ease-house hover:text-ink";
 
 function FooterColumn({
-	label,
+	align = "left",
 	children,
-}: { label: string; children: React.ReactNode }) {
+}: {
+	align?: "left" | "right";
+	children: React.ReactNode;
+}) {
 	return (
-		<div>
-			<p className="oak-label mb-3 text-ink-mute">// {label}</p>
-			<ul className="space-y-2 text-footnote">{children}</ul>
+		<div className={align === "right" ? "text-right" : undefined}>
+			<ul className="space-y-2 font-ui text-[13.5px]">{children}</ul>
 		</div>
 	);
 }
 
 export function SiteFooter() {
-	const year = new Date().getFullYear();
 	return (
-		<footer className="mt-auto border-t border-line bg-paper">
-			<Shell className="py-12">
-				<div className="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between sm:gap-16">
-					<div className="max-w-sm">
-						<Link
-							href="/"
-							className="flex items-center gap-2 text-[15px] leading-none text-foreground transition-opacity hover:opacity-80"
-						>
-							<Image
-								src="/logo.png"
-								alt=""
-								width={28}
-								height={28}
-								className="h-7 w-7"
-							/>
-							<span className="font-medium tracking-tight">ege</span>
-						</Link>
-						<p className="mt-3 text-footnote leading-relaxed text-ink-soft">
-							Code, entrepreneurship and AI. Building tools for humans and
-							agents.
-						</p>
-					</div>
+		<footer className="mt-auto">
+			<div className="mx-auto max-w-column px-6 pb-14 pt-10">
+				<div className="grid grid-cols-3 items-center border-t border-line pt-10">
+					<FooterColumn>
+						{PAGES.map((item) => (
+							<li key={item.href}>
+								<Link href={item.href} className={quietLink}>
+									{item.label}
+								</Link>
+							</li>
+						))}
+					</FooterColumn>
 
-					<div className="flex gap-16">
-						<FooterColumn label="pages">
-							{PAGES.map((item) => (
-								<li key={item.href}>
+					<Link
+						href="/"
+						aria-label="Home"
+						className="flex justify-center transition-opacity duration-200 ease-house hover:opacity-80"
+					>
+						{/* eslint-disable-next-line @next/next/no-img-element */}
+						<img
+							src="/contour-logo/contour-logo-white.svg"
+							alt="ege"
+							width={160}
+							height={160}
+							className="size-40"
+						/>
+					</Link>
+
+					<FooterColumn align="right">
+						{ELSEWHERE.map((item) =>
+							item.external ? (
+								<li key={item.label}>
+									<a
+										href={item.href}
+										target={item.href.startsWith("http") ? "_blank" : undefined}
+										rel={
+											item.href.startsWith("http")
+												? "noopener noreferrer"
+												: undefined
+										}
+										className={quietLink}
+									>
+										{item.label}
+									</a>
+								</li>
+							) : (
+								<li key={item.label}>
 									<Link href={item.href} className={quietLink}>
 										{item.label}
 									</Link>
 								</li>
-							))}
-						</FooterColumn>
-						<FooterColumn label="elsewhere">
-							{ELSEWHERE.map((item) =>
-								item.external ? (
-									<li key={item.label}>
-										<a
-											href={item.href}
-											target={
-												item.href.startsWith("http") ? "_blank" : undefined
-											}
-											rel={
-												item.href.startsWith("http")
-													? "noopener noreferrer"
-													: undefined
-											}
-											className={quietLink}
-										>
-											{item.label}
-										</a>
-									</li>
-								) : (
-									<li key={item.label}>
-										<Link href={item.href} className={quietLink}>
-											{item.label}
-										</Link>
-									</li>
-								),
-							)}
-						</FooterColumn>
-					</div>
+							),
+						)}
+					</FooterColumn>
 				</div>
-
-				<div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-line pt-6 text-caption text-ink-mute">
-					<p>© {year} Ege Çelebi</p>
-					<p className="flex items-center gap-3">
-						<Link
-							href="/blog/rss.xml"
-							className="transition-colors hover:text-foreground"
-						>
-							RSS
-						</Link>
-					</p>
-				</div>
-			</Shell>
+			</div>
 		</footer>
 	);
 }

@@ -34,17 +34,15 @@ export function StoryCard({
 		<Link
 			href={href}
 			className={cn(
-				"group block overflow-hidden border border-line bg-paper transition-colors duration-240 ease-house hover:border-line-strong hover:bg-paper-2",
-				featured && "md:grid md:grid-cols-2",
+				"group block overflow-hidden rounded-[16px] border border-line bg-[#0a0a0a] transition-colors duration-200 ease-house hover:border-line-strong",
 				className,
 			)}
 		>
 			{cover && (
 				<div
 					className={cn(
-						"relative aspect-[2/1] overflow-hidden border-b border-line bg-paper-2",
-						featured &&
-							"md:aspect-auto md:h-full md:min-h-[320px] md:border-b-0 md:border-r",
+						"relative aspect-[2/1] overflow-hidden bg-[#060606]",
+						featured && "aspect-[16/9]",
 					)}
 				>
 					<Image
@@ -53,37 +51,34 @@ export function StoryCard({
 						fill
 						sizes={
 							featured
-								? "(max-width: 768px) 100vw, 490px"
-								: "(max-width: 768px) 100vw, 470px"
+								? "(max-width: 768px) 100vw, 680px"
+								: "(max-width: 768px) 100vw, 332px"
 						}
 						className="object-cover"
 					/>
 				</div>
 			)}
-			<div
-				className={cn(
-					"p-6",
-					featured && "md:flex md:flex-col md:justify-center md:p-10",
-				)}
-			>
+			<div className={cn("p-5", featured && "p-6")}>
 				<div className="flex items-center gap-2">
-					{label && <p className="oak-label text-ink-mute">{label}</p>}
+					{label && (
+						<p className="font-ui text-[13px] text-ink-mute">{label}</p>
+					)}
 					{isNew && <NewLabel />}
 				</div>
 				<h3
 					className={cn(
-						"mt-3 text-title text-foreground transition-colors group-hover:text-foreground",
-						featured && "md:text-headline",
+						"mt-2 font-ui text-[17px] font-medium text-ink",
+						featured && "text-[22px]",
 					)}
 				>
 					{title}
 				</h3>
 				{summary && (
-					<p className="mt-2 line-clamp-2 text-footnote text-ink-soft">
+					<p className="mt-2 line-clamp-2 font-ui text-[14px] leading-snug text-ink-mute">
 						{summary}
 					</p>
 				)}
-				<p className="oak-label mt-4 text-ink-mute">{date}</p>
+				<p className="mt-4 font-ui text-[13px] text-ink-mute">{date}</p>
 			</div>
 		</Link>
 	);

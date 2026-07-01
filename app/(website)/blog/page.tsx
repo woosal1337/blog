@@ -1,16 +1,11 @@
 import { AsciiPlasma } from "@/components/blocks/ascii/ascii-plasma";
-import { CTALink } from "@/components/ds/cta-link";
-import { PageHero } from "@/components/ds/page-hero";
-import {
-	PostList,
-	PostListGroup,
-	PostListRow,
-} from "@/components/ds/post-list";
+import { BackButton } from "@/components/ds/back-button";
+import { EntryRow } from "@/components/ds/entry-row";
 import { Reveal } from "@/components/ds/reveal";
-import { SectionHeader } from "@/components/ds/section-header";
+import { SectionLabel } from "@/components/ds/section-label";
 import { Section, Shell } from "@/components/ds/shell";
 import { StoryCard } from "@/components/ds/story-card";
-import { type BlogPostMeta, getAllPosts } from "@/lib/blog";
+import { type BlogPostMeta, formatTag, getAllPosts } from "@/lib/blog";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -50,32 +45,21 @@ export default async function BlogIndexPage() {
 
 	return (
 		<>
-			<PageHero
-				eyebrow="blog"
-				title="~/writing"
-				caption={`${posts.length} ${posts.length === 1 ? "essay" : "essays"} and field reports. Essays, notes, and signals from the work.`}
-				action={<CTALink href="/blog/rss.xml">Subscribe via RSS</CTALink>}
-			/>
-
 			{posts.length === 0 ? (
 				<Section>
-					<Shell>
-						<div className="border border-line bg-paper p-5">
-							<p className="text-body text-ink-soft">
-								<span className="text-ink-mute">$</span> ls
-								app/(website)/blog/(post)/
-							</p>
-							<p className="mt-2 text-footnote text-ink-mute">
-								No entries yet. Drop an MDX file under
-								app/(website)/blog/(post)/ to publish your first post.
-							</p>
-						</div>
+					<Shell width="column">
+						<BackButton className="mb-8" />
+						<p className="font-ui text-[15px] text-ink-mute">
+							No entries yet. Drop an MDX file under app/(website)/blog/(post)/
+							to publish your first post.
+						</p>
 					</Shell>
 				</Section>
 			) : (
 				<>
 					<Section tint>
-						<Shell>
+						<Shell width="column">
+							<BackButton className="mb-8" />
 							<Reveal className="mb-6">
 								<AsciiPlasma className="h-[160px]" />
 							</Reveal>
@@ -87,12 +71,12 @@ export default async function BlogIndexPage() {
 									title={featured.title}
 									summary={featured.summary}
 									date={cardDate(featured.date)}
-									label={featured.tags?.[0]}
+									label={formatTag(featured.tags?.[0])}
 									cover={featured.cover}
 								/>
 							</Reveal>
 							{rest.length > 0 && (
-								<div className="mt-6 grid gap-6 md:grid-cols-2">
+								<div className="mt-4 grid gap-4 md:grid-cols-2">
 									{rest.map((post, index) => (
 										<Reveal key={post.slug} delay={index % 2 === 0 ? 1 : 2}>
 											<StoryCard
@@ -100,7 +84,7 @@ export default async function BlogIndexPage() {
 												title={post.title}
 												summary={post.summary}
 												date={cardDate(post.date)}
-												label={post.tags?.[0]}
+												label={formatTag(post.tags?.[0])}
 												cover={post.cover}
 											/>
 										</Reveal>
@@ -111,32 +95,29 @@ export default async function BlogIndexPage() {
 					</Section>
 
 					<Section>
-						<Shell>
-							<SectionHeader eyebrow="archive" title="All posts" />
-							<PostList className="mt-8">
+						<Shell width="column">
+							<SectionLabel>All posts</SectionLabel>
+							<div className="mt-5 flex flex-col">
 								{groupByYear(posts).map(([year, yearPosts]) => (
-									<PostListGroup key={year} label={year}>
+									<div key={year}>
+										<p className="mb-1 mt-8 font-ui text-[13px] text-ink-mute first:mt-0">
+											{year}
+										</p>
 										{yearPosts.map((post) => (
-											<PostListRow
+											<EntryRow
 												key={post.slug}
 												href={`/blog/${post.slug}`}
 												title={post.title}
-												right={
-													<span className="oak-label inline-flex items-center gap-2 text-ink-mute">
-														{post.tags?.[0] && (
-															<>
-																<span>{post.tags[0]}</span>
-																<span className="text-line">·</span>
-															</>
-														)}
-														<span>{rowDate(post.date)}</span>
-													</span>
+												meta={
+													post.tags?.[0]
+														? `${formatTag(post.tags[0])} · ${rowDate(post.date)}`
+														: rowDate(post.date)
 												}
 											/>
 										))}
-									</PostListGroup>
+									</div>
 								))}
-							</PostList>
+							</div>
 						</Shell>
 					</Section>
 				</>

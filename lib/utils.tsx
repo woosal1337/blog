@@ -80,15 +80,16 @@ export const workExperience = [
 
 export const education = [
 	{
-		title: "MSc, Computer Engineering · Medipol University",
+		title: "MSc, CS · Medipol University",
 		url: "https://www.medipol.edu.tr/",
-		description: "Started the master's degree in 2024.",
+		description: "Hardware-backed credential custody for LLM coding agents.",
 		period: "2024-now",
 	},
 	{
-		title: "BSc, Computer Engineering · Medipol University",
+		title: "BSc, CS · Medipol University",
 		url: "https://www.medipol.edu.tr/",
-		description: "Graduated in 2024.",
+		description:
+			"Decentralized Identifiers (DIDs) for government identity systems.",
 		period: "2019-2024",
 	},
 ];
@@ -99,7 +100,7 @@ export const fellowships = [
 		org: "Türkiye Girişimcilik Vakfı",
 		url: "https://www.girisimcilikvakfi.org/",
 		period: "2022-now",
-		description: "Entrepreneurship foundation fellow (2022) and alumni.",
+		description: "Turkiye Entrepreneurship Foundation Fellow & Alumni",
 	},
 	{
 		title: "Incubation",
@@ -115,30 +116,35 @@ export const awards = [
 		name: "AA Media Hackathon",
 		place: "Top 10",
 		year: "2024",
+		url: "https://www.aa.com.tr/",
 		description: "One of 2 projects acquired out of 133 teams.",
 	},
 	{
 		name: "ReFi Hackathon",
 		place: "3rd place",
 		year: "2022",
+		url: "https://www.akbank.com/",
 		description: "Akbank x Avalanche hackathon, 19 teams.",
 	},
 	{
 		name: "AÇIKHACK Blockchain",
 		place: "1st place",
 		year: "2022",
+		url: "https://www.turkiyeacikkaynakplatformu.com/turkce-dogal-dil-isleme-acikhack-hackathon-yarismasinda-summarify-birinci-oldu/",
 		description: "Blockchain, NFT, metaverse hackathon, 41 teams.",
 	},
 	{
 		name: "Avalanche Hacks",
 		place: "2nd place",
 		year: "2021",
+		url: "https://www.avax.network/",
 		description: "Blockchain gaming track, Istanbul.",
 	},
 	{
 		name: "Teknofest",
 		place: "Finalist",
 		year: "2021",
+		url: "https://www.teknofest.org/en/",
 		description: "Fighting UAVs, Medipol Autonomous Vehicles.",
 	},
 ];

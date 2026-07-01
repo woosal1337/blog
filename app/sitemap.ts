@@ -2,12 +2,10 @@ import { getAllPosts } from "@/lib/blog";
 
 export default async function sitemap() {
 	const today = new Date().toISOString().split("T")[0];
-	const staticRoutes = ["", "/blog", "/projects", "/about", "/books"].map(
-		(route) => ({
-			url: `https://chele.bi${route}`,
-			lastModified: today,
-		}),
-	);
+	const staticRoutes = ["", "/blog", "/projects", "/about"].map((route) => ({
+		url: `https://chele.bi${route}`,
+		lastModified: today,
+	}));
 
 	const posts = await getAllPosts();
 	const postRoutes = posts.map((post) => ({

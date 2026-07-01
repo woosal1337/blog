@@ -10,33 +10,33 @@
 @layer base {
 	:root,
 	.dark {
-		--paper: 0 0 0;
-		--paper-2: 0 0 0;
-		--paper-3: 0 0 0;
+		--paper: 16 16 16;
+		--paper-2: 22 22 22;
+		--paper-3: 28 28 28;
 		--ink: 245 245 245;
 		--ink-soft: 160 160 160;
 		--ink-mute: 120 120 120;
 		--line: 64 64 64;
 		--line-strong: 90 90 90;
 
-		--background: 0 0 0;
+		--background: 16 16 16;
 		--foreground: 245 245 245;
-		--card: 0 0 0;
+		--card: 16 16 16;
 		--card-foreground: 245 245 245;
 
-		--popover: 0 0 0;
+		--popover: 16 16 16;
 		--popover-foreground: 245 245 245;
 
 		/* primary === white pill button (white bg, black text) */
 		--primary: 245 245 245;
 		--primary-foreground: 0 0 0;
 
-		--secondary: 0 0 0;
+		--secondary: 16 16 16;
 		--secondary-foreground: 245 245 245;
 
-		--muted: 0 0 0;
+		--muted: 16 16 16;
 		--muted-foreground: 160 160 160;
-		--accent: 0 0 0;
+		--accent: 16 16 16;
 		--accent-foreground: 245 245 245;
 
 		--destructive: 240 130 120;
@@ -52,16 +52,16 @@
 		--action-hover: 255 255 255;
 		--action-active: 200 200 200;
 		--tertiary: 120 120 120;
-		--raised: 0 0 0;
-		--scrim: 0 0 0;
+		--raised: 22 22 22;
+		--scrim: 16 16 16;
 		--radius: 0px;
 
-		/* terminal panel palette for code blocks (pure black surfaces) */
-		--term-bg: 0 0 0;
-		--term-line: 36 36 39;
-		--term-ink: 236 232 220;
-		--term-ink-soft: 148 143 130;
-		--term-ink-mute: 92 90 82;
+		/* code blocks: bright neutral text (white), dim meta (no warm tint) */
+		--term-bg: 16 16 16;
+		--term-line: 38 38 38;
+		--term-ink: 236 236 236;
+		--term-ink-soft: 150 150 150;
+		--term-ink-mute: 110 110 110;
 	}
 }
 
@@ -111,11 +111,11 @@
 }
 
 @layer components {
-	/* Code blocks rendered as terminal panels: sharp corners, warm ink. */
+	/* Code blocks rendered as soft panels: rounded, warm ink. */
 	figure[data-rehype-pretty-code-figure] {
 		margin: 1.6em 0;
 		border: 1px solid rgb(var(--line));
-		border-radius: 0;
+		border-radius: 12px;
 		background: rgb(var(--term-bg));
 		overflow: hidden;
 	}
@@ -192,8 +192,8 @@
 		display: none;
 	}
 
-	/* Uppercase tracked terminal label/eyebrow. Prefix with // or $ in markup. */
-	.oak-label {
+	/* Uppercase tracked label/eyebrow. Prefix with // or $ in markup. */
+	.mono-label {
 		font-size: 12px;
 		line-height: 1.33;
 		letter-spacing: 0.14em;
@@ -201,46 +201,11 @@
 		color: rgb(var(--ink-soft));
 	}
 
-	/* Page frame: centered max-width column with responsive gutters. */
-	.oak-frame {
-		margin-inline: auto;
-		width: 100%;
-		max-width: 1120px;
-		padding-inline: 1.5rem;
-	}
-
-	/* Blinking block caret for terminal accents. */
-	.oak-caret::after {
-		content: "▋";
-		margin-left: 0.15em;
-		color: rgb(var(--ink));
-		animation: caretBlink 1.1s steps(1) infinite;
-	}
-	@keyframes caretBlink {
-		0%,
-		49% {
-			opacity: 1;
-		}
-		50%,
-		100% {
-			opacity: 0;
-		}
-	}
-
 	/* Crisp pixel rendering for pixel-art SVG/IMG marks. */
 	.pixelated {
 		image-rendering: pixelated;
 		image-rendering: crisp-edges;
 		shape-rendering: crispEdges;
-	}
-
-	/* Faint terminal grid backdrop for hero/empty surfaces. */
-	.oak-grid {
-		background-image: linear-gradient(
-				rgb(245 245 245 / 0.025) 1px,
-				transparent 1px
-			), linear-gradient(90deg, rgb(245 245 245 / 0.025) 1px, transparent 1px);
-		background-size: 32px 32px;
 	}
 
 	.nav-scrim {
@@ -309,82 +274,5 @@
 	}
 	.dim-row {
 		transition: opacity 240ms cubic-bezier(0.16, 1, 0.3, 1);
-	}
-
-	/* Phosphor glitch type: base ink with two grey channels jittering on a loop.
-	   Monochrome port of soft-club-ui's GlitchText. */
-	.oak-glitch {
-		position: relative;
-		display: inline-block;
-	}
-	.oak-glitch__base {
-		position: relative;
-		z-index: 2;
-		color: rgb(var(--ink));
-	}
-	.oak-glitch::before,
-	.oak-glitch::after {
-		content: attr(data-text);
-		position: absolute;
-		inset: 0;
-		z-index: 1;
-		pointer-events: none;
-	}
-	.oak-glitch::before {
-		color: rgb(var(--ink-mute));
-		animation: oak-glitch-a 3.6s steps(2, jump-none) infinite;
-	}
-	.oak-glitch::after {
-		color: rgb(var(--line-strong));
-		animation: oak-glitch-b 4.3s steps(2, jump-none) infinite;
-	}
-	@keyframes oak-glitch-a {
-		0%,
-		100% {
-			clip-path: inset(0 0 85% 0);
-			transform: translate(-1px, -1px);
-		}
-		20% {
-			clip-path: inset(42% 0 40% 0);
-			transform: translate(1px, 1px);
-		}
-		40% {
-			clip-path: inset(70% 0 10% 0);
-			transform: translate(-1px, 0);
-		}
-		60% {
-			clip-path: inset(20% 0 60% 0);
-			transform: translate(1px, -1px);
-		}
-		80% {
-			clip-path: inset(55% 0 25% 0);
-			transform: translate(-1px, 1px);
-		}
-	}
-	@keyframes oak-glitch-b {
-		0%,
-		100% {
-			clip-path: inset(70% 0 10% 0);
-			transform: translate(1px, 1px);
-		}
-		25% {
-			clip-path: inset(10% 0 75% 0);
-			transform: translate(-1px, 0);
-		}
-		50% {
-			clip-path: inset(45% 0 35% 0);
-			transform: translate(1px, -1px);
-		}
-		75% {
-			clip-path: inset(80% 0 5% 0);
-			transform: translate(-1px, 1px);
-		}
-	}
-	@media (prefers-reduced-motion: reduce) {
-		.oak-glitch::before,
-		.oak-glitch::after {
-			animation: none;
-			clip-path: inset(0 0 100% 0);
-		}
 	}
 }

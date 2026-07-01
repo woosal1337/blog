@@ -39,3 +39,8 @@ next-env.d.ts
 
 # ide
 .idea
+
+# local AI tooling config (never commit — leaks local paths)
+.air/
+# impeccable design-context (regenerate per design; keep out of public repo)
+.impeccable/

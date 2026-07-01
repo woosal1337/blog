@@ -1,11 +1,16 @@
-import { MatrixRain } from "@/components/blocks/ascii/matrix-rain";
+import { BooksShelf } from "@/components/blocks/books-shelf";
 import { CTALink } from "@/components/ds/cta-link";
-import { Gallery, GalleryItem } from "@/components/ds/gallery";
-import { LineupCard } from "@/components/ds/lineup-card";
-import { PostList, PostListRow } from "@/components/ds/post-list";
-import { Reveal } from "@/components/ds/reveal";
-import { SectionHeader } from "@/components/ds/section-header";
-import { Section, Shell } from "@/components/ds/shell";
+import { EntryRow } from "@/components/ds/entry-row";
+import { FeatureCard } from "@/components/ds/feature-card";
+import {
+	GithubIcon,
+	IconLink,
+	InstagramIcon,
+	XIcon,
+} from "@/components/ds/icon-link";
+import { ProfileLockup } from "@/components/ds/profile-lockup";
+import { SectionLabel } from "@/components/ds/section-label";
+import { NewLabel } from "@/components/ds/tag";
 import { getAllPosts } from "@/lib/blog";
 import { allProjects } from "@/lib/utils";
 
@@ -17,102 +22,123 @@ function rowDate(date: string): string {
 	});
 }
 
-const bioLink =
-	"text-link transition-colors duration-200 ease-house hover:underline";
+const em = "font-serif text-[1.06em] italic text-ink";
+
+const SOCIALS = [
+	{ href: "https://x.com/woosal1337", label: "X (Twitter)", Icon: XIcon },
+	{
+		href: "https://www.instagram.com/woosal1337/",
+		label: "Instagram",
+		Icon: InstagramIcon,
+	},
+	{ href: "https://github.com/woosal1337", label: "GitHub", Icon: GithubIcon },
+] as const;
 
 export default async function HomePage() {
 	const posts = await getAllPosts();
-	const latest = posts.slice(0, 3);
+	const writing = posts.slice(0, 8);
+	const featured = allProjects.slice(0, 2);
 
 	return (
 		<>
-			<Section className="relative overflow-hidden">
-				<MatrixRain
-					aria-hidden="true"
-					className="pointer-events-none absolute inset-0 opacity-[0.2]"
+			<div className="mx-auto max-w-column px-6 pt-16 sm:pt-28">
+				{/* Intro */}
+				<ProfileLockup
+					name="Ege Chelebi"
+					tagline="AI engineer at Refik Anadol Studio"
+					avatar="/contour-logo/contour-logo-white.svg"
 				/>
-				<Shell className="relative">
-					<Reveal>
-						<p className="oak-label mb-5 text-ink-mute">// whoami</p>
-						<h1 className="text-display text-foreground">
-							Hi, I&apos;m Ege.
-							<span className="oak-caret ml-1.5 align-baseline" aria-hidden />
-						</h1>
-						<p className="mt-6 max-w-[56ch] text-subhead text-muted-foreground">
-							AI engineer at{" "}
-							<a
-								href="https://refikanadolstudio.com/"
-								target="_blank"
-								rel="noopener noreferrer"
-								className={bioLink}
-							>
-								Refik Anadol Studio
-							</a>
-							. I write about code, entrepreneurship and AI.
-						</p>
-						<div className="oak-label mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-mute">
-							<span>Istanbul</span>
-							<span className="text-line">·</span>
-							<span>AI / Code</span>
-							<span className="text-line">·</span>
-							<span>$ status: building</span>
-						</div>
-					</Reveal>
-				</Shell>
-			</Section>
 
-			<Section className="border-t border-line">
-				<Shell>
-					<Reveal>
-						<SectionHeader
-							eyebrow="latest-writing"
-							title="Latest writing"
-							action={<CTALink href="/blog">All posts</CTALink>}
-						/>
-						<PostList className="mt-8">
-							{latest.map((post) => (
-								<PostListRow
-									key={post.slug}
-									href={`/blog/${post.slug}`}
-									title={post.title}
-									right={rowDate(post.date)}
-								/>
+				<div className="mt-7 space-y-4 font-ui text-[16px] leading-[1.65] text-ink-soft">
+					<p>
+						I&apos;m an AI engineer at{" "}
+						<IconLink
+							href="https://refikanadolstudio.com/"
+							iconSrc="/icons/refikanadol.gif"
+						>
+							Refik Anadol Studio
+						</IconLink>
+						, working where code meets large-scale generative art. I build tools
+						that feel fast, considered and{" "}
+						<span className={em}>quietly alive</span>, and I contribute to open
+						source on the side.
+					</p>
+				</div>
+
+				{/* Social links */}
+				<div className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-ui text-[15px] sm:justify-start">
+					<span className="inline-flex items-center gap-2">
+						<span className="-mx-1 inline-flex items-center">
+							{SOCIALS.map(({ href, label, Icon }) => (
+								<a
+									key={href}
+									href={href}
+									target="_blank"
+									rel="noopener noreferrer"
+									aria-label={label}
+									className="p-1 transition-opacity duration-200 ease-house hover:opacity-60"
+								>
+									<Icon className="mr-0" />
+								</a>
 							))}
-						</PostList>
-					</Reveal>
-				</Shell>
-			</Section>
+						</span>
+						<span className="text-ink">@woosal1337</span>
+					</span>
+					<IconLink href="mailto:ege@chele.bi">ege[at]chele.bi</IconLink>
+				</div>
 
-			<Section className="border-t border-line">
-				<Shell>
-					<Reveal>
-						<SectionHeader
-							eyebrow="selected-work"
-							title="Selected work"
-							action={<CTALink href="/projects">All projects</CTALink>}
-						/>
-					</Reveal>
-				</Shell>
-				<Reveal delay={1}>
-					<Gallery ariaLabel="Selected work" className="mt-8">
-						{allProjects.map((work) => (
-							<GalleryItem key={work.name}>
-								<LineupCard
-									name={work.name}
-									description={work.desc}
-									href={work.href}
-									ctaLabel="Learn more"
-									external={work.external}
-									logo={work.logo}
-									logoInverts={work.logoInverts}
-									isNew={work.isNew}
-									comingSoon={work.comingSoon}
-								/>
-							</GalleryItem>
+				{/* Projects */}
+				<section className="mt-24">
+					<div className="flex items-baseline justify-between">
+						<SectionLabel>Projects</SectionLabel>
+						<CTALink href="/projects" className="font-ui text-[13px]">
+							All projects
+						</CTALink>
+					</div>
+					<div className="mt-5 grid gap-4 sm:grid-cols-2">
+						{featured.map((project) => (
+							<FeatureCard
+								key={project.name}
+								title={project.name}
+								description={project.desc}
+								href={project.href}
+								external={project.external}
+								logo={project.logo}
+								logoInverts={project.logoInverts}
+								badge={project.isNew ? <NewLabel /> : undefined}
+							/>
 						))}
-					</Gallery>
-				</Reveal>
-			</Section>
+					</div>
+				</section>
+
+				{/* Writing */}
+				<section className="mt-24">
+					<div className="flex items-baseline justify-between">
+						<SectionLabel>Writing</SectionLabel>
+						<CTALink href="/blog" className="font-ui text-[13px]">
+							All posts
+						</CTALink>
+					</div>
+					<div className="mt-5 flex flex-col">
+						{writing.map((post) => (
+							<EntryRow
+								key={post.slug}
+								href={`/blog/${post.slug}`}
+								title={post.title}
+								meta={rowDate(post.date)}
+							/>
+						))}
+					</div>
+				</section>
+			</div>
+
+			{/* Shelf */}
+			<section className="mt-24 pb-24">
+				<div className="mx-auto max-w-column px-6">
+					<SectionLabel>Shelf</SectionLabel>
+				</div>
+				<BooksShelf className="mt-6" />
+			</section>
 		</>
 	);
 }

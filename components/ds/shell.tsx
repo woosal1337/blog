@@ -5,6 +5,10 @@ const widths = {
 	shell: "max-w-shell",
 	article: "max-w-article",
 	wide: "max-w-wide",
+	// The editorial reading column — same width used by the landing page,
+	// footer, and post template. Use this for any page that should match
+	// their layout width.
+	column: "max-w-column",
 } as const;
 
 type ShellProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -19,7 +23,12 @@ export function Shell({
 }: ShellProps) {
 	return (
 		<div
-			className={cn("mx-auto w-full px-[22px]", widths[width], className)}
+			className={cn(
+				"mx-auto w-full",
+				width === "column" ? "px-6" : "px-[22px]",
+				widths[width],
+				className,
+			)}
 			{...props}
 		>
 			{children}

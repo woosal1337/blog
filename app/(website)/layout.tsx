@@ -1,5 +1,4 @@
-import { GlobalNav } from "@/components/ds/global-nav";
-import { SiteFooter } from "@/components/ds/site-footer";
+import { ConditionalFooter } from "@/components/ds/conditional-footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -34,9 +33,8 @@ export default function WebsiteLayout({
 }>) {
 	return (
 		<div className="flex min-h-screen flex-col">
-			<GlobalNav />
 			<main className="flex-1">{children}</main>
-			<SiteFooter />
+			<ConditionalFooter />
 		</div>
 	);
 }

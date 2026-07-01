@@ -21,7 +21,7 @@ const config = {
 		},
 		extend: {
 			fontFamily: {
-				// Terminal aesthetic: everything is Geist Mono. Sans === mono.
+				// Mono stack (Geist Mono), for code and mono tokens.
 				sans: [
 					"var(--font-geist-mono)",
 					"JetBrains Mono",
@@ -31,6 +31,17 @@ const config = {
 					"Consolas",
 					"monospace",
 				],
+				// Editorial redesign: clean sans for body/UI (Geist Sans),
+				// serif for italic emphasis. Used by the new ds/* components.
+				ui: [
+					"var(--font-geist-sans)",
+					"ui-sans-serif",
+					"system-ui",
+					"-apple-system",
+					"Segoe UI",
+					"sans-serif",
+				],
+				serif: ["Georgia", "Cambria", '"Times New Roman"', "Times", "serif"],
 				mono: [
 					"var(--font-geist-mono)",
 					"JetBrains Mono",
@@ -43,7 +54,7 @@ const config = {
 			},
 
 			fontSize: {
-				// uppercase tracked terminal label / meta line (DATE · N MIN READ · ...)
+				// uppercase tracked label / meta line (DATE · N MIN READ · ...)
 				meta: [
 					"12px",
 					{ lineHeight: "1.33337", letterSpacing: "0.14em", fontWeight: "400" },
@@ -131,7 +142,7 @@ const config = {
 				},
 				tertiary: "rgb(var(--tertiary) / <alpha-value>)",
 				raised: "rgb(var(--raised) / <alpha-value>)",
-				// oak semantic aliases (terminal palette)
+				// semantic color aliases
 				paper: "rgb(var(--paper) / <alpha-value>)",
 				"paper-2": "rgb(var(--paper-2) / <alpha-value>)",
 				"paper-3": "rgb(var(--paper-3) / <alpha-value>)",
@@ -142,7 +153,7 @@ const config = {
 				"line-strong": "rgb(var(--line-strong) / <alpha-value>)",
 			},
 			borderRadius: {
-				// Terminal aesthetic: sharp corners everywhere.
+				// Base radius tokens; components opt into arbitrary rounded-[Npx] values.
 				none: "0px",
 				sm: "0px",
 				DEFAULT: "0px",
@@ -163,6 +174,9 @@ const config = {
 				article: "720px",
 				wide: "1280px",
 				frame: "1120px",
+				// Editorial redesign: the centered reading column (nav, content, footer
+				// all align to this width).
+				column: "680px",
 			},
 			transitionTimingFunction: {
 				house: "cubic-bezier(0.16, 1, 0.3, 1)",

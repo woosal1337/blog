@@ -4,7 +4,7 @@ export const meta = {
 	summary:
 		"Folio is a meeting recorder for macOS that runs Whisper and pyannote on-device, labels every speaker, and writes Markdown to your vault. No cloud, no telemetry, no audio leaving your Mac. Here is how the transcription and diarization pipelines actually work.",
 	tags: ["ai", "rust", "macos", "local-first", "transcription", "diarization", "privacy"],
-	cover: "/blog/folio/cover.jpg",
+	cover: "/blog-cover/folio",
 };
 
 export const metadata = {
@@ -26,20 +26,6 @@ export const metadata = {
 };
 
 <PostMeta meta={meta} />
-
-<Details summary="Brief">
-
-**One thing.** Folio records a meeting as two separate audio streams, transcribes them on your own Mac with Whisper, figures out who said what with pyannote and a speaker-embedding model, and writes one Markdown file per meeting to your vault. The default path never touches the network. You can turn the Wi-Fi off and the whole thing still works end to end.
-
-**Proof.** The entire pipeline is local Rust. whisper.cpp through `whisper-rs`, Metal-accelerated on Apple silicon. pyannote-segmentation-3.0 plus a WeSpeaker ResNet34 embedding model, both run through sherpa-onnx. Privacy mode physically blocks every outbound HTTP call except localhost, enforced in one function every download and request flows through. No telemetry, no analytics, no crash reporting, and that absence is checked in CI on every commit.
-
-**Reader transformation.** They stop thinking of a meeting-notes app as a thing that uploads your audio to someone else's GPU and emails you a summary. They start thinking of transcription and diarization as a pipeline they can own, run offline, read the source of, and trust with a conversation they would never paste into a web form.
-
-**Hook.** Every other meeting recorder ships your voice to a server. Folio runs the models on the machine that already heard them.
-
-**Closer.** The moat in voice software was never the model. It was the willingness to do the unglamorous local work so the audio never has to leave. Folio is that work, open sourced.
-
-</Details>
 
 Every other meeting recorder ships your voice to a server. Folio runs the models on the machine that already heard them.
 

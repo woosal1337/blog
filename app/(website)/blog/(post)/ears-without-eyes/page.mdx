@@ -4,7 +4,7 @@ export const meta = {
 	summary:
 		"An agent watching video should default to listening, and only open its eyes when audio admits it missed something.",
 	tags: ["ai", "agents", "multimodal", "video"],
-	cover: "/blog/ears-without-eyes/cover.jpg",
+	cover: "/blog-cover/ears-without-eyes",
 };
 
 export const metadata = {
@@ -26,20 +26,6 @@ export const metadata = {
 };
 
 <PostMeta meta={meta} />
-
-<Details summary="Brief">
-
-**One thing.** An agent watching video should default to listening and only open its eyes when the audio channel admits it missed something. The model already knows when that is.
-
-**Proof.** A 47 second Instagram reel. The audio transcription got a proper noun wrong at p=0.33. Instead of running vision on all 47 seconds, the agent took 3 frames at the 3 timestamps where transcription flagged itself as unsure. Recovered the correct information. 3 vision calls instead of 1,410 at 30fps.
-
-**Reader transformation.** They stop thinking about multimodal agents as "vision + audio, both always on." They start thinking about them as "cheap channel by default, expensive channel on demand, with the cheap channel deciding when."
-
-**Hook.** Watching video is expensive. Listening to it is almost free.
-
-**Closer.** An agent that knows when to open its eyes does more work, cheaper, more accurately, than one that keeps them open all the time.
-
-</Details>
 
 Watching video is expensive. Listening to it is almost free.
 

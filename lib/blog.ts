@@ -3,7 +3,7 @@ import "server-only";
 import fs from "node:fs";
 import path from "node:path";
 
-export { formatPostDate, slugify } from "./blog-utils";
+export { formatPostDate, formatTag, slugify } from "./blog-utils";
 
 export type BlogPostMeta = {
 	slug: string;

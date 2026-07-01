@@ -1,3 +1,4 @@
+import { ParentalAdvisory } from "@/components/blocks/parental-advisory";
 import {
 	Callout,
 	Danger,
@@ -8,6 +9,7 @@ import {
 	Warn,
 } from "@/components/blocks/post-blocks";
 import { PostMeta } from "@/components/blocks/post-meta";
+import { Quote } from "@/components/blocks/quote";
 import { Kbd, KbdGroup } from "@/components/ds/kbd";
 import { Tag } from "@/components/ds/tag";
 import { slugify } from "@/lib/blog-utils";
@@ -70,7 +72,13 @@ function LinkLeadingIcon({ href }: { href: string }) {
 export function useMDXComponents(components: MDXComponents): MDXComponents {
 	return {
 		h1: ({ children, ...props }) => (
-			<h1 {...props} className={cn("mb-6 mt-12 text-display", props.className)}>
+			<h1
+				{...props}
+				className={cn(
+					"mb-4 mt-12 font-ui text-[26px] font-semibold tracking-tight text-ink",
+					props.className,
+				)}
+			>
 				{children}
 			</h1>
 		),
@@ -82,7 +90,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 					id={id}
 					data-toc-heading="2"
 					className={cn(
-						"group mb-4 mt-[1.6em] scroll-mt-24 text-title",
+						"group mb-3 mt-12 scroll-mt-24 font-ui text-[19px] font-semibold tracking-tight text-ink",
 						props.className,
 					)}
 				>
@@ -99,7 +107,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 					id={id}
 					data-toc-heading="3"
 					className={cn(
-						"group mb-3 mt-10 scroll-mt-24 text-subhead font-semibold",
+						"group mb-2 mt-9 scroll-mt-24 font-ui text-[16.5px] font-semibold text-ink",
 						props.className,
 					)}
 				>
@@ -111,7 +119,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 		h4: ({ children, ...props }) => (
 			<h4
 				{...props}
-				className={cn("mb-2 mt-8 text-body font-semibold", props.className)}
+				className={cn(
+					"mb-2 mt-7 font-ui text-[15px] font-semibold text-ink",
+					props.className,
+				)}
 			>
 				{children}
 			</h4>
@@ -119,7 +130,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 		p: ({ children, ...props }) => (
 			<p
 				{...props}
-				className={cn("my-5 text-body leading-[1.65]", props.className)}
+				className={cn(
+					"my-5 font-ui text-[16px] leading-[1.72] text-ink-soft",
+					props.className,
+				)}
 			>
 				{children}
 			</p>
@@ -128,7 +142,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 			<ul
 				{...props}
 				className={cn(
-					"my-5 ml-6 list-disc space-y-2 text-body leading-[1.65] marker:text-tertiary",
+					"my-5 ml-5 list-disc space-y-2 font-ui text-[16px] leading-[1.72] text-ink-soft marker:text-ink-mute",
 					props.className,
 				)}
 			>
@@ -139,7 +153,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 			<ol
 				{...props}
 				className={cn(
-					"my-5 ml-6 list-decimal space-y-2 text-body leading-[1.65] marker:text-tertiary",
+					"my-5 ml-5 list-decimal space-y-2 font-ui text-[16px] leading-[1.72] text-ink-soft marker:text-ink-mute",
 					props.className,
 				)}
 			>
@@ -147,7 +161,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 			</ol>
 		),
 		li: ({ children, ...props }) => (
-			<li {...props} className={cn("leading-[1.65]", props.className)}>
+			<li {...props} className={cn("leading-[1.72]", props.className)}>
 				{children}
 			</li>
 		),
@@ -155,7 +169,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 			<blockquote
 				{...props}
 				className={cn(
-					"my-8 pl-6 text-subhead text-muted-foreground [&_p]:my-2 [&_p]:text-subhead [&_p]:leading-[1.5]",
+					"my-7 border-l border-line pl-5 [&_p]:my-2 [&_p]:font-serif [&_p]:text-[17px] [&_p]:italic [&_p]:leading-relaxed [&_p]:text-ink-soft",
 					props.className,
 				)}
 			>
@@ -170,7 +184,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 				<code
 					{...props}
 					className={cn(
-						"rounded-[6px] bg-muted px-[0.45em] py-[0.15em] font-mono text-[0.85em] text-foreground",
+						"rounded-[5px] border border-line bg-white/[0.03] px-[0.4em] py-[0.1em] font-mono text-[0.85em] text-ink",
 						props.className,
 					)}
 				>
@@ -186,7 +200,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 				<pre
 					{...props}
 					className={cn(
-						"my-6 overflow-x-auto rounded-lg border border-border bg-muted p-4 font-mono text-footnote leading-relaxed [&>code]:border-0 [&>code]:bg-transparent [&>code]:p-0",
+						"my-6 overflow-x-auto rounded-[12px] border border-line bg-white/[0.02] p-4 font-mono text-[13px] leading-relaxed [&>code]:border-0 [&>code]:bg-transparent [&>code]:p-0",
 						props.className,
 					)}
 				>
@@ -195,7 +209,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 			);
 		},
 		hr: (props) => (
-			<hr {...props} className={cn("my-12 border-border", props.className)} />
+			<hr {...props} className={cn("my-10 border-line", props.className)} />
 		),
 		table: ({ children, ...props }) => (
 			<div className="my-8 overflow-x-auto">
@@ -243,13 +257,19 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 		strong: ({ children, ...props }) => (
 			<strong
 				{...props}
-				className={cn("font-semibold text-foreground", props.className)}
+				className={cn("font-semibold text-ink", props.className)}
 			>
 				{children}
 			</strong>
 		),
 		em: ({ children, ...props }) => (
-			<em {...props} className={cn("italic", props.className)}>
+			<em
+				{...props}
+				className={cn(
+					"font-serif text-[1.05em] italic text-ink",
+					props.className,
+				)}
+			>
 				{children}
 			</em>
 		),
@@ -259,7 +279,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 				sizes="(max-width: 768px) 100vw, 692px"
 				width={1200}
 				height={675}
-				className="my-8 h-auto w-full rounded-xl"
+				className="my-8 h-auto w-full rounded-[12px] border border-line"
 				{...(props as ImageProps)}
 			/>
 		),
@@ -273,7 +293,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 						href={href}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="group/link text-link underline underline-offset-4 transition-colors duration-200 ease-house hover:text-action-hover"
+						className="group/link text-ink underline decoration-line underline-offset-[3px] transition-colors duration-200 ease-house hover:decoration-ink-soft"
 						{...props}
 					>
 						<LinkLeadingIcon href={href} />
@@ -284,7 +304,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 			return (
 				<Link
 					href={href}
-					className="text-link underline underline-offset-4 transition-colors duration-200 ease-house hover:text-action-hover"
+					className="text-ink underline decoration-line underline-offset-[3px] transition-colors duration-200 ease-house hover:decoration-ink-soft"
 				>
 					{children}
 				</Link>
@@ -295,7 +315,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 		),
 		Kbd,
 		KbdGroup,
+		ParentalAdvisory,
 		PostMeta,
+		Quote,
 		Callout,
 		Note,
 		Tip,

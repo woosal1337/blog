@@ -10,7 +10,7 @@ type AsciiFrameProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 /** Shared chrome for the live ASCII canvas surfaces: a sized host + an absolute
- * canvas + an optional oak-label overlay. The parent owns both refs. */
+ * canvas + an optional mono-label overlay. The parent owns both refs. */
 export function AsciiFrame({
 	hostRef,
 	canvasRef,
@@ -30,7 +30,7 @@ export function AsciiFrame({
 				ref={canvasRef}
 			/>
 			{label ? (
-				<span className="oak-label pointer-events-none absolute left-3 top-3 z-[1] text-ink-mute">
+				<span className="mono-label pointer-events-none absolute left-3 top-3 z-[1] text-ink-mute">
 					{label}
 				</span>
 			) : null}

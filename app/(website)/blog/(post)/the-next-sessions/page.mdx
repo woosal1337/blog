@@ -4,7 +4,7 @@ export const meta = {
 	summary:
 		"Why AI memory is a compounding problem, not a retrieval problem. Files beat databases.",
 	tags: ["ai", "memory", "agents", "architecture"],
-	cover: "/blog/the-next-sessions/cover.jpg",
+	cover: "/blog-cover/the-next-sessions",
 };
 
 export const metadata = {
@@ -26,20 +26,6 @@ export const metadata = {
 };
 
 <PostMeta meta={meta} />
-
-<Details summary="Brief">
-
-**One thing.** The winning AI memory architecture does not retrieve facts from a database. It compounds context in files that get richer over time, so every new session starts with more than the last one had.
-
-**Proof.** A survey of 450+ memory repos split into exactly two camps. Camp 1 (retrieval backends like mem0) optimizes for finding the right fact. Camp 2 (context substrates like OpenClaw and gbrain) optimizes for compounding. The most-starred open-source projects in 2026 are all camp 2. A vector database company shipped a memory tool that concedes markdown files are the source of truth, positioning their own database as a "shadow index." Files won.
-
-**Reader transformation.** They stop thinking about AI memory as a retrieval problem (how do I find the right fact at the right time) and start thinking about it as a compounding problem (how do I make the next session start richer than this one).
-
-**Hook.** Every AI you use forgets you the moment you close the tab.
-
-**Closer.** A system that starts every session richer than the last one is not retrieving memories. It is compounding them.
-
-</Details>
 
 Every AI you use forgets you the moment you close the tab.
 

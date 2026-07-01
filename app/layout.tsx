@@ -2,6 +2,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Analytics } from "@vercel/analytics/react";
 import { GeistMono } from "geist/font/mono";
+import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
@@ -20,10 +21,9 @@ export const metadata: Metadata = {
 	description: "Code, entrepreneurship and AI.",
 	icons: {
 		icon: [
-			{ url: "/favicon.ico", sizes: "any" },
-			{ url: "/favicon.png", sizes: "32x32", type: "image/png" },
-			{ url: "/logo.png", sizes: "512x512", type: "image/png" },
-			{ url: "/avatar.png", sizes: "1024x1024", type: "image/png" },
+			{ url: "/favicon.svg?v=2", type: "image/svg+xml" },
+			{ url: "/favicon.ico?v=2", sizes: "any" },
+			{ url: "/favicon.png?v=2", sizes: "32x32", type: "image/png" },
 		],
 		apple: [
 			{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
@@ -67,11 +67,11 @@ export default function RootLayout({
 	return (
 		<html
 			lang="en"
-			className={`dark ${GeistMono.variable}`}
+			className={`dark ${GeistSans.variable} ${GeistMono.variable}`}
 			suppressHydrationWarning
 		>
 			<body>
-				{/* Film-grain noise over the black bg. ponytail: opacity + baseFrequency are the tuning knobs. */}
+				{/* Film-grain noise over the black bg. opacity + baseFrequency are the tuning knobs. */}
 				<svg
 					aria-hidden="true"
 					className="pointer-events-none fixed inset-0 z-[100] h-full w-full opacity-[0.06] mix-blend-screen"
