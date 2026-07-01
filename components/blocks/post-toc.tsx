@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 type TocEntry = {
 	id: string;
@@ -63,39 +63,50 @@ export function PostToc() {
 			aria-label="Table of contents"
 			className="no-scrollbar max-h-[calc(100vh-8rem)] overflow-y-auto"
 		>
-			<ul className="space-y-2">
-				{entries.map((entry) => {
+			<ul>
+				{entries.map((entry, index) => {
 					const isActive = entry.id === activeId;
 					return (
-						<li key={entry.id}>
-							<a
-								href={`#${entry.id}`}
-								className={cn(
-									"group flex items-center gap-2.5",
-									entry.level === 3 && "pl-3",
-								)}
-							>
-								<span
-									aria-hidden="true"
+						<Fragment key={entry.id}>
+							<li>
+								<a
+									href={`#${entry.id}`}
 									className={cn(
-										"h-px shrink-0 transition-all duration-200 ease-house",
-										isActive
-											? "w-5 bg-ink"
-											: "w-2.5 bg-line group-hover:w-3.5 group-hover:bg-ink-mute",
-									)}
-								/>
-								<span
-									className={cn(
-										"font-ui text-[11.5px] leading-snug transition-colors duration-200 ease-house",
-										isActive
-											? "text-ink"
-											: "text-ink-mute group-hover:text-ink-soft",
+										"group flex items-center gap-2.5",
+										entry.level === 3 && "pl-3",
 									)}
 								>
-									{entry.text}
-								</span>
-							</a>
-						</li>
+									<span
+										aria-hidden="true"
+										className={cn(
+											"h-px shrink-0 transition-all duration-200 ease-house",
+											isActive
+												? "w-5 bg-ink"
+												: "w-2.5 bg-line group-hover:w-3.5 group-hover:bg-ink-mute",
+										)}
+									/>
+									<span
+										className={cn(
+											"font-ui text-[11.5px] leading-snug transition-colors duration-200 ease-house",
+											isActive
+												? "text-ink"
+												: "text-ink-mute group-hover:text-ink-soft",
+										)}
+									>
+										{entry.text}
+									</span>
+								</a>
+							</li>
+							{/* a bare separator between titles: dash on the left, no text */}
+							{index < entries.length - 1 && (
+								<li
+									aria-hidden="true"
+									className="flex h-2.5 items-center gap-2.5"
+								>
+									<span className="h-px w-2.5 shrink-0 bg-line" />
+								</li>
+							)}
+						</Fragment>
 					);
 				})}
 			</ul>
