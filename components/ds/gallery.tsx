@@ -26,19 +26,17 @@ export function Gallery({
 	startCentered = false,
 }: GalleryProps) {
 	const ref = React.useRef<HTMLDivElement>(null);
+	// Keep the row hidden (visibility only — layout still measures) until it's
+	// centred, so the default left position never paints and no jump shows. The
+	// reveal itself rides the page-enter fade, matching every other section.
+	const [ready, setReady] = React.useState(!startCentered);
 
 	React.useEffect(() => {
 		if (!startCentered) return;
 		const el = ref.current;
 		if (!el) return;
-		// jump to the horizontal centre once layout is measured
-		const center = () => {
-			el.scrollLeft = Math.max(0, (el.scrollWidth - el.clientWidth) / 2);
-		};
-		center();
-		// re-center after the first paint in case snap/layout shifted it
-		const raf = requestAnimationFrame(center);
-		return () => cancelAnimationFrame(raf);
+		el.scrollLeft = Math.max(0, (el.scrollWidth - el.clientWidth) / 2);
+		setReady(true);
 	}, [startCentered]);
 
 	return (
@@ -47,7 +45,10 @@ export function Gallery({
 				ref={ref}
 				role="region"
 				aria-label={ariaLabel}
-				className="no-scrollbar flex snap-x snap-proximity gap-6 overflow-x-auto"
+				className={cn(
+					"no-scrollbar flex snap-x snap-proximity gap-6 overflow-x-auto",
+					!ready && "invisible",
+				)}
 				style={{
 					paddingInline: SHELL_INLINE,
 					scrollPaddingInline: SHELL_INLINE,
