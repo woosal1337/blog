@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/contour-logo/contour-logo-white.svg">
+    <img src="public/contour-logo/contour-logo-black.svg" width="128" alt="chele.bi">
+  </picture>
+</p>
+
 # chele.bi
 
 Personal blog and portfolio of [Ege Chelebi](https://chele.bi) ([@woosal1337](https://x.com/woosal1337)).
