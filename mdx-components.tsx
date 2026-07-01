@@ -1,4 +1,3 @@
-import { ParentalAdvisory } from "@/components/blocks/parental-advisory";
 import {
 	Callout,
 	Danger,
@@ -315,7 +314,6 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 		),
 		Kbd,
 		KbdGroup,
-		ParentalAdvisory,
 		PostMeta,
 		Quote,
 		Callout,

@@ -1,5 +1,5 @@
-import { ParentalAdvisory } from "@/components/blocks/parental-advisory";
 import { PostFooterNav } from "@/components/blocks/post-footer-nav";
+import { PostStamp } from "@/components/blocks/post-stamp";
 import { PostToc } from "@/components/blocks/post-toc";
 import { PostTopBar } from "@/components/blocks/post-top-bar";
 import { ReadingProgress } from "@/components/blocks/reading-progress";
@@ -10,6 +10,10 @@ export default async function PostLayout({
 }: Readonly<{ children: React.ReactNode }>) {
 	const posts = await getAllPosts();
 	const items = posts.map((post) => ({ slug: post.slug, title: post.title }));
+	const stampEntries = posts.map((post) => ({
+		slug: post.slug,
+		date: post.date,
+	}));
 
 	return (
 		<>
@@ -25,9 +29,8 @@ export default async function PostLayout({
 				<PostTopBar />
 				<article className="w-full min-w-0">
 					{children}
-					{/* Easter egg: explicit-content stamp at the end of every post. */}
 					<div className="mt-20 flex justify-center">
-						<ParentalAdvisory className="h-auto w-[180px] opacity-80 [transform:rotate(-5deg)] transition-opacity duration-300 ease-house hover:opacity-100" />
+						<PostStamp entries={stampEntries} />
 					</div>
 				</article>
 			</div>
