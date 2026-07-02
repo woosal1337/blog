@@ -1,6 +1,5 @@
 import { BooksShelf } from "@/components/blocks/books-shelf";
 import { CTALink } from "@/components/ds/cta-link";
-import { EntryRow } from "@/components/ds/entry-row";
 import { FeatureCard } from "@/components/ds/feature-card";
 import {
 	GithubIcon,
@@ -8,15 +7,17 @@ import {
 	InstagramIcon,
 	XIcon,
 } from "@/components/ds/icon-link";
+import { PeekFade } from "@/components/ds/peek-fade";
 import { ProfileLockup } from "@/components/ds/profile-lockup";
 import { SectionLabel } from "@/components/ds/section-label";
+import { StoryCard } from "@/components/ds/story-card";
 import { NewLabel } from "@/components/ds/tag";
-import { getAllPosts } from "@/lib/blog";
+import { formatTag, getAllPosts } from "@/lib/blog";
 import { allProjects } from "@/lib/utils";
 
-function rowDate(date: string): string {
+function cardDate(date: string): string {
 	return new Date(date).toLocaleDateString("en-US", {
-		month: "short",
+		month: "long",
 		day: "numeric",
 		year: "numeric",
 	});
@@ -36,13 +37,14 @@ const SOCIALS = [
 
 export default async function HomePage() {
 	const posts = await getAllPosts();
-	const writing = posts.slice(0, 8);
+	const writing = posts.slice(0, 2);
+	const writingPeek = posts.slice(2, 4);
 	const featured = allProjects.slice(0, 2);
+	const projectsPeek = allProjects.slice(2, 4);
 
 	return (
 		<>
 			<div className="mx-auto max-w-column px-6 pt-16 sm:pt-28">
-				{/* Intro */}
 				<ProfileLockup
 					name="Ege Chelebi"
 					tagline="AI engineer at Refik Anadol Studio"
@@ -65,7 +67,6 @@ export default async function HomePage() {
 					</p>
 				</div>
 
-				{/* Social links */}
 				<div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-ui text-[15px]">
 					<span className="inline-flex items-center gap-2">
 						<span className="-mx-1 inline-flex items-center">
@@ -87,7 +88,6 @@ export default async function HomePage() {
 					<IconLink href="mailto:ege@chele.bi">ege[at]chele.bi</IconLink>
 				</div>
 
-				{/* Projects */}
 				<section className="mt-24">
 					<div className="flex items-baseline justify-between">
 						<SectionLabel>Projects</SectionLabel>
@@ -109,9 +109,25 @@ export default async function HomePage() {
 							/>
 						))}
 					</div>
+					{projectsPeek.length > 0 && (
+						<PeekFade className="mt-4">
+							<div className="grid gap-4 sm:grid-cols-2">
+								{projectsPeek.map((project) => (
+									<FeatureCard
+										key={project.name}
+										title={project.name}
+										description={project.desc}
+										href={project.href}
+										external={project.external}
+										logo={project.logo}
+										logoInverts={project.logoInverts}
+									/>
+								))}
+							</div>
+						</PeekFade>
+					)}
 				</section>
 
-				{/* Writing */}
 				<section className="mt-24">
 					<div className="flex items-baseline justify-between">
 						<SectionLabel>Writing</SectionLabel>
@@ -119,20 +135,39 @@ export default async function HomePage() {
 							All posts
 						</CTALink>
 					</div>
-					<div className="mt-5 flex flex-col">
+					<div className="mt-5 grid gap-4 sm:grid-cols-2">
 						{writing.map((post) => (
-							<EntryRow
+							<StoryCard
 								key={post.slug}
 								href={`/blog/${post.slug}`}
 								title={post.title}
-								meta={rowDate(post.date)}
+								summary={post.summary}
+								date={cardDate(post.date)}
+								label={formatTag(post.tags?.[0])}
+								cover={post.cover}
 							/>
 						))}
 					</div>
+					{writingPeek.length > 0 && (
+						<PeekFade className="mt-4">
+							<div className="grid gap-4 sm:grid-cols-2">
+								{writingPeek.map((post) => (
+									<StoryCard
+										key={post.slug}
+										href={`/blog/${post.slug}`}
+										title={post.title}
+										summary={post.summary}
+										date={cardDate(post.date)}
+										label={formatTag(post.tags?.[0])}
+										cover={post.cover}
+									/>
+								))}
+							</div>
+						</PeekFade>
+					)}
 				</section>
 			</div>
 
-			{/* Shelf */}
 			<section className="mt-24 pb-24">
 				<div className="mx-auto max-w-column px-6">
 					<SectionLabel>Shelf</SectionLabel>
