@@ -12,6 +12,14 @@ export const metadata: Metadata = {
 	description: "What I am building and what I have shipped.",
 };
 
+function cardDate(date: string): string {
+	return new Date(date).toLocaleDateString("en-US", {
+		month: "long",
+		day: "numeric",
+		year: "numeric",
+	});
+}
+
 export default function ProjectsPage() {
 	return (
 		<Section>
@@ -41,6 +49,7 @@ export default function ProjectsPage() {
 										<NewLabel />
 									) : undefined
 								}
+								date={project.date ? cardDate(project.date) : undefined}
 							/>
 						</Reveal>
 					))}

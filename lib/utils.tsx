@@ -159,14 +159,24 @@ export const allProjects: Array<{
 	external: boolean;
 	isNew?: boolean;
 	comingSoon?: boolean;
+	date?: string;
 }> = [
+	{
+		name: "Vaulted",
+		desc: "Local-first .env and secrets manager, MCP-native. Encrypted on your machine, secrets your coding agent can use but never sees.",
+		href: "/blog/vaulted",
+		logo: "/vaulted-logo.png",
+		external: false,
+		isNew: true,
+		date: "2026-07-02",
+	},
 	{
 		name: "CompanyOS",
 		desc: "Jira for your agents. An agent-native platform where humans and agents run projects, tasks and meetings together.",
 		href: "/blog/companyos",
 		logo: "/companyos-logo.png",
 		external: false,
-		isNew: true,
+		date: "2026-06-28",
 	},
 	{
 		name: "Folio",
@@ -174,6 +184,7 @@ export const allProjects: Array<{
 		href: "/blog/folio",
 		logo: "/folio-logo.png",
 		external: false,
+		date: "2026-06-09",
 	},
 	{
 		name: "Soft Club UI",
@@ -181,6 +192,7 @@ export const allProjects: Array<{
 		href: "https://github.com/cobanov/soft-club-ui",
 		logo: "/soft-club-ui-logo.png",
 		external: true,
+		date: "2026-06-08",
 	},
 	{
 		name: "Pulsar",
@@ -189,6 +201,7 @@ export const allProjects: Array<{
 		logo: "/pulsar-logo.png",
 		logoInverts: true,
 		external: true,
+		date: "2026-03-24",
 	},
 	{
 		name: "Clinora",
@@ -197,6 +210,7 @@ export const allProjects: Array<{
 		logo: "/clinora-logo.png",
 		logoInverts: true,
 		external: true,
+		date: "2026-02-26",
 	},
 	{
 		name: "Learnity",
@@ -204,6 +218,7 @@ export const allProjects: Array<{
 		href: "https://learnity.ai",
 		logo: "/learnity-logo.png",
 		external: true,
+		date: "2024-04-12",
 	},
 	{
 		name: "meclis",
@@ -211,6 +226,7 @@ export const allProjects: Array<{
 		href: "https://github.com/woosal1337/meclis",
 		logo: "/meclis-logo.png",
 		external: true,
+		date: "2026-05-08",
 	},
 	{
 		name: "media-mcp",
@@ -218,6 +234,7 @@ export const allProjects: Array<{
 		href: "https://github.com/woosal1337/media-mcp",
 		logo: "/media-mcp-logo.png",
 		external: true,
+		date: "2026-04-10",
 	},
 	{
 		name: "stack",
@@ -225,5 +242,6 @@ export const allProjects: Array<{
 		href: "https://github.com/woosal1337/stack",
 		logo: "/stack-logo.png",
 		external: true,
+		date: "2026-05-12",
 	},
 ];

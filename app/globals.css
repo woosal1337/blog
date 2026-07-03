@@ -99,6 +99,13 @@
 		outline: 2px solid rgb(245 245 245 / 0.7);
 		outline-offset: 3px;
 	}
+	summary,
+	[role="button"]:not([aria-disabled="true"]) {
+		cursor: pointer;
+	}
+	[data-vaso] {
+		cursor: inherit !important;
+	}
 	@media (prefers-reduced-motion: reduce) {
 		*,
 		*::before,

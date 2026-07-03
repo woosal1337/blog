@@ -10,6 +10,7 @@ import {
 } from "@/components/blocks/post-blocks";
 import { PostMeta } from "@/components/blocks/post-meta";
 import { Quote } from "@/components/blocks/quote";
+import { IconLink } from "@/components/ds/icon-link";
 import { Kbd, KbdGroup } from "@/components/ds/kbd";
 import { Tag } from "@/components/ds/tag";
 import { slugify } from "@/lib/blog-utils";
@@ -318,6 +319,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 			<Tag>{children}</Tag>
 		),
 		ContourPlayground,
+		IconLink,
 		Kbd,
 		KbdGroup,
 		PostMeta,

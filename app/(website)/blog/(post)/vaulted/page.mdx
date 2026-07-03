@@ -1,0 +1,293 @@
+export const meta = {
+	title: "Vaulted - secrets your agent never sees",
+	date: "2026-07-03",
+	summary:
+		"Vaulted is a local-first .env and secrets manager that keeps ciphertext on your machine and injects plaintext into your app through one hardened Rust path. It is MCP-native, so a coding agent can run your code with real secrets without the values ever entering its context window. This is the full build: the key hierarchy, the single execution path, the FFI bridge, the redaction engine, and the tests that make the guarantees structural.",
+	tags: ["security", "mcp", "rust", "typescript", "cli", "cryptography", "local-first"],
+	cover: "/blog-cover/vaulted",
+};
+
+export const metadata = {
+	title: meta.title,
+	description: meta.summary,
+	openGraph: {
+		title: meta.title,
+		description: meta.summary,
+		type: "article",
+		publishedTime: meta.date,
+		images: [{ url: "/blog-og/vaulted", width: 1200, height: 628, alt: meta.title }],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: meta.title,
+		description: meta.summary,
+		images: ["/blog-og/vaulted"],
+	},
+};
+
+<PostMeta meta={meta} />
+
+Coding agents need your secrets to run your code. They should never get to read them.
+
+That one sentence is the entire reason Vaulted exists, and the whole build is an argument that those two things, using a secret and seeing a secret, can be pulled apart. This post is the long version. How the vault is encrypted, how plaintext is forced through a single hardened door, how the agent surface hands a live secret to a command without handing the value to the model, and how each of those claims is nailed down by a test rather than a promise.
+
+## The need, stated precisely
+
+A `.env` file is a plaintext list of your most sensitive strings, sitting in the same folder as your code. That was already a bad habit before agents. You have almost certainly committed one by accident, copied one into a Slack message, or left one in a Docker image layer.
+
+Now put a coding agent in that folder. The agent reads files to understand the project. It summarizes what it reads into its context. It writes logs, it pastes snippets into new files, and it can be steered by text it encounters, a comment in a dependency, a string in an API response, three turns of conversation ago. The moment `STRIPE_KEY=sk_live_...` is a file the agent can open, that key is one plausible-looking instruction away from ending up somewhere you did not intend.
+
+The reflex fix is to stop giving agents secrets. But the agent genuinely needs them. Starting the dev server, running the migration, calling the staging API, all of it needs the real values. So the actual requirement is narrower and sharper than "keep secrets safe." It is this: the agent must be able to run a process that has the secret, without the agent itself ever holding the value.
+
+Almost nothing on the usual list does that. A `.env` file hands the plaintext to whatever opens it. Exported shell variables hand it to every child and every `ps` on the box. Most secret managers, asked for a value, return the value. They all conflate use with sight. Vaulted is built around keeping them separate, and everything below is downstream of that one decision.
+
+## The shape of the thing
+
+Vaulted is a Bun and TypeScript monorepo with one Rust crate doing the part that must not be done in a garbage-collected language. The CLI compiles to a single standalone binary. The security-critical work is split into four packages that each own exactly one job, and the boundaries between them are load-bearing.
+
+```
+apps/
+  cli/            the vaulted binary: 14 commands + the MCP stdio server
+    ffi/          the Bun.dlopen bridge into the Rust runner
+    mcp/          the five agent tools
+packages/
+  crypto/         the key hierarchy, WebCrypto + Argon2id, ~zero of its own math
+  store/          the SQLite vault: schema, migrations, repositories, audit log
+  runner/         the Rust cdylib, the one and only process-spawning primitive
+  redact/         streaming Aho-Corasick output sanitizer for the agent surface
+```
+
+The interesting thing about the split is what each package is structurally forbidden from doing. `store` never sees a plaintext value, because values arrive at its door already encrypted as a branded `EncryptedString` type and it has no key to decrypt them with. `runner` never touches disk in the injection path. `redact` never trusts that a child process kept a secret to itself. The packages are not organized by feature. They are organized by blast radius.
+
+```
+you / your agent
+   │  vaulted run  |  mcp run-with-secrets
+   ▼
+apps/cli  ──decrypt locally──▶ packages/crypto + packages/store
+   │  plaintext, held for microseconds
+   ▼
+packages/runner   Rust cdylib, one FFI call
+   │  RLIMIT_CORE=0, clean env, spawn, zeroize
+   ▼
+your process
+```
+
+## A key you cannot recover
+
+The cryptography is deliberately boring. This is a domain where a clever idea is how you get owned, so `packages/crypto` invents nothing. It is a thin, carefully-sequenced wrapper over the platform WebCrypto (`crypto.subtle`) with `hash-wasm` for the one primitive WebCrypto lacks, Argon2id. The whole value of the package is in the ordering and the cleanup, not the algorithms.
+
+The hierarchy is four layers deep.
+
+```
+Master password
+      │  Argon2id (hash-wasm): 64 MiB, 3 iterations, 4 lanes, 32-byte output
+      ▼
+AES-256-GCM master key      imported non-extractable, never stored, wiped after use
+      │  encrypts (AES-256-GCM)
+      ▼
+RSA-2048 private key        PKCS8, stored encrypted; public key (SPKI) in the clear
+      │  unwraps (RSA-OAEP, SHA-256, e=65537)
+      ▼
+Project AES-256-GCM key     random per project, stored only RSA-wrapped
+      │  encrypts (AES-256-GCM)
+      ▼
+Secret values               only ciphertext ever touches disk
+```
+
+Start at the top. Your master password goes through Argon2id tuned to 64 mebibytes of memory, three passes, four lanes, producing 32 bytes. That output is imported into WebCrypto as a **non-extractable** AES-GCM key, meaning even the code that just derived it cannot read the raw bytes back out, and the transient buffer holding the raw material is zero-filled in a `finally` block the instant the import returns.
+
+```ts
+raw = await argon2id({ password, salt, iterations: 3, parallelism: 4,
+                       memorySize: 65536, hashLength: 32, outputType: "binary" });
+try {
+  return await crypto.subtle.importKey("raw", raw, { name: "AES-GCM" }, false, // non-extractable
+                                       ["encrypt", "decrypt"]);
+} finally {
+  raw.fill(0);
+}
+```
+
+Every symmetric encryption in Vaulted uses the same frame format, and it is worth seeing exactly, because "we use AES" means nothing without the details.
+
+```
+frame = base64( [ 12-byte random IV ] [ ciphertext ] [ 16-byte GCM tag ] )
+```
+
+A fresh twelve-byte IV per encryption, prepended to the ciphertext, the GCM authentication tag appended by the cipher, the whole thing base64-encoded. A frame shorter than 28 bytes is rejected before decryption even starts. Flip a single byte of any of it, the IV, the body, or the tag, and GCM authentication fails, surfacing as a typed `ERR_DECRYPT_AUTH` rather than silently returning garbage. A wrong master password fails at the very same place, because it produces the wrong master key, which fails to decrypt the RSA private key, before a single RSA operation runs.
+
+The RSA layer is the one that looks like overkill, and for a single-user local tool today it is. It is there because it is the seam. WebCrypto `wrapKey` and `unwrapKey` let a per-project AES key be sealed under your RSA public key and stored only in wrapped form, never as exportable plaintext passing through JavaScript. Adding a teammate later becomes wrapping one project key under their public key. It never becomes decrypting and re-encrypting every secret you own. The cost of keeping the seam now is one indirection. The cost of adding it later would be a migration over everyone's entire vault.
+
+What is actually on disk is the part every secrets tool should be forced to print, so here it is without softening.
+
+| On disk | State |
+|---|---|
+| Secret values, RSA private key, service-account keys | Encrypted (AES-256-GCM) |
+| Project keys | RSA-OAEP wrapped |
+| Secret **names** (`STRIPE_KEY`), scopes, types, tags, descriptions, salt, public key, audit log | Plaintext, by design |
+
+Key names are plaintext because `vaulted list` has to work without unlocking anything, and search has to work at all. This is the same tradeoff every zero-knowledge product quietly makes, and Vaulted states it out loud. If the names themselves are the sensitive part, Vaulted does not pretend to hide them.
+
+<Note title="No recovery, on purpose">
+There is no reset, no escrow, no security questions. The master key is a pure function of your password and the salt, so there is nowhere for a recovery backdoor to even live. A lost master password is an unreadable vault, permanently. The honest consequence is stated in the docs and again at `vaulted init`: export what you would hate to lose while you can still decrypt it.
+</Note>
+
+## One door for every secret
+
+Here is the rule the whole architecture bends around. Every execution path that touches a decrypted secret goes through one Rust library. Not the CLI and a separate MCP path. One. `packages/runner` is a Rust `cdylib` loaded into the Bun process with `Bun.dlopen()`, and it exposes a tiny surface.
+
+```rust
+run_with_secrets(command_json, secrets_json) -> i32              // CLI: inherit stdio
+run_with_secrets_captured(command_json, secrets_json, out...) -> i32  // MCP: pipe stdout/stderr
+vaulted_runner_signal_child(signo) -> i32                        // timeout enforcement
+vaulted_runner_free(buf, len)                                    // zeroize + free returned buffers
+```
+
+Both run functions share one internal `execute`, which does five things in a fixed order, and the order is part of the safety.
+
+```rust
+fn execute(command_json, secrets_json, mode) -> Result<RunOutcome, ()> {
+    disable_core_dumps()?;              // RLIMIT_CORE = 0, before anything can crash
+    let command = parse_command(...)?;  // ["program", "arg1", ...]
+    let secrets = parse_secrets(...)?;  // held in Zeroizing from the first byte
+    validate(&command, &secrets)?;      // reject empty cmd, keys with '=' or NUL, NUL values
+    run_command(&command, &secrets, mode)
+}
+```
+
+The details that matter, each one a specific attack it closes:
+
+- **Core dumps are disabled first.** `setrlimit(RLIMIT_CORE, 0)` runs before the secrets are even parsed, so if anything downstream crashes, the kernel cannot write a dump with your keys sprayed across it.
+- **Secrets are `Zeroizing` from the first byte.** The raw C string is held in a `Zeroizing<Vec<u8>>`, each value is moved out of the parsed JSON with `std::mem::take` into a `Zeroizing<String>`, and then the whole parse tree is recursively wiped before it drops. On the JavaScript side, the bridge zero-fills its own serialized `command` and `secrets` buffers in a `finally`. Both sides scrub.
+- **The child environment is an allowlist, not a filter.** `env_clear()` wipes everything, then exactly ten variables are re-inherited (`PATH`, `HOME`, `USER`, `SHELL`, `TERM`, `LANG`, `LC_ALL`, `LC_CTYPE`, `TMPDIR`, `TZ`), then the secrets go on top. The child sees the allowlist plus its secrets and nothing else. Not the parent environment, not `VAULTED_PASSWORD` if it happened to be set, nothing that leaked in from your shell.
+- **The wait is PID-reuse-safe.** This is the subtle one. The runner forwards `SIGTERM` and `SIGINT` to the child, so it needs the child's PID. But a naive reap-then-signal race can send a signal to a PID that has already been recycled by the OS for an unrelated process. So `wait_and_release` peeks the exit status with `waitid(P_PID, WEXITED | WNOWAIT)`, which reports the child is done **without** reaping it, clears the shared PID slot, and only then calls `wait()` to actually reap. The window where a forwarded signal could hit the wrong process does not exist.
+- **Captured mode is fenced.** For the MCP path the child's stdin is `/dev/null`, so an agent-chosen command can never read from or block on the MCP protocol channel, and stdout and stderr are piped and read on separate threads, capped at 10 mebibytes each. The buffers handed back to JavaScript are freed through `vaulted_runner_free`, which **zeroizes the memory before releasing it**.
+- **Nothing panics across the FFI line.** Every entry point wraps its body in `catch_unwind`. A null pointer, invalid UTF-8, or malformed JSON returns `-1`. A Rust panic never becomes undefined behavior in the host process.
+
+The reason all of this lives behind one door is a specific, common failure. It is very easy to build a tool where the CLI is careful and then, months later, someone needs the MCP tool to capture output, and the fastest way to capture output is to reach for the language's own `spawn` with the parent environment spread in. The moment that second path exists, every guarantee above is one convenient shortcut away from being bypassed, and nobody notices until it is in a log.
+
+## Proving there is only one door
+
+An architectural rule that lives in a comment is a rule until the first person in a hurry. So the single-path invariant is a test that fails the build.
+
+```ts
+// scans every .ts under apps/cli/src, asserts there are at least 30 of them
+const forbidden = [["Bun.", "spawn"].join(""),
+                   ["node:child", "_process"].join(""),
+                   ["child", "_process"].join("")];
+for (const file of listTsFiles(SRC_DIR))
+  for (const pattern of forbidden)
+    expect(readFileSync(file, "utf8")).not.toInclude(pattern);
+```
+
+There is no JavaScript-level process API anywhere in the CLI sources. Not in the CLI commands, not in the MCP tools, not in a helper someone adds next year. The only way to run a command is through the Rust door. The forbidden strings are themselves assembled with `.join("")` so the test file does not trip its own scan, which is a small joke that is also load-bearing.
+
+Two more invariants ride alongside it. One asserts that `run-with-secrets` imports the shared FFI bridge and that the capture worker does too, so there is provably no side path. The other reads the source of the `list-secrets` tool and asserts it references none of a list of decrypt-capable names, `decryptSecret`, `unwrapProjectKey`, `deriveMasterKey`, the whole of `@vaulted/crypto`, and more. The read tool is value-free by construction, and you cannot quietly add a `--reveal` to it without a red build.
+
+## The agent surface
+
+`vaulted mcp` starts a stdio MCP server. Wire it into an agent with one line.
+
+```sh
+claude mcp add vaulted -- vaulted mcp
+```
+
+It serves five tools, and the split between them is the whole security story in miniature.
+
+| Tool | Kind | Can return |
+|---|---|---|
+| `status` | read-only | vault and lock state |
+| `list-projects` | read-only | projects, environments, folders |
+| `list-secrets` | read-only | key names, scopes, value types, never values |
+| `get-current-project` | read-only | the `vaulted.toml` pinned to the directory |
+| `run-with-secrets` | destructive | runs a command through the Rust runner, returns redacted output |
+
+The four read tools cannot leak a value because they hold no key, as the invariant test guarantees. `run-with-secrets` is the one tool that handles plaintext, and its design is where most of the care went.
+
+The first move is that the tool never lets the value into the command string either. Its description, which the agent reads, is engineered to make the agent construct a shell command that **references the secret by name** and lets the shell expand it, rather than pasting a literal.
+
+```
+run-with-secrets({
+  command: ["sh", "-c",
+            "curl -sS -H \"Authorization: Bearer $CF_API_KEY\" https://api.example.com"]
+})
+```
+
+The agent writes `$CF_API_KEY`. Vaulted decrypts the value, injects it into the child's environment under that name through the hardened runner, and the shell inside the child expands it. The plaintext exists only inside the spawned process. It is never in the argv the agent authored, never in the model's context, and it does not survive the process.
+
+The rest of the tool is defensive plumbing:
+
+- **Only `server` and `shared` scoped secrets are injected.** Anything you marked `client` is excluded from agent runs entirely.
+- **Runs are serialized.** The runner tracks the live child in one static slot for signal forwarding, so two concurrent runs would clobber each other. A small promise chain, `withRunnerTurn`, makes MCP runs take turns.
+- **The blocking FFI call happens on a worker thread.** `run_with_secrets_captured` blocks until the child exits. Calling it on the MCP server's main thread would freeze the whole agent connection for the duration. So it runs in a `Worker`, and the main thread stays responsive to enforce the timeout.
+- **Timeouts escalate.** A run has a timeout (300 seconds by default, an hour maximum). When it fires, the main thread sends `SIGTERM` through `vaulted_runner_signal_child`, retrying every 100 milliseconds until the child actually exists and the signal lands, then `SIGKILL` after a five-second grace.
+- **The run is audited before it starts.** An `mcp.run_with_secrets` entry, with the argv and the injected key names but no values, is written before the child spawns, so even a command that hangs leaves a record.
+
+And then the output is scanned, which is the last line of defense and the one worth being precise and honest about.
+
+## What redaction does, and does not, do
+
+`packages/redact` builds an Aho-Corasick multi-pattern matcher from the decrypted values of the injected secrets, and it indexes each value in up to four forms, because a secret rarely leaks in the exact bytes it went in as.
+
+```
+plain      s3cr3t-value
+base64      czNjcjN0LXZhbHVl        (both padded and unpadded)
+url         s3cr3t%2Dvalue
+```
+
+Values shorter than six characters are not indexed at all, because below that the false-positive rate wrecks the output. Overlapping matches resolve longest-wins. And it is a true streaming matcher, not a buffer-the-whole-thing pass: it holds back only `maxPatternLen - 1` characters at each chunk boundary and refuses to emit across a match that straddles the boundary, so a secret split across two reads is still caught. Every hit becomes `[REDACTED:KEY_NAME]`, and only after redaction is each stream truncated to 50,000 characters. Truncation is never the primary control, always the last one.
+
+This closes the common channel cleanly: a child process that accidentally echoes an injected value into its own logs. That turns "the agent received the whole log verbatim, key and all" into "the agent received the log with the values blanked and labeled." For the accidental case, which is the frequent case, it works.
+
+<Warn title="Redaction is a filter, not a sandbox">
+It is honest about its edges. It catches values in the four indexed encodings. It cannot catch a value that a program hashes, hex-dumps, gzips, or splits and reassembles, and it does not index anything under six characters. And the deeper point: in 1.0 the agent still chooses the command. A prompt-injected agent can run a program that reads `$SECRET` and posts it to a server it controls, and blanking the returned output does nothing about that, because the exfiltration already happened inside the child. `run-with-secrets` carries a destructive annotation for exactly this reason. Keep a human in the tool-approval loop. Structured request intents and network-layer containment are the roadmap, not a shipped guarantee, and the docs say so rather than implying a wall that is not there.
+</Warn>
+
+## The vault on disk
+
+`packages/store` is the SQLite vault, on `bun:sqlite`, at `~/.config/vaulted/vaulted.db` with mode `0600`. The tables are `STRICT`, so a wrong-typed value is a write error rather than a silent coercion, and migrations run under `PRAGMA user_version` inside a transaction, so a partially-applied schema cannot exist.
+
+Two schema details are worth pulling out. The `vault` table is a hard singleton, `CHECK (id = 1)`, because there is exactly one root of the key hierarchy per database. And secrets are soft-deleted, which usually fights with uniqueness, resolved here by a partial index.
+
+```sql
+CREATE UNIQUE INDEX idx_secret_live_identity
+  ON secret (project_id, environment_id, COALESCE(folder_id, ''), key)
+  WHERE deleted_at IS NULL;
+```
+
+One live secret per key, per environment, per folder, while every past version stays on record. `value_type` and `scope` are constrained by `CHECK` to their closed sets rather than trusted from application code.
+
+The audit log is not a side effect bolted on afterward. Every mutating store method writes its `action_log` entry **inside the same transaction as the mutation**. A committed change is therefore always a recorded change, with no window where one happened without the other. Two orderings are deliberate on top of that: a `run.executed` or `mcp.run_with_secrets` entry is written before the child spawns, and an export entry is written before any plaintext is emitted, so exported secrets can never exist off the record. The metadata carries argv, key names, environments, and counts. It never carries a value.
+
+## Where the protection ends
+
+The most useful thing a security tool can tell you is the shape of its own edge, so here it is, plainly. Vaulted defends the vault at rest, the injection of secrets into a child process, and the agent's context window. It does not defend against a compromised local account, because anyone who can run code as you can call the same OS keychain the CLI calls. It does not defend against a malicious command you choose to run, because `vaulted run -- evil.sh` receives the secrets legitimately, that being the entire job. Vaulted hardens the delivery of secrets into a process. It does not sandbox the process afterward. The OS account is the trust boundary, and Vaulted says so instead of implying otherwise.
+
+## Try it
+
+Vaulted ships as a single binary for macOS (arm64 and x64) and Linux (x64 and arm64). Windows is out of scope for 1.0, where the crate compiles to a stub that returns cleanly rather than pretending to work.
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/woosal1337/vaulted/main/scripts/install.sh | sh
+```
+
+The installer picks the tarball for your platform, verifies its SHA-256 checksum, and drops the binary on your `PATH`. Then point it at a project.
+
+```sh
+cd my-app
+vaulted init                     # prompts for a master password, saves it to the OS keychain
+vaulted import .env              # move your existing .env into the vault
+vaulted run -- npm run dev       # run with secrets injected, then delete the .env
+claude mcp add vaulted -- vaulted mcp   # hand the vault to your agent
+```
+
+A per-directory `vaulted.toml` pins the project and default environment, so Vaulted orients itself from the working directory the way git does. Run `vaulted unlock` once and the MCP server never has to prompt.
+
+Site. <IconLink href="https://vaulted.chele.bi" iconSrc="/vaulted-logo.png">vaulted.chele.bi</IconLink>
+
+Repo. [github.com/woosal1337/vaulted](https://github.com/woosal1337/vaulted)
+
+## Closing
+
+The hard part of a secrets manager was never the encryption. AES is a library call. Argon2id is a library call. The hard part is the discipline: forcing every decrypted byte through one audited door, making the read tools structurally unable to leak, zeroizing on both sides of an FFI boundary, and writing down the exact character where redaction stops being containment. The cryptography is textbook precisely so the engineering can be the interesting part.
+
+Coding agents need your secrets to run your code. They should never get to read them. Vaulted is how you give an agent the one without the other, and keep the plaintext on the only machine that ever needed it.

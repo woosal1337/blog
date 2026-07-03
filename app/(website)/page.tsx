@@ -1,5 +1,4 @@
 import { BooksShelf } from "@/components/blocks/books-shelf";
-import { CTALink } from "@/components/ds/cta-link";
 import { FeatureCard } from "@/components/ds/feature-card";
 import {
 	GithubIcon,
@@ -12,6 +11,7 @@ import { ProfileLockup } from "@/components/ds/profile-lockup";
 import { SectionLabel } from "@/components/ds/section-label";
 import { StoryCard } from "@/components/ds/story-card";
 import { NewLabel } from "@/components/ds/tag";
+import { ViewAllButton } from "@/components/ds/view-all-button";
 import { formatTag, getAllPosts } from "@/lib/blog";
 import { allProjects } from "@/lib/utils";
 
@@ -38,9 +38,7 @@ const SOCIALS = [
 export default async function HomePage() {
 	const posts = await getAllPosts();
 	const writing = posts.slice(0, 2);
-	const writingPeek = posts.slice(2, 4);
 	const featured = allProjects.slice(0, 2);
-	const projectsPeek = allProjects.slice(2, 4);
 
 	return (
 		<>
@@ -88,84 +86,76 @@ export default async function HomePage() {
 					<IconLink href="mailto:ege@chele.bi">ege[at]chele.bi</IconLink>
 				</div>
 
-				<section className="mt-24">
-					<div className="flex items-baseline justify-between">
+				<div className="mt-24 grid gap-x-6 gap-y-14 sm:grid-cols-2">
+					<section className="flex flex-col">
 						<SectionLabel>Projects</SectionLabel>
-						<CTALink href="/projects" className="font-ui text-[13px]">
-							All projects
-						</CTALink>
-					</div>
-					<div className="mt-5 grid gap-4 sm:grid-cols-2">
-						{featured.map((project) => (
-							<FeatureCard
-								key={project.name}
-								title={project.name}
-								description={project.desc}
-								href={project.href}
-								external={project.external}
-								logo={project.logo}
-								logoInverts={project.logoInverts}
-								badge={project.isNew ? <NewLabel /> : undefined}
-							/>
-						))}
-					</div>
-					{projectsPeek.length > 0 && (
-						<PeekFade className="mt-4">
-							<div className="grid gap-4 sm:grid-cols-2">
-								{projectsPeek.map((project) => (
+						<div className="mt-5 flex flex-col gap-4">
+							{featured[0] && (
+								<FeatureCard
+									title={featured[0].name}
+									description={featured[0].desc}
+									href={featured[0].href}
+									external={featured[0].external}
+									logo={featured[0].logo}
+									logoInverts={featured[0].logoInverts}
+									badge={featured[0].isNew ? <NewLabel /> : undefined}
+									date={
+										featured[0].date ? cardDate(featured[0].date) : undefined
+									}
+								/>
+							)}
+							{featured[1] && (
+								<PeekFade>
 									<FeatureCard
-										key={project.name}
-										title={project.name}
-										description={project.desc}
-										href={project.href}
-										external={project.external}
-										logo={project.logo}
-										logoInverts={project.logoInverts}
+										title={featured[1].name}
+										description={featured[1].desc}
+										href={featured[1].href}
+										external={featured[1].external}
+										logo={featured[1].logo}
+										logoInverts={featured[1].logoInverts}
+										date={
+											featured[1].date ? cardDate(featured[1].date) : undefined
+										}
 									/>
-								))}
-							</div>
-						</PeekFade>
-					)}
-				</section>
+								</PeekFade>
+							)}
+						</div>
+						<div className="mt-auto flex justify-center pt-6">
+							<ViewAllButton href="/projects" label="All projects" />
+						</div>
+					</section>
 
-				<section className="mt-24">
-					<div className="flex items-baseline justify-between">
+					<section className="flex flex-col">
 						<SectionLabel>Writing</SectionLabel>
-						<CTALink href="/blog" className="font-ui text-[13px]">
-							All posts
-						</CTALink>
-					</div>
-					<div className="mt-5 grid gap-4 sm:grid-cols-2">
-						{writing.map((post) => (
-							<StoryCard
-								key={post.slug}
-								href={`/blog/${post.slug}`}
-								title={post.title}
-								summary={post.summary}
-								date={cardDate(post.date)}
-								label={formatTag(post.tags?.[0])}
-								cover={post.cover}
-							/>
-						))}
-					</div>
-					{writingPeek.length > 0 && (
-						<PeekFade className="mt-4">
-							<div className="grid gap-4 sm:grid-cols-2">
-								{writingPeek.map((post) => (
+						<div className="mt-5 flex flex-col gap-4">
+							{writing[0] && (
+								<StoryCard
+									href={`/blog/${writing[0].slug}`}
+									title={writing[0].title}
+									summary={writing[0].summary}
+									date={cardDate(writing[0].date)}
+									label={formatTag(writing[0].tags?.[0])}
+									cover={writing[0].cover}
+								/>
+							)}
+							{writing[1] && (
+								<PeekFade>
 									<StoryCard
-										key={post.slug}
-										href={`/blog/${post.slug}`}
-										title={post.title}
-										summary={post.summary}
-										date={cardDate(post.date)}
-										label={formatTag(post.tags?.[0])}
-										cover={post.cover}
+										href={`/blog/${writing[1].slug}`}
+										title={writing[1].title}
+										summary={writing[1].summary}
+										date={cardDate(writing[1].date)}
+										label={formatTag(writing[1].tags?.[0])}
+										cover={writing[1].cover}
 									/>
-								))}
-							</div>
-						</PeekFade>
-					)}
-				</section>
+								</PeekFade>
+							)}
+						</div>
+						<div className="mt-auto flex justify-center pt-6">
+							<ViewAllButton href="/blog" label="All posts" />
+						</div>
+					</section>
+				</div>
 			</div>
 
 			<section className="mt-24 pb-24">

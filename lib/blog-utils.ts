@@ -20,9 +20,11 @@ export function formatPostDate(date: string): string {
 const TAG_LABELS: Record<string, string> = {
 	ai: "AI",
 	mcp: "MCP",
+	cli: "CLI",
 	byok: "BYOK",
 	fastapi: "FastAPI",
 	macos: "macOS",
+	typescript: "TypeScript",
 	"claude-code": "Claude Code",
 	"context-engineering": "Context Engineering",
 	"multi-tenant": "Multi-tenant",

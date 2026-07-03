@@ -11,6 +11,7 @@ type FeatureCardProps = {
 	logo?: string;
 	logoInverts?: boolean;
 	badge?: React.ReactNode;
+	date?: string;
 	className?: string;
 };
 
@@ -24,6 +25,7 @@ export function FeatureCard({
 	logo,
 	logoInverts,
 	badge,
+	date,
 	className,
 }: FeatureCardProps) {
 	const inner = (
@@ -48,6 +50,9 @@ export function FeatureCard({
 					<p className="mt-1 font-ui text-[14px] leading-snug text-ink-mute">
 						{description}
 					</p>
+					{date && (
+						<p className="mt-3 font-ui text-[13px] text-ink-mute">{date}</p>
+					)}
 				</div>
 				{badge}
 			</div>
