@@ -1,18 +1,16 @@
 import { BooksShelf } from "@/components/blocks/books-shelf";
+import { SocialIcons } from "@/components/blocks/social-icons";
 import { FeatureCard } from "@/components/ds/feature-card";
-import {
-	GithubIcon,
-	IconLink,
-	InstagramIcon,
-	XIcon,
-} from "@/components/ds/icon-link";
+import { IconLink } from "@/components/ds/icon-link";
 import { PeekFade } from "@/components/ds/peek-fade";
 import { ProfileLockup } from "@/components/ds/profile-lockup";
 import { SectionLabel } from "@/components/ds/section-label";
 import { StoryCard } from "@/components/ds/story-card";
 import { NewLabel } from "@/components/ds/tag";
 import { ViewAllButton } from "@/components/ds/view-all-button";
+import { INSTAGRAM_FEED, X_FEED } from "@/data/social";
 import { formatTag, getAllPosts } from "@/lib/blog";
+import { getGithubFeed } from "@/lib/github";
 import { allProjects } from "@/lib/utils";
 
 function cardDate(date: string): string {
@@ -25,20 +23,15 @@ function cardDate(date: string): string {
 
 const em = "font-serif text-[1.06em] italic text-ink";
 
-const SOCIALS = [
-	{ href: "https://x.com/woosal1337", label: "X (Twitter)", Icon: XIcon },
-	{
-		href: "https://www.instagram.com/woosal1337/",
-		label: "Instagram",
-		Icon: InstagramIcon,
-	},
-	{ href: "https://github.com/woosal1337", label: "GitHub", Icon: GithubIcon },
-] as const;
-
 export default async function HomePage() {
 	const posts = await getAllPosts();
 	const writing = posts.slice(0, 2);
 	const featured = allProjects.slice(0, 2);
+	const feeds = {
+		x: X_FEED,
+		instagram: INSTAGRAM_FEED,
+		github: await getGithubFeed(),
+	};
 
 	return (
 		<>
@@ -67,20 +60,7 @@ export default async function HomePage() {
 
 				<div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-ui text-[15px]">
 					<span className="inline-flex items-center gap-2">
-						<span className="-mx-1 inline-flex items-center">
-							{SOCIALS.map(({ href, label, Icon }) => (
-								<a
-									key={href}
-									href={href}
-									target="_blank"
-									rel="noopener noreferrer"
-									aria-label={label}
-									className="p-1 transition-opacity duration-200 ease-house hover:opacity-60"
-								>
-									<Icon className="mr-0" />
-								</a>
-							))}
-						</span>
+						<SocialIcons feeds={feeds} />
 						<span className="text-ink">@woosal1337</span>
 					</span>
 					<IconLink href="mailto:ege@chele.bi">ege[at]chele.bi</IconLink>
