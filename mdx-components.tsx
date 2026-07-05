@@ -1,3 +1,4 @@
+import { ContextRotChart } from "@/components/blocks/context-rot-chart";
 import { ContourPlayground } from "@/components/blocks/contour-playground";
 import {
 	Callout,
@@ -318,6 +319,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 		Badge: ({ children }: { children: React.ReactNode }) => (
 			<Tag>{children}</Tag>
 		),
+		ContextRotChart,
 		ContourPlayground,
 		IconLink,
 		Kbd,

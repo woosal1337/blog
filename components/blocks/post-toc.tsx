@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 import { Fragment, useEffect, useState } from "react";
 
 type TocEntry = {
@@ -10,9 +11,14 @@ type TocEntry = {
 };
 
 export function PostToc() {
+	const pathname = usePathname();
 	const [entries, setEntries] = useState<TocEntry[]>([]);
 	const [activeId, setActiveId] = useState<string | null>(null);
 
+	// Re-collect on every route change: the (post) layout persists across
+	// client-side navigation between posts, so a mount-only effect would keep
+	// showing the previous article's headings.
+	// biome-ignore lint/correctness/useExhaustiveDependencies: pathname is the re-run trigger
 	useEffect(() => {
 		const article = document.querySelector("article");
 		if (!article) return;
@@ -54,7 +60,7 @@ export function PostToc() {
 			window.removeEventListener("scroll", update);
 			window.removeEventListener("resize", update);
 		};
-	}, []);
+	}, [pathname]);
 
 	if (entries.length < 2) return null;
 

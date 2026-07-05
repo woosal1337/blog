@@ -49,9 +49,6 @@ export function PostMeta({ meta }: PostMetaProps) {
 			<h1 className="mt-4 font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
 				{meta.title}
 			</h1>
-			<p className="mt-3 font-ui text-[17px] leading-relaxed text-ink-soft">
-				{meta.summary}
-			</p>
 			{meta.tags && meta.tags.length > 0 && (
 				<div className="mt-5 flex flex-wrap gap-2">
 					{meta.tags.map((tag) => (

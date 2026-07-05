@@ -1,0 +1,167 @@
+export const meta = {
+	title: "The agent native home",
+	date: "2026-07-05",
+	summary:
+		"I reset my Mac and rebuilt my agent-native development environment from zero. What survived is small. A git repo, one memo every agent reads at session start, and a discipline about context. Less context, but the right context. This is the full architecture, from the shared AGENTS.md and the symlinks that make Claude Code and Codex read the same file to the MCP registry and the knowledge protocol that keeps the memo under a hundred lines.",
+	tags: ["agents", "architecture", "simplicity", "mcp", "workflow"],
+	cover: "/blog-cover/the-agent-native-home",
+};
+
+export const metadata = {
+	title: meta.title,
+	description: meta.summary,
+	openGraph: {
+		title: meta.title,
+		description: meta.summary,
+		type: "article",
+		publishedTime: meta.date,
+		images: [{ url: "/blog-og/the-agent-native-home", width: 1200, height: 628, alt: meta.title }],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: meta.title,
+		description: meta.summary,
+		images: ["/blog-og/the-agent-native-home"],
+	},
+};
+
+<PostMeta meta={meta} />
+
+I reset my Mac this week. Clean disk, nothing restored, every tool reinstalled by hand. It was the best thing that has happened to my development environment in a year, because a reset is an audit you cannot argue with. Whatever you rebuild first is what you actually use. Whatever you do not miss was noise. Days in, I have missed almost none of it. A year of accumulated installs, and the machine runs on a handful of tools.
+
+What I rebuilt first was not an IDE and not a dotfiles collection. It was the environment my agents work in. I write most of my code through <IconLink href="https://claude.com/claude-code">Claude Code</IconLink> and <IconLink href="https://openai.com/codex" iconHref="https://openai.com">Codex</IconLink>, both pure CLI, and lately through <IconLink href="https://air.dev">JetBrains Air</IconLink>, which drives those same CLIs over ACP. The reset made the real question unavoidable: when an agent starts a session on this machine, what does it know, where does that knowledge live, and how much of it is actually earning its place?
+
+I already had an answer to that question, and it was an <IconLink href="https://obsidian.md">Obsidian</IconLink> structure. It worked, and it never stopped asking for work. The vault had to stay synced, cloned down from its repo onto every machine, and kept track of as it grew. And the honest observation after a year is that I rarely went back and read the notes. The system became complicated faster than it became useful, and the thought I kept returning to was never a new capability. It was always the same one. How do I make this whole process simpler?
+
+<IconLink href="https://notion.so">Notion</IconLink> turned out to be that simplification. One place that is always in sync everywhere, on the machine through the CLI they shipped recently and over MCP for the agents, on my phone without me doing anything. The space is effectively unlimited, the pricing with the packages is affordable, and the built-in views are better visualizations than anything I was maintaining by hand in markdown. The vault needed maintaining. Notion just holds things.
+
+So the answer I landed on is deliberately small. One git repo. One memo. Two symlinks. A short list of MCP servers, with Notion behind them as the long-term second brain. Everything else lives outside the context window and gets pulled in only when a session needs it.
+
+The principle underneath all of it is the one this post keeps returning to, because it is the entire design. Less context, but the right context. Important context matters more than more context.
+
+## Every line is paid for on every session
+
+Session-start context is the most expensive real estate in agent-native development, and most people treat it like free storage.
+
+Here is the arithmetic that changes your mind. A global memo is loaded into every single session, before the agent has done anything. A five hundred line memo does not cost you five hundred lines once. It costs five hundred lines multiplied by every session you will ever start, on every project, forever. And the cost is not only tokens. Models attend worse as context fills. Every paragraph of setup trivia is competing for attention with the actual task.
+
+That second cost is measured, not a feeling, and it has not been fixed by newer models. [ATLAS](https://arxiv.org/abs/2605.28079), a May 2026 sweep of twenty six current models across eight capability dimensions, scored the same tasks twice, first over contexts up to 128K tokens and then with the scope stretched to a million. Every frontier model pays. Claude Opus 4.6 holds up best and still gives up six and a half points. GPT-5.2 loses fifteen and a half and falls four places in the ranking. On the retrieval dimension alone, several models lose more than 40 percent, and GPT-5.2 answers questions at 74.9 in short contexts and 30.5 at a million tokens. The older [Lost in the Middle](https://arxiv.org/abs/2307.03172) study found the same shape inside far smaller windows. Accuracy drops by double digits when the relevant information merely sits in the middle of the context instead of at its edges. The information is always present. Attention is what runs out.
+
+<ContextRotChart />
+
+If the newest frontier models shed seven to fifteen points the moment the window stretches, the conclusion for a session-start memo is not subtle. The memo is the one thing you control about how every context begins. Keeping it short is not tidiness. It is protecting the model's attention for the task.
+
+## Your environment has a context window too
+
+I have started reading that chart as a description of my own machine, because the operator is under the same curve. You are also a system that attends worse as the input grows. Every skill, plugin, third-party app, watcher, daemon and custom cron you install is another entry in your context. Each one arrives with a config to remember, a failure mode to recognize, and an interaction with everything already running.
+
+At five of them you know exactly what your machine is doing at any moment. At fifty you do not. Something restarts something at three in the morning, a watcher rewrites a file you thought you owned, and debugging any surprise begins with an hour of remembering what is even installed. That is the operator's version of accuracy loss. The model loses the needle in a long context. You lose dominance over your own environment, the certain knowledge of what runs, what it touches, and what breaks if you remove it.
+
+The fix is the same at both layers, and that symmetry is the quiet argument of this whole post. A short memo protects the agent's attention. A short environment protects yours. Keeping the machine to one repo, one memo and a few servers is not restraint for its own sake at either layer. It is how both of you stay accurate.
+
+So the constraint writes itself. The memo must be short, and everything in it must be load-bearing. Not documentation. Not history. Not aspiration. Only the facts an agent needs in the first minute of any session, on any project. What this environment is, where knowledge lives, which tools exist, and the handful of rules that apply everywhere.
+
+The inversion is what makes this work. A good agent environment is not the one that tells the agent everything. It is the one that tells the agent where everything is, cheaply, and trusts it to go look. The memo is a map, not a library.
+
+## The architecture is a repo
+
+Everything global lives in one directory, and the directory is a git repo:
+
+```
+~/agents/                      the whole environment, version-controlled
+├── AGENTS.md                  the memo every agent reads at session start
+├── bootstrap.sh               idempotent setup: symlinks, MCP registration
+├── mcp/
+│   └── servers.json           the canonical list of MCP servers
+├── skills/                    slash commands and skills, symlinked into place
+└── settings/                  per-CLI settings files, symlinked into place
+```
+
+That is the entire footprint. No daemon, no sync service, no database. The reason it is a repo and not a folder is the reset itself. An environment you cannot rebuild from a clone and one script is an environment you do not own. It is also the changelog. Every rule I add to the memo is a commit, so when an instruction turns out to be wrong I can see when it arrived and what it displaced.
+
+The system is created in one place, led from one place, updated in one place. That sentence sounds like housekeeping until you price the alternative. When the environment is scattered across per-tool configs, every update is a scavenger hunt across files that have already drifted apart, so updates get postponed, and postponed updates in this field are how you fall behind. Centralized, an update is one edit that reaches every agent before the next session starts.
+
+## A tidy wardrobe
+
+The deeper reason the environment must be cheap to change is the pace of the field it lives in. Agent-native development updates insanely often. Protocols appear and harden within months, CLIs ship weekly, conventions like `AGENTS.md` emerge between two of your projects, and what counted as best practice in spring reads as legacy by fall. This is not a complaint. It is a design constraint. The changes also compound, so missing one is rarely missing one. Skip a season and you are no longer catching up on a tool, you are catching up on the three things built on top of it. An environment that adapts continuously is the only kind that stays current, and adaptation has to be structurally cheap. The adapting will happen either way, because falling behind is not an option. The only question is the price, and the structure of your environment is what sets it, either cheap enough to pay weekly or expensive enough that every catch-up hurts.
+
+Cheap adaptation changes how you evaluate, too. You cannot think your way to knowing whether a new tool fits you. Reading the announcement, weighing the impact, keeping it in theory. That is hours of speculation producing an opinion. Trying it is an hour producing an answer. In a field that moves this fast, trying is simply cheaper than reasoning about trying, so trying should be the default motion.
+
+New tools are clothes. Nobody buys from the catalog description. You put the thing on and the mirror decides in a minute. But you only try clothes on freely when the wardrobe is tidy. One rack where everything hangs, room to add a piece with one gesture, and removal that leaves no trace. That is exactly what the repo is. A new MCP server is one line in the JSON. A new rule is one commit to the memo. A new agent is one symlink. If it fits, it stays and the history records when it arrived. If it does not, one revert and the environment is exactly what it was, with the fitting logged so I do not try the same thing twice.
+
+A cluttered environment quietly ends experimentation, because every trial costs a dig through configs and every removal leaves residue. You stop trying things, and in agent-native development, standing still is falling behind on a schedule measured in weeks. This is the same principle as the memo, wearing different clothes. Less environment, but the right environment, kept cheap to change.
+
+## One file, two symlinks
+
+Here is the part that makes the setup agent-agnostic, and it is almost embarrassingly simple.
+
+Every serious coding agent already loads a global, user-scoped instruction file at session start. Claude Code reads `~/.claude/CLAUDE.md`. Codex reads `~/.codex/AGENTS.md`. They differ in name and in nothing else that matters. So the bootstrap script does this:
+
+```bash
+ln -sf ~/agents/AGENTS.md ~/.claude/CLAUDE.md
+ln -sf ~/agents/AGENTS.md ~/.codex/AGENTS.md
+```
+
+One file, two symlinks. Both agents now read the same memo, byte for byte, and the memo lives in the repo where it is versioned. There is no second copy to forget about. When I fix a rule, it is fixed everywhere before the next session starts.
+
+The alternative everyone drifts into is maintaining these files separately, and it fails the same way every duplicated config fails. You correct the Claude file in the middle of a session, tell yourself you will mirror it later, and three weeks on your two agents believe different things about the same machine. Drift between agents is worse than drift between machines, because you rarely diff your agents against each other. The symlink does not reduce the drift. It deletes the category.
+
+Two details keep this honest. The shared file has to be plain markdown with no tricks, because it is the lowest common denominator. Claude Code supports `@path` imports and Codex does not, so the canonical file uses no imports at all. And if I ever need genuinely Claude-only instructions, the escape hatch is to replace the Claude-side symlink with a two-line shim that imports the shared memo and adds the extra note. The canonical file never changes shape. Adapters absorb the differences. The source of truth stays plain.
+
+JetBrains Air needs nothing at all, which is the quiet proof the structure is right. Air fronts the same CLIs over ACP, so it inherits the memo, the MCP servers, and the skills without a line of configuration. Any future agent that reads the emerging `AGENTS.md` convention is one more symlink. The environment does not care which agent showed up today. That indifference is the definition of agent-native to me. The setup belongs to the machine and the human, not to any vendor's tool.
+
+## What earns a line in the memo
+
+The memo is under a hundred lines and holds four sections. Everything else was cut, and the cuts are the design.
+
+**Environment.** Who I am, what this machine is, and the standing bias. Simplest viable change, no new dependencies without asking, prefer deleting to adding.
+
+**Knowledge protocol.** Where durable knowledge lives and the three rules for it. I recently moved this from an Obsidian vault to Notion, reachable by agents over MCP. More on it below.
+
+**Tools.** One line per tool, stating what it is for and the one rule that matters. <IconLink href="https://vaulted.chele.bi" iconSrc="/vaulted-logo.png">Vaulted</IconLink> manages secrets, so agents run commands with real values injected and never ask for or read a raw secret. <IconLink href="/blog/companyos" iconSrc="/companyos-logo.png">CompanyOS</IconLink> is where projects and tasks live. Notion is where knowledge lands.
+
+**Conventions.** The few defaults that are true across every project. Commit style, language preferences, formatting bias. If a rule only applies to one repo, it does not belong here.
+
+<Tip title="The hundred-line test">
+If the global memo does not fit in a hundred lines, it is not a memo anymore. It is documentation, and documentation belongs behind a pointer, not in the context window. Every line you add taxes every session that will ever start.
+</Tip>
+
+The most valuable lines in the whole file are also the least glamorous. Identifiers, pinned verbatim. The Notion workspace page and the worklog database IDs are written directly into the memo. Without them, every session that touches knowledge burns a search call and a few thousand tokens just discovering where things are, and it rediscovers the same answer every time. A pinned ID is a fact the agent would otherwise pay to derive. Pin the expensive facts and skip the cheap ones. That single habit is most of what "less context, but the right context" means in practice.
+
+Just as important is what the memo refuses to hold. Project instructions stay in each repo's own `CLAUDE.md` or `AGENTS.md`, loaded only when I work there. Research, decisions, and references live in Notion. The memo points at all of it and contains almost none of it.
+
+## MCP, registered once
+
+MCP configuration is the one place the tools genuinely diverge, because each CLI keeps its own registry. Claude Code registers servers through `claude mcp add`, Codex through `~/.codex/config.toml`. There is no shared file to symlink.
+
+So the repo holds the canonical list, `mcp/servers.json`, and the bootstrap script loops over it and registers every server with every CLI, user-scoped:
+
+```bash
+claude mcp add --transport http --scope user notion https://mcp.notion.com/mcp
+```
+
+The script is idempotent. Adding a server later means one line in the JSON and one rerun, and every agent on the machine has it. The list itself follows the same austerity as the memo. A secrets manager, a project manager, a knowledge base. Each MCP server an agent connects to ships its tool descriptions into context on every session, so an unused server is not neutral. It is a standing tax. If I have not used one in a month, it comes out of the JSON.
+
+One aside worth knowing if you are on a subscription plan rather than API keys. None of this is affected by the restriction on using your plan from third-party tools. That restriction is about what may call the model. MCP servers sit on the other side of the conversation. They are tools the agent calls, authenticated against their own services, and they work identically on a subscription.
+
+## Knowledge lives elsewhere, and the agents know it
+
+The last piece is the knowledge protocol, and it exists to keep everything durable out of the memo without losing it.
+
+Durable knowledge goes to Notion, into a single worklog database under one workspace page. Every entry is typed: addition, update, deletion, research, reference, or decision. One database, one select property, and Notion views give me the per-project and research-only slices for free. This is the vault story from the top of the post in miniature. The Obsidian version needed a git hook, an ingestion server, and an embedding index to be reachable by agents. The Notion version deleted the entire pipeline, because the MCP server is the read and write channel. No sync layer, nothing to babysit on a fresh machine.
+
+The memo gives the agents three rules about it. Before researching, search the worklog first, because a past session may have already paid for the answer. After meaningful work, append one typed entry. Keep entries to a paragraph. That is the whole protocol. Additions, updates, deletions, research, references. Each becomes a row another agent can find, whichever agent wrote it and whichever agent asks.
+
+What I deliberately did not build is automatic injection, a session-start hook that pulls recent worklog entries into context. It is the natural next idea and it is wrong by default, because it taxes every session to benefit a few. The memo tells the agent when to look. Sessions that need history fetch it. Sessions that do not stay clean. The same reasoning postponed enforcement hooks. If agents keep forgetting to log, the fix is a small skill added later, not machinery in v1.
+
+## The reset test
+
+The whole structure collapses to a restore path, which is how I now judge any environment. On the next clean machine:
+
+```bash
+git clone <the-repo> ~/agents && ~/agents/bootstrap.sh
+```
+
+Then two OAuth logins, one for each CLI's MCP connections. Minutes, not an afternoon. Both agents wake up knowing the machine, the tools, the rules, and where every piece of durable knowledge lives, because the one file they read on session start is the one file I maintain.
+
+None of this is clever, and that is the point I keep arriving at. The environment got better every time I removed something. The sync pipeline, the duplicate memos, the unused servers, the four hundred lines of instructions that were really just anxiety. Agents do not need a rich environment. They need a legible one. Give them one small map that is always true, make every fact on it earn the tokens it costs, and keep the library outside the door.

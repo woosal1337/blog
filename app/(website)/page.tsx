@@ -1,4 +1,5 @@
 import { BooksShelf } from "@/components/blocks/books-shelf";
+import { SetupTerrain } from "@/components/blocks/setup-terrain";
 import { SocialIcons } from "@/components/blocks/social-icons";
 import { FeatureCard } from "@/components/ds/feature-card";
 import { IconLink } from "@/components/ds/icon-link";
@@ -136,6 +137,8 @@ export default async function HomePage() {
 						</div>
 					</section>
 				</div>
+
+				<SetupTerrain className="mt-10 block" />
 			</div>
 
 			<section className="mt-24 pb-24">
