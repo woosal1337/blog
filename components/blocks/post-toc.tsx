@@ -1,8 +1,9 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, memo, useEffect, useRef, useState } from "react";
 
 type TocEntry = {
 	id: string;
@@ -10,10 +11,29 @@ type TocEntry = {
 	level: number;
 };
 
+// Marker geometry and spring from ncdai's LineNav
+// (https://chanhdai.com/components/line-nav): the hairline expands
+// 24px -> 40px on hover and active state. h3 entries get a shorter
+// "minor tick" that expands by the same amount.
+const majorLine = {
+	normal: { width: 24 },
+	active: { width: 40 },
+	hover: { width: 40 },
+};
+
+const minorLine = {
+	normal: { width: 12 },
+	active: { width: 28 },
+	hover: { width: 28 },
+};
+
+const lineTransition = { type: "spring", stiffness: 200, damping: 20 } as const;
+
 export function PostToc() {
 	const pathname = usePathname();
 	const [entries, setEntries] = useState<TocEntry[]>([]);
 	const [activeId, setActiveId] = useState<string | null>(null);
+	const navRef = useRef<HTMLElement>(null);
 
 	// Re-collect on every route change: the (post) layout persists across
 	// client-side navigation between posts, so a mount-only effect would keep
@@ -62,60 +82,80 @@ export function PostToc() {
 		};
 	}, [pathname]);
 
+	// Keep the active item visible inside the scrollable nav on long TOCs.
+	useEffect(() => {
+		if (!activeId) return;
+		navRef.current
+			?.querySelector(`a[href="#${CSS.escape(activeId)}"]`)
+			?.scrollIntoView({ block: "nearest" });
+	}, [activeId]);
+
 	if (entries.length < 2) return null;
 
 	return (
 		<nav
+			ref={navRef}
 			aria-label="Table of contents"
-			className="no-scrollbar max-h-[calc(100vh-8rem)] overflow-y-auto"
+			// py keeps the first/last label (which overflows its hairline row
+			// vertically) from being clipped by the scroll container
+			className="no-scrollbar flex max-h-[calc(100vh-8rem)] flex-col gap-2 overflow-y-auto py-3"
 		>
-			<ul>
-				{entries.map((entry, index) => {
-					const isActive = entry.id === activeId;
-					return (
-						<Fragment key={entry.id}>
-							<li>
-								<a
-									href={`#${entry.id}`}
-									className={cn(
-										"group flex items-center gap-2.5",
-										entry.level === 3 && "pl-3",
-									)}
-								>
-									<span
-										aria-hidden="true"
-										className={cn(
-											"h-px shrink-0 transition-all duration-200 ease-house",
-											isActive
-												? "w-5 bg-ink"
-												: "w-2.5 bg-line group-hover:w-3.5 group-hover:bg-ink-mute",
-										)}
-									/>
-									<span
-										className={cn(
-											"font-ui text-[11.5px] leading-snug transition-colors duration-200 ease-house",
-											isActive
-												? "text-ink"
-												: "text-ink-mute group-hover:text-ink-soft",
-										)}
-									>
-										{entry.text}
-									</span>
-								</a>
-							</li>
-							{/* a bare separator between titles: dash on the left, no text */}
-							{index < entries.length - 1 && (
-								<li
-									aria-hidden="true"
-									className="flex h-2.5 items-center gap-2.5"
-								>
-									<span className="h-px w-1.5 shrink-0 bg-line" />
-								</li>
-							)}
-						</Fragment>
-					);
-				})}
-			</ul>
+			{entries.map((entry, index) => (
+				<Fragment key={entry.id}>
+					<TocItem entry={entry} active={entry.id === activeId} />
+					{/* double hairline "ruler" texture between titles */}
+					{index < entries.length - 1 && (
+						<>
+							<span aria-hidden="true" className="block h-px w-6 bg-ink/20" />
+							<span aria-hidden="true" className="block h-px w-6 bg-ink/20" />
+						</>
+					)}
+				</Fragment>
+			))}
 		</nav>
 	);
 }
+
+const TocItem = memo(function TocItem({
+	entry,
+	active,
+}: {
+	entry: TocEntry;
+	active: boolean;
+}) {
+	return (
+		<motion.a
+			href={`#${entry.id}`}
+			title={entry.text}
+			aria-current={active ? "true" : undefined}
+			initial={false}
+			animate={active ? "active" : "normal"}
+			whileHover="hover"
+			className={cn(
+				// hairline-height row: the label centers vertically on its tick,
+				// keeping every line in the nav on an even ruler rhythm.
+				// after: enlarges the hit target without loosening that rhythm
+				"group relative flex h-px items-center gap-3 after:absolute after:inset-x-0 after:-inset-y-3",
+				entry.level === 3 && "pl-3",
+			)}
+		>
+			<motion.span
+				aria-hidden="true"
+				variants={entry.level === 3 ? minorLine : majorLine}
+				transition={lineTransition}
+				className={cn(
+					"block h-px shrink-0 transition-colors duration-150 ease-out",
+					active ? "bg-ink" : "bg-ink/20 group-hover:bg-ink",
+				)}
+			/>
+			<span
+				className={cn(
+					"min-w-0 truncate font-ui text-[13px] transition-colors duration-150 ease-out",
+					active ? "text-ink" : "text-ink-soft group-hover:text-ink",
+				)}
+			>
+				{entry.text}
+			</span>
+		</motion.a>
+	);
+});
