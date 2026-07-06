@@ -41,6 +41,7 @@ export function ViewAllButton({
 		<Link
 			href={href}
 			aria-label={label}
+			data-sound="forward"
 			className={cn("inline-block rounded-[999px]", className)}
 		>
 			<GlassButtonSurface size={40}>

@@ -33,6 +33,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
 						type="button"
 						role="radio"
 						aria-checked={selected}
+						data-sound="toggle"
 						onClick={() => setTheme(option.value)}
 						className={cn(
 							"rounded-pill px-3 py-1 text-caption transition-colors duration-200 ease-house",

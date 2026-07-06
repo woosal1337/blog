@@ -44,3 +44,5 @@ next-env.d.ts
 .air/
 # impeccable design-context (regenerate per design; keep out of public repo)
 .impeccable/
+# local sound-regeneration helper (needs the ElevenLabs key via vaulted)
+scripts/generate-sounds.sh

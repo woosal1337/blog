@@ -70,6 +70,7 @@ export function FeatureCard({
 				href={href}
 				target="_blank"
 				rel="noopener noreferrer"
+				data-sound="card"
 				className={classes}
 			>
 				{inner}
@@ -78,7 +79,7 @@ export function FeatureCard({
 	}
 
 	return (
-		<Link href={href} className={classes}>
+		<Link href={href} data-sound="card" className={classes}>
 			{inner}
 		</Link>
 	);

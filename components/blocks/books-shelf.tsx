@@ -28,6 +28,7 @@ export function BooksShelf({ className }: { className?: string }) {
 					<GalleryItem key={`${book.title}-${book.author}`}>
 						<button
 							type="button"
+							data-sound="card"
 							onClick={() => setSelected(book)}
 							className="group w-[120px] text-left sm:w-[140px]"
 						>

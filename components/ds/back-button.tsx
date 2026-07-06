@@ -40,6 +40,7 @@ export function BackButton({
 		<Link
 			href={href}
 			aria-label="Back to home"
+			data-sound="back"
 			className={cn("inline-block rounded-[999px]", className)}
 		>
 			<GlassButtonSurface size={40}>

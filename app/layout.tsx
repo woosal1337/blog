@@ -1,3 +1,4 @@
+import { SoundProvider } from "@/components/providers/sound-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Analytics } from "@vercel/analytics/react";
@@ -97,6 +98,7 @@ export default function RootLayout({
 				>
 					<TooltipProvider>{children}</TooltipProvider>
 				</ThemeProvider>
+				<SoundProvider />
 				<Analytics />
 			</body>
 		</html>

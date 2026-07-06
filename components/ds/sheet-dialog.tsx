@@ -28,6 +28,7 @@ const SheetDialogContent = React.forwardRef<
 		>
 			<DialogPrimitive.Close
 				aria-label="Close"
+				data-sound="close"
 				className="absolute right-4 top-4 z-10 inline-block rounded-[999px]"
 			>
 				<GlassButtonSurface size={36}>

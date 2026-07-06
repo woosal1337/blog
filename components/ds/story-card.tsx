@@ -33,6 +33,7 @@ export function StoryCard({
 	return (
 		<Link
 			href={href}
+			data-sound="card"
 			className={cn(
 				"group block overflow-hidden rounded-[16px] border border-line bg-[#0a0a0a] transition-colors duration-200 ease-house hover:border-line-strong",
 				className,
