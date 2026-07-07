@@ -68,7 +68,7 @@ The inversion is what makes this work. A good agent environment is not the one t
 Everything global lives in one directory, and the directory is a git repo:
 
 ```
-~/agents/                      the whole environment, version-controlled
+~/.agents/                     the whole environment, version-controlled
 ├── AGENTS.md                  the memo every agent reads at session start
 ├── bootstrap.sh               idempotent setup: symlinks, MCP registration
 ├── mcp/
@@ -77,7 +77,7 @@ Everything global lives in one directory, and the directory is a git repo:
 └── settings/                  per-CLI settings files, symlinked into place
 ```
 
-That is the entire footprint. No daemon, no sync service, no database. The reason it is a repo and not a folder is the reset itself. An environment you cannot rebuild from a clone and one script is an environment you do not own. It is also the changelog. Every rule I add to the memo is a commit, so when an instruction turns out to be wrong I can see when it arrived and what it displaced.
+That is the entire footprint. No daemon, no sync service, no database. The dot in front of the name is deliberate too. It is invisible to a casual `ls` or a Finder window, the same way it should be invisible to me on a day I am not touching it, but it is an ordinary path to any agent that reads it, no different from any other directory on the machine. The reason it is a repo and not a folder is the reset itself. An environment you cannot rebuild from a clone and one script is an environment you do not own. It is also the changelog. Every rule I add to the memo is a commit, so when an instruction turns out to be wrong I can see when it arrived and what it displaced.
 
 The system is created in one place, led from one place, updated in one place. That sentence sounds like housekeeping until you price the alternative. When the environment is scattered across per-tool configs, every update is a scavenger hunt across files that have already drifted apart, so updates get postponed, and postponed updates in this field are how you fall behind. Centralized, an update is one edit that reaches every agent before the next session starts.
 
@@ -98,8 +98,8 @@ Here is the part that makes the setup agent-agnostic, and it is almost embarrass
 Every serious coding agent already loads a global, user-scoped instruction file at session start. Claude Code reads `~/.claude/CLAUDE.md`. Codex reads `~/.codex/AGENTS.md`. They differ in name and in nothing else that matters. So the bootstrap script does this:
 
 ```bash
-ln -sf ~/agents/AGENTS.md ~/.claude/CLAUDE.md
-ln -sf ~/agents/AGENTS.md ~/.codex/AGENTS.md
+ln -sf ~/.agents/AGENTS.md ~/.claude/CLAUDE.md
+ln -sf ~/.agents/AGENTS.md ~/.codex/AGENTS.md
 ```
 
 One file, two symlinks. Both agents now read the same memo, byte for byte, and the memo lives in the repo where it is versioned. There is no second copy to forget about. When I fix a rule, it is fixed everywhere before the next session starts.
@@ -159,7 +159,7 @@ What I deliberately did not build is automatic injection, a session-start hook t
 The whole structure collapses to a restore path, which is how I now judge any environment. On the next clean machine:
 
 ```bash
-git clone <the-repo> ~/agents && ~/agents/bootstrap.sh
+git clone <the-repo> ~/.agents && ~/.agents/bootstrap.sh
 ```
 
 Then two OAuth logins, one for each CLI's MCP connections. Minutes, not an afternoon. Both agents wake up knowing the machine, the tools, the rules, and where every piece of durable knowledge lives, because the one file they read on session start is the one file I maintain.
