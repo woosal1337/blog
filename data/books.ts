@@ -365,4 +365,11 @@ export const books: Book[] = [
 		progress: 100,
 		category: "business",
 	},
+	{
+		title: "The Law of the Sublime",
+		author: "Robert Greene",
+		cover: "/books/lawofthesublime.png",
+		progress: 0,
+		category: "mvp",
+	},
 ];
