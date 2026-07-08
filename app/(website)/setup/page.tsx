@@ -185,16 +185,27 @@ const AGENTS: SetupItem[] = [
 
 const MCPS: SetupItem[] = [
 	{
-		name: "vaulted",
+		name: "Vaulted",
 		desc: "Local-first secrets manager. Agents run commands with real secrets injected, the values never enter their context.",
 		href: "https://vaulted.chele.bi",
 		image: "/vaulted-logo.png",
 	},
 	{
-		name: "companyos",
+		name: "CompanyOS",
 		desc: "Agent-native project management. Agents run projects, tasks and meetings over MCP on your own keys.",
 		href: "https://github.com/woosal1337/companyos",
 		image: "/companyos-logo.png",
+	},
+	{
+		name: "Feeder",
+		desc: "RSS reader. Agents read my feeds and manage collections over MCP, so a briefing is a conversation, not a tab.",
+		href: "https://feeder.co",
+	},
+	{
+		name: "Bucketmark",
+		desc: "Link bookmarking. Agents save and sort links into buckets over MCP, so a good link doesn't just die in a chat log.",
+		href: "https://bucketmark.cobanov.dev",
+		image: "/bucketmark-logo.png",
 	},
 ];
 
