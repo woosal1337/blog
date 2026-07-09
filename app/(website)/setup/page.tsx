@@ -161,16 +161,6 @@ function SetupGroup({
 
 const AGENTS: SetupItem[] = [
 	{
-		name: "Claude Code",
-		desc: "The daily driver, pure CLI on the Max plan. Most of my work runs through it, from this site to Vaulted.",
-		href: "https://claude.com/claude-code",
-	},
-	{
-		name: "Codex",
-		desc: "Second implementation passes, rescue work and cross-checks. CLI first, plus a companion plugin inside Claude Code.",
-		href: "https://openai.com/codex",
-	},
-	{
 		name: "Warp",
 		desc: "The terminal, and my main driver right now. The same CLI agents run inside it, they just get a faster shell around them.",
 		href: "https://www.warp.dev",
@@ -245,7 +235,7 @@ export default function SetupPage() {
 				</Reveal>
 
 				<div className="mt-12">
-					<SetupGroup label="Agents" first>
+					<SetupGroup label="ADE" first>
 						{AGENTS.map((row) => (
 							<SetupRow key={row.name} {...row} />
 						))}
