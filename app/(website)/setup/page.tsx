@@ -197,6 +197,12 @@ const MCPS: SetupItem[] = [
 		image: "/companyos-logo.png",
 	},
 	{
+		name: "Folio",
+		desc: "Local meeting recorder. Ships its own MCP server, so agents get read-only access to transcripts, tasks and memory over stdio.",
+		href: "https://folio.chele.bi",
+		image: "/folio-logo.png",
+	},
+	{
 		name: "Feeder",
 		desc: "RSS reader. Agents read my feeds and manage collections over MCP, so a briefing is a conversation, not a tab.",
 		href: "https://feeder.co",
