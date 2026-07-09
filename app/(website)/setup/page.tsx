@@ -221,6 +221,11 @@ const KNOWLEDGE: SetupItem[] = [
 		desc: "The source of truth. Research, worklogs and references land here, and agents read and write it over MCP.",
 		href: "https://notion.so",
 	},
+	{
+		name: "Obsidian",
+		desc: "Local vault for personal notes and journaling. Deliberately not wired to MCP, some things are just for me.",
+		href: "https://obsidian.md",
+	},
 ];
 
 export default function SetupPage() {
