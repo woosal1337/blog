@@ -162,14 +162,8 @@ function SetupGroup({
 const AGENTS: SetupItem[] = [
 	{
 		name: "Warp",
-		desc: "The terminal, and my main driver right now. The same CLI agents run inside it, they just get a faster shell around them.",
+		desc: "The terminal, and my main driver. The same CLI agents run inside it, they just get a faster shell around them.",
 		href: "https://www.warp.dev",
-	},
-	{
-		name: "JetBrains Air",
-		desc: "The IDE. The same CLI agents drive it over ACP, so nothing changes about how they work — they just get an editor around them.",
-		href: "https://air.dev",
-		bleed: true,
 	},
 ];
 
