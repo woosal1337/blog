@@ -51,15 +51,15 @@ And no, infinite context does not solve this. Two reasons. Cost, because you wou
 
 Over 450 open-source memory repos were surveyed accordingly. They split into exactly two camps.
 
-**Camp 1 solves fact recall.** Conversation goes in, facts come out, facts get stored, facts get retrieved on query. This is the standard vector-database pipeline. mem0 leads this camp at 53,000 stars. Their latest algorithm achieves competitive accuracy at under 7,000 tokens per retrieval call while most systems need 25,000 or more. The trick is an add-only extraction pass that collapses two LLM calls into one, entity linking that creates a separate lookup layer, and multi-signal retrieval that fuses semantic, keyword, and entity scoring in parallel. The engineering is genuinely impressive. Mempalace hits 96.6% retrieval recall on LongMemEval. These are serious systems solving the retrieval problem with real rigor.
+**Camp 1 solves fact recall.** Conversation goes in, facts come out, facts get stored, facts get retrieved on query. This is the standard vector-database pipeline. [Mem0](https://github.com/mem0ai/mem0) leads this camp at 53,000 stars. Their latest algorithm achieves competitive accuracy at under 7,000 tokens per retrieval call while most systems need 25,000 or more. The trick is an add-only extraction pass that collapses two LLM calls into one, entity linking that creates a separate lookup layer, and multi-signal retrieval that fuses semantic, keyword, and entity scoring in parallel. The engineering is genuinely impressive. [MemPalace](https://github.com/MemPalace/mempalace) hits 96.6% retrieval recall on [LongMemEval](https://arxiv.org/abs/2410.10813). These are serious systems solving the retrieval problem with real rigor.
 
 **Camp 2 solves compounding context.** The agent reads structured context at session start, works within it, writes back what it learned, and the next session starts richer. This is not a retrieve-on-query pattern. It is a read-on-start pattern. The context is always there. It compounds.
 
-The distinction sounds subtle. In practice it changes everything. Retrieval says, find the answer when someone asks the question. Compounding says, maintain a continuously updated representation of reality so the answer already exists before anyone asks. Retrieval gives you fragments. Compounding gives you a worldview.
+The distinction sounds subtle. In practice it changes everything. Retrieval says, find the answer when someone asks the question. Compounding says, maintain a continuously updated representation of reality so the answer already exists before anyone asks. *Retrieval gives you fragments. Compounding gives you a worldview.*
 
-The most-starred projects of 2026 are camp 2. OpenClaw at 358,000 stars stores memory as plain markdown files with a dreaming process that runs overnight. Light sleep, REM, deep sleep with weighted scoring. The files get pruned, consolidated, and strengthened while the user sleeps. gbrain, which Garry Tan open-sourced from his production system at 17,888 pages, uses the same architecture. git-backed markdown corpus, retrieval layer for search, skill files for behavior. His summary of the philosophy is five words. Memory is markdown. Brain is a git repo.
+The most-starred projects of 2026 are camp 2. [OpenClaw](https://github.com/openclaw/openclaw) at 358,000 stars stores memory as plain markdown files with a dreaming process that runs overnight. Light sleep, REM, deep sleep with weighted scoring. The files get pruned, consolidated, and strengthened while the user sleeps. [GBrain](https://github.com/garrytan/gbrain), which Garry Tan open-sourced from his production system at 17,888 pages, uses the same architecture. git-backed markdown corpus, retrieval layer for search, skill files for behavior. His summary of the philosophy is five words. *Memory is markdown. Brain is a git repo.*
 
-The clearest signal came from an unexpected direction. memsearch, built by Zilliz, a vector database company, ships a memory tool that concedes markdown files are the source of truth. Their own vector database is positioned as a "shadow index" derived from the files.
+The clearest signal came from an unexpected direction. [memsearch](https://github.com/zilliztech/memsearch), built by [Zilliz](https://zilliz.com/), a vector database company, ships a memory tool that concedes markdown files are the source of truth. Their own vector database is positioned as a "shadow index" derived from the files.
 
 <Tip title="When the database vendor concedes">
 When the company that sells the database admits the file is authoritative, the argument is over.
@@ -67,11 +67,11 @@ When the company that sells the database admits the file is authoritative, the a
 
 ## What compounding looks like
 
-The mechanism that makes compounding work is not retrieval. It is consolidation.
+The mechanism that makes compounding work is not retrieval. It is *consolidation*.
 
 Human memory research identifies three types of long-term memory. Episodic, which is specific past events. Semantic, which is facts and concepts. Procedural, which is skills and workflows. The transition between them is where memory becomes intelligence. An agent that notices "the user consistently prefers executive summaries" across dozens of interactions should turn that observation into a reusable rule. That is episodic data consolidating into semantic knowledge. The same way a doctor who has seen a thousand patients does not recall each individual case but carries an intuition built from accumulated pattern recognition.
 
-The systems that compound best implement this transition explicitly. Hermes by [@NousResearch](https://x.com/NousResearch) hit 50,000 stars in two months. The reason is the learning loop. Every fifteen tool calls, the agent pauses. It reviews what worked, what failed, what took too long. Then it writes a skill, a markdown file that turns what it learned into a reusable workflow. Day one produces generic output. Day thirty produces output formatted exactly the way you want it, following procedures the agent wrote for itself.
+The systems that compound best implement this transition explicitly. [Hermes](https://github.com/NousResearch/hermes-agent) by [@NousResearch](https://x.com/NousResearch) hit 50,000 stars in two months. The reason is the learning loop. Every fifteen tool calls, the agent pauses. It reviews what worked, what failed, what took too long. Then it writes a skill, a markdown file that turns what it learned into a reusable workflow. Day one produces generic output. Day thirty produces output formatted exactly the way you want it, following procedures the agent wrote for itself.
 
 The difference from standard memory is fundamental. Standard memory stores facts about your preferences. Compounding memory stores executable procedures. It does not just remember that you like bullet points. It remembers the entire research-filter-format workflow that produces bullet points the way you want them.
 
@@ -89,19 +89,19 @@ If you stored raw conversation turns and derived summaries from them, deleting t
 The most dangerous failure mode. The system states a "memory" with full certainty but there is no way to trace it back to what was actually said. The user cannot tell if this was stated, inferred, or hallucinated. This is how trust breaks.
 </Warn>
 
-Compounding context handles forgetting differently. Because the context is in files, you can version it. git gives you a full history of what was added, changed, and removed. When a fact becomes stale, you edit the file. The old version is in the commit history if you ever need it. No orphaned graph node, no untraceable derivation. The file is the source of truth and git is the provenance layer.
+Compounding context handles forgetting differently. Because the context is in files, you can version it. [git](https://git-scm.com/) gives you a full history of what was added, changed, and removed. When a fact becomes stale, you edit the file. The old version is in the commit history if you ever need it. No orphaned graph node, no untraceable derivation. The file is the source of truth and git is the provenance layer.
 
 ## The lock-in you are not thinking about
 
-There is a strategic dimension to memory that most people miss. Harrison Chase put it plainly. Without memory, your agents are easily replicable by anyone who has access to the same tools. With memory, you build up a proprietary dataset. The competitive advantage is in accumulated context, not model access.
+There is a strategic dimension to memory that most people miss. [Harrison Chase put it plainly](https://www.langchain.com/blog/your-harness-your-memory). Without memory, your agents are easily replicable by anyone who has access to the same tools. With memory, you build up a proprietary dataset. The competitive advantage is in accumulated context, not model access.
 
 Every proprietary agent system captures memory in formats only their system can use. Encrypted compaction summaries that cannot be exported. Proprietary session logs. Managed memory APIs. If your memory dies when your harness dies, you built the harness too thick.
 
-The antidote is files on disk. Markdown, version-controlled, readable by any agent. Switch from Claude Code to Cursor to Codex to Hermes and bring your entire brain with you. The memory is not in the tool. It is in the repo.
+The antidote is files on disk. Markdown, version-controlled, readable by any agent. Switch from [Claude Code](https://claude.com/claude-code) to [Cursor](https://cursor.com/) to [Codex](https://openai.com/codex/) to Hermes and bring your entire brain with you. The memory is not in the tool. It is in the repo.
 
 ## What I utilize
 
-I built this pattern into my own daily workflow. An Obsidian vault with over two hundred documents, synced to a Postgres database with vector and keyword search across a thousand indexed pages. Every new session starts by loading a single file that contains the rules, the project context, the cross-references, everything the agent needs to be useful from the first token.
+I built this pattern into my own daily workflow. An [Obsidian](https://obsidian.md/) vault with over two hundred documents, synced to a [Postgres](https://www.postgresql.org/) database with vector and keyword search across a thousand indexed pages. Every new session starts by loading a single file that contains the rules, the project context, the cross-references, everything the agent needs to be useful from the first token.
 
 When I tell the agent to stop using em-dashes, it writes to a memory file. Next session, that file is loaded before anything happens. No query fires. No embedding is compared. The correction is simply there, in the context, from the start. When I research a topic, the findings go into wiki pages that link to each other and back to the raw sources they came from. When a source is wrong or outdated, I know which wiki pages depend on it because the links are explicit and bidirectional.
 
@@ -109,14 +109,14 @@ The raw sources live in one folder, immutable. The derived wiki pages live in an
 
 The architecture follows a progressive disclosure pattern that keeps context tight. The agent does not load everything. It loads a fifty-line schema file first, which points to an index of thirty lines, which points to the two or three pages that matter for the current task. Total context loaded per session is about a hundred to two hundred lines, not the full two hundred documents. The rest exists on disk, reachable but not loaded until the agent decides it needs it. This is the same principle that makes camp 2 work at scale. The cheap channel is what loads at start. The expensive channel is what gets read on demand.
 
-The system already has a retrieval layer, but it works the way Zilliz described. The files are the source of truth. The search is a shadow index. Every time I push a commit, a sync daemon on a remote server pulls the changes within 60 seconds, diffs them against the existing corpus, computes vector embeddings for the modified pages, and writes the results to an on-prem Supabase instance with Postgres and pgvector. Over a thousand pages are indexed this way. The search layer is useful when I need to find something across the full corpus that I cannot locate by folder structure alone. But the search layer does not own the data. It is derived from the files. If the database disappeared tomorrow, I would rebuild it from the repo in an afternoon. If the repo disappeared, everything would be gone. The files are the system. Search is a convenience.
+The system already has a retrieval layer, but it works the way Zilliz described. The files are the source of truth. The search is a shadow index. Every time I push a commit, a sync daemon on a remote server pulls the changes within 60 seconds, diffs them against the existing corpus, computes vector embeddings for the modified pages, and writes the results to an on-prem [Supabase](https://supabase.com/) instance with Postgres and [pgvector](https://github.com/pgvector/pgvector). Over a thousand pages are indexed this way. The search layer is useful when I need to find something across the full corpus that I cannot locate by folder structure alone. But the search layer does not own the data. It is derived from the files. If the database disappeared tomorrow, I would rebuild it from the repo in an afternoon. If the repo disappeared, everything would be gone. The files are the system. Search is a convenience.
 
 ## Closing
 
-The general shape is a mirror of a pattern I described in a previous article about multimodal agents. Default to the cheap channel. Use the expensive one only when the cheap one admits it cannot answer.
+The general shape is a mirror of a pattern I described in [*Ears without eyes*](/blog/ears-without-eyes). Default to the cheap channel. Use the expensive one only when the cheap one admits it cannot answer.
 
 For video, the cheap channel is audio transcription. For memory, the cheap channel is files loaded at session start. The expensive channel for video is vision. The expensive channel for memory is retrieval, vector search, graph traversal, entity resolution. The architecture is the same at every layer. Trust the cheap channel. Let it tell you when it needs help.
 
-The evidence for this keeps getting stronger. LangChain tested the same model on the same benchmark with two different harnesses. The score moved from 52.8% to 66.5%. Same weights, different environment. The harness is the memory system. The files are the harness. Everything else is optimization on top.
+The evidence for this keeps getting stronger. [LangChain tested the same model](https://www.langchain.com/blog/tuning-deep-agents-different-models) on the same benchmark with two different harnesses. The score moved from 52.8% to 66.5%. Same weights, different environment. The harness is the memory system. The files are the harness. Everything else is optimization on top.
 
-A system that starts every session richer than the last one is not retrieving memories. It is compounding them.
+A system that starts every session richer than the last one is *not retrieving memories. It is compounding them.*

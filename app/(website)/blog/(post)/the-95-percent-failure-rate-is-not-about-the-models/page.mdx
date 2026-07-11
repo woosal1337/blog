@@ -27,11 +27,11 @@ export const metadata = {
 
 <PostMeta meta={meta} />
 
-Five percent of enterprise AI projects deliver value. The number has not moved through three generations of frontier models. The model is not the problem. The model is already strong. What is missing is the layer underneath that gets the right context to it at the right moment.
+Five percent of enterprise AI projects deliver value. The number has not moved through three generations of frontier models. *The model is not the problem.* The model is already strong. What is missing is the layer underneath that gets the right context to it at the right moment.
 
 This is the headline finding of the most quietly important data set in AI right now. It also explains why the conversation in every C-suite room has the same shape. They spent millions on AI. The AP team is still doing AP the same way. Month-end close is still 22 days. Reps still hit quota at 24%. The CRM still has the same 30% data decay it had in 2022. Every leader believes in "going AI-first" and almost none of them can name a metric that has moved.
 
-[@vasuman](https://x.com/vasuman), who runs Varick Agents and has spent eighteen months deploying AI inside enterprise teams at companies doing $500m to $5b, just published the cleanest articulation of why. Sierra's [@neilrahilly](https://x.com/neilrahilly) published the cleanest articulation of how to fix it, naming the missing discipline directly, context engineering, deciding what information an agent has access to at each moment and when it should be used. This article restates Vasuman's thesis, layers in Rahilly's framework, brings in the supporting data the broader literature has produced, and then takes it one step further. The operational layer is the moat. Context engineering is the discipline that builds it. The teams that build both now will own the next decade. The teams that wait for AGI will keep flatlining.
+[@vasuman](https://x.com/vasuman), who runs [Varick Agents](https://varickagents.com/) and has spent eighteen months deploying AI inside enterprise teams at companies doing $500m to $5b, just published the cleanest articulation of why. [Sierra](https://sierra.ai/)'s [@neilrahilly](https://x.com/neilrahilly) published the cleanest articulation of how to fix it, naming the missing discipline directly, context engineering, deciding what information an agent has access to at each moment and when it should be used. This article restates Vasuman's thesis, layers in Rahilly's framework, brings in the supporting data the broader literature has produced, and then takes it one step further. *The operational layer is the moat.* Context engineering is the discipline that builds it. The teams that build both now will own the next decade. The teams that wait for AGI will keep flatlining.
 
 ## The data is consistent across six independent studies
 
@@ -39,12 +39,12 @@ Pick any methodology you like. They converge.
 
 | Study | Year | Headline number |
 |---|---|---|
-| MIT NANDA, GenAI Divide | August 2025 | 5% of integrated AI pilots pull millions in value, the other 95% have nothing to show |
-| BCG | 2025 | 4% have hit AI value at scale |
-| Deloitte | 2025 | 6% achieve AI ROI within a year |
-| RAND | 2025 | 80%+ of AI projects fail, twice the rate of normal IT projects |
-| IBM | 2025 | 75% of AI initiatives have not delivered expected ROI |
-| McKinsey | 2025 | 78% of orgs use AI regularly, 80%+ report zero EBIT impact |
+| [MIT NANDA, *The GenAI Divide*](https://nanda.media.mit.edu/ai_report_2025.pdf) | July 2025 | 5% of integrated AI pilots pull millions in value, the other 95% have nothing to show |
+| [BCG](https://www.bcg.com/publications/2024/wheres-value-in-ai) | 2024 | 4% have hit AI value at scale |
+| [Deloitte](https://www.deloitte.com/global/en/issues/ai/ai-roi-the-paradox-of-rising-investment-and-elusive-returns.html) | 2025 survey | 6% achieve AI ROI within a year |
+| [RAND](https://www.rand.org/content/dam/rand/pubs/research_reports/RRA2600/RRA2680-1/RAND_RRA2680-1.pdf) | 2024 | 80%+ of AI projects fail, twice the rate of normal IT projects |
+| [IBM](https://newsroom.ibm.com/2025-05-06-ibm-study-ceos-double-down-on-ai-while-navigating-enterprise-hurdles) | 2025 | 75% of AI initiatives have not delivered expected ROI |
+| [McKinsey](https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-how-organizations-are-rewiring-to-capture-value) | 2025 | 78% of orgs use AI regularly, 80%+ report zero EBIT impact |
 
 The numbers cluster. The methodologies do not. The cluster is not a measurement artifact, it is the actual rate. And critically, the number has been flat through every model generation. GPT-3, GPT-4, GPT-5. Claude 2 through Claude Opus 4.7. Gemini 1 through Gemini 3. Each generation arrived with claims that "this is the one that fixes enterprise." Each generation arrived to the same 5%.
 
@@ -56,9 +56,10 @@ There is one group for whom AI is working. At scale. Repeatedly measured. Across
 
 | Source | Finding |
 |---|---|
-| GitHub Copilot study, 2024 | 55% faster on real tasks. 1h 11m vs 2h 41m on the same work. |
-| Anthropic internal study, August 2025 | 132 engineers, 100k real Claude conversations. ~80% reduction in task completion time. |
-| Sundar Pichai, January 2026 | 75% of new code at Google is AI-generated and engineer-approved. The number was 30% in April 2025. |
+| [GitHub Copilot study, 2022](https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/) | 55% faster on real tasks. 1h 11m vs 2h 41m on the same work. |
+| [Anthropic internal study, 2025](https://www.anthropic.com/research/how-ai-is-transforming-work-at-anthropic) | 132 engineers and researchers, 200k Claude Code transcripts, 50% self-estimated productivity gain. |
+| [Anthropic productivity study, 2025](https://www.anthropic.com/research/estimating-productivity-gains) | 100k Claude.ai conversations, 80% estimated reduction in task time. |
+| [Sundar Pichai, April 2026](https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/cloud-next-2026-sundar-pichai/) | 75% of new code at Google is AI-generated and engineer-approved. The number was 50% the previous fall. |
 
 Engineers got 2x to 5x more productive. Sales reps did not. Finance teams did not. Marketing teams did not. Ops teams did not.
 
@@ -84,7 +85,7 @@ None of the four properties hold. Not bounded (the work touches twelve systems).
 
 This is also why every "AI for sales / finance / marketing / ops" startup pitches the same demo and dies in the same way. The demo runs against a clean toy version of the workflow. The actual workflow is the messy one. Generic AI pointed at a non-bounded, non-checkable, non-structured, non-verifiable workflow gives negative ROI. The operator was doing the work in 30 minutes. Now they are doing the work in 30 minutes plus another 30 minutes correcting the AI's mistakes.
 
-The labs (OpenAI, Anthropic, Cursor) poured everything they had into engineering because that is where the four properties hold. They got engineering working. They have not solved the rest, because the rest does not have the substrate.
+The labs ([OpenAI](https://openai.com/), [Anthropic](https://www.anthropic.com/), [Cursor](https://cursor.com/)) poured everything they had into engineering because that is where the four properties hold. They got engineering working. They have not solved the rest, because the rest does not have the substrate.
 
 ## Context engineering, the discipline that builds the substrate
 
@@ -142,7 +143,7 @@ This compounds with the audit problem. Teams that did not audit do not know whic
 
 The most silent and most deadly failure mode. It only shows up after month six. By the time you notice, the budget is gone.
 
-Sarah in AP builds her own agent in Lovable to classify invoices. The controller spins up a separate one for intercompany. The FP&A lead vibe-codes a variance reporter. The CRO's chief of staff has a personal agent for QBR prep. The marketing manager built a content agent. The recruiting coordinator built a candidate screener.
+Sarah in AP builds her own agent in [Lovable](https://lovable.dev/) to classify invoices. The controller spins up a separate one for intercompany. The FP&A lead vibe-codes a variance reporter. The CRO's chief of staff has a personal agent for QBR prep. The marketing manager built a content agent. The recruiting coordinator built a candidate screener.
 
 Multiply that across a 200-person operations org. Fifty to a hundred separate AI workflows. Each built by a different person. Each with its own quirks. Each solving similar problems in seven different ways. No common spine. No shared memory. No shared knowledge of how the company actually runs.
 
@@ -162,7 +163,7 @@ The slowest, hardest-to-spot, most expensive failure mode over time.
 
 Most companies budget AI like any other software project. Plan, build, ship, declare victory, move on. That logic works for traditional software because once you build it, it stays built. AI is the opposite. Every quarter, something underneath shifts. A new release is dramatically better at your workload, or worse, the model you depended on quietly gets distilled and degrades.
 
-Anthropic alone retired roughly 9 models in 18 months. OpenAI retired even more. Pricing changes quarterly. Rate limits get tightened with no warning. In April 2026 Anthropic publicly acknowledged that engineering errors had degraded Claude Code performance for over a month, and that paid Max subscribers were hitting their quota in 19 minutes instead of the advertised 5 hours. Production workloads built on those guarantees had already broken.
+Anthropic alone retired roughly 9 models in 18 months. OpenAI retired even more. Pricing changes quarterly. Rate limits get tightened with no warning. In April 2026 [Anthropic publicly acknowledged](https://www.anthropic.com/engineering/april-23-postmortem) that engineering errors had degraded Claude Code performance for over a month, and that paid Max subscribers were hitting their quota in 19 minutes instead of the advertised 5 hours. Production workloads built on those guarantees had already broken.
 
 The deployments that actually pay off treat AI as continuously evolving infrastructure with a dedicated team that owns ongoing optimization. They monitor quality. They swap models when better ones ship. They retire agents that have stopped earning their keep. They renegotiate when something breaks underneath them. Most importantly they avoid vendor lock-in.
 
@@ -197,19 +198,19 @@ The four properties (bounded, checkable, structured, verifiable) are also the te
 
 The four-property test is also the first audit step at engineer scale. Before writing the prompt or picking the framework, ask whether the work itself has the four properties. If it does not, build the missing properties into the environment first. The environment is the project. The model is one component inside it.
 
-This is the same conclusion the harness-engineering literature has reached from a different angle. Same model, different harness, 52.8% to 66.5% on Terminal Bench 2.0, a 14-point swing from the harness alone. If you are not the model, you are the harness. The harness is the operational layer. The operational layer is the moat.
+This is the same conclusion the harness-engineering literature has reached from a different angle. [LangChain's Terminal Bench 2.0 comparison](https://www.langchain.com/blog/tuning-deep-agents-different-models) moved the same model from 52.8% to 66.5% with a different harness. That is a 14-point swing from the harness alone. *If you are not the model, you are the harness.* The harness is the operational layer. The operational layer is the moat.
 
 ## The labs are conceding the same point
 
 The clearest signal that the operational layer is the bottleneck comes from the labs themselves.
 
-OpenAI shipped Codex Cloud, which is OpenAI doing the operational fieldwork inside customer organizations. Anthropic shipped managed agents and Claude design, which are Anthropic doing the same thing in different surfaces. Cursor's ARR moved past Anthropic's API revenue because Cursor is not selling the model, it is selling the harness around the model. Sierra is doing the same thing on the customer-experience surface, the entire product is context engineering as a service, with Ghostwriter generating context blocks and conditions from existing SOPs, Journeys giving operators a no-code editor, and an agent SDK for teams that want to manage the layer as code. Every model lab and every serious agent vendor has now figured out that selling the model alone is not enough. Selling the runtime alone is not enough. You need the model plus the runtime plus the context engineering discipline plus a team that goes and embeds inside the enterprise and figures out what to actually build for it.
+[OpenAI shipped Codex Cloud](https://openai.com/index/introducing-upgrades-to-codex/), which is OpenAI doing the operational fieldwork inside customer organizations. Anthropic shipped [managed agents](https://www.anthropic.com/engineering/managed-agents) and [Claude Design](https://www.anthropic.com/news/claude-design-anthropic-labs), which are Anthropic doing the same thing in different surfaces. [Cursor](https://cursor.com/)'s ARR moved past Anthropic's API revenue because Cursor is not selling the model, it is selling the harness around the model. [Sierra](https://sierra.ai/) is doing the same thing on the customer-experience surface, the entire product is context engineering as a service, with [Ghostwriter](https://sierra.ai/product/ghostwriter) generating context blocks and conditions from existing SOPs, [Journeys and the Agent SDK](https://sierra.ai/blog/context-engineering-the-key-to-great-agents) giving operators a no-code editor and a path for teams that want to manage the layer as code. Every model lab and every serious agent vendor has now figured out that selling the model alone is not enough. Selling the runtime alone is not enough. You need the model plus the runtime plus the context engineering discipline plus a team that goes and embeds inside the enterprise and figures out what to actually build for it.
 
 <Tip title="The bottleneck, named">
 Process is the bottleneck. It has been the bottleneck the whole time, and unless something dramatic changes, it is going to stay the bottleneck.
 </Tip>
 
-The labs are making the same bet from the supply side. The 5% of enterprises winning are making the same bet from the demand side. If you are an engineer building agents, you are now in the same business as the labs. The work is operational, not algorithmic. The leverage is in the harness, not the weights.
+The labs are making the same bet from the supply side. The 5% of enterprises winning are making the same bet from the demand side. If you are an engineer building agents, you are now in the same business as the labs. The work is operational, not algorithmic. *The leverage is in the harness, not the weights.*
 
 ## The bet I would take
 
@@ -233,4 +234,4 @@ The "models got smart" chapter is already over. We had a glorious run. The model
 
 The discipline has a name now. Sierra called it. Context engineering. Progressive disclosure of relevant information, gated by state and observation conditions, built on a single orchestration layer, tuned continuously as the model market moves underneath it. The 5% are not lucky. They are operational, and operational means context-engineered. That is the whole game.
 
-Sources. Vasuman, [the operational layer is the moat](https://x.com/vasuman/status/2049659161005470071). Neil Rahilly, [context engineering, the key to great agents](https://x.com/neilrahilly/status/2051723442928664620). 5% / 95% framing originates with MIT NANDA's GenAI Divide report, August 2025. Convergence across BCG, Deloitte, RAND, IBM, McKinsey gives the number its weight.
+Sources. Vasuman, [the operational layer is the moat](https://x.com/vasuman/status/2049659161005470071). Neil Rahilly, [context engineering, the key to great agents](https://x.com/neilrahilly/status/2051723442928664620). The 5% / 95% framing originates with MIT NANDA's GenAI Divide report from July 2025. Convergence across BCG, Deloitte, RAND, IBM, and McKinsey gives the number its weight.

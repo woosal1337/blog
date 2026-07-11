@@ -1,0 +1,221 @@
+export const meta = {
+	title: "The second brain needs a schema",
+	date: "2026-07-11",
+	summary:
+		"Google's Open Knowledge Format names a lesson I learned when multiple agents began writing to the same repo. Portable files are not enough. A second brain compounds only when every writer shares a schema.",
+	tags: ["ai", "agents", "second-brain", "structured-outputs", "knowledge", "architecture"],
+	cover: "/blog-cover/the-second-brain-needs-a-schema",
+};
+
+export const metadata = {
+	title: meta.title,
+	description: meta.summary,
+	openGraph: {
+		title: meta.title,
+		description: meta.summary,
+		type: "article",
+		publishedTime: meta.date,
+		images: [{ url: "/blog-og/the-second-brain-needs-a-schema", width: 1200, height: 628, alt: meta.title }],
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: meta.title,
+		description: meta.summary,
+		images: ["/blog-og/the-second-brain-needs-a-schema"],
+	},
+};
+
+<PostMeta meta={meta} />
+
+Google Cloud put a name on the way I had been building my second brain. Its [follow up post](https://x.com/GoogleCloudTech/status/2075714465652191638) reached me after I had already used the same shared template structure for more than three and a half months.
+
+The [Open Knowledge Format](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing) described almost the same shape. A directory of Markdown files. YAML frontmatter. Standard Markdown links. Optional indexes and logs. One agent can write it. Another can read it. Neither needs to know which tool produced it.
+
+The coincidence is satisfying. The convergence is more important. Independent systems arrived at the same constraint because unstructured knowledge stops compounding when multiple agents have to share it.
+
+Git is still my second brain and remains the source of truth. Notion is the sync layer I use when I am away from my computer. It gives me mobile access without changing where the canonical knowledge lives. The contract stays in Git. Every writer follows the same shape before anything is synced.
+
+I did not end up with shared templates because I wanted tidy notes. I ended up with them because unstructured output stopped scaling when more than one agent could write into the same brain. Claude might call one document a research analysis. Codex might call the next one a technical note. One would use `status: active`. Another would write `current` or `done`. Sources moved between the top and bottom. Dates changed formats. A plan could be filed under research because the prose looked similar.
+
+Every file remained readable. The collection became less computable with every write.
+
+That became the failure mode in my repo. Storage grew. Every new writer had to reinterpret what came before. The model remembered something in a shape that the next model had to decode from scratch.
+
+The fix is *deterministic structure*. It is not deterministic wording or deterministic truth. The body can stay expressive. The model can still reason and synthesize. It can still disagree. What must stop varying between writers is the envelope around the thought. That envelope includes the fields and types. It also includes the path, source trail and small set of sections the next reader can expect.
+
+If the next agent cannot trust the shape, the first agent did not write memory. It wrote more input.
+
+## Google standardized the contract
+
+The [OKF v0.1 specification](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) is unusually small on purpose. It is still marked Draft. It does not define a database or search engine. It does not define a graph store, model, SDK or cloud service. Google calls the unit of distribution a knowledge bundle. A bundle is just a directory tree. A concept is one UTF-8 Markdown file. Its path without the `.md` suffix is its identity.
+
+Each concept has two parts. A YAML frontmatter block holds the fields a machine needs to query. A Markdown body holds the part a person or model actually reads.
+
+At the field level only `type` is required. Bundle conformance adds two structural rules. Every `.md` file that is not reserved must contain parseable YAML frontmatter. Reserved `index.md` and `log.md` files must follow their specified structure. The spec recommends `title`, `description`, `resource`, `tags` and `timestamp`. Producers may add other fields. Consumers should preserve unknown keys during round trips. They must tolerate unknown types and broken links. A missing index cannot make a bundle invalid.
+
+That permissiveness is what an exchange format needs. Two systems with different internal models can meet at a narrow border without either one surrendering its own richer shape.
+
+Google summarizes the bet in the [official repository](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf). Anyone can produce the files. Anyone can consume them. A human can author a bundle by hand. A catalog exporter can generate one from a database. One LLM can synthesize it. A different LLM can query it. A static viewer can render it. A search index can ingest it. The tooling on both sides can be replaced because the format is the contract.
+
+That is the part people miss when they describe OKF as Google making Markdown official. Markdown is not the contribution. The contribution is agreeing on the smallest structural envelope that lets independent producers and consumers exchange the same artifacts.
+
+| Part | What OKF standardizes | What the base specification does not standardize |
+|---|---|---|
+| Identity | One concept per file, identified by its path | Stable IDs across moves and renames |
+| Metadata | YAML frontmatter with a required type | A universal taxonomy or domain schema |
+| Content | A free-form Markdown body | Required sections or editorial voice |
+| Relationships | Standard Markdown links | Typed edges such as dependency or supersession |
+| Navigation | Optional index.md files | Search, ranking, embeddings or retrieval |
+| History | Optional log.md files and files that work well with Git | Authenticated authorship or required binding between claims and sources |
+
+The [official sample bundles](https://github.com/GoogleCloudPlatform/knowledge-catalog/tree/main/okf/bundles) make the distinction visible. The repository also includes a two stage reference agent and a static graph viewer. Those tools are proofs of concept. They are not the standard. The [launch article](https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing) says Google Cloud's Knowledge Catalog can ingest OKF and serve it to agents. The format does not depend on the catalog.
+
+The service is optional. *The contract is the asset.*
+
+## What shared templates changed
+
+Today the repo holds more than 1,100 knowledge documents across projects and research. It also contains content and personal material. The useful property is not the count. An agent can walk into a folder it has never seen and inspect the templates in scope. It can know what a valid new document looks like before it writes one.
+
+A plan is not merely prose with the word plan in the title. It needs a status and target date. It also needs success criteria and phases. A research analysis needs a subject and evidence. It ends with a verdict, tradeoffs and sources. A decision record captures the choice. It records the alternatives that were rejected and the consequences that were accepted. It also needs a path for supersession. A social article begins with one thing and its proof. The reader transformation, hook and closer come before the body.
+
+Those differences are operational.
+
+The template tells the writer what must be decided. The frontmatter tells the system how to route and query the result. The folder says where it belongs. The links tell future readers what it depends on. The history says how it changed.
+
+Together these contracts give deterministic tools stable inputs. Those inputs support linting and comparison. They also support migration, indexing and link checks. The contracts make these operations possible. They do not implement them.
+
+That is why the first shared template mattered more than the thousandth document. The template changed the unit of growth from a file into a typed artifact.
+
+## The file is not the system
+
+I have argued before that [files beat databases for agent memory](/blog/the-next-sessions). I still believe a file should be the portable source of truth whenever files are the substrate. But a file by itself is not a knowledge architecture. It is a container.
+
+This is the difference between JSON and [JSON Schema](https://json-schema.org/draft/2020-12/json-schema-validation). JSON gives you a syntax for values. JSON Schema defines which properties must exist and which types belong in them. It can constrain values and reject unknown fields.
+
+Markdown has the same gap. [CommonMark](https://spec.commonmark.org/0.31.2/) makes text portable enough to render consistently. [YAML](https://yaml.org/spec/1.2.2/) makes frontmatter readable by machines. The mature convention used by systems such as [Jekyll](https://jekyllrb.com/docs/front-matter/) lets the two coexist in one file.
+
+None of those tells you what `research-analysis` means. They do not say whether status is required or whether a source can be omitted. They do not say where a decision belongs.
+
+Syntax is not semantics. Frontmatter is not a schema. A template is not a validator. A folder is not an ontology.
+
+You need the layers to work together.
+
+| Layer | Question it answers |
+|---|---|
+| File format | Can every tool open this artifact? |
+| Metadata shape | Can software parse and filter it? |
+| Domain schema | Do the fields mean the same thing across writers? |
+| Template | Can a writer create the right shape without memorizing it? |
+| Validator | Did this write satisfy the encoded contract? |
+| Resolver | Does this concept have exactly one canonical home? |
+| Provenance | Can a claim be traced to evidence? |
+
+Most second brains stop at the first two and call the job done. That is why they look organized in a file browser and fall apart under automation.
+
+## Strict writer and tolerant reader
+
+The same principle operates at three scales. At the API level a strict output mode constrains a completed response to the part of JSON Schema that a provider supports. At the document level frontmatter and a template constrain one artifact. At the corpus level folders and links constrain the collection. Indexes and logs support that structure.
+
+At every scale, the next consumer should be able to trust the shape without reinterpreting the whole payload.
+
+OpenAI's [*Structured Outputs* launch](https://openai.com/index/introducing-structured-outputs-in-the-api/) gives the clearest measurement. GPT-4o with strict Structured Outputs reached 100 percent schema matching on a complex evaluation. GPT-4-0613 with prompting alone scored below 40 percent. The trained model reached 93 percent by itself. OpenAI attributes the final seven points to constrained decoding. That layer prevents token choices that would break the compiled schema.
+
+Those numbers came from 2024. They no longer describe frontier model capability. [GPT-5.6](https://openai.com/index/gpt-5-6/) reports major gains in coding and knowledge work. [Claude Sonnet 5](https://www.anthropic.com/news/claude-sonnet-5) reports stronger reasoning and tool use than its predecessor. [Gemini 3.5](https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-3-5/) reports similar gains in coding and agent work.
+
+The practical accuracy of the content inside a valid schema is now far higher on many tasks. There is no single rate that compares every new model because each provider uses different evaluations. The 100 percent result above measured the shape of the output. That number was already at its ceiling. Newer models improve the values that go inside the shape.
+
+For a product builder *the model is no longer the moat*. Better models become available to everyone and the lead keeps moving. The durable advantage is the system around the model. It comes from the schema and evidence. It also comes from validation, routing and maintenance. Better models raise the floor. The surrounding system determines whether that improvement compounds.
+
+[Anthropic](https://platform.claude.com/docs/en/build-with-claude/structured-outputs) and [Gemini](https://ai.google.dev/gemini-api/docs/structured-output) offer related modes. A successful response follows the fields and types that the provider enforces. Extra keys are excluded only when the schema disallows them. The details vary by provider. OpenAI and Anthropic document exceptions for refusals and truncated output. Anthropic also notes a case exception for enums. Gemini may reject a schema that is too large or deeply nested.
+
+That precision matters because deterministic is easy to abuse. In a completed strict generation the decoder excludes continuations that violate the supported constraint. Allowed values still come from the model. They can change between calls. They can also be wrong.
+
+Gemini warns that output can follow the syntax and schema yet still be wrong. OpenAI gives the same warning. Structured Outputs can contain mistakes and can hallucinate when the input cannot support the requested schema.
+
+<Warn title="A clean lie is still a lie">
+A schema validator can check that a field exists and has the declared type. A separate path resolver can check the destination folder. Neither can prove that the sentence inside the field is true.
+</Warn>
+
+This is why an organized second brain needs two forms of provenance.
+
+Git gives change provenance. It can show what changed and which author and committer metadata the commit records. Authenticating that identity requires signed commits or another trust layer. The [Git data model](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F) makes every snapshot addressable and every change diffable.
+
+Citations give evidence provenance. They show which source supports a claim. Git can record that a sentence appeared in a particular commit. It cannot prove that the sentence was justified.
+
+The internal write contract therefore has to be stricter than the OKF exchange floor. At the field level OKF requires only `type`. Bundle conformance also requires parseable frontmatter and valid reserved files. It has no registered taxonomy. Consumers should preserve unknown keys during round trips. They should not reject fields they do not recognize. Links are untyped. Citations are recommended but not required. Indexes and logs are optional.
+
+That is correct for a public interchange format. It is too permissive for the admission path of a personal brain.
+
+My minimum internal contract is closer to this.
+
+~~~yaml
+---
+schema: research-analysis/v1
+type: research-analysis
+title: Why structured knowledge compounds
+description: Evidence and operating lessons for deterministic document shape
+status: provisional
+timestamp: 2026-07-11T12:00:00+03:00
+sources:
+  - google-okf
+  - karpathy-llm-wiki
+---
+
+# Question
+
+# Findings
+
+# Trade-offs
+
+# Open questions
+
+# Recommendation
+~~~
+
+The exact fields change by document type. The rule does not. Every field is required or constrained unless it is deliberately free. Every required section earns its place. Everything else stays prose.
+
+<Tip title="Lock the envelope, not the thought">
+The body is where the model reasons. The envelope is what the system trusts. Constrain the smallest surface that makes the artifact composable, and leave the rest open enough for actual thinking.
+</Tip>
+
+At admission time a document should satisfy the current contract or be repaired before it lands. Required metadata must exist. Enum values must be allowed. Dates must parse. Sources must resolve. A separate resolver confirms the path. Link checks must pass. Reserved filenames keep their meaning. The local schema version must be known.
+
+At read time the system should preserve anything it does not understand. An old document with a new key is not thrown away. An unknown type renders as a generic concept. A broken link stays visible as a repair task. An OKF version the consumer does not understand receives best effort treatment instead of outright rejection.
+
+*Be strict when writing. Be tolerant when reading.*
+
+The contract also has to live in one place that every writer can discover. A template copied into twenty prompts creates twenty future divergences. Folder templates give every writer one source of truth. OpenKnowledge's [agentic write model](https://openknowledge.ai/docs/reference/agentic-search) surfaces those templates and reports broken links. Its [OKF workflow documentation](https://openknowledge.ai/docs/workflows/supporting-open-knowledge-format) notes that conformance is not automatically enforced.
+
+Templates make conformant writes easier. Validators can reject violations of the constraints they encode. They cannot make every wrong value impossible. When content is mirrored into Notion its database properties preserve the same entry shape. Notion does not define the schema. It receives the structure from Git.
+
+## Git remains the second brain
+
+Git remains the second brain. The repository holds the canonical knowledge. It owns the files, history, links and schema. Notion solves a different problem. It mirrors the knowledge I need when I am away from my computer. This gives me access on a phone without moving the source of truth.
+
+This clarifies the relationship between [The agent native home](/blog/the-agent-native-home) and [The next sessions](/blog/the-next-sessions). Files still beat databases for canonical agent memory. Notion is the sync surface. Git is the brain.
+
+OKF still matters as an export boundary. The Git repository can produce a plain bundle that any tool can inspect. Notion can consume that structure without becoming canonical. A future interface can do the same.
+
+*The sync layer can change. The second brain stays in Git.*
+
+## The architecture I would build now
+
+If I were starting a second brain today I would make seven rules essential.
+
+1. **One concept, one canonical home.** Write a resolver decision tree before the corpus is large enough to make ambiguity expensive.
+2. **A tiny exchange envelope.** Type, title, description, timestamp and source identity should survive every export. The internal schema can be richer.
+3. **A versioned domain schema.** Define required fields and enums for each document type. Define the allowed extensions too. A field with no shared meaning is decorative YAML.
+4. **Shared templates at the folder level.** The writer discovers the contract from the destination, not from a prompt copied six months ago.
+5. **Validation in the write path.** Parse the frontmatter and validate the type. Resolve the path and check the links. Reject or repair the artifact before it becomes memory.
+6. **Two provenance layers.** Change history records how the artifact evolved. Preserved sources and citations attached to claims record why its content deserves trust.
+7. **A maintenance loop.** Lint for schema drift and dead links. Find stale indexes, duplicate entities, unsupported claims and documents that still use old versions.
+
+The model remains probabilistic where judgment is useful. The surrounding contracts can be deterministic where ambiguity is only cost.
+
+## Closing
+
+The durable asset is accumulated context. It is not the interface that currently holds it. Models will change. Memory products will be acquired or repriced. Some will be deprecated or rebuilt. The knowledge should outlive all of them.
+
+OKF gets knowledge across systems. A versioned schema keeps it usable after it arrives.
+
+*Let the model think freely. Make it file predictably.*

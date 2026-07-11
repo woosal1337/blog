@@ -27,11 +27,11 @@ export const metadata = {
 
 <PostMeta meta={meta} />
 
-Watching video is expensive. Listening to it is almost free.
+Watching video is expensive. *Listening to it is almost free.*
 
 A ten minute video at thirty frames per second is eighteen thousand frames. If you run a vision model on every one of them, you pay for eighteen thousand vision calls. At sixty frames per second you pay for thirty six. At one twenty you pay for seventy two. At two forty you pay for a hundred and forty four thousand vision calls on a single ten minute clip. The multiplier is the framerate, and the framerate is whatever the camera that shot the clip was set to, which you do not get to negotiate.
 
-Audio at the same length is a single transcription pass. Whisper runs on a local machine in seconds on a small model. No per-token cost, no rate limits, no API quota burning down in real time. The asymmetry between the two channels is at least three orders of magnitude, sometimes four, depending on which vision model you route to.
+Audio at the same length is a single transcription pass. [Whisper](https://github.com/openai/whisper) runs on a local machine in seconds on a small model. No per-token cost, no rate limits, no API quota burning down in real time. The asymmetry between the two channels is at least three orders of magnitude, sometimes four, depending on which vision model you route to.
 
 Most multimodal agents do not acknowledge this asymmetry. They either open their eyes on every frame and get expensive fast, or they keep their eyes closed and miss anything that was written on screen but not said out loud. Both are wrong. And the second failure mode is the one that quietly poisons accuracy, because the agent sounds fluent while being silently incomplete.
 
@@ -51,7 +51,7 @@ The right model for reading a frame is the same model doing the rest of the reas
 
 Here is the part that took me a while to see. The audio model already tells you when it was guessing.
 
-Run `whisper-cli` with the `--output-json-full` flag and every token comes back with a probability score. The confident words sit at 0.9 and above. The guessed ones sit at 0.3, 0.4, sometimes lower. Whisper is not hiding its uncertainty, it is printing it. The signal has always been there, it just was not being read.
+Run [`whisper-cli`](https://github.com/ggml-org/whisper.cpp/blob/master/examples/cli/README.md) with the `--output-json-full` flag and every token comes back with a probability score. The confident words sit at 0.9 and above. The guessed ones sit at 0.3, 0.4, sometimes lower. Whisper is not hiding its uncertainty, it is printing it. The signal has always been there, it just was not being read.
 
 <Tip title="The asymmetric free lunch">
 Audio is cheap. And when audio fails, it tells you. You do not need a second model to decide when the first model is unreliable. The first model is its own supervisor.
@@ -69,7 +69,7 @@ When the agent does decide to look, it does not sweep. It does not run at one fr
 
 In a recent test I pointed an agent at a 47 second Instagram reel. The creator was naming three tools, fast, with strong accents and short consonants. Whisper transcribed one of them as `Emil Koval`. The probability on the second syllable came back at 0.33, which is the model saying I have essentially no idea. Two other moments in the same clip triggered similar low-confidence flags.
 
-The agent looked at exactly those three moments. Not at any of the other 44 seconds. The frames it got back showed the real names, typed cleanly on screen by the creator precisely because they knew nobody would hear them. The correct information was recovered. Three vision calls. On a ten minute version of the same behavior, this is three calls instead of eighteen thousand. The accuracy is not compromised by the efficiency, the accuracy comes from the efficiency, because the three frames the model did look at were the three where looking mattered.
+The agent looked at exactly those three moments. Not at any of the other 44 seconds. The frames it got back showed the real names, typed cleanly on screen by the creator precisely because they knew nobody would hear them. The correct information was recovered. Three vision calls. On a ten minute version of the same behavior, this is three calls instead of eighteen thousand. The accuracy is not compromised by the efficiency. *The accuracy comes from the efficiency* because the three frames the model did look at were the three where looking mattered.
 
 The same pattern extends beyond speech. Any cheap channel that can report its own uncertainty can drive a more expensive channel on demand. Metadata can defer to vision. A language model can defer to a retrieval call. Retrieval can defer to a web fetch. The architecture is the same at every layer. The model default is to trust the cheap channel and ask the expensive one only when the cheap one admits it cannot answer.
 
@@ -93,4 +93,4 @@ Repo. [github.com/woosal1337/media-mcp](https://github.com/woosal1337/media-mcp)
 
 The general shape of the pattern is simple. Default to the cheap channel. Make the cheap channel surface its own uncertainty. Let the agent spend the expensive channel on the specific moments the cheap channel flagged. Trust the model to do this without a hand-written rule for every case.
 
-An agent that knows when to open its eyes does more work, cheaper, more accurately, than one that keeps them open all the time.
+An agent that *knows when to open its eyes* does more work, cheaper, more accurately, than one that keeps them open all the time.

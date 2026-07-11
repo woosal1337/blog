@@ -35,9 +35,9 @@ I already had an answer to that question, and it was an <IconLink href="https://
 
 <IconLink href="https://notion.so">Notion</IconLink> turned out to be that simplification. One place that is always in sync everywhere, on the machine through the CLI they shipped recently and over MCP for the agents, on my phone without me doing anything. The space is effectively unlimited, the pricing with the packages is affordable, and the built-in views are better visualizations than anything I was maintaining by hand in markdown. The vault needed maintaining. Notion just holds things.
 
-So the answer I landed on is deliberately small. One git repo. One memo. Two symlinks. A short list of MCP servers, with Notion behind them as the long-term second brain. Everything else lives outside the context window and gets pulled in only when a session needs it.
+So the answer I landed on is deliberately small. One [git](https://git-scm.com/) repo. One memo. Two symlinks. A short list of [MCP](https://modelcontextprotocol.io/) servers, with Notion behind them as the long-term second brain. Everything else lives outside the context window and gets pulled in only when a session needs it.
 
-The principle underneath all of it is the one this post keeps returning to, because it is the entire design. Less context, but the right context. Important context matters more than more context.
+The principle underneath all of it is the one this post keeps returning to, because it is the entire design. *Less context, but the right context.* Important context matters more than more context.
 
 ## Every line is paid for on every session
 
@@ -61,7 +61,7 @@ The fix is the same at both layers, and that symmetry is the quiet argument of t
 
 So the constraint writes itself. The memo must be short, and everything in it must be load-bearing. Not documentation. Not history. Not aspiration. Only the facts an agent needs in the first minute of any session, on any project. What this environment is, where knowledge lives, which tools exist, and the handful of rules that apply everywhere.
 
-The inversion is what makes this work. A good agent environment is not the one that tells the agent everything. It is the one that tells the agent where everything is, cheaply, and trusts it to go look. The memo is a map, not a library.
+The inversion is what makes this work. A good agent environment is not the one that tells the agent everything. It is the one that tells the agent where everything is, cheaply, and trusts it to go look. *The memo is a map, not a library.*
 
 ## The architecture is a repo
 
@@ -83,7 +83,7 @@ The system is created in one place, led from one place, updated in one place. Th
 
 ## A tidy wardrobe
 
-The deeper reason the environment must be cheap to change is the pace of the field it lives in. Agent-native development updates insanely often. Protocols appear and harden within months, CLIs ship weekly, conventions like `AGENTS.md` emerge between two of your projects, and what counted as best practice in spring reads as legacy by fall. This is not a complaint. It is a design constraint. The changes also compound, so missing one is rarely missing one. Skip a season and you are no longer catching up on a tool, you are catching up on the three things built on top of it. An environment that adapts continuously is the only kind that stays current, and adaptation has to be structurally cheap. The adapting will happen either way, because falling behind is not an option. The only question is the price, and the structure of your environment is what sets it, either cheap enough to pay weekly or expensive enough that every catch-up hurts.
+The deeper reason the environment must be cheap to change is the pace of the field it lives in. Agent-native development updates insanely often. Protocols appear and harden within months, CLIs ship weekly, conventions like [`AGENTS.md`](https://agents.md/) emerge between two of your projects, and what counted as best practice in spring reads as legacy by fall. This is not a complaint. It is a design constraint. The changes also compound, so missing one is rarely missing one. Skip a season and you are no longer catching up on a tool, you are catching up on the three things built on top of it. An environment that adapts continuously is the only kind that stays current, and adaptation has to be structurally cheap. The adapting will happen either way, because falling behind is not an option. The only question is the price, and the structure of your environment is what sets it, either cheap enough to pay weekly or expensive enough that every catch-up hurts.
 
 Cheap adaptation changes how you evaluate, too. You cannot think your way to knowing whether a new tool fits you. Reading the announcement, weighing the impact, keeping it in theory. That is hours of speculation producing an opinion. Trying it is an hour producing an answer. In a field that moves this fast, trying is simply cheaper than reasoning about trying, so trying should be the default motion.
 
@@ -104,7 +104,7 @@ ln -sf ~/.agents/AGENTS.md ~/.codex/AGENTS.md
 
 One file, two symlinks. Both agents now read the same memo, byte for byte, and the memo lives in the repo where it is versioned. There is no second copy to forget about. When I fix a rule, it is fixed everywhere before the next session starts.
 
-The alternative everyone drifts into is maintaining these files separately, and it fails the same way every duplicated config fails. You correct the Claude file in the middle of a session, tell yourself you will mirror it later, and three weeks on your two agents believe different things about the same machine. Drift between agents is worse than drift between machines, because you rarely diff your agents against each other. The symlink does not reduce the drift. It deletes the category.
+The alternative everyone drifts into is maintaining these files separately, and it fails the same way every duplicated config fails. You correct the Claude file in the middle of a session, tell yourself you will mirror it later, and three weeks on your two agents believe different things about the same machine. Drift between agents is worse than drift between machines, because you rarely diff your agents against each other. The symlink does not reduce the drift. *It deletes the category.*
 
 Two details keep this honest. The shared file has to be plain markdown with no tricks, because it is the lowest common denominator. Claude Code supports `@path` imports and Codex does not, so the canonical file uses no imports at all. And if I ever need genuinely Claude-only instructions, the escape hatch is to replace the Claude-side symlink with a two-line shim that imports the shared memo and adds the extra note. The canonical file never changes shape. Adapters absorb the differences. The source of truth stays plain.
 
@@ -164,4 +164,4 @@ git clone <the-repo> ~/.agents && ~/.agents/bootstrap.sh
 
 Then two OAuth logins, one for each CLI's MCP connections. Minutes, not an afternoon. Both agents wake up knowing the machine, the tools, the rules, and where every piece of durable knowledge lives, because the one file they read on session start is the one file I maintain.
 
-None of this is clever, and that is the point I keep arriving at. The environment got better every time I removed something. The sync pipeline, the duplicate memos, the unused servers, the four hundred lines of instructions that were really just anxiety. Agents do not need a rich environment. They need a legible one. Give them one small map that is always true, make every fact on it earn the tokens it costs, and keep the library outside the door.
+None of this is clever, and that is the point I keep arriving at. The environment got better every time I removed something. The sync pipeline, the duplicate memos, the unused servers, the four hundred lines of instructions that were really just anxiety. Agents do not need a rich environment. *They need a legible one.* Give them one small map that is always true, make every fact on it earn the tokens it costs, and keep the library outside the door.

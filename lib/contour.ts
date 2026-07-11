@@ -68,12 +68,22 @@ function escapeXml(value: string) {
 		.replaceAll("'", "&#39;");
 }
 
+type ContourOptions = {
+	nonScalingStroke?: boolean;
+	strokeWidth?: number;
+};
+
 export async function generateContour(
 	seed: string,
 	color = "#f5f5f5",
+	options: ContourOptions = {},
 ): Promise<string> {
 	const shapeNext = await makePiStream(`${seed}:variant:${VARIANT}`);
-	const stroke = pick(shapeNext, 1.4, 2.2);
+	const generatedStroke = pick(shapeNext, 1.4, 2.2);
+	const stroke = options.strokeWidth ?? generatedStroke;
+	const vectorEffect = options.nonScalingStroke
+		? ' vector-effect="non-scaling-stroke"'
+		: "";
 	const harmonics = Array.from({ length: 4 }, () => ({
 		freq: pickInt(shapeNext, 2, 6),
 		amp: pick(shapeNext, 4, 12),
@@ -102,7 +112,7 @@ export async function generateContour(
 		}
 
 		paths.push(
-			`<path d="${polyline(points)}" fill="none" stroke="${color}" stroke-width="${stroke.toFixed(2)}" stroke-linecap="round" stroke-linejoin="round"/>`,
+			`<path d="${polyline(points)}" fill="none" stroke="${color}" stroke-width="${stroke.toFixed(2)}"${vectorEffect} stroke-linecap="round" stroke-linejoin="round"/>`,
 		);
 	}
 

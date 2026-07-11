@@ -29,13 +29,13 @@ export const metadata = {
 
 Every other meeting recorder ships your voice to a server. Folio runs the models on the machine that already heard them.
 
-I made Folio public on GitHub today. It is a local-first meeting recorder for macOS. It sits in your menu bar, and when a meeting starts it records both your microphone and the system audio coming out of your speakers, transcribes the two streams on-device, works out which line belongs to which speaker, and writes a single Markdown file per meeting into a vault path you choose. The audio never leaves your machine on the default path. There is no Folio account, no Folio server, no Folio cloud to sign into. The binary is a notarized DMG or a Homebrew cask, and the source is Apache-2.0.
+I made Folio public on GitHub today. It is a local-first meeting recorder for macOS. It sits in your menu bar, and when a meeting starts it records both your microphone and the system audio coming out of your speakers, transcribes the two streams on-device, works out which line belongs to which speaker, and writes a single Markdown file per meeting into a vault path you choose. The audio never leaves your machine on the default path. There is no Folio account, no Folio server, no Folio cloud to sign into. The binary is a notarized DMG or a Homebrew cask, and the source is [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
-This post is about the parts I find most interesting, which are the two pipelines doing the actual work. Transcription and diarization. The models behind them, and the pile of custom code wrapped around those models that turns a raw Whisper call into something you would actually trust to label a meeting with your team. If you only remember one thing, remember that almost none of the hard work is the model. The model is a download. The work is everything around it.
+This post is about the parts I find most interesting, which are the two pipelines doing the actual work. Transcription and diarization. The models behind them, and the pile of custom code wrapped around those models that turns a raw Whisper call into something you would actually trust to label a meeting with your team. If you only remember one thing, remember that almost none of the hard work is the model. *The model is a download. The work is everything around it.*
 
 ## The shape of the thing
 
-The core is a Rust library called `folio-core`. It talks to macOS for audio capture, produces WAV files on disk, runs Whisper for transcription, diarizes the system track on-device, and owns the storage, memory, and task layers. A thin Tauri 2 binary wraps it for the desktop app, and a React frontend draws the windows. There is also a CLI test harness and a local MCP server, both linking the same core.
+The core is a [Rust](https://www.rust-lang.org/) library called `folio-core`. It talks to macOS for audio capture, produces WAV files on disk, runs Whisper for transcription, diarizes the system track on-device, and owns the storage, memory, and task layers. A thin [Tauri 2](https://v2.tauri.app/) binary wraps it for the desktop app, and a [React](https://react.dev/) frontend draws the windows. There is also a CLI test harness and a local [MCP](https://modelcontextprotocol.io/) server, both linking the same core.
 
 The data flow is boring on purpose.
 
@@ -58,11 +58,11 @@ Every type that crosses the IPC boundary is defined once in Rust and the TypeScr
 
 The first decision that shapes everything downstream is that Folio captures your microphone and the system audio as two independent streams, not one mixed recording.
 
-Your microphone goes through `cpal`, and on macOS it prefers CoreAudio's VoiceProcessingIO unit when it can, falling back to plain cpal if VPIO refuses to start. The system audio, meaning whatever the other participants are saying through your speakers, comes through ScreenCaptureKit. The mic stream lands in `mic.wav`, the system stream in `system.wav`, side by side in a timestamped session directory.
+Your microphone goes through [`cpal`](https://github.com/RustAudio/cpal), and on macOS it prefers CoreAudio's VoiceProcessingIO unit when it can, falling back to plain cpal if VPIO refuses to start. The system audio, meaning whatever the other participants are saying through your speakers, comes through [ScreenCaptureKit](https://developer.apple.com/documentation/screencapturekit). The mic stream lands in `mic.wav`, the system stream in `system.wav`, side by side in a timestamped session directory.
 
 Keeping them apart is what makes good diarization possible later. Your own voice is already perfectly separated from everyone else's, for free, because it came in on a different physical path. No model has to learn that "the loud close-up voice is probably the user." The capture pipeline already knows.
 
-The audio callback itself follows the canonical realtime rules. The high-priority thread that the hardware clock drives cannot allocate, cannot lock, cannot syscall, and cannot panic into C. It reads from a pre-allocated buffer, writes into a pre-allocated buffer, and hands samples to the rest of the program through a wait-free single-producer single-consumer ring. Resampling to Whisper's required 16 kHz happens on the consumer thread with `rubato`, never in the callback. WAV writing is `hound`. All of this is unglamorous and all of it is the difference between a clean recording and a glitchy one.
+The audio callback itself follows the canonical realtime rules. The high-priority thread that the hardware clock drives cannot allocate, cannot lock, cannot syscall, and cannot panic into C. It reads from a pre-allocated buffer, writes into a pre-allocated buffer, and hands samples to the rest of the program through a wait-free single-producer single-consumer ring. Resampling to Whisper's required 16 kHz happens on the consumer thread with [`rubato`](https://docs.rs/rubato/latest/rubato/), never in the callback. WAV writing is [`hound`](https://github.com/ruuda/hound). All of this is unglamorous and all of it is the difference between a clean recording and a glitchy one.
 
 <Note title="Louder, not mixed">
 When both tracks are present Folio picks the louder one per frame for the transcription view rather than summing them. Summing two streams halves the signal-to-noise ratio for whoever is actually talking. Picking the louder track preserves it. This is the kind of one-line decision that does not show up in a feature list and completely changes how clean the output reads.
@@ -72,7 +72,7 @@ When both tracks are present Folio picks the louder one per frame for the transc
 
 Here is the thing people get wrong about Whisper. They think transcription is one function call. You hand Whisper a WAV, it hands you text. In practice, a naive Whisper call on real meeting audio gives you hallucinated subtitles over silence, repeated phrases looping for thirty seconds, the wrong language mid-sentence, and "thanks for watching" pasted onto a quiet stretch because the model was trained on YouTube. Folio's local transcriber is mostly the code that prevents all of that.
 
-The backend is whisper.cpp through the `whisper-rs` bindings, Metal-accelerated on Apple silicon. That is the easy part. The pipeline around it, in order, is where the work is.
+The backend is [whisper.cpp](https://github.com/ggml-org/whisper.cpp) through the [`whisper-rs`](https://github.com/tazz4843/whisper-rs) bindings, [Metal](https://developer.apple.com/metal/)-accelerated on Apple silicon. That is the easy part. The pipeline around it, in order, is where the work is.
 
 **A silence gate.** Before Whisper ever runs, the decoded PCM is checked for energy. If the root-mean-square of the whole clip is below `0.002`, the clip is treated as silence and skipped entirely. No inference, no hallucinated text over a dead channel.
 
@@ -100,21 +100,21 @@ The local Whisper model is your choice, downloaded on demand.
 | medium | ~1.5 GB | Noticeably better on accents and crosstalk |
 | large-v3 | ~3.1 GB | Best accuracy, wants Apple silicon and patience |
 
-The weights come from the `ggerganov/whisper.cpp` repository on Hugging Face, downloaded once into Application Support and reused forever after.
+The weights come from the [`ggerganov/whisper.cpp`](https://huggingface.co/ggerganov/whisper.cpp) repository on Hugging Face, downloaded once into Application Support and reused forever after.
 
 <Tip title="The cloud path is opt-in, and fenced">
-There is an OpenAI Whisper backend for people who want faster transcription on very long meetings. It is off by default, it is never the path your audio takes unless you turn it on, and even when it is on, privacy mode can block it. Local is the default, not the fallback.
+There is an [OpenAI Whisper](https://platform.openai.com/docs/guides/speech-to-text) backend for people who want faster transcription on very long meetings. It is off by default, it is never the path your audio takes unless you turn it on, and even when it is on, privacy mode can block it. Local is the default, not the fallback.
 </Tip>
 
 ## Who said what
 
-Transcription gives you the words. Diarization gives you the speakers. This is the harder of the two pipelines and the one I am proudest of, because doing it well, on-device, on a Mac, without a cloud GPU, is genuinely awkward.
+Transcription gives you the words. *Diarization gives you the speakers.* This is the harder of the two pipelines and the one I am proudest of, because doing it well, on-device, on a Mac, without a cloud GPU, is genuinely awkward.
 
 The architecture leans on the two-track capture. Your microphone is always you. It came in on its own physical path, so every segment on the mic channel is labeled **You** with no model involved at all. Correct, free, instant.
 
-The system track is where the real work happens, because that one track can carry two, five, ten different remote participants. That is what diarization is for. Folio runs two models over `system.wav`, both through sherpa-onnx.
+The system track is where the real work happens, because that one track can carry two, five, ten different remote participants. That is what diarization is for. Folio runs two models over `system.wav`, both through [sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx).
 
-The first is **pyannote-segmentation-3.0**, a roughly six-megabyte ONNX model that finds speech regions and detects when speakers change, including overlap. The second is a **WeSpeaker ResNet34 model trained on VoxCeleb**, about twenty-six megabytes, which turns a chunk of one speaker's audio into an embedding, a vector that represents the timbre of that voice. Segmentation says "the speaker changed here." The embedding says "and this new speaker sounds like that earlier one." A fast clustering pass groups the regions into distinct speakers, with a similarity threshold of `0.4`, a minimum on-duration of `0.7` seconds and an off-duration of `0.5` seconds, and the number of speakers left at zero so it is estimated rather than fixed.
+The first is [**pyannote-segmentation-3.0**](https://huggingface.co/csukuangfj/sherpa-onnx-pyannote-segmentation-3-0), a roughly six-megabyte ONNX model that finds speech regions and detects when speakers change, including overlap. The second is a [**WeSpeaker**](https://github.com/wenet-e2e/wespeaker) ResNet34 model trained on [VoxCeleb](https://www.robots.ox.ac.uk/~vgg/data/voxceleb/), about twenty-six megabytes, which turns a chunk of one speaker's audio into an embedding, a vector that represents the timbre of that voice. Segmentation says "the speaker changed here." The embedding says "and this new speaker sounds like that earlier one." A fast clustering pass groups the regions into distinct speakers, with a similarity threshold of `0.4`, a minimum on-duration of `0.7` seconds and an off-duration of `0.5` seconds, and the number of speakers left at zero so it is estimated rather than fixed.
 
 The output of that is a list of time spans, each tagged with a cluster ID. The last step is assigning those clusters back to the transcript. For each transcribed segment, Folio finds the diarized span with the most time overlap and copies its speaker over. If a segment overlaps nothing, it falls back to the nearest span by midpoint, so a short interjection never ends up unlabeled. Mic segments stay **You**, system segments become **Speaker 1**, **Speaker 2**, and so on, numbered in order of appearance, and the merged transcript reads as a real dialogue sorted by timestamp.
 
@@ -153,11 +153,11 @@ If Folio were just Whisper plus pyannote plus a download button, it would not be
 
 **Cross-track echo cancellation.** When you are on speakers instead of headphones, your microphone hears the other people coming back out of your own speakers. That echo lands on your mic track and pollutes your "You" label. Folio ships a from-scratch acoustic echo canceller that uses the system track as the reference signal. It estimates the echo delay by cross-correlating the two tracks, then runs a normalized least-mean-squares adaptive filter, five hundred and twelve taps, that learns the echo path and subtracts it from the mic. The system audio bleeding into your mic gets cancelled, your actual voice survives.
 
-**Noise enhancement.** There is an RNNoise-based enhancement pass at forty-eight kilohertz that pulls steady background noise, fans, hum, street, down by a conservative amount before transcription. Conservative on purpose. Aggressive denoising eats consonants, and a transcript needs consonants more than it needs silence.
+**Noise enhancement.** There is an [RNNoise](https://github.com/xiph/rnnoise)-based enhancement pass at forty-eight kilohertz that pulls steady background noise, fans, hum, street, down by a conservative amount before transcription. Conservative on purpose. Aggressive denoising eats consonants, and a transcript needs consonants more than it needs silence.
 
-**Compressed transcripts.** A long meeting's segment-level JSON with timestamps is repetitive and large. Folio writes it zstd-compressed, atomically, and reads it back transparently, with backward compatibility for both uncompressed and an older single-channel format. On realistic input it is more than a two-times shrink, and you never see the difference.
+**Compressed transcripts.** A long meeting's segment-level JSON with timestamps is repetitive and large. Folio writes it [zstd](https://github.com/facebook/zstd)-compressed, atomically, and reads it back transparently, with backward compatibility for both uncompressed and an older single-channel format. On realistic input it is more than a two-times shrink, and you never see the difference.
 
-**A local MCP server.** Folio ships `folio-mcp`, a stdio MCP server. Any MCP-aware tool, Claude Desktop, Cursor, Claude Code, gets read-only access to your transcripts, tasks, and memories. No cloud, no proxy, no API key. Your meeting notes become queryable context for your own agents, on your own machine.
+**A local MCP server.** Folio ships `folio-mcp`, a stdio MCP server. Any MCP-aware tool, [Claude Desktop](https://claude.ai/download), [Cursor](https://www.cursor.com/), [Claude Code](https://code.claude.com/docs/en/quickstart), gets read-only access to your transcripts, tasks, and memories. No cloud, no proxy, no API key. Your meeting notes become queryable context for your own agents, on your own machine.
 
 **No telemetry, proven.** There is no analytics, no crash reporter, no phone-home of any kind, and that is not a promise in a privacy policy, it is a script in continuous integration. Every commit runs a check that fails the build if a telemetry SDK shows up in the lock files. The absence is a tested invariant.
 
@@ -171,7 +171,7 @@ Network access in Folio funnels through a single function, `ensure_allowed`, tha
 Folio gives you the tool. Consent is on you. Recording a conversation without the other party's permission is illegal in a lot of places, and the rules vary by country and by US state, with many requiring all-party consent. Tell people before you record. The tool stays out of your way on purpose. The ethics do not.
 </Warn>
 
-For the times you do want a remote model, there is an egress policy, a host allowlist plus an optional spend ceiling living in a plain TOML file in your vault, so "cloud" never means "everything, anywhere." And there is deliberately no Folio sync server. Syncing your notes across machines is done over your own Git remote, because a sync service would mean an account, a server, a billing surface, and an outage mode, and a `git push` covers the same need with none of that. The decision to not build the cloud was a feature, written down as a removed-scope record so no future contributor quietly reintroduces it.
+For the times you do want a remote model, there is an egress policy, a host allowlist plus an optional spend ceiling living in a plain TOML file in your vault, so "cloud" never means "everything, anywhere." And there is deliberately no Folio sync server. Syncing your notes across machines is done over your own [Git](https://git-scm.com/) remote, because a sync service would mean an account, a server, a billing surface, and an outage mode, and a `git push` covers the same need with none of that. The decision to not build the cloud was a feature, written down as a removed-scope record so no future contributor quietly reintroduces it.
 
 ## Try it
 
@@ -182,7 +182,7 @@ brew tap woosal1337/folio https://github.com/woosal1337/folio
 brew install --cask folio
 ```
 
-Or grab the notarized DMG from the releases page. The repo doubles as its own Homebrew tap, so `brew upgrade --cask folio` tracks new versions.
+Or grab the notarized DMG from the releases page. The repo doubles as its own [Homebrew](https://docs.brew.sh/) tap, so `brew upgrade --cask folio` tracks new versions.
 
 Site. <IconLink href="https://folio.chele.bi" iconSrc="/folio-logo.png">folio.chele.bi</IconLink>
 
@@ -190,6 +190,6 @@ Repo. [github.com/woosal1337/folio](https://github.com/woosal1337/folio)
 
 ## Closing
 
-The moat in voice software was never the model. Whisper is a download. pyannote is a download. Anyone can call them. The moat is the willingness to do the unglamorous local work, the silence gates and the language carry-over and the hallucination blocklist and the echo canceller and the single function that every byte of network traffic has to pass through, so that the audio never has to leave the machine that already heard it.
+The moat in voice software was *never the model.* Whisper is a download. pyannote is a download. Anyone can call them. The moat is the willingness to do the unglamorous local work, the silence gates and the language carry-over and the hallucination blocklist and the echo canceller and the single function that every byte of network traffic has to pass through, so that the audio never has to leave the machine that already heard it.
 
 Every other meeting recorder ships your voice to a server. Folio runs the models on the machine that already heard them. That is the whole idea, and now the whole idea is open source.

@@ -37,13 +37,13 @@ A `.env` file is a plaintext list of your most sensitive strings, sitting in the
 
 Now put a coding agent in that folder. The agent reads files to understand the project. It summarizes what it reads into its context. It writes logs, it pastes snippets into new files, and it can be steered by text it encounters, a comment in a dependency, a string in an API response, three turns of conversation ago. The moment `STRIPE_KEY=sk_live_...` is a file the agent can open, that key is one plausible-looking instruction away from ending up somewhere you did not intend.
 
-The reflex fix is to stop giving agents secrets. But the agent genuinely needs them. Starting the dev server, running the migration, calling the staging API, all of it needs the real values. So the actual requirement is narrower and sharper than "keep secrets safe." It is this: the agent must be able to run a process that has the secret, without the agent itself ever holding the value.
+The reflex fix is to stop giving agents secrets. But the agent genuinely needs them. Starting the dev server, running the migration, calling the staging API, all of it needs the real values. So the actual requirement is narrower and sharper than "keep secrets safe." It is this: *the agent must be able to run a process that has the secret, without the agent itself ever holding the value.*
 
 Almost nothing on the usual list does that. A `.env` file hands the plaintext to whatever opens it. Exported shell variables hand it to every child and every `ps` on the box. Most secret managers, asked for a value, return the value. They all conflate use with sight. Vaulted is built around keeping them separate, and everything below is downstream of that one decision.
 
 ## The shape of the thing
 
-Vaulted is a Bun and TypeScript monorepo with one Rust crate doing the part that must not be done in a garbage-collected language. The CLI compiles to a single standalone binary. The security-critical work is split into four packages that each own exactly one job, and the boundaries between them are load-bearing.
+Vaulted is a [Bun](https://bun.sh/) and [TypeScript](https://www.typescriptlang.org/) monorepo with one [Rust](https://www.rust-lang.org/) crate doing the part that must not be done in a garbage-collected language. The CLI compiles to a single standalone binary. The security-critical work is split into four packages that each own exactly one job, and the boundaries between them are load-bearing.
 
 ```
 apps/
@@ -57,7 +57,7 @@ packages/
   redact/         streaming Aho-Corasick output sanitizer for the agent surface
 ```
 
-The interesting thing about the split is what each package is structurally forbidden from doing. `store` never sees a plaintext value, because values arrive at its door already encrypted as a branded `EncryptedString` type and it has no key to decrypt them with. `runner` never touches disk in the injection path. `redact` never trusts that a child process kept a secret to itself. The packages are not organized by feature. They are organized by blast radius.
+The interesting thing about the split is what each package is structurally forbidden from doing. `store` never sees a plaintext value, because values arrive at its door already encrypted as a branded `EncryptedString` type and it has no key to decrypt them with. `runner` never touches disk in the injection path. `redact` never trusts that a child process kept a secret to itself. The packages are not organized by feature. They are organized by *blast radius*.
 
 ```
 you / your agent
@@ -74,7 +74,7 @@ your process
 
 ## A key you cannot recover
 
-The cryptography is deliberately boring. This is a domain where a clever idea is how you get owned, so `packages/crypto` invents nothing. It is a thin, carefully-sequenced wrapper over the platform WebCrypto (`crypto.subtle`) with `hash-wasm` for the one primitive WebCrypto lacks, Argon2id. The whole value of the package is in the ordering and the cleanup, not the algorithms.
+The cryptography is deliberately boring. This is a domain where a clever idea is how you get owned, so `packages/crypto` invents nothing. It is a thin, carefully-sequenced wrapper over the platform [WebCrypto](https://www.w3.org/TR/WebCryptoAPI/) (`crypto.subtle`) with [`hash-wasm`](https://github.com/Daninet/hash-wasm) for the one primitive WebCrypto lacks, [Argon2id](https://www.rfc-editor.org/rfc/rfc9106). The whole value of the package is in the ordering and the cleanup, not the algorithms.
 
 The hierarchy is four layers deep.
 
@@ -94,7 +94,7 @@ Project AES-256-GCM key     random per project, stored only RSA-wrapped
 Secret values               only ciphertext ever touches disk
 ```
 
-Start at the top. Your master password goes through Argon2id tuned to 64 mebibytes of memory, three passes, four lanes, producing 32 bytes. That output is imported into WebCrypto as a **non-extractable** AES-GCM key, meaning even the code that just derived it cannot read the raw bytes back out, and the transient buffer holding the raw material is zero-filled in a `finally` block the instant the import returns.
+Start at the top. Your master password goes through Argon2id tuned to 64 mebibytes of memory, three passes, four lanes, producing 32 bytes. That output is imported into WebCrypto as a **non-extractable** [AES-GCM](https://csrc.nist.gov/pubs/sp/800/38/d/final) key, meaning even the code that just derived it cannot read the raw bytes back out, and the transient buffer holding the raw material is zero-filled in a `finally` block the instant the import returns.
 
 ```ts
 raw = await argon2id({ password, salt, iterations: 3, parallelism: 4,
@@ -115,7 +115,7 @@ frame = base64( [ 12-byte random IV ] [ ciphertext ] [ 16-byte GCM tag ] )
 
 A fresh twelve-byte IV per encryption, prepended to the ciphertext, the GCM authentication tag appended by the cipher, the whole thing base64-encoded. A frame shorter than 28 bytes is rejected before decryption even starts. Flip a single byte of any of it, the IV, the body, or the tag, and GCM authentication fails, surfacing as a typed `ERR_DECRYPT_AUTH` rather than silently returning garbage. A wrong master password fails at the very same place, because it produces the wrong master key, which fails to decrypt the RSA private key, before a single RSA operation runs.
 
-The RSA layer is the one that looks like overkill, and for a single-user local tool today it is. It is there because it is the seam. WebCrypto `wrapKey` and `unwrapKey` let a per-project AES key be sealed under your RSA public key and stored only in wrapped form, never as exportable plaintext passing through JavaScript. Adding a teammate later becomes wrapping one project key under their public key. It never becomes decrypting and re-encrypting every secret you own. The cost of keeping the seam now is one indirection. The cost of adding it later would be a migration over everyone's entire vault.
+The [RSA-OAEP](https://www.rfc-editor.org/info/rfc8017/) layer is the one that looks like overkill, and for a single-user local tool today it is. It is there because it is the seam. WebCrypto `wrapKey` and `unwrapKey` let a per-project AES key be sealed under your RSA public key and stored only in wrapped form, never as exportable plaintext passing through JavaScript. Adding a teammate later becomes wrapping one project key under their public key. It never becomes decrypting and re-encrypting every secret you own. The cost of keeping the seam now is one indirection. The cost of adding it later would be a migration over everyone's entire vault.
 
 What is actually on disk is the part every secrets tool should be forced to print, so here it is without softening.
 
@@ -157,7 +157,7 @@ fn execute(command_json, secrets_json, mode) -> Result<RunOutcome, ()> {
 The details that matter, each one a specific attack it closes:
 
 - **Core dumps are disabled first.** `setrlimit(RLIMIT_CORE, 0)` runs before the secrets are even parsed, so if anything downstream crashes, the kernel cannot write a dump with your keys sprayed across it.
-- **Secrets are `Zeroizing` from the first byte.** The raw C string is held in a `Zeroizing<Vec<u8>>`, each value is moved out of the parsed JSON with `std::mem::take` into a `Zeroizing<String>`, and then the whole parse tree is recursively wiped before it drops. On the JavaScript side, the bridge zero-fills its own serialized `command` and `secrets` buffers in a `finally`. Both sides scrub.
+- **Secrets are [`Zeroizing`](https://docs.rs/zeroize/latest/zeroize/struct.Zeroizing.html) from the first byte.** The raw C string is held in a `Zeroizing<Vec<u8>>`, each value is moved out of the parsed JSON with `std::mem::take` into a `Zeroizing<String>`, and then the whole parse tree is recursively wiped before it drops. On the JavaScript side, the bridge zero-fills its own serialized `command` and `secrets` buffers in a `finally`. Both sides scrub.
 - **The child environment is an allowlist, not a filter.** `env_clear()` wipes everything, then exactly ten variables are re-inherited (`PATH`, `HOME`, `USER`, `SHELL`, `TERM`, `LANG`, `LC_ALL`, `LC_CTYPE`, `TMPDIR`, `TZ`), then the secrets go on top. The child sees the allowlist plus its secrets and nothing else. Not the parent environment, not `VAULTED_PASSWORD` if it happened to be set, nothing that leaked in from your shell.
 - **The wait is PID-reuse-safe.** This is the subtle one. The runner forwards `SIGTERM` and `SIGINT` to the child, so it needs the child's PID. But a naive reap-then-signal race can send a signal to a PID that has already been recycled by the OS for an unrelated process. So `wait_and_release` peeks the exit status with `waitid(P_PID, WEXITED | WNOWAIT)`, which reports the child is done **without** reaping it, clears the shared PID slot, and only then calls `wait()` to actually reap. The window where a forwarded signal could hit the wrong process does not exist.
 - **Captured mode is fenced.** For the MCP path the child's stdin is `/dev/null`, so an agent-chosen command can never read from or block on the MCP protocol channel, and stdout and stderr are piped and read on separate threads, capped at 10 mebibytes each. The buffers handed back to JavaScript are freed through `vaulted_runner_free`, which **zeroizes the memory before releasing it**.
@@ -167,7 +167,7 @@ The reason all of this lives behind one door is a specific, common failure. It i
 
 ## Proving there is only one door
 
-An architectural rule that lives in a comment is a rule until the first person in a hurry. So the single-path invariant is a test that fails the build.
+*An architectural rule that lives in a comment is a rule until the first person in a hurry.* So the single-path invariant is a test that fails the build.
 
 ```ts
 // scans every .ts under apps/cli/src, asserts there are at least 30 of them
@@ -185,7 +185,7 @@ Two more invariants ride alongside it. One asserts that `run-with-secrets` impor
 
 ## The agent surface
 
-`vaulted mcp` starts a stdio MCP server. Wire it into an agent with one line.
+`vaulted mcp` starts a stdio [MCP](https://modelcontextprotocol.io/) server. Wire it into an agent with one line.
 
 ```sh
 claude mcp add vaulted -- vaulted mcp
@@ -226,7 +226,7 @@ And then the output is scanned, which is the last line of defense and the one wo
 
 ## What redaction does, and does not, do
 
-`packages/redact` builds an Aho-Corasick multi-pattern matcher from the decrypted values of the injected secrets, and it indexes each value in up to four forms, because a secret rarely leaks in the exact bytes it went in as.
+`packages/redact` builds an [Aho-Corasick](https://docs.rs/aho-corasick/latest/aho_corasick/) multi-pattern matcher from the decrypted values of the injected secrets, and it indexes each value in up to four forms, because a secret rarely leaks in the exact bytes it went in as.
 
 ```
 plain      s3cr3t-value
@@ -244,7 +244,7 @@ It is honest about its edges. It catches values in the four indexed encodings. I
 
 ## The vault on disk
 
-`packages/store` is the SQLite vault, on `bun:sqlite`, at `~/.config/vaulted/vaulted.db` with mode `0600`. The tables are `STRICT`, so a wrong-typed value is a write error rather than a silent coercion, and migrations run under `PRAGMA user_version` inside a transaction, so a partially-applied schema cannot exist.
+`packages/store` is the [SQLite](https://sqlite.org/docs.html) vault, on [`bun:sqlite`](https://bun.sh/docs/runtime/sqlite), at `~/.config/vaulted/vaulted.db` with mode `0600`. The tables are `STRICT`, so a wrong-typed value is a write error rather than a silent coercion, and migrations run under `PRAGMA user_version` inside a transaction, so a partially-applied schema cannot exist.
 
 Two schema details are worth pulling out. The `vault` table is a hard singleton, `CHECK (id = 1)`, because there is exactly one root of the key hierarchy per database. And secrets are soft-deleted, which usually fights with uniqueness, resolved here by a partial index.
 
@@ -280,7 +280,7 @@ vaulted run -- npm run dev       # run with secrets injected, then delete the .e
 claude mcp add vaulted -- vaulted mcp   # hand the vault to your agent
 ```
 
-A per-directory `vaulted.toml` pins the project and default environment, so Vaulted orients itself from the working directory the way git does. Run `vaulted unlock` once and the MCP server never has to prompt.
+A per-directory `vaulted.toml` pins the project and default environment, so Vaulted orients itself from the working directory the way [git](https://git-scm.com/) does. Run `vaulted unlock` once and the MCP server never has to prompt.
 
 Site. <IconLink href="https://vaulted.chele.bi" iconSrc="/vaulted-logo.png">vaulted.chele.bi</IconLink>
 
@@ -288,6 +288,6 @@ Repo. [github.com/woosal1337/vaulted](https://github.com/woosal1337/vaulted)
 
 ## Closing
 
-The hard part of a secrets manager was never the encryption. AES is a library call. Argon2id is a library call. The hard part is the discipline: forcing every decrypted byte through one audited door, making the read tools structurally unable to leak, zeroizing on both sides of an FFI boundary, and writing down the exact character where redaction stops being containment. The cryptography is textbook precisely so the engineering can be the interesting part.
+The hard part of a secrets manager was never the encryption. AES is a library call. Argon2id is a library call. The hard part is the discipline: forcing every decrypted byte through one audited door, making the read tools structurally unable to leak, zeroizing on both sides of an FFI boundary, and writing down the exact character where redaction stops being containment. The cryptography is textbook precisely so *the engineering can be the interesting part.*
 
 Coding agents need your secrets to run your code. They should never get to read them. Vaulted is how you give an agent the one without the other, and keep the plaintext on the only machine that ever needed it.
