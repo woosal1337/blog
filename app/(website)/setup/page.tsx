@@ -206,9 +206,9 @@ const KNOWLEDGE: SetupItem[] = [
 		href: "https://notion.so",
 	},
 	{
-		name: "OpenKnowledge",
-		desc: "Markdown-CRDT collaboration platform. Agents and I edit the same notes in real time over MCP, every change attributed.",
-		href: "https://openknowledge.ai",
+		name: "Obsidian",
+		desc: "Local vault for personal notes and journaling. Deliberately not wired to MCP, some things are just for me.",
+		href: "https://obsidian.md",
 	},
 ];
 
