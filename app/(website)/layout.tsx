@@ -3,9 +3,11 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
 	metadataBase: new URL("https://chele.bi"),
-	description: "Developer, entrepreneur, and researcher.",
+	description:
+		"Ege Chelebi is an AI engineer at Refik Anadol Studio, building thoughtful tools across generative art, open source, and applied AI.",
 	openGraph: {
-		description: "Developer, entrepreneur, and researcher.",
+		description:
+			"AI engineer at Refik Anadol Studio building thoughtful tools across generative art, open source, and applied AI.",
 		siteName: "Ege",
 		locale: "en_US",
 		type: "website",
@@ -31,6 +33,8 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: "summary_large_image",
+		description:
+			"AI engineer at Refik Anadol Studio building thoughtful tools across generative art, open source, and applied AI.",
 		images: ["/og"],
 	},
 };

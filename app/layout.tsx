@@ -16,10 +16,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
 	metadataBase: new URL("https://chele.bi"),
 	title: {
-		default: "Ege",
-		template: "%s · Ege",
+		default: "Ege Chelebi — AI Engineer, Developer, and Researcher",
+		template: "%s · Ege Chelebi",
 	},
-	description: "Code, entrepreneurship and AI.",
+	description:
+		"Ege Chelebi is an AI engineer at Refik Anadol Studio, building thoughtful tools across generative art, open source, and applied AI.",
 	icons: {
 		icon: [
 			{ url: "/favicon.svg?v=2", type: "image/svg+xml" },
@@ -31,7 +32,8 @@ export const metadata: Metadata = {
 		],
 	},
 	openGraph: {
-		description: "Code, entrepreneurship and AI.",
+		description:
+			"AI engineer at Refik Anadol Studio building thoughtful tools across generative art, open source, and applied AI.",
 		siteName: "Ege",
 		locale: "en_US",
 		type: "website",
