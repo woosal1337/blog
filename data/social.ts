@@ -20,16 +20,16 @@ export const X_FEED: SocialFeed = {
 	href: "https://x.com/woosal1337",
 	items: [
 		{
+			text: 'generation became free, the price of understanding inflated. the spread is "ingestion debt".',
+			date: "Jul 12",
+		},
+		{
+			text: "exulansis.",
+			date: "Jul 11",
+		},
+		{
 			text: "told my memory.md about you…",
 			date: "Jul 2",
-		},
-		{
-			text: "agent native era.",
-			date: "Jun 23",
-		},
-		{
-			text: "Folio is open source now. A meeting recorder for macOS that runs whisper and pyannote on your own machine.",
-			date: "Jun 9",
 		},
 	],
 };
