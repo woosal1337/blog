@@ -48,7 +48,7 @@ export function StoryCard({
 				>
 					<Image
 						src={cover}
-						alt=""
+						alt={`Cover image for “${title}”`}
 						fill
 						priority={featured}
 						sizes={

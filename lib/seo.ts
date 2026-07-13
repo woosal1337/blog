@@ -5,7 +5,7 @@ export const SITE_URL = "https://www.chele.bi";
 export const SITE_NAME = "Ege Chelebi";
 export const SITE_HANDLE = "@woosal1337";
 export const SITE_DESCRIPTION =
-	"Ege Chelebi is an AI engineer at Refik Anadol Studio, building thoughtful tools across generative art, open source, and applied AI.";
+	"Ege Chelebi is an AI engineer at Refik Anadol Studio, building thoughtful tools where code meets large-scale generative art — with writing on agent-native development, open source, and applied AI.";
 
 export const PERSON_ID = `${SITE_URL}/about#person`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;

@@ -33,7 +33,12 @@ const PolaroidGallery = ({
 			<DialogTrigger>
 				<div className="grid grid-cols-12 items-center -gap-10 mt-2">
 					{images.map((image) => (
-						<Polaroid key={image.src} variant={image.variant} src={image.src} />
+						<Polaroid
+							key={image.src}
+							variant={image.variant}
+							src={image.src}
+							alt={title ? `${event} — ${title}` : event}
+						/>
 					))}
 				</div>
 			</DialogTrigger>
@@ -53,7 +58,7 @@ const PolaroidGallery = ({
 								<CarouselItem key={image.src}>
 									<img
 										src={image.src}
-										alt=""
+										alt={title ? `${event} — ${title}` : event}
 										className="border border-line bg-paper-2"
 									/>
 								</CarouselItem>

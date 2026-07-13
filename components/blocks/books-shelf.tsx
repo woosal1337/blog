@@ -36,7 +36,7 @@ export function BooksShelf({ className }: { className?: string }) {
 								<div className="relative aspect-[2/3] w-full overflow-hidden rounded-[12px] border border-line bg-paper transition-colors duration-240 ease-house group-hover:border-line-strong">
 									<Image
 										src={book.cover}
-										alt=""
+										alt={`${book.title} by ${book.author}`}
 										fill
 										loading="lazy"
 										quality={65}
@@ -72,7 +72,7 @@ export function BooksShelf({ className }: { className?: string }) {
 							<div className="relative mx-auto mb-6 h-48 w-32 overflow-hidden rounded-[12px] border border-line bg-paper-2">
 								<Image
 									src={selected.cover}
-									alt=""
+									alt={`${selected.title} by ${selected.author}`}
 									fill
 									sizes="128px"
 									className="object-cover"

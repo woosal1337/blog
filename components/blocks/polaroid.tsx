@@ -15,11 +15,13 @@ const Polaroid = ({
 	variant,
 	onClick,
 	fullscreen,
+	alt = "",
 }: {
 	src: string;
 	variant: keyof typeof polaroidVariants;
 	onClick?: () => void;
 	fullscreen?: boolean;
+	alt?: string;
 }) => {
 	const variantClasses = polaroidVariants[variant] || polaroidVariants["1x1"];
 	const randomRotation = Math.random() * 30 - 15;
@@ -37,7 +39,7 @@ const Polaroid = ({
 					fullscreen ? "h-auto min-w-72" : variantClasses,
 				)}
 			>
-				<Image fill className="object-contain p-1.5" src={src} alt="" />
+				<Image fill className="object-contain p-1.5" src={src} alt={alt} />
 			</motion.div>
 		</motion.div>
 	);
