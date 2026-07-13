@@ -9,14 +9,21 @@ type RevealProps = {
 	children: React.ReactNode;
 
 	delay?: 0 | 1 | 2 | 3;
+	immediate?: boolean;
 	className?: string;
 };
 
-export function Reveal({ children, delay = 0, className }: RevealProps) {
+export function Reveal({
+	children,
+	delay = 0,
+	immediate = false,
+	className,
+}: RevealProps) {
 	const ref = React.useRef<HTMLDivElement>(null);
-	const [shown, setShown] = React.useState(false);
+	const [shown, setShown] = React.useState(immediate);
 
 	React.useEffect(() => {
+		if (immediate) return;
 		const el = ref.current;
 		if (!el) return;
 		if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -34,13 +41,16 @@ export function Reveal({ children, delay = 0, className }: RevealProps) {
 		);
 		observer.observe(el);
 		return () => observer.disconnect();
-	}, []);
+	}, [immediate]);
 
 	return (
 		<div
 			ref={ref}
-			className={cn(shown ? "reveal-play" : "reveal-hidden", className)}
-			style={{ animationDelay: `${DELAYS[delay]}ms` }}
+			className={cn(
+				!immediate && (shown ? "reveal-play" : "reveal-hidden"),
+				className,
+			)}
+			style={immediate ? undefined : { animationDelay: `${DELAYS[delay]}ms` }}
 		>
 			{children}
 		</div>

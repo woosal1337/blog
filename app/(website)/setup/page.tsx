@@ -3,13 +3,17 @@ import { BackButton } from "@/components/ds/back-button";
 import { Reveal } from "@/components/ds/reveal";
 import { SectionLabel } from "@/components/ds/section-label";
 import { Section, Shell } from "@/components/ds/shell";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 import Image from "next/image";
 
-export const metadata: Metadata = {
-	title: "Setup",
-	description: "The agents, the MCP servers and the tools I use every day.",
-};
+export const metadata = createPageMetadata({
+	title: "AI Engineering Setup and Developer Tools",
+	description:
+		"The AI coding agents, MCP servers, local-first knowledge tools, and developer environment Ege Chelebi uses every day for applied AI work.",
+	socialDescription:
+		"The AI coding agents, MCP servers, knowledge tools, and developer environment I use every day.",
+	path: "/setup",
+});
 
 type SetupItem = {
 	name: string;
@@ -217,11 +221,14 @@ export default function SetupPage() {
 		<Section>
 			<Shell width="column">
 				<BackButton className="mb-8" />
-				<Reveal>
+				<Reveal immediate>
 					<header className="mb-10">
 						<h1 className="font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
-							Setup
+							AI engineering setup
 						</h1>
+						<p className="mt-3 font-ui text-[15px] leading-relaxed text-ink-mute">
+							The agents, MCP servers, and knowledge tools I use every day.
+						</p>
 						<div className="group relative mt-6 h-[190px] overflow-hidden rounded-[14px] border border-line bg-[#060606]">
 							<RippleField />
 						</div>

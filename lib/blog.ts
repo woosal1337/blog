@@ -5,15 +5,24 @@ import path from "node:path";
 
 export { formatPostDate, formatTag, slugify } from "./blog-utils";
 
-export type BlogPostMeta = {
-	slug: string;
+export type BlogPostFrontmatter = {
 	title: string;
+	seoTitle?: string;
 	date: string;
+	updated?: string;
 	summary: string;
+	seoDescription?: string;
+	socialDescription?: string;
 	tags?: string[];
 	draft?: boolean;
 	hidden?: boolean;
 	cover?: string;
+	coverAlt?: string;
+	readingMinutes?: number;
+};
+
+export type BlogPostMeta = BlogPostFrontmatter & {
+	slug: string;
 	readingMinutes: number;
 };
 
@@ -101,9 +110,7 @@ async function loadMeta(slug: string): Promise<BlogPostMeta | null> {
 		const mod = (await import(
 			`@/app/(website)/blog/(post)/${slug}/page.mdx`
 		)) as {
-			meta?: Omit<BlogPostMeta, "slug" | "readingMinutes"> & {
-				readingMinutes?: number;
-			};
+			meta?: BlogPostFrontmatter;
 		};
 		if (!mod.meta) return null;
 		const raw = readRaw(slug);

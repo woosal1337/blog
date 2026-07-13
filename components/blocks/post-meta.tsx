@@ -3,12 +3,14 @@
 import { Tag } from "@/components/ds/tag";
 import { formatPostDate, formatTag } from "@/lib/blog-utils";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface PostMetaProps {
 	meta: {
 		title: string;
 		date: string;
+		updated?: string;
 		summary: string;
 		tags?: string[];
 		readingMinutes?: number;
@@ -36,7 +38,18 @@ export function PostMeta({ meta }: PostMetaProps) {
 	return (
 		<header className="not-prose mb-10">
 			<p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-ui text-[13px] text-ink-mute">
-				<span>{formatPostDate(meta.date)}</span>
+				<time dateTime={meta.date}>{formatPostDate(meta.date)}</time>
+				{meta.updated && meta.updated !== meta.date ? (
+					<>
+						<span className="text-line">·</span>
+						<span>
+							Updated{" "}
+							<time dateTime={meta.updated}>
+								{formatPostDate(meta.updated)}
+							</time>
+						</span>
+					</>
+				) : null}
 				{readingMinutes ? (
 					<>
 						<span className="text-line">·</span>
@@ -44,7 +57,13 @@ export function PostMeta({ meta }: PostMetaProps) {
 					</>
 				) : null}
 				<span className="text-line">·</span>
-				<span>Ege Chelebi</span>
+				<Link
+					href="/about"
+					rel="author"
+					className="text-ink-mute transition-colors duration-200 ease-house hover:text-ink"
+				>
+					Ege Chelebi
+				</Link>
 			</p>
 			<h1 className="mt-4 font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
 				{meta.title}

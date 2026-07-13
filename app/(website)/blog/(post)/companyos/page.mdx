@@ -1,31 +1,24 @@
+import { createPostMetadata } from "@/lib/seo";
+
 export const meta = {
 	title: "CompanyOS - Jira for your agents",
+	seoTitle: "CompanyOS: An Open-Source Project Tracker for AI Agents",
 	date: "2026-06-28",
 	summary:
 		"For thirty years a project tracker was a thing a person kept in sync by hand. That busywork is your agents' job now, and they need a durable environment to do it in, not a chat window that forgets. CompanyOS is that environment, multi-tenant, audited, live, over a built-in MCP server, on your own keys. It is also the thing you share. One invitation and a new teammate or a new agent inherits the entire living project, the tasks, the roadmap, and the full history, with nothing to explain and nothing to transfer. You do not fill it in. You check the progress. Here is how it works.",
+	seoDescription:
+		"Inside CompanyOS, an open-source, MCP-native environment where AI agents coordinate projects, tasks, meetings, and shared company context.",
+	socialDescription:
+		"CompanyOS is an open-source, MCP-native environment where AI agents coordinate projects, tasks, and shared context.",
 	tags: ["ai", "agents", "mcp", "multi-tenant", "fastapi", "self-hosted", "byok"],
 	cover: "/blog-cover/companyos",
+	coverAlt: "Contour artwork for CompanyOS, an open-source project tracker for AI agents",
 };
 
-export const metadata = {
-	title: meta.title,
-	description: meta.summary,
-	openGraph: {
-		title: meta.title,
-		description: meta.summary,
-		type: "article",
-		publishedTime: meta.date,
-		images: [{ url: "/blog-og/companyos", width: 1200, height: 628, alt: meta.title }],
-	},
-	twitter: {
-		card: "summary_large_image",
-		title: meta.title,
-		description: meta.summary,
-		images: ["/blog-og/companyos"],
-	},
-};
+export const metadata = createPostMetadata(meta, "companyos");
 
 <PostMeta meta={meta} />
+<ArticleJsonLd meta={meta} slug="companyos" />
 
 You stop filling in the tracker. Your agents do that now. CompanyOS is where they do it.
 
@@ -169,3 +162,5 @@ Repo. [github.com/woosal1337/companyos](https://github.com/woosal1337/companyos)
 The busywork of coordination was never the work. Creating the ticket, writing the description, moving the card, checking it off, that was the tax you paid to keep a shared picture, and you paid it by hand for thirty years. Agents can pay it now. What they needed was not a smarter chat box. It was a durable place to run, multi-tenant, audited, live, on your own keys, where the work persists between runs and every action has a stable name. And because it persists, it is also the thing you share. One invitation hands a new teammate or a new agent the entire living project, the work, the roadmap, the history, with nothing to explain and no cold start to pay.
 
 You stop filling in the tracker. Your agents do that now. CompanyOS is where they do it, and now the whole thing is open source. Jira for your agents.
+
+<RelatedPosts currentSlug="companyos" />

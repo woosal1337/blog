@@ -1,6 +1,7 @@
 import { SoundProvider } from "@/components/providers/sound-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { SITE_DESCRIPTION, SITE_HANDLE, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { Analytics } from "@vercel/analytics/react";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
@@ -14,13 +15,24 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://chele.bi"),
+	metadataBase: new URL(SITE_URL),
+	applicationName: SITE_NAME,
 	title: {
 		default: "Ege Chelebi — AI Engineer, Developer, and Researcher",
 		template: "%s · Ege Chelebi",
 	},
-	description:
-		"Ege Chelebi is an AI engineer at Refik Anadol Studio, building thoughtful tools across generative art, open source, and applied AI.",
+	description: SITE_DESCRIPTION,
+	alternates: {
+		types: { "application/rss+xml": "/blog/rss.xml" },
+	},
+	authors: [{ name: SITE_NAME, url: "/about" }],
+	creator: SITE_NAME,
+	publisher: SITE_NAME,
+	formatDetection: {
+		email: false,
+		address: false,
+		telephone: false,
+	},
 	icons: {
 		icon: [
 			{ url: "/favicon.svg?v=2", type: "image/svg+xml" },
@@ -32,17 +44,16 @@ export const metadata: Metadata = {
 		],
 	},
 	openGraph: {
-		description:
-			"AI engineer at Refik Anadol Studio building thoughtful tools across generative art, open source, and applied AI.",
-		siteName: "Ege",
+		description: SITE_DESCRIPTION,
+		siteName: SITE_NAME,
 		locale: "en_US",
 		type: "website",
 		images: [
 			{
-				url: "/avatar.png",
-				width: 1024,
-				height: 1024,
-				alt: "Ege",
+				url: "/og",
+				width: 1200,
+				height: 630,
+				alt: "Ege Chelebi — AI engineer, developer, and researcher",
 			},
 		],
 	},
@@ -59,6 +70,10 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: "summary_large_image",
+		site: SITE_HANDLE,
+		creator: SITE_HANDLE,
+		description: SITE_DESCRIPTION,
+		images: ["/og"],
 	},
 };
 

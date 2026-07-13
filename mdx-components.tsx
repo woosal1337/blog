@@ -11,9 +11,11 @@ import {
 } from "@/components/blocks/post-blocks";
 import { PostMeta } from "@/components/blocks/post-meta";
 import { Quote } from "@/components/blocks/quote";
+import { RelatedPosts } from "@/components/blocks/related-posts";
 import { IconLink, LinkLeadingIcon } from "@/components/ds/icon-link";
 import { Kbd, KbdGroup } from "@/components/ds/kbd";
 import { Tag } from "@/components/ds/tag";
+import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { slugify } from "@/lib/blog-utils";
 import { cn } from "@/lib/utils";
 import type { MDXComponents } from "mdx/types";
@@ -44,6 +46,8 @@ function HeadingAnchor({ id }: { id: string }) {
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
 	return {
+		ArticleJsonLd,
+		RelatedPosts,
 		h1: ({ children, ...props }) => (
 			<h1
 				{...props}

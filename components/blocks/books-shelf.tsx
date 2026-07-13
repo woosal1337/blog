@@ -38,6 +38,8 @@ export function BooksShelf({ className }: { className?: string }) {
 										src={book.cover}
 										alt=""
 										fill
+										loading="lazy"
+										quality={65}
 										sizes="140px"
 										className="object-cover transition-opacity duration-240 ease-house group-hover:opacity-80"
 									/>

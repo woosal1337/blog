@@ -1,31 +1,24 @@
+import { createPostMetadata } from "@/lib/seo";
+
 export const meta = {
 	title: "Folio - who said what",
+	seoTitle: "Folio: A Private Local AI Meeting Recorder for macOS",
 	date: "2026-06-09",
 	summary:
 		"Folio is a meeting recorder for macOS that runs Whisper and pyannote on-device, labels every speaker, and writes Markdown to your vault. No cloud, no telemetry, no audio leaving your Mac. Here is how the transcription and diarization pipelines actually work.",
+	seoDescription:
+		"How Folio records meetings on macOS, runs Whisper and speaker diarization locally, and writes private, searchable Markdown transcripts.",
+	socialDescription:
+		"Folio records meetings on macOS, runs transcription and speaker diarization locally, and writes private Markdown.",
 	tags: ["ai", "rust", "macos", "local-first", "transcription", "diarization", "privacy"],
 	cover: "/blog-cover/folio",
+	coverAlt: "Contour artwork for Folio, a private local AI meeting recorder for macOS",
 };
 
-export const metadata = {
-	title: meta.title,
-	description: meta.summary,
-	openGraph: {
-		title: meta.title,
-		description: meta.summary,
-		type: "article",
-		publishedTime: meta.date,
-		images: [{ url: "/blog-og/folio", width: 1200, height: 628, alt: meta.title }],
-	},
-	twitter: {
-		card: "summary_large_image",
-		title: meta.title,
-		description: meta.summary,
-		images: ["/blog-og/folio"],
-	},
-};
+export const metadata = createPostMetadata(meta, "folio");
 
 <PostMeta meta={meta} />
+<ArticleJsonLd meta={meta} slug="folio" />
 
 Every other meeting recorder ships your voice to a server. Folio runs the models on the machine that already heard them.
 
@@ -193,3 +186,5 @@ Repo. [github.com/woosal1337/folio](https://github.com/woosal1337/folio)
 The moat in voice software was *never the model.* Whisper is a download. pyannote is a download. Anyone can call them. The moat is the willingness to do the unglamorous local work, the silence gates and the language carry-over and the hallucination blocklist and the echo canceller and the single function that every byte of network traffic has to pass through, so that the audio never has to leave the machine that already heard it.
 
 Every other meeting recorder ships your voice to a server. Folio runs the models on the machine that already heard them. That is the whole idea, and now the whole idea is open source.
+
+<RelatedPosts currentSlug="folio" />

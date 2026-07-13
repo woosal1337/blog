@@ -1,33 +1,25 @@
+import { createPostMetadata } from "@/lib/seo";
+
 export const meta = {
 	title: "Contour, the mark drawn from π",
+	seoTitle: "Contour: A Generative Identity Drawn from Pi",
 	date: "2026-07-02",
 	summary:
 		"The story of the circular mark you keep seeing on this site. How a name becomes a SHA-256 hash, how the hash walks the digits of pi, and how eight perturbed rings turn that walk into a little topographic identity. With the full algorithm explained, and a generator so you can draw your own.",
+	seoDescription:
+		"How a name becomes a SHA-256 hash, walks the digits of pi, and turns eight perturbed rings into a deterministic topographic identity.",
+	socialDescription:
+		"How a name, SHA-256, and the digits of pi become a deterministic topographic identity.",
 	tags: ["design", "algorithms"],
 	cover: "/blog-cover/contour",
+	coverAlt: "Contour rings generated deterministically from a name and the digits of pi",
 	hidden: true,
 };
 
-export const metadata = {
-	title: meta.title,
-	description: meta.summary,
-	robots: { index: false, follow: false },
-	openGraph: {
-		title: meta.title,
-		description: meta.summary,
-		type: "article",
-		publishedTime: meta.date,
-		images: [{ url: "/blog-og/contour", width: 1200, height: 628, alt: meta.title }],
-	},
-	twitter: {
-		card: "summary_large_image",
-		title: meta.title,
-		description: meta.summary,
-		images: ["/blog-og/contour"],
-	},
-};
+export const metadata = createPostMetadata(meta, "contour");
 
 <PostMeta meta={meta} />
+<ArticleJsonLd meta={meta} slug="contour" />
 
 You clicked the logo. This page is not linked from the blog index, the sitemap, or the RSS feed. It exists only for people who wondered what that circular scribble actually is. Welcome.
 

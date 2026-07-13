@@ -1,8 +1,9 @@
 import { getAllPosts } from "@/lib/blog";
+import { SITE_URL } from "@/lib/seo";
 
-const SITE_URL = "https://chele.bi";
-const FEED_TITLE = "Ege · Blog";
-const FEED_DESCRIPTION = "Essays, notes, and field reports.";
+const FEED_TITLE = "Ege Chelebi · AI Engineering Blog";
+const FEED_DESCRIPTION =
+	"Essays on AI agents, context engineering, local-first software, developer tools, memory systems, and applied research.";
 
 function escapeXml(unsafe: string): string {
 	return unsafe
@@ -28,7 +29,7 @@ export async function GET() {
       <guid isPermaLink="true">${url}</guid>
       <pubDate>${pubDate}</pubDate>
       <description>${escapeXml(post.summary)}</description>
-${coverUrl ? `      <enclosure url="${coverUrl}" type="image/jpeg" length="0"/>\n      <media:content url="${coverUrl}" medium="image" type="image/jpeg"/>` : ""}
+${coverUrl ? `      <enclosure url="${coverUrl}" type="image/png" length="0"/>\n      <media:content url="${coverUrl}" medium="image" type="image/png"/>` : ""}
 ${(post.tags ?? []).map((t) => `      <category>${escapeXml(t)}</category>`).join("\n")}
     </item>`;
 		})

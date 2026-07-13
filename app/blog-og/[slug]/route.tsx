@@ -1,10 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
-import { formatPostDate, getPostMeta } from "@/lib/blog";
+import { formatPostDate, getAllSlugs, getPostMeta } from "@/lib/blog";
 import { generateContour } from "@/lib/contour";
 import { ImageResponse } from "next/og";
 
 export const runtime = "nodejs";
+export const dynamic = "force-static";
+
+export function generateStaticParams() {
+	return getAllSlugs().map((slug) => ({ slug }));
+}
 
 const FONTS_DIR = path.join(process.cwd(), "public", "fonts");
 

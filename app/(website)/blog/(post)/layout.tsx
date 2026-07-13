@@ -1,3 +1,4 @@
+import { PostAuthor } from "@/components/blocks/post-author";
 import { PostFooterNav } from "@/components/blocks/post-footer-nav";
 import { PostStamp } from "@/components/blocks/post-stamp";
 import { PostToc } from "@/components/blocks/post-toc";
@@ -27,6 +28,7 @@ export default async function PostLayout({
 				<PostTopBar />
 				<article className="w-full min-w-0">
 					{children}
+					<PostAuthor />
 					<div className="mt-20 flex justify-center">
 						<PostStamp entries={stampEntries} />
 					</div>

@@ -50,6 +50,7 @@ export function StoryCard({
 						src={cover}
 						alt=""
 						fill
+						priority={featured}
 						sizes={
 							featured
 								? "(max-width: 768px) 100vw, 680px"

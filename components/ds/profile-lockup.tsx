@@ -31,7 +31,7 @@ export function ProfileLockup({
 				/>
 			</Link>
 			<div className="min-w-0 leading-tight">
-				<p className="font-ui text-[16px] font-medium text-ink">{name}</p>
+				<h1 className="font-ui text-[16px] font-medium text-ink">{name}</h1>
 				<p className="font-ui text-[16px] text-ink-mute">{tagline}</p>
 			</div>
 		</div>

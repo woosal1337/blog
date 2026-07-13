@@ -1,31 +1,24 @@
+import { createPostMetadata } from "@/lib/seo";
+
 export const meta = {
 	title: "Vaulted - secrets your agent never sees",
+	seoTitle: "Vaulted: Secure Secrets Management for AI Coding Agents",
 	date: "2026-07-03",
 	summary:
 		"Vaulted is a local-first .env and secrets manager that keeps ciphertext on your machine and injects plaintext into your app through one hardened Rust path. It is MCP-native, so a coding agent can run your code with real secrets without the values ever entering its context window. This is the full build: the key hierarchy, the single execution path, the FFI bridge, the redaction engine, and the tests that make the guarantees structural.",
+	seoDescription:
+		"How Vaulted lets AI coding agents run applications with real secrets while keeping plaintext out of model context, logs, and project files.",
+	socialDescription:
+		"How Vaulted lets AI agents use real secrets while keeping plaintext out of model context, logs, and project files.",
 	tags: ["security", "mcp", "rust", "typescript", "cli", "cryptography", "local-first"],
 	cover: "/blog-cover/vaulted",
+	coverAlt: "Contour artwork for Vaulted, a secrets manager for AI coding agents",
 };
 
-export const metadata = {
-	title: meta.title,
-	description: meta.summary,
-	openGraph: {
-		title: meta.title,
-		description: meta.summary,
-		type: "article",
-		publishedTime: meta.date,
-		images: [{ url: "/blog-og/vaulted", width: 1200, height: 628, alt: meta.title }],
-	},
-	twitter: {
-		card: "summary_large_image",
-		title: meta.title,
-		description: meta.summary,
-		images: ["/blog-og/vaulted"],
-	},
-};
+export const metadata = createPostMetadata(meta, "vaulted");
 
 <PostMeta meta={meta} />
+<ArticleJsonLd meta={meta} slug="vaulted" />
 
 Coding agents need your secrets to run your code. They should never get to read them.
 
@@ -291,3 +284,5 @@ Repo. [github.com/woosal1337/vaulted](https://github.com/woosal1337/vaulted)
 The hard part of a secrets manager was never the encryption. AES is a library call. Argon2id is a library call. The hard part is the discipline: forcing every decrypted byte through one audited door, making the read tools structurally unable to leak, zeroizing on both sides of an FFI boundary, and writing down the exact character where redaction stops being containment. The cryptography is textbook precisely so *the engineering can be the interesting part.*
 
 Coding agents need your secrets to run your code. They should never get to read them. Vaulted is how you give an agent the one without the other, and keep the plaintext on the only machine that ever needed it.
+
+<RelatedPosts currentSlug="vaulted" />

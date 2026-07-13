@@ -9,10 +9,21 @@ import { SectionLabel } from "@/components/ds/section-label";
 import { StoryCard } from "@/components/ds/story-card";
 import { NewLabel } from "@/components/ds/tag";
 import { ViewAllButton } from "@/components/ds/view-all-button";
+import { WebsiteJsonLd } from "@/components/seo/json-ld";
 import { INSTAGRAM_FEED, X_FEED } from "@/data/social";
 import { formatTag, getAllPosts } from "@/lib/blog";
 import { getGithubFeed } from "@/lib/github";
+import { SITE_DESCRIPTION, createPageMetadata } from "@/lib/seo";
 import { allProjects } from "@/lib/utils";
+
+export const metadata = createPageMetadata({
+	title: "Ege Chelebi — AI Engineer, Developer, and Researcher",
+	description: SITE_DESCRIPTION,
+	socialDescription:
+		"AI engineer at Refik Anadol Studio building thoughtful tools across generative art, open source, and applied AI.",
+	path: "/",
+	absoluteTitle: true,
+});
 
 function cardDate(date: string): string {
 	return new Date(date).toLocaleDateString("en-US", {
@@ -36,6 +47,7 @@ export default async function HomePage() {
 
 	return (
 		<>
+			<WebsiteJsonLd />
 			<div className="mx-auto max-w-column px-6 pt-16 sm:pt-28">
 				<ProfileLockup
 					name="Ege Chelebi"

@@ -1,31 +1,24 @@
+import { createPostMetadata } from "@/lib/seo";
+
 export const meta = {
 	title: "The agent native home",
+	seoTitle: "The Agent-Native Home: Context for AI Coding Agents",
 	date: "2026-07-05",
 	summary:
 		"I reset my Mac and rebuilt my agent-native development environment from zero. What survived is small. A git repo, one memo every agent reads at session start, and a discipline about context. Less context, but the right context. This is the full architecture, from the shared AGENTS.md and the symlinks that make Claude Code and Codex read the same file to the MCP registry and the knowledge protocol that keeps the memo under a hundred lines.",
+	seoDescription:
+		"A practical architecture for AI coding agents: one shared AGENTS.md, two symlinks, a small MCP registry, and a disciplined knowledge protocol.",
+	socialDescription:
+		"A practical AI-agent environment built from one shared memo, two symlinks, a small MCP registry, and fewer moving parts.",
 	tags: ["agents", "architecture", "simplicity", "mcp", "workflow"],
 	cover: "/blog-cover/the-agent-native-home",
+	coverAlt: "Contour artwork for an agent-native AI development environment",
 };
 
-export const metadata = {
-	title: meta.title,
-	description: meta.summary,
-	openGraph: {
-		title: meta.title,
-		description: meta.summary,
-		type: "article",
-		publishedTime: meta.date,
-		images: [{ url: "/blog-og/the-agent-native-home", width: 1200, height: 628, alt: meta.title }],
-	},
-	twitter: {
-		card: "summary_large_image",
-		title: meta.title,
-		description: meta.summary,
-		images: ["/blog-og/the-agent-native-home"],
-	},
-};
+export const metadata = createPostMetadata(meta, "the-agent-native-home");
 
 <PostMeta meta={meta} />
+<ArticleJsonLd meta={meta} slug="the-agent-native-home" />
 
 I reset my Mac this week. Clean disk, nothing restored, every tool reinstalled by hand. It was the best thing that has happened to my development environment in a year, because a reset is an audit you cannot argue with. Whatever you rebuild first is what you actually use. Whatever you do not miss was noise. Days in, I have missed almost none of it. A year of accumulated installs, and the machine runs on a handful of tools.
 
@@ -165,3 +158,5 @@ git clone <the-repo> ~/.agents && ~/.agents/bootstrap.sh
 Then two OAuth logins, one for each CLI's MCP connections. Minutes, not an afternoon. Both agents wake up knowing the machine, the tools, the rules, and where every piece of durable knowledge lives, because the one file they read on session start is the one file I maintain.
 
 None of this is clever, and that is the point I keep arriving at. The environment got better every time I removed something. The sync pipeline, the duplicate memos, the unused servers, the four hundred lines of instructions that were really just anxiety. Agents do not need a rich environment. *They need a legible one.* Give them one small map that is always true, make every fact on it earn the tokens it costs, and keep the library outside the door.
+
+<RelatedPosts currentSlug="the-agent-native-home" />

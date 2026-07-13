@@ -1,31 +1,27 @@
+import { createPostMetadata } from "@/lib/seo";
+
 export const meta = {
 	title: "The 95% failure rate is not about the models",
+	seoTitle: "Why 95% of Enterprise AI Projects Fail to Deliver Value",
 	date: "2026-05-17",
 	summary:
 		"5% of enterprise AI projects deliver value. The number has not moved through three generations of frontier models. The operational layer is the moat, and context engineering is the discipline that builds it.",
+	seoDescription:
+		"Why most enterprise AI projects fail despite stronger models—and how operational context, agent infrastructure, and workflow design change the outcome.",
+	socialDescription:
+		"Why stronger models do not fix enterprise AI—and how operational context and agent infrastructure change outcomes.",
 	tags: ["ai", "agents", "enterprise", "context-engineering", "architecture"],
 	cover: "/blog-cover/the-95-percent-failure-rate-is-not-about-the-models",
+	coverAlt: "Contour artwork for an analysis of why enterprise AI projects fail",
 };
 
-export const metadata = {
-	title: meta.title,
-	description: meta.summary,
-	openGraph: {
-		title: meta.title,
-		description: meta.summary,
-		type: "article",
-		publishedTime: meta.date,
-		images: [{ url: "/blog-og/the-95-percent-failure-rate-is-not-about-the-models", width: 1200, height: 628, alt: meta.title }],
-	},
-	twitter: {
-		card: "summary_large_image",
-		title: meta.title,
-		description: meta.summary,
-		images: ["/blog-og/the-95-percent-failure-rate-is-not-about-the-models"],
-	},
-};
+export const metadata = createPostMetadata(
+	meta,
+	"the-95-percent-failure-rate-is-not-about-the-models",
+);
 
 <PostMeta meta={meta} />
+<ArticleJsonLd meta={meta} slug="the-95-percent-failure-rate-is-not-about-the-models" />
 
 Five percent of enterprise AI projects deliver value. The number has not moved through three generations of frontier models. *The model is not the problem.* The model is already strong. What is missing is the layer underneath that gets the right context to it at the right moment.
 
@@ -235,3 +231,5 @@ The "models got smart" chapter is already over. We had a glorious run. The model
 The discipline has a name now. Sierra called it. Context engineering. Progressive disclosure of relevant information, gated by state and observation conditions, built on a single orchestration layer, tuned continuously as the model market moves underneath it. The 5% are not lucky. They are operational, and operational means context-engineered. That is the whole game.
 
 Sources. Vasuman, [the operational layer is the moat](https://x.com/vasuman/status/2049659161005470071). Neil Rahilly, [context engineering, the key to great agents](https://x.com/neilrahilly/status/2051723442928664620). The 5% / 95% framing originates with MIT NANDA's GenAI Divide report from July 2025. Convergence across BCG, Deloitte, RAND, IBM, and McKinsey gives the number its weight.
+
+<RelatedPosts currentSlug="the-95-percent-failure-rate-is-not-about-the-models" />

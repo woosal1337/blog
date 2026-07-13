@@ -4,13 +4,17 @@ import { FeatureCard } from "@/components/ds/feature-card";
 import { Reveal } from "@/components/ds/reveal";
 import { Section, Shell } from "@/components/ds/shell";
 import { NewLabel, SoonLabel } from "@/components/ds/tag";
+import { createPageMetadata } from "@/lib/seo";
 import { allProjects } from "@/lib/utils";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-	title: "Projects",
-	description: "What I am building and what I have shipped.",
-};
+export const metadata = createPageMetadata({
+	title: "AI Systems and Open-Source Developer Projects",
+	description:
+		"AI systems, local-first developer tools, agent infrastructure, and open-source software designed and built by Ege Chelebi.",
+	socialDescription:
+		"AI systems, local-first developer tools, agent infrastructure, and open-source software built by Ege Chelebi.",
+	path: "/projects",
+});
 
 function cardDate(date: string): string {
 	return new Date(date).toLocaleDateString("en-US", {
@@ -25,7 +29,18 @@ export default function ProjectsPage() {
 		<Section>
 			<Shell width="column">
 				<BackButton className="mb-8" />
-				<Reveal className="mb-8">
+				<Reveal immediate className="mb-8">
+					<header>
+						<h1 className="font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
+							AI and open-source projects
+						</h1>
+						<p className="mt-3 max-w-[620px] font-ui text-[15px] leading-relaxed text-ink-mute">
+							Agent infrastructure, local-first developer tools, and applied AI
+							systems I have designed and shipped.
+						</p>
+					</header>
+				</Reveal>
+				<Reveal immediate className="mb-8">
 					<AsciiFlow className="h-[220px]" />
 				</Reveal>
 				<div className="grid gap-4 sm:grid-cols-2">

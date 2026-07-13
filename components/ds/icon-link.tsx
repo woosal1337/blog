@@ -14,7 +14,7 @@ const BLOG_ICON_VERSION = "2";
 
 function blogIconSrc(href: string): string | null {
 	try {
-		const url = new URL(href, "https://chele.bi");
+		const url = new URL(href, "https://www.chele.bi");
 		if (url.hostname !== "chele.bi" && url.hostname !== "www.chele.bi") {
 			return null;
 		}

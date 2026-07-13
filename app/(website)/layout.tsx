@@ -1,14 +1,13 @@
 import { ConditionalFooter } from "@/components/ds/conditional-footer";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-	metadataBase: new URL("https://chele.bi"),
-	description:
-		"Ege Chelebi is an AI engineer at Refik Anadol Studio, building thoughtful tools across generative art, open source, and applied AI.",
+	metadataBase: new URL(SITE_URL),
+	description: SITE_DESCRIPTION,
 	openGraph: {
-		description:
-			"AI engineer at Refik Anadol Studio building thoughtful tools across generative art, open source, and applied AI.",
-		siteName: "Ege",
+		description: SITE_DESCRIPTION,
+		siteName: SITE_NAME,
 		locale: "en_US",
 		type: "website",
 		images: [
@@ -33,8 +32,7 @@ export const metadata: Metadata = {
 	},
 	twitter: {
 		card: "summary_large_image",
-		description:
-			"AI engineer at Refik Anadol Studio building thoughtful tools across generative art, open source, and applied AI.",
+		description: SITE_DESCRIPTION,
 		images: ["/og"],
 	},
 };

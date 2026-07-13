@@ -39,27 +39,6 @@ export function Gallery({
 		setReady(true);
 	}, [startCentered]);
 
-	React.useEffect(() => {
-		const el = ref.current;
-		if (!el) return;
-		const warm = () => {
-			el.querySelectorAll<HTMLImageElement>('img[loading="lazy"]').forEach(
-				(img) => {
-					img.setAttribute("fetchpriority", "low");
-					img.loading = "eager";
-					img.decode?.().catch(() => {});
-				},
-			);
-		};
-		const ric = window.requestIdleCallback?.bind(window);
-		if (ric) {
-			const id = ric(warm, { timeout: 4000 });
-			return () => window.cancelIdleCallback(id);
-		}
-		const id = window.setTimeout(warm, 1500);
-		return () => window.clearTimeout(id);
-	}, []);
-
 	return (
 		<div className={className}>
 			<div

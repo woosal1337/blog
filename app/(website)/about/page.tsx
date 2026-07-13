@@ -5,7 +5,9 @@ import { Reveal } from "@/components/ds/reveal";
 import { SectionLabel } from "@/components/ds/section-label";
 import { Section, Shell } from "@/components/ds/shell";
 import { Tag } from "@/components/ds/tag";
+import { ProfilePageJsonLd } from "@/components/seo/json-ld";
 import { formatTag } from "@/lib/blog-utils";
+import { createPageMetadata } from "@/lib/seo";
 import {
 	awards,
 	cn,
@@ -13,12 +15,16 @@ import {
 	fellowships,
 	workExperience,
 } from "@/lib/utils";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-	title: "About",
-	description: "Developer, entrepreneur, and researcher.",
-};
+export const metadata = createPageMetadata({
+	title: "About Ege Chelebi — AI Engineer and Open-Source Developer",
+	description:
+		"Meet Ege Chelebi, an AI engineer at Refik Anadol Studio building generative-art systems, agent infrastructure, and open-source developer tools.",
+	socialDescription:
+		"AI engineer building generative-art systems, agent infrastructure, and open-source developer tools.",
+	path: "/about",
+	absoluteTitle: true,
+});
 
 function Lang({ flag, children }: { flag: string; children: string }) {
 	return (
@@ -148,10 +154,14 @@ function ResumeGroup({
 export default function AboutPage() {
 	return (
 		<>
+			<ProfilePageJsonLd />
 			<Section className="pb-[clamp(24px,4vw,44px)]">
 				<Shell width="column">
 					<BackButton className="mb-8" />
-					<Reveal>
+					<Reveal immediate>
+						<h1 className="mb-6 font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
+							About Ege Chelebi
+						</h1>
 						<div className="space-y-5 font-ui text-[16px] leading-[1.65] text-ink-soft">
 							<p>
 								I&apos;m Ege. I work as an AI engineer at{" "}

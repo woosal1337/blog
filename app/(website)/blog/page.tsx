@@ -5,13 +5,18 @@ import { Reveal } from "@/components/ds/reveal";
 import { SectionLabel } from "@/components/ds/section-label";
 import { Section, Shell } from "@/components/ds/shell";
 import { StoryCard } from "@/components/ds/story-card";
+import { BlogIndexJsonLd } from "@/components/seo/json-ld";
 import { type BlogPostMeta, formatTag, getAllPosts } from "@/lib/blog";
-import type { Metadata } from "next";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-	title: "Blog",
-	description: "Essays, notes, and field reports.",
-};
+export const metadata = createPageMetadata({
+	title: "AI Engineering, Agents & Local-First Tools",
+	description:
+		"Essays by AI engineer Ege Chelebi on AI agents, context engineering, local-first software, developer tools, memory systems, and applied research.",
+	socialDescription:
+		"Essays on AI agents, context engineering, local-first software, developer tools, and applied research.",
+	path: "/blog",
+});
 
 function cardDate(date: string): string {
 	return new Date(date).toLocaleDateString("en-US", {
@@ -45,10 +50,14 @@ export default async function BlogIndexPage() {
 
 	return (
 		<>
+			<BlogIndexJsonLd posts={posts} />
 			{posts.length === 0 ? (
 				<Section>
 					<Shell width="column">
 						<BackButton className="mb-8" />
+						<h1 className="font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
+							Writing on AI systems and tools
+						</h1>
 						<p className="font-ui text-[15px] text-ink-mute">
 							No entries yet. Drop an MDX file under app/(website)/blog/(post)/
 							to publish your first post.
@@ -60,10 +69,22 @@ export default async function BlogIndexPage() {
 					<Section tint>
 						<Shell width="column">
 							<BackButton className="mb-8" />
-							<Reveal className="mb-6">
+							<Reveal immediate className="mb-8">
+								<header>
+									<h1 className="font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
+										Writing on AI systems and tools
+									</h1>
+									<p className="mt-3 max-w-[620px] font-ui text-[15px] leading-relaxed text-ink-mute">
+										Essays on AI agents, context engineering, local-first
+										software, developer tools, memory systems, and applied
+										research.
+									</p>
+								</header>
+							</Reveal>
+							<Reveal immediate className="mb-6">
 								<AsciiPlasma className="h-[160px]" />
 							</Reveal>
-							<Reveal>
+							<Reveal immediate>
 								<StoryCard
 									featured
 									isNew
