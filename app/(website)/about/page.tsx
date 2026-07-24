@@ -28,17 +28,12 @@ export const metadata = createPageMetadata({
 
 function Lang({ flag, children }: { flag: string; children: string }) {
 	return (
-		<span className="whitespace-nowrap">
-			<span aria-hidden="true" className="mr-[0.3em]">
-				{flag}
-			</span>
-			{children}
+		<span role="img" aria-label={children} title={children}>
+			{flag}
 		</span>
 	);
 }
 
-/** A resume-row leading icon: an explicit iconSrc when given, otherwise the
- * favicon of the linked site. */
 function RowIcon({ href, iconSrc }: { href?: string; iconSrc?: string }) {
 	let src = iconSrc;
 	if (!src && href) {
@@ -187,9 +182,12 @@ export default function AboutPage() {
 								<IconLink href="https://www.medipol.edu.tr/">Medipol</IconLink>,
 								finished the bachelor&apos;s in 2024 and started the
 								master&apos;s the same year. I speak{" "}
-								<Lang flag="🇬🇧">English</Lang>, <Lang flag="🇹🇷">Turkish</Lang>,{" "}
-								<Lang flag="🇦🇿">Azerbaijani</Lang> and{" "}
-								<Lang flag="🇷🇺">Russian</Lang>.
+								<span className="whitespace-nowrap">
+									<Lang flag="🇬🇧">English</Lang> <Lang flag="🇹🇷">Turkish</Lang>{" "}
+									<Lang flag="🇦🇿">Azerbaijani</Lang>{" "}
+									<Lang flag="🇷🇺">Russian</Lang>
+								</span>
+								.
 							</p>
 						</div>
 
