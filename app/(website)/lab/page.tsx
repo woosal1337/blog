@@ -1,4 +1,4 @@
-import { RippleField } from "@/components/blocks/setup-terrain";
+import { OrbitField } from "@/components/blocks/lab-orbit";
 import { BackButton } from "@/components/ds/back-button";
 import { Reveal } from "@/components/ds/reveal";
 import { SectionLabel } from "@/components/ds/section-label";
@@ -7,21 +7,22 @@ import { createPageMetadata } from "@/lib/seo";
 import Image from "next/image";
 
 export const metadata = createPageMetadata({
-	title: "AI Engineering Setup and Developer Tools",
+	title: "Homelab, AI Engineering Setup, and Self-Hosted Infrastructure",
 	description:
-		"The AI coding agents, MCP servers, local-first knowledge tools, and developer environment Ege Chelebi uses every day for applied AI work.",
+		"The lab Ege Chelebi runs day to day: the AI coding agents, MCP servers, and knowledge tools he works with, and the self-hosted infrastructure underneath them.",
 	socialDescription:
-		"The AI coding agents, MCP servers, knowledge tools, and developer environment I use every day.",
-	path: "/setup",
+		"The lab: the agents, MCP servers, and knowledge tools I use every day, and the infrastructure underneath.",
+	path: "/lab",
 });
 
-type SetupItem = {
+type LabItem = {
 	name: string;
 	desc?: string;
 	href?: string;
 	iconHref?: string;
 	image?: string;
 	bleed?: boolean;
+	code?: string;
 };
 
 function faviconFor(href: string): string | undefined {
@@ -65,11 +66,18 @@ function TileFrame() {
 	);
 }
 
-function Tile({ name, href, iconHref, image, bleed }: SetupItem) {
+function Tile({ name, href, iconHref, image, bleed, code }: LabItem) {
 	const favicon = faviconFor(iconHref ?? href ?? "");
 	return (
 		<div className="relative grid size-12 shrink-0 place-items-center">
-			{image ? (
+			{code ? (
+				<div className="relative grid size-10 place-items-center rounded-[10px] bg-white/[0.03]">
+					<span className="font-mono text-[12px] tracking-wide text-ink-mute">
+						{code}
+					</span>
+					<TileFrame />
+				</div>
+			) : image ? (
 				<div className="relative size-10 overflow-hidden rounded-[10px]">
 					<Image
 						src={image}
@@ -116,7 +124,7 @@ function Tile({ name, href, iconHref, image, bleed }: SetupItem) {
 	);
 }
 
-function SetupRow(item: SetupItem) {
+function LabRow(item: LabItem) {
 	const { name, desc, href } = item;
 	const inner = (
 		<>
@@ -146,7 +154,7 @@ function SetupRow(item: SetupItem) {
 	);
 }
 
-function SetupGroup({
+function LabGroup({
 	label,
 	children,
 	first = false,
@@ -163,15 +171,20 @@ function SetupGroup({
 	);
 }
 
-const AGENTS: SetupItem[] = [
+const AGENTS: LabItem[] = [
 	{
 		name: "Warp",
 		desc: "The terminal, and my main driver. The same CLI agents run inside it, they just get a faster shell around them.",
 		href: "https://www.warp.dev",
 	},
+	{
+		name: "JetBrains Air",
+		desc: "The agentic IDE. Claude Code runs inside it over ACP, on my own fork of the adapter so the agents' work stays visible.",
+		href: "https://air.dev",
+	},
 ];
 
-const MCPS: SetupItem[] = [
+const MCPS: LabItem[] = [
 	{
 		name: "Vaulted",
 		desc: "Local-first secrets manager. Agents run commands with real secrets injected, the values never enter their context.",
@@ -203,7 +216,7 @@ const MCPS: SetupItem[] = [
 	},
 ];
 
-const KNOWLEDGE: SetupItem[] = [
+const KNOWLEDGE: LabItem[] = [
 	{
 		name: "Notion",
 		desc: "The source of truth. Research, worklogs and references land here, and agents read and write it over MCP.",
@@ -216,7 +229,7 @@ const KNOWLEDGE: SetupItem[] = [
 	},
 ];
 
-export default function SetupPage() {
+export default function LabPage() {
 	return (
 		<Section>
 			<Shell width="column">
@@ -224,35 +237,35 @@ export default function SetupPage() {
 				<Reveal immediate>
 					<header className="mb-10">
 						<h1 className="font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
-							AI engineering setup
+							The lab
 						</h1>
 						<p className="mt-3 font-ui text-[15px] leading-relaxed text-ink-mute">
 							The agents, MCP servers, and knowledge tools I use every day.
 						</p>
 						<div className="group relative mt-6 h-[190px] overflow-hidden rounded-[14px] border border-line bg-[#060606]">
-							<RippleField />
+							<OrbitField />
 						</div>
 					</header>
 				</Reveal>
 
 				<div className="mt-12">
-					<SetupGroup label="ADE" first>
+					<LabGroup label="ADE" first>
 						{AGENTS.map((row) => (
-							<SetupRow key={row.name} {...row} />
+							<LabRow key={row.name} {...row} />
 						))}
-					</SetupGroup>
+					</LabGroup>
 
-					<SetupGroup label="MCP">
+					<LabGroup label="MCP">
 						{MCPS.map((row) => (
-							<SetupRow key={row.name} {...row} />
+							<LabRow key={row.name} {...row} />
 						))}
-					</SetupGroup>
+					</LabGroup>
 
-					<SetupGroup label="Knowledge">
+					<LabGroup label="Knowledge">
 						{KNOWLEDGE.map((row) => (
-							<SetupRow key={row.name} {...row} />
+							<LabRow key={row.name} {...row} />
 						))}
-					</SetupGroup>
+					</LabGroup>
 				</div>
 			</Shell>
 		</Section>

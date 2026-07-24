@@ -3,7 +3,7 @@ import { absoluteUrl } from "@/lib/seo";
 import type { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-	const staticRoutes = ["", "/blog", "/projects", "/about", "/setup"].map(
+	const staticRoutes = ["", "/blog", "/projects", "/about", "/lab"].map(
 		(route) => ({
 			url: absoluteUrl(route || "/"),
 		}),

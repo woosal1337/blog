@@ -55,7 +55,7 @@ export function SetupTerrain({ className }: { className?: string }) {
 			aria-label="My setup, the tools, agents and MCP servers I use daily"
 			className={className}
 		>
-			<div className="group flex flex-col rounded-[16px] border border-line bg-[#0a0a0a] p-1 transition-colors duration-200 ease-house hover:border-line-strong">
+			<div className="group flex h-full flex-col rounded-[16px] border border-line bg-[#0a0a0a] p-1 transition-colors duration-200 ease-house hover:border-line-strong">
 				<div className="relative h-[150px] overflow-hidden rounded-[12px] bg-[#060606]">
 					<RippleField />
 				</div>

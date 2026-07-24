@@ -5,6 +5,9 @@ import remarkGfm from "remark-gfm";
 const nextConfig = {
 	pageExtensions: ["mdx", "ts", "tsx"],
 	reactStrictMode: false,
+	async redirects() {
+		return [{ source: "/setup", destination: "/lab", permanent: true }];
+	},
 	logging: {
 		fetches: {
 			fullUrl: true,
