@@ -26,6 +26,13 @@ export function Gallery({
 	startCentered = false,
 }: GalleryProps) {
 	const ref = React.useRef<HTMLDivElement>(null);
+	const drag = React.useRef({
+		id: -1,
+		startX: 0,
+		startScroll: 0,
+		active: false,
+		moved: false,
+	});
 	// Keep the row hidden (visibility only — layout still measures) until it's
 	// centred, so the default left position never paints and no jump shows. The
 	// reveal itself rides the page-enter fade, matching every other section.
@@ -39,14 +46,71 @@ export function Gallery({
 		setReady(true);
 	}, [startCentered]);
 
+	// Mouse/pen drag-to-scroll; touch already pans natively. A small threshold
+	// keeps plain clicks working, and a real drag suppresses the click behind it.
+	const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+		if (e.pointerType === "touch" || e.button !== 0) return;
+		const el = ref.current;
+		if (!el) return;
+		drag.current = {
+			id: e.pointerId,
+			startX: e.clientX,
+			startScroll: el.scrollLeft,
+			active: true,
+			moved: false,
+		};
+	};
+
+	const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+		const d = drag.current;
+		const el = ref.current;
+		if (!el || !d.active || e.pointerId !== d.id) return;
+		const dx = e.clientX - d.startX;
+		if (!d.moved) {
+			if (Math.abs(dx) < 5) return;
+			d.moved = true;
+			el.setPointerCapture(e.pointerId);
+			el.style.scrollSnapType = "none";
+			el.style.cursor = "grabbing";
+		}
+		el.scrollLeft = d.startScroll - dx;
+	};
+
+	const onPointerEnd = (e: React.PointerEvent<HTMLDivElement>) => {
+		const d = drag.current;
+		const el = ref.current;
+		if (!el || !d.active || e.pointerId !== d.id) return;
+		d.active = false;
+		if (d.moved) {
+			if (el.hasPointerCapture(e.pointerId)) {
+				el.releasePointerCapture(e.pointerId);
+			}
+			el.style.scrollSnapType = "";
+			el.style.cursor = "";
+		}
+	};
+
+	const onClickCapture = (e: React.MouseEvent<HTMLDivElement>) => {
+		if (!drag.current.moved) return;
+		drag.current.moved = false;
+		e.preventDefault();
+		e.stopPropagation();
+	};
+
 	return (
 		<div className={className}>
 			<div
 				ref={ref}
 				role="region"
 				aria-label={ariaLabel}
+				onPointerDown={onPointerDown}
+				onPointerMove={onPointerMove}
+				onPointerUp={onPointerEnd}
+				onPointerCancel={onPointerEnd}
+				onClickCapture={onClickCapture}
+				onDragStart={(e) => e.preventDefault()}
 				className={cn(
-					"no-scrollbar flex snap-x snap-proximity gap-6 overflow-x-auto",
+					"no-scrollbar flex cursor-grab select-none snap-x snap-proximity gap-6 overflow-x-auto",
 					!ready && "invisible",
 				)}
 				style={{

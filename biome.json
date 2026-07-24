@@ -7,6 +7,9 @@
 		"root": ".",
 		"useIgnoreFile": true
 	},
+	"files": {
+		"ignore": ["public/embed/**"]
+	},
 	"organizeImports": {
 		"enabled": true
 	},

@@ -10,6 +10,7 @@ import {
 	StampRing,
 	StampVisa,
 } from "@/components/blocks/stamps";
+import { StickerStamp } from "@/components/blocks/sticker-stamp";
 import { usePathname } from "next/navigation";
 
 const STAMP_COUNT = 8;
@@ -81,12 +82,10 @@ export function PostStamp({ entries }: { entries: Entry[] }) {
 	const rotate = (h % 15) - 7;
 
 	return (
-		<div
-			aria-hidden="true"
-			className="text-ink-soft opacity-80"
-			style={{ transform: `rotate(${rotate}deg)` }}
-		>
-			{variants[pick]}
-		</div>
+		<StickerStamp tilt={rotate}>
+			<div aria-hidden="true" className="text-ink-soft">
+				{variants[pick]}
+			</div>
+		</StickerStamp>
 	);
 }
