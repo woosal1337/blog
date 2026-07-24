@@ -1,0 +1,31 @@
+## Summary
+
+- Add retry-with-backoff logic to the HTTP client for failed requests.
+- Fix a connection leak in the connection pool.
+
+## Problem
+
+The HTTP client did not retry a failed request. A transient network error or a 5xx response caused an immediate failure, even when a retry could succeed.
+
+The connection pool also leaked connections. Under certain error and timeout paths, the client did not return the connection to the pool. Over time, this leak exhausted the pool and blocked new requests.
+
+## Changes
+
+- Add a retry policy to the HTTP client for idempotent requests.
+  - Use exponential backoff between attempts.
+  - Add jitter to each backoff interval. This spreads retries and prevents a retry storm.
+  - Apply a maximum retry count and a maximum total delay.
+  - Retry only on transient errors: connection failures, timeouts, and 5xx responses.
+  - Skip retries for non-idempotent requests and for 4xx responses.
+- Fix the connection leak in the pool.
+  - Return the connection to the pool on every exit path, including an error and a timeout.
+  - Close a connection that fails a health check, instead of returning it to the pool.
+
+## Test plan
+
+1. Run the existing HTTP client unit tests and confirm all tests pass.
+2. Add a unit test for the retry policy. Confirm the client retries on a 503 response and stops after the maximum retry count.
+3. Add a unit test that confirms the client does not retry a 4xx response.
+4. Add a unit test for the connection pool. Confirm the pool size stays stable after a series of requests that time out or fail.
+5. Run a load test against the pool and confirm no connection leak over a sustained request volume.
+6. Confirm backward compatibility. Verify that a caller with no retry configuration keeps the previous single-attempt behavior, unless the new default is documented as a behavior change.

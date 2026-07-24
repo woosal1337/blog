@@ -1,0 +1,3 @@
+fluxcache is an open-source TypeScript library for semantic caching in LLM applications. It stores prompts and responses with vector data, then finds close matches for new prompts. This helps an application reuse a good response and make fewer LLM calls.
+
+Use fluxcache when many users ask similar questions or run similar tasks. The library gives a small API for cache reads, cache writes, and match settings. You can add it to a server, a worker, or a tool that calls an LLM.
