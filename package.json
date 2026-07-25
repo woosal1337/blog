@@ -7,7 +7,6 @@
 	},
 	"scripts": {
 		"dev": "next dev",
-		"dev:tailnet": "sh scripts/dev-tailnet.sh",
 		"build": "next build",
 		"start": "next start",
 		"check": "biome check --write .",
