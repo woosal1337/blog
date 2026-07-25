@@ -28,18 +28,19 @@ function BackIcon() {
 	);
 }
 
-/** Circular back-to-home button, matching the post template's chrome. */
 export function BackButton({
 	href = "/",
+	label = "Back to home",
 	className,
 }: {
 	href?: string;
+	label?: string;
 	className?: string;
 }) {
 	return (
 		<Link
 			href={href}
-			aria-label="Back to home"
+			aria-label={label}
 			data-sound="back"
 			className={cn("inline-block rounded-[999px]", className)}
 		>

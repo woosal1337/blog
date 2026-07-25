@@ -1,8 +1,10 @@
 import createMDX from "@next/mdx";
 import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
+import { rehypePrettyCodeOptions } from "./lib/mdx-options.mjs";
 
 const nextConfig = {
+	distDir: process.env.NEXT_DIST_DIR || ".next",
 	pageExtensions: ["mdx", "ts", "tsx"],
 	reactStrictMode: false,
 	async redirects() {
@@ -18,29 +20,6 @@ const nextConfig = {
 	},
 	images: {
 		minimumCacheTTL: 60 * 60 * 24 * 30,
-	},
-};
-
-const rehypePrettyCodeOptions = {
-	theme: "github-dark-default",
-	keepBackground: false,
-	defaultLang: { block: "txt" },
-	onVisitLine(node) {
-		if (node.children.length === 0) {
-			node.children = [{ type: "text", value: " " }];
-		}
-	},
-	onVisitHighlightedLine(node) {
-		node.properties.className = [
-			...(node.properties.className ?? []),
-			"line-highlighted",
-		];
-	},
-	onVisitHighlightedChars(node) {
-		node.properties.className = [
-			...(node.properties.className ?? []),
-			"chars-highlighted",
-		];
 	},
 };
 

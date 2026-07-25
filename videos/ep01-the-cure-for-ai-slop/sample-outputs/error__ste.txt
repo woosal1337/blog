@@ -1,7 +1,0 @@
-**Error Message**
-
-`429 Too Many Requests — Rate limit exceeded. You sent more than 100 requests in 1 minute. Wait 60 seconds, then send the request again.`
-
-**Explanation**
-
-The API allows a maximum of 100 requests per minute for each account. Your application sent more requests than this limit allows. The server rejected the extra requests to protect the system for all users. Check the `Retry-After` header in the response for the exact wait time. Wait for this time, then send your request again. To prevent this error, add a delay between requests or reduce the request rate.

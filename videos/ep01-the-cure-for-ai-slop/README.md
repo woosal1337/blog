@@ -14,16 +14,15 @@ dependencies beyond Python 3.
 | `experiment-results-openai.md` | Per-category detail for the gpt-5.5 run |
 | `before-after-samples.md` | The real baseline-vs-STE outputs quoted in the episode |
 | `run-openai.py` | Reproduction script for the OpenAI side of the experiment |
-| `sample-outputs/` | Raw model outputs (README, PR, error message - baseline and STE, both models) |
 
 ## Run the linter
 
 ```
-python3 ste-lint.py sample-outputs/readme__baseline.txt
-python3 ste-lint.py sample-outputs/readme__ste.txt
+python3 ste-lint.py your-draft.md
 ```
 
-Score is violations per 100 words - lower is cleaner.
+Score is violations per 100 words - lower is cleaner. Lint a draft, apply the
+skill, then lint it again - the delta between the two scores is the signal.
 
 ## The headline numbers
 

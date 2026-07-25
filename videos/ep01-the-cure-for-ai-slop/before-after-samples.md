@@ -6,7 +6,7 @@ date: 2026-07-21
 ---
 # Real before/after samples (for on-screen use)
 
-Actual `claude-sonnet` outputs from the [experiment](experiment-results.md), same prompt, baseline system prompt vs the [ste-writing skill](ste-writing-skill.md). Raw files in `sample-outputs/`. Scores are heuristic anti-slop violations per 100 words (lower is cleaner).
+Actual `claude-sonnet` outputs from the [experiment](experiment-results.md), same prompt, baseline system prompt vs the [ste-writing skill](ste-writing-skill.md). Scores are heuristic anti-slop violations per 100 words (lower is cleaner).
 
 ## README intro — the hero example
 
@@ -27,4 +27,4 @@ On screen: the em dash, "sensible defaults", "slot into your existing stack with
 
 ## PR description — density without run-ons
 
-Baseline (347 words, 3.46/100w) stacks parentheticals into 30-40 word sentences ("surfaced immediately to callers with no retry, forcing every call site to implement its own ad-hoc retry logic"). STE (297 words, 1.35/100w) is one action per line, short sentences, same information. See `sample-outputs/pr__*.txt`.
+Baseline (347 words, 3.46/100w) stacks parentheticals into 30-40 word sentences ("surfaced immediately to callers with no retry, forcing every call site to implement its own ad-hoc retry logic"). STE (297 words, 1.35/100w) is one action per line, short sentences, same information.

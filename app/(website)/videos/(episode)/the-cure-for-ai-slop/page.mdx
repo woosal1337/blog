@@ -1,0 +1,115 @@
+import {
+	EpisodeHeader,
+	EpisodeKitList,
+	EpisodeSources,
+} from "@/components/blocks/episode-blocks";
+import { EpisodeChapters } from "@/components/blocks/episode-chapters";
+import { VideoObjectJsonLd } from "@/components/seo/json-ld";
+import { createEpisodeMetadata } from "@/lib/seo";
+
+export const meta = {
+	episode: 1,
+	title: "The cure for AI slop is a 1986 aircraft manual",
+	seoTitle:
+		"The Cure for AI Slop: I Tested a 1986 Aerospace Writing Standard (ASD-STE100)",
+	date: "2026-07-25",
+	youtubeId: "uJblcC4lKYw",
+	duration: "PT16M41S",
+	runtime: "16:41",
+	summary:
+		"Everyone is fighting AI slop one word at a time. No em dashes, stop saying delve, never open with “in today’s fast-paced world.” It does not work.",
+	seoDescription:
+		"A claim test of ASD-STE100 Simplified Technical English as a fix for AI slop: an agent skill, a heuristic linter, and 6 writing tasks × 4 conditions across Claude and gpt-5.5.",
+	socialDescription:
+		"You banned the em dash. You kept the slop. Testing a 1986 aerospace writing standard against AI slop, with the skill, linter, and data published.",
+	tags: ["ai", "writing", "claim test", "agent skills"],
+	thumbnail: "/videos/the-cure-for-ai-slop/thumbnail.jpg",
+	thumbnailAlt:
+		"Episode title card: the cure for AI slop is a 1986 aircraft manual",
+	chapters: [
+		{ time: "0:00", title: "The claim" },
+		{ time: "0:46", title: "How this started" },
+		{ time: "2:14", title: "What slop is" },
+		{ time: "3:56", title: "What STE is" },
+		{ time: "5:53", title: "Rule by rule" },
+		{ time: "7:12", title: "Before and after" },
+		{ time: "8:34", title: "The human evidence" },
+		{ time: "10:13", title: "The test" },
+		{ time: "13:44", title: "How I use it" },
+		{ time: "15:11", title: "The verdict" },
+	],
+	sources: [
+		{
+			title: "ASD-STE100 Simplified Technical English, Issue 9",
+			href: "https://asd-ste100.org",
+			detail:
+				"The specification itself — 53 writing rules and a ~900-word dictionary, 434 pages, free on request",
+		},
+		{
+			title: "Chervak, Drury & Ouellette (1996), Simplified English field study",
+			href: "https://www.faa.gov/data_research/research/med_humanfacs/oamtechreports",
+			detail:
+				"n=175 aircraft technicians; comprehension 76%→86% overall, 69%→87% for non-native readers",
+		},
+		{
+			title: "@geogristle — the origin post",
+			href: "https://x.com/geogristle",
+			detail:
+				"2.2M views. Asked for “non-AI-slop-sounding technical documentation” — and misspelled the standard",
+		},
+		{
+			title: "@Voxyz_ai — “you never gave it a writing system”",
+			href: "https://x.com/Voxyz_ai/status/2078857039116156978",
+			detail: "770K views. The Orwell's-six-rules counter-proposal",
+		},
+		{
+			title: "@mikehostetler — the pivot to ASD-STE100",
+			href: "https://x.com/mikehostetler/status/2079245119455150418",
+			detail: "114K views. The quote-tweet that named the standard",
+		},
+	],
+	kit: {
+		dir: "ep01-the-cure-for-ai-slop",
+		repoUrl:
+			"https://github.com/woosal1337/blog/tree/main/videos/ep01-the-cure-for-ai-slop",
+		blurbs: {
+			"README.md": "What is in the kit, and how to run the linter yourself",
+			"ste-writing-skill.md":
+				"The distilled ASD-STE100 agent skill — strict mode for procedures, flavored mode for prose",
+			"ste-lint.py":
+				"The heuristic anti-slop linter: the machine-checkable subset of STE",
+			"experiment-results.md":
+				"The cross-model test — 6 writing tasks × 4 conditions, on Claude and gpt-5.5",
+			"experiment-results-openai.md":
+				"Per-category detail for the gpt-5.5 run",
+			"before-after-samples.md":
+				"The real baseline-vs-STE outputs quoted in the episode",
+			"run-openai.py":
+				"Reproduction script for the OpenAI side of the experiment",
+		},
+	},
+};
+
+export const metadata = createEpisodeMetadata(meta, "the-cure-for-ai-slop");
+
+<EpisodeHeader meta={meta} />
+<VideoObjectJsonLd meta={meta} slug="the-cure-for-ai-slop" />
+
+Everyone is fighting AI slop one word at a time. No em dashes, stop saying *delve*, never open with "in today's fast-paced world." It does not work, and a thread with 2.2 million views claimed the real fix was already written: ASD-STE100, a controlled-English standard built in the 1980s so that a non-native aircraft mechanic could never misread a repair manual. Fifty-three rules, a dictionary of about nine hundred approved words, one meaning per word. Unlike "write clearly," every rule is machine-checkable.
+
+So I mined the spec, distilled it into an agent skill, wrote a linter for the mechanical subset, and ran the test nobody had run: six realistic engineering writing tasks, four conditions, two models, scored as violations per hundred words. The banned-words list everyone uses came last. Here is the whole result:
+
+| Condition | Claude sonnet | gpt-5.5 |
+|---|---|---|
+| baseline | 4.36 | 3.54 |
+| banned-words list | 4.21 (−3%) | 2.14 (−40%) |
+| Orwell's six rules | 2.48 (−43%) | 1.69 (−52%) |
+| **STE skill** | **1.12 (−74%)** | **1.76 (−50%)** |
+
+Give a model an actual writing system and slop drops by half or more, on both models tested. The honest caveat is in the episode and in the data below: the vivid "banning words does nothing" number is Claude-specific, n is six, and STE fixes the form of writing, not whether you had anything to say.
+
+<EpisodeChapters chapters={meta.chapters} youtubeId={meta.youtubeId} />
+
+<EpisodeKitList slug="the-cure-for-ai-slop" kit={meta.kit} />
+
+<EpisodeSources sources={meta.sources} />

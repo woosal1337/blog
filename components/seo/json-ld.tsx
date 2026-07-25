@@ -8,6 +8,11 @@ import {
 	WEBSITE_ID,
 	absoluteUrl,
 } from "@/lib/seo";
+import type {
+	VideoEpisodeFrontmatter,
+	VideoEpisodeMeta,
+} from "@/lib/video-utils";
+import { chapterSeconds, watchUrl } from "@/lib/video-utils";
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
 	return (
@@ -105,6 +110,119 @@ export function BlogIndexJsonLd({ posts }: { posts: BlogPostMeta[] }) {
 						name: post.title,
 					})),
 				},
+			}}
+		/>
+	);
+}
+
+export function VideoIndexJsonLd({
+	episodes,
+}: { episodes: VideoEpisodeMeta[] }) {
+	return (
+		<JsonLd
+			data={{
+				"@context": "https://schema.org",
+				"@type": "CollectionPage",
+				"@id": `${absoluteUrl("/videos")}#collection`,
+				url: absoluteUrl("/videos"),
+				name: "Videos on AI engineering and agents",
+				description:
+					"Claim tests and deep dives on AI engineering, agents, and context — each episode published with the skill, linter, or data behind it.",
+				inLanguage: "en",
+				isPartOf: { "@id": WEBSITE_ID },
+				author: { "@id": PERSON_ID },
+				mainEntity: {
+					"@type": "ItemList",
+					itemListElement: episodes.map((episode, index) => ({
+						"@type": "ListItem",
+						position: index + 1,
+						url: absoluteUrl(`/videos/${episode.slug}`),
+						name: episode.title,
+					})),
+				},
+			}}
+		/>
+	);
+}
+
+export function VideoObjectJsonLd({
+	meta,
+	slug,
+}: {
+	meta: VideoEpisodeFrontmatter;
+	slug: string;
+}) {
+	const url = absoluteUrl(`/videos/${slug}`);
+	const description = meta.seoDescription ?? meta.summary;
+	const thumbnail = absoluteUrl(meta.thumbnail);
+
+	const clips = (meta.chapters ?? []).map((chapter, index, all) => {
+		const startOffset = chapterSeconds(chapter.time);
+		const next = all[index + 1];
+		return {
+			"@type": "Clip",
+			name: chapter.title,
+			startOffset,
+			...(next ? { endOffset: chapterSeconds(next.time) } : {}),
+			url: startOffset ? `${url}?t=${startOffset}` : url,
+		};
+	});
+
+	return (
+		<JsonLd
+			data={{
+				"@context": "https://schema.org",
+				"@graph": [
+					{
+						"@type": "VideoObject",
+						"@id": `${url}#video`,
+						name: meta.title,
+						description,
+						thumbnailUrl: [thumbnail],
+						uploadDate: meta.date,
+						duration: meta.duration,
+						url,
+						inLanguage: "en",
+						isFamilyFriendly: true,
+						...(meta.youtubeId
+							? {
+									embedUrl: `https://www.youtube-nocookie.com/embed/${meta.youtubeId}`,
+									contentUrl: watchUrl(meta.youtubeId),
+								}
+							: {}),
+						...(clips.length ? { hasPart: clips } : {}),
+						keywords: meta.tags?.join(", "),
+						isPartOf: { "@id": `${absoluteUrl("/videos")}#collection` },
+						mainEntityOfPage: { "@type": "WebPage", "@id": url },
+						author: { "@id": PERSON_ID },
+						publisher: { "@id": PERSON_ID },
+					},
+					person,
+					{
+						"@type": "BreadcrumbList",
+						"@id": `${url}#breadcrumb`,
+						itemListElement: [
+							{
+								"@type": "ListItem",
+								position: 1,
+								name: "Home",
+								item: SITE_URL,
+							},
+							{
+								"@type": "ListItem",
+								position: 2,
+								name: "Videos",
+								item: absoluteUrl("/videos"),
+							},
+							{
+								"@type": "ListItem",
+								position: 3,
+								name: meta.title,
+								item: url,
+							},
+						],
+					},
+				],
 			}}
 		/>
 	);

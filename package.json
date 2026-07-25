@@ -7,6 +7,7 @@
 	},
 	"scripts": {
 		"dev": "next dev",
+		"dev:tailnet": "sh scripts/dev-tailnet.sh",
 		"build": "next build",
 		"start": "next start",
 		"check": "biome check --write .",
@@ -30,6 +31,7 @@
 		"geist": "^1.7.2",
 		"lucide-react": "^0.441.0",
 		"next": "14.2.11",
+		"next-mdx-remote": "^6.0.0",
 		"next-themes": "^0.3.0",
 		"react": "^18",
 		"react-dom": "^18",

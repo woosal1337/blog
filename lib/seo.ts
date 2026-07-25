@@ -1,4 +1,5 @@
 import type { BlogPostFrontmatter } from "@/lib/blog";
+import type { VideoEpisodeFrontmatter } from "@/lib/video-utils";
 import type { Metadata } from "next";
 
 export const SITE_URL = "https://www.chele.bi";
@@ -59,6 +60,63 @@ export function createPageMetadata({
 					alt: "Ege Chelebi — AI engineer, developer, and researcher",
 				},
 			],
+		},
+		twitter: {
+			card: "summary_large_image",
+			title,
+			description: socialDescription,
+			site: SITE_HANDLE,
+			creator: SITE_HANDLE,
+			images: [image],
+		},
+	};
+}
+
+export function createEpisodeMetadata(
+	meta: VideoEpisodeFrontmatter,
+	slug: string,
+): Metadata {
+	const title = meta.seoTitle ?? meta.title;
+	const description = meta.seoDescription ?? meta.summary;
+	const socialDescription = meta.socialDescription ?? description;
+	const canonical = absoluteUrl(`/videos/${slug}`);
+	const image = absoluteUrl(meta.thumbnail);
+
+	return {
+		title: { absolute: title },
+		description,
+		keywords: meta.tags,
+		authors: [{ name: SITE_NAME, url: absoluteUrl("/about") }],
+		creator: SITE_NAME,
+		publisher: SITE_NAME,
+		category: meta.tags?.[0],
+		alternates: { canonical },
+		robots: meta.hidden ? { index: false, follow: false } : undefined,
+		openGraph: {
+			title,
+			description: socialDescription,
+			url: canonical,
+			type: "video.other",
+			images: [
+				{
+					url: image,
+					width: 1280,
+					height: 720,
+					alt: meta.thumbnailAlt ?? meta.title,
+				},
+			],
+			...(meta.youtubeId
+				? {
+						videos: [
+							{
+								url: `https://www.youtube-nocookie.com/embed/${meta.youtubeId}`,
+								type: "text/html",
+								width: 1280,
+								height: 720,
+							},
+						],
+					}
+				: {}),
 		},
 		twitter: {
 			card: "summary_large_image",

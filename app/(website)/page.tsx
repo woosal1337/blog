@@ -1,6 +1,7 @@
 import { BooksShelf } from "@/components/blocks/books-shelf";
 import { LabOrbit } from "@/components/blocks/lab-orbit";
 import { SocialIcons } from "@/components/blocks/social-icons";
+import { EpisodeCard } from "@/components/ds/episode-card";
 import { FeatureCard } from "@/components/ds/feature-card";
 import { IconLink } from "@/components/ds/icon-link";
 import { PeekFade } from "@/components/ds/peek-fade";
@@ -15,6 +16,7 @@ import { formatTag, getAllPosts } from "@/lib/blog";
 import { getGithubFeed } from "@/lib/github";
 import { SITE_DESCRIPTION, createPageMetadata } from "@/lib/seo";
 import { allProjects } from "@/lib/utils";
+import { getAllEpisodes } from "@/lib/videos";
 
 export const metadata = createPageMetadata({
 	title: "Ege Chelebi — AI Engineer, Developer, and Researcher",
@@ -39,6 +41,7 @@ export default async function HomePage() {
 	const posts = await getAllPosts();
 	const writing = posts.slice(0, 2);
 	const featured = allProjects.slice(0, 2);
+	const [latest] = await getAllEpisodes();
 	const feeds = {
 		x: X_FEED,
 		instagram: INSTAGRAM_FEED,
@@ -149,6 +152,28 @@ export default async function HomePage() {
 						</div>
 					</section>
 				</div>
+
+				{latest && (
+					<section className="mt-14 flex flex-col">
+						<SectionLabel>Watch</SectionLabel>
+						<div className="mt-5">
+							<EpisodeCard
+								wide
+								isNew
+								href={`/videos/${latest.slug}`}
+								title={latest.title}
+								summary={latest.summary}
+								date={cardDate(latest.date)}
+								thumbnail={latest.thumbnail}
+								thumbnailAlt={latest.thumbnailAlt}
+								runtime={latest.runtime}
+							/>
+						</div>
+						<div className="mt-6 flex justify-center">
+							<ViewAllButton href="/videos" label="All episodes" />
+						</div>
+					</section>
+				)}
 
 				<LabOrbit className="mt-10 block" />
 			</div>
