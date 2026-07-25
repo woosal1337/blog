@@ -1,4 +1,5 @@
 import { EntryRow } from "@/components/ds/entry-row";
+import { PostGlyph } from "@/components/ds/post-glyph";
 import { SectionLabel } from "@/components/ds/section-label";
 import { getAllPosts } from "@/lib/blog";
 
@@ -42,6 +43,8 @@ export async function RelatedPosts({ currentSlug }: { currentSlug: string }) {
 						href={`/blog/${post.slug}`}
 						title={post.title}
 						meta={post.seoDescription ?? post.summary}
+						bareIcon
+						icon={<PostGlyph slug={post.slug} />}
 					/>
 				))}
 			</div>

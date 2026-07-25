@@ -1,3 +1,4 @@
+import { postIconSrc } from "@/lib/blog-utils";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import type * as React from "react";
@@ -10,8 +11,6 @@ const BLOG_ICON_OVERRIDES: Record<string, string> = {
 	vaulted: "/vaulted-logo.png",
 };
 
-const BLOG_ICON_VERSION = "2";
-
 function blogIconSrc(href: string): string | null {
 	try {
 		const url = new URL(href, "https://www.chele.bi");
@@ -21,10 +20,7 @@ function blogIconSrc(href: string): string | null {
 		const match = /^\/blog\/([^/]+)\/?$/.exec(url.pathname);
 		if (!match) return null;
 		const slug = decodeURIComponent(match[1]);
-		return (
-			BLOG_ICON_OVERRIDES[slug] ??
-			`/blog-icon/${encodeURIComponent(slug)}?v=${BLOG_ICON_VERSION}`
-		);
+		return BLOG_ICON_OVERRIDES[slug] ?? postIconSrc(slug);
 	} catch {
 		return null;
 	}

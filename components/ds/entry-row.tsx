@@ -33,12 +33,27 @@ type EntryRowProps = {
 	href: string;
 	external?: boolean;
 	icon?: React.ReactNode;
+	/** Let the icon stand on its own, without the bordered tile. */
+	bareIcon?: boolean;
 };
 
-export function EntryRow({ title, meta, href, external, icon }: EntryRowProps) {
+export function EntryRow({
+	title,
+	meta,
+	href,
+	external,
+	icon,
+	bareIcon,
+}: EntryRowProps) {
 	const inner = (
 		<>
-			<span className="grid size-9 shrink-0 place-items-center rounded-[8px] border border-line bg-white/[0.015] text-ink-mute transition-colors duration-200 ease-house group-hover:border-line-strong group-hover:text-ink-soft">
+			<span
+				className={
+					bareIcon
+						? "grid size-9 shrink-0 place-items-center text-ink-mute"
+						: "grid size-9 shrink-0 place-items-center rounded-[8px] border border-line bg-white/[0.015] text-ink-mute transition-colors duration-200 ease-house group-hover:border-line-strong group-hover:text-ink-soft"
+				}
+			>
 				{icon ?? <DocGlyph />}
 			</span>
 			<span className="min-w-0 leading-tight">

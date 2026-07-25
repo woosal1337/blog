@@ -7,6 +7,12 @@ export function slugify(text: string): string {
 		.replace(/-+/g, "-");
 }
 
+const BLOG_ICON_VERSION = "2";
+
+export function postIconSrc(slug: string): string {
+	return `/blog-icon/${encodeURIComponent(slug)}?v=${BLOG_ICON_VERSION}`;
+}
+
 export function formatPostDate(date: string): string {
 	return new Date(date).toLocaleDateString("en-US", {
 		year: "numeric",
