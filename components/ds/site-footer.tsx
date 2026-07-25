@@ -3,11 +3,7 @@ import { Shell } from "@/components/ds/shell";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-const PAGES = [
-	{ href: "/", label: "Home" },
-	...NAV_ITEMS,
-	{ href: "/blog/rss.xml", label: "RSS" },
-] as const;
+const PAGES = [{ href: "/", label: "Home" }, ...NAV_ITEMS] as const;
 
 const ELSEWHERE = [
 	{ href: "https://x.com/woosal1337", label: "X", external: true },
@@ -23,6 +19,7 @@ const ELSEWHERE = [
 		external: true,
 	},
 	{ href: "mailto:ege@chele.bi", label: "Email", external: true },
+	{ href: "/blog/rss.xml", label: "RSS", external: false },
 ] as const;
 
 export type BreadcrumbItem = {
@@ -74,7 +71,7 @@ function FooterColumn({
 	children: React.ReactNode;
 }) {
 	return (
-		<div className={align === "right" ? "text-right" : undefined}>
+		<div className={cn("self-start", align === "right" && "text-right")}>
 			<ul className="space-y-2 font-ui text-[13.5px]">{children}</ul>
 		</div>
 	);
