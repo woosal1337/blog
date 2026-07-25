@@ -20,16 +20,16 @@ export const X_FEED: SocialFeed = {
 	href: "https://x.com/woosal1337",
 	items: [
 		{
-			text: 'generation became free, the price of understanding inflated. the spread is "ingestion debt".',
-			date: "Jul 12",
+			text: "i just started a youtube channel. this is the first video.",
+			date: "Jul 24",
 		},
 		{
-			text: "exulansis.",
-			date: "Jul 11",
+			text: "on its way to becoming the best ADE so far, and almost no one is aware of it at all too @getsome_air",
+			date: "Jul 22",
 		},
 		{
-			text: "told my memory.md about you…",
-			date: "Jul 2",
+			text: "infinite canvases ftw",
+			date: "Jul 17",
 		},
 	],
 };
@@ -55,16 +55,19 @@ export const GITHUB_FALLBACK: SocialFeed = {
 	href: "https://github.com/woosal1337",
 	items: [
 		{
-			text: "vaulted · Local-first .env and secrets manager, MCP-native",
-			date: "Jul 4",
-		},
-		{
 			text: "blog · My blog website",
-			date: "Jul 3",
+			date: "Jul 25",
+			meta: "★ 1",
 		},
 		{
 			text: "folio · Local-first meeting notes for macOS",
-			date: "Jul 1",
+			date: "Jul 23",
+			meta: "★ 5",
+		},
+		{
+			text: "vaulted · Local-first .env and secrets manager, MCP-native",
+			date: "Jul 23",
+			meta: "★ 2",
 		},
 	],
 };
