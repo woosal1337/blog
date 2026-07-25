@@ -1,3 +1,4 @@
+import { AsciiTunnel } from "@/components/blocks/ascii/ascii-tunnel";
 import { BackButton } from "@/components/ds/back-button";
 import { EpisodeCard } from "@/components/ds/episode-card";
 import { Reveal } from "@/components/ds/reveal";
@@ -39,12 +40,15 @@ export default async function VideosPage() {
 								Videos
 							</h1>
 							<p className="mt-3 max-w-[620px] font-ui text-[15px] leading-relaxed text-ink-mute">
-								Claim tests and deep dives on AI engineering, agents, and
-								context. Every episode ships with the thing it was built on —
-								the skill, the linter, the raw data — so you can check the work
-								instead of taking my word for it.
+								Claim tests and deep dives on AI engineering and agents. Every
+								episode ships with what it was built on, so you can check the
+								work.
 							</p>
 						</header>
+					</Reveal>
+
+					<Reveal immediate className="mb-6">
+						<AsciiTunnel className="h-[180px]" />
 					</Reveal>
 
 					{episodes.length === 0 ? (

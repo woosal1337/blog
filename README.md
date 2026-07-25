@@ -42,6 +42,10 @@ Requires Node >= 20 and Bun. No environment variables required.
 - `bun run build` — production build
 - `bun run check` — Biome lint and format with auto-fix
 
+## Credits
+
+The live ASCII surfaces in `components/blocks/ascii/` — donut, flow, plasma, tunnel — are ported from [cobanov/soft-club-ui](https://github.com/cobanov/soft-club-ui) (MIT) and retuned monochrome against this site's tokens. The table-of-contents marker geometry follows [ncdai's LineNav](https://chanhdai.com/components/line-nav).
+
 ## License
 
 Code is MIT. Blog content and images are all rights reserved. See [LICENSE](LICENSE).
