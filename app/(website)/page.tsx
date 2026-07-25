@@ -67,10 +67,9 @@ export default async function HomePage() {
 						>
 							Refik Anadol Studio
 						</IconLink>
-						, working where code meets large-scale generative art. I build tools
-						that feel fast, considered and{" "}
-						<span className={em}>quietly alive</span>, and I contribute to open
-						source on the side.
+						, working where code meets large scale{" "}
+						<span className={em}>generative</span> art while contributing to{" "}
+						<span className={em}>open source</span> on the side.
 					</p>
 				</div>
 
