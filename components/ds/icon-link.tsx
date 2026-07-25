@@ -165,17 +165,10 @@ type IconLinkProps = {
 	href: string;
 	children: React.ReactNode;
 	className?: string;
-	/** Source the leading favicon/icon from a different URL than the link
-	 * target (e.g. a brand's main domain). Defaults to `href`. */
 	iconHref?: string;
-	/** Use an explicit image as the leading icon (overrides favicon lookup),
-	 * e.g. a local brand mark in /public. */
 	iconSrc?: string;
 };
 
-/** Inline link with a leading site favicon / brand mark, in the editorial
- * underline style. The icon is detected from `iconHref` (or `href`), unless an
- * explicit `iconSrc` is given. */
 export function IconLink({
 	href,
 	children,

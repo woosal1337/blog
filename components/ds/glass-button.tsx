@@ -6,13 +6,6 @@ import { Vaso } from "vaso";
 const GLASS_BTN =
 	"rounded-[999px] border border-line text-ink-soft transition-colors duration-200 ease-house hover:border-line-strong hover:text-ink";
 
-/**
- * The shared circular chrome-button surface, rendered as vaso "liquid glass":
- * a per-instance SVG-displacement backdrop with a hairline ring. Wrap it in the
- * interactive element (Link / button / Dialog.Close) and pass the icon as
- * children. The glass refraction only reads over content (e.g. the dialog close
- * over a book cover); on the flat page it degrades to a subtle frosted ring.
- */
 export function GlassButtonSurface({
 	size = 40,
 	className,

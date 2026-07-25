@@ -13,8 +13,6 @@ type AsciiDonutProps = React.HTMLAttributes<HTMLDivElement> & {
 	spin?: number;
 };
 
-/** Spinning 3D ASCII torus shaded by surface normals; the light tracks the
- * cursor. Ported from soft-club-ui, retuned monochrome. */
 export function AsciiDonut({
 	label,
 	cell = 9,

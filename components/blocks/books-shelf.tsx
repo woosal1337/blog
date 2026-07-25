@@ -16,8 +16,6 @@ const categoryLabel = new Map(
 	bookCategories.map((category) => [category.key, category.label]),
 );
 
-/** The bookshelf slider, lifted verbatim from the old /books page: a full-bleed
- * scroll-snap gallery of covers, each opening a detail sheet. */
 export function BooksShelf({ className }: { className?: string }) {
 	const [selected, setSelected] = useState<Book | null>(null);
 

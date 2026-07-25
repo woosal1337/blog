@@ -2,7 +2,6 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import type * as React from "react";
 
-/** Small lined-document glyph used as the leading icon on list rows. */
 function DocGlyph() {
 	return (
 		<svg
@@ -36,8 +35,6 @@ type EntryRowProps = {
 	icon?: React.ReactNode;
 };
 
-/** A list row: leading icon tile + title that nudges right on hover + a muted
- * meta line. Used for the Writing feed and similar lists. */
 export function EntryRow({ title, meta, href, external, icon }: EntryRowProps) {
 	const inner = (
 		<>

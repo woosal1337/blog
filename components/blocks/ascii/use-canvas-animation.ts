@@ -4,11 +4,6 @@ import * as React from "react";
 
 export type Rgb = [number, number, number];
 
-/**
- * Reads a space/comma-separated RGB-triplet CSS variable (the blog's token
- * format, e.g. `--ink: 245 245 245`) off an element and returns `[r, g, b]`.
- * Canvas surfaces can't consume CSS variables directly, so we sample them here.
- */
 export function themeRgb(
 	host: HTMLElement | null,
 	token: string,
@@ -41,12 +36,6 @@ export interface UseCanvasAnimationOptions {
 	reactive?: boolean;
 }
 
-/**
- * Shared canvas driver for the live ASCII surfaces. Handles devicePixelRatio
- * scaling, resize observation, an optional pointer, a throttled rAF loop, and
- * reduced-motion (renders a single static frame instead of animating).
- * Ported from cobanov/soft-club-ui, retuned for this site's tokens.
- */
 export function useCanvasAnimation(
 	canvasRef: React.RefObject<HTMLCanvasElement | null>,
 	hostRef: React.RefObject<HTMLElement | null>,

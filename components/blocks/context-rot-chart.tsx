@@ -2,12 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-/**
- * ATLAS: All-round Testing of Long-context Abilities across Scales
- * (arXiv 2605.28079, May 2026). ATLAScore composite per model, scored over
- * 8K–128K contexts and re-scored with the scope stretched to 1M tokens.
- * Sorted by the 128K-scope score.
- */
 const MODELS = [
 	{ name: "Gemini 3.1 Pro", at128k: 77.83, at1m: 68.52 },
 	{ name: "Claude Opus 4.6", at128k: 77.1, at1m: 70.55 },
@@ -27,12 +21,6 @@ const X_MIN = 55;
 const X_MAX = 80;
 const TICKS = [55, 60, 65, 70, 75, 80];
 
-/**
- * Compact mode drops the left name column (names move above each row) and
- * narrows the viewBox so labels render at full size instead of scaled. The
- * 480-unit plot slightly overflows phones behind a horizontal scroll, buying
- * breathing room between the columns.
- */
 function useCompact() {
 	const [compact, setCompact] = useState(false);
 	useEffect(() => {

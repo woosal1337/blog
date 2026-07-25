@@ -2,26 +2,13 @@ import { cn } from "@/lib/utils";
 import type * as React from "react";
 
 type QuoteProps = {
-	/** The quote text. Can also be passed as children. */
 	quote?: React.ReactNode;
 	children?: React.ReactNode;
-	/** Attribution name, e.g. "Fyodor Dostoevsky". */
 	author?: React.ReactNode;
-	/** Optional work/source, rendered in italics, e.g. "White Nights". */
 	source?: React.ReactNode;
 	className?: string;
 };
 
-/**
- * Editorial pull-quote for blog posts: serif body wrapped in decorative
- * quotation marks, an em-dash attribution, all inside a soft rounded border.
- *
- * Usage in MDX:
- *   <Quote author="Fyodor Dostoevsky" source="White Nights">
- *     Do you realize how rare it is to find someone who sees the world the
- *     same way you do, even if only for a single night?
- *   </Quote>
- */
 export function Quote({
 	quote,
 	children,

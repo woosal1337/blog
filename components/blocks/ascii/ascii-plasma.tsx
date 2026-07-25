@@ -25,8 +25,6 @@ type AsciiPlasmaProps = React.HTMLAttributes<HTMLDivElement> & {
 	speed?: number;
 };
 
-/** Classic plasma interference rendered as a glyph density field; bulges toward
- * the cursor. Ported from soft-club-ui, retuned to a grey ramp. */
 export function AsciiPlasma({
 	label,
 	cell = 11,

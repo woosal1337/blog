@@ -15,8 +15,6 @@ export function formatPostDate(date: string): string {
 	});
 }
 
-/** Acronyms and brand names that need exact casing; everything else just gets
- * its first letter capitalized. */
 const TAG_LABELS: Record<string, string> = {
 	ai: "AI",
 	mcp: "MCP",
@@ -32,9 +30,6 @@ const TAG_LABELS: Record<string, string> = {
 	"local-first": "Local-first",
 };
 
-/** Display label for a tag: `ai` → `AI`, `tech` → `Tech`, `macos` → `macOS`,
- * `media arts` → `Media Arts`. Known acronyms/brands keep exact casing;
- * everything else is title-cased word by word. */
 export function formatTag(tag: string | undefined): string | undefined {
 	if (!tag) return tag;
 	return (

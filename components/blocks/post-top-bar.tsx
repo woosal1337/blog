@@ -49,8 +49,6 @@ function CheckIcon() {
 	);
 }
 
-/** Post chrome row: a back-to-home button and a copy-link button, matching the
- * editorial reading layout. */
 export function PostTopBar() {
 	const [copied, setCopied] = useState(false);
 

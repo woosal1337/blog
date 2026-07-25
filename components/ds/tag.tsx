@@ -1,10 +1,6 @@
 import { cn } from "@/lib/utils";
 import type * as React from "react";
 
-/** Frosted "liquid glass" pill: a translucent fill, a light backdrop-blur, a
- * glassy rim and an inset specular highlight. Used for meta tags. (The vaso
- * refractive glass on the chrome buttons can't work here — it bends the backdrop
- * and would blur the small tag text over the flat page; this stays crisp.) */
 export function Tag({
 	children,
 	className,

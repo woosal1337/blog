@@ -14,11 +14,9 @@ type GalleryProps = {
 	children: React.ReactNode;
 	ariaLabel: string;
 	className?: string;
-	/** Open scrolled to the middle of the list (infinite-shelf feel). */
 	startCentered?: boolean;
 };
 
-/** Full-bleed scroll-snap slider with faded edges. Scroll/drag only — no paddles. */
 export function Gallery({
 	children,
 	ariaLabel,

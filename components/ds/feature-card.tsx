@@ -15,8 +15,6 @@ type FeatureCardProps = {
 	className?: string;
 };
 
-/** Rounded project/feature card: a centered icon stage above a title + one-line
- * description. Border brightens on hover. */
 export function FeatureCard({
 	title,
 	description,

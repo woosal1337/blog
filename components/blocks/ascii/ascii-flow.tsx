@@ -35,8 +35,6 @@ type AsciiFlowProps = React.HTMLAttributes<HTMLDivElement> & {
 	threshold?: number;
 };
 
-/** A dense glyph flow field with drifting negative-space voids that deform
- * around the cursor. Ported from soft-club-ui, retuned monochrome. */
 export function AsciiFlow({
 	label,
 	cell = 10,
