@@ -171,10 +171,10 @@ export const allProjects: Array<{
 		date: "2026-07-02",
 	},
 	{
-		name: "CompanyOS",
+		name: "Elliptic",
 		desc: "Jira for your agents. An agent-native platform where humans and agents run projects, tasks and meetings together.",
-		href: "/blog/companyos",
-		logo: "/companyos-logo.png",
+		href: "/blog/elliptic",
+		logo: "/elliptic-logo.png",
 		external: false,
 		date: "2026-06-28",
 	},

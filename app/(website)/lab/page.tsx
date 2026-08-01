@@ -192,10 +192,10 @@ const MCPS: LabItem[] = [
 		image: "/vaulted-logo.png",
 	},
 	{
-		name: "CompanyOS",
+		name: "Elliptic",
 		desc: "Agent-native project management. Agents run projects, tasks and meetings over MCP on your own keys.",
-		href: "https://github.com/woosal1337/companyos",
-		image: "/companyos-logo.png",
+		href: "https://github.com/woosal1337/elliptic",
+		image: "/elliptic-logo.png",
 	},
 	{
 		name: "Folio",

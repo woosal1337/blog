@@ -8,7 +8,15 @@ const nextConfig = {
 	pageExtensions: ["mdx", "ts", "tsx"],
 	reactStrictMode: false,
 	async redirects() {
-		return [{ source: "/setup", destination: "/lab", permanent: true }];
+		return [
+			{ source: "/setup", destination: "/lab", permanent: true },
+			// The project was renamed CompanyOS -> Elliptic; keep the published URL alive.
+			{
+				source: "/blog/companyos",
+				destination: "/blog/elliptic",
+				permanent: true,
+			},
+		];
 	},
 	logging: {
 		fetches: {
