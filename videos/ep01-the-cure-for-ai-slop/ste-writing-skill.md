@@ -24,13 +24,15 @@ VERBS
 
 SENTENCES
 - One instruction per sentence. Max 20 words (instruction), max 25 (descriptive).
-- No contractions. Use articles: a, an, the, this, these.
+- No contractions.
+- When applicable, use an article (a, an, the) or a demonstrative adjective (this, these) before a noun. That is the standard's Rule 4.5, qualifier included. Do not add articles to general statements or abstract concepts ("Solvents can cause damage to paint"). In a series of items, the article before the first noun is enough.
 
 PUNCTUATION
 - No semicolons. Write two sentences. (Note: the em dash is not banned by STE, only the semicolon is — add "no em dash" yourself if you want it gone.)
 
 STRUCTURE
 - One topic per paragraph, max six sentences. For steps, use a numbered vertical list, one action per item, imperative form. Put a condition before its command.
+- A list item can be a label, not a sentence (a flow list, a changelog line, a feature bullet). Keep a label in its short form ("Frontend receives session JWT"). Do not expand a label into a sentence only to give it an article.
 
 Write only the requested text. No preamble, no summary, no closing remarks.
 
@@ -41,12 +43,13 @@ Write only the requested text. No preamble, no summary, no closing remarks.
 
 ## Self-lint (run before returning text)
 
-1. Any sentence over 20 words? Split it.
+1. Any instruction over 20 words, or any other sentence over 25? Split it.
 2. Any semicolon? Replace with a period.
 3. Any contraction? Expand it.
 4. Any passive voice with a known actor? Make it active.
 5. Any "-ing" main verb, nominalization ("perform an analysis"), or phrasal verb ("spin up")? Replace with a plain verb.
 6. Same thing named two ways? Pick one name.
+7. Any label expanded into a sentence only to add an article? Make it a label again.
 
 The mechanical rules above are lintable and are what removes slop. Full STE also needs human judgment (the right technical noun, whether a sentence "makes good sense") — a checker cannot certify that, and slop is not about that. This skill fixes the FORM of slop. It cannot make a hollow paragraph true.
 
