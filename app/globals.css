@@ -56,6 +56,10 @@
 		--scrim: 16 16 16;
 		--radius: 0px;
 
+		/* The one house easing curve, mirrored from tailwind.config.ts so raw
+		   CSS can reach it instead of re-typing the literal. */
+		--ease-house: cubic-bezier(0.16, 1, 0.3, 1);
+
 		/* code blocks: bright neutral text (white), dim meta (no warm tint) */
 		--term-bg: 16 16 16;
 		--term-line: 38 38 38;
@@ -281,5 +285,131 @@
 	}
 	.dim-row {
 		transition: opacity 240ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+}
+
+/*
+ * Liquid glass press treatment.
+ *
+ * Registering the angle lets the conic rim interpolate instead of snapping —
+ * an unregistered custom property is a plain string to the animation engine.
+ */
+@property --lq-angle {
+	syntax: "<angle>";
+	inherits: false;
+	initial-value: 0deg;
+}
+
+@layer components {
+	/*
+	 * .liquid-press  — put it on the interactive element itself.
+	 * .liquid-press-sync — put it on a visual child when the real click target
+	 *                      is an ancestor carrying Tailwind's `group`.
+	 *
+	 * Geometry is untouched: no size, padding, radius or layout is set here.
+	 * Only motion and two pointer-transparent pseudo layers.
+	 *
+	 * The squeeze uses the independent `rotate`/`scale` properties rather than
+	 * `transform`. Several of these controls already carry Tailwind transform
+	 * utilities (-translate-y-1/2 on the carousel arrows, translate-x-[1px] on
+	 * the play button) and utilities sit in a later cascade layer than
+	 * components — a `transform` here would lose to them and silently do
+	 * nothing. rotate/scale are separate properties, so they compose instead.
+	 */
+	.liquid-press,
+	.liquid-press-sync {
+		position: relative;
+		isolation: isolate;
+		rotate: x 0deg;
+		scale: 1;
+		transition:
+			rotate 320ms var(--ease-house),
+			scale 320ms var(--ease-house);
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	/* Rim: a 1px conic ring that sweeps around the border on hover.
+	   mask-composite cuts the centre out so only the outline paints. */
+	.liquid-press::before,
+	.liquid-press-sync::before {
+		content: "";
+		position: absolute;
+		inset: -1px;
+		z-index: 2;
+		padding: 1px;
+		border-radius: inherit;
+		pointer-events: none;
+		background: conic-gradient(
+			from var(--lq-angle),
+			rgb(255 255 255 / 0) 0deg,
+			rgb(255 255 255 / 0.55) 55deg,
+			rgb(255 255 255 / 0) 130deg,
+			rgb(255 255 255 / 0) 215deg,
+			rgb(255 255 255 / 0.32) 285deg,
+			rgb(255 255 255 / 0) 355deg
+		);
+		-webkit-mask: linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		-webkit-mask-composite: xor;
+		mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+		mask-composite: exclude;
+		opacity: 0;
+		transition: opacity 260ms var(--ease-house), --lq-angle 900ms
+			var(--ease-house);
+	}
+
+	/* Flow: a soft ring of light that gathers from the edge inward on hover
+	   and relaxes back outward when the pointer leaves. */
+	.liquid-press::after,
+	.liquid-press-sync::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		border-radius: inherit;
+		pointer-events: none;
+		background: radial-gradient(
+			120% 120% at 50% 50%,
+			rgb(255 255 255 / 0) 34%,
+			rgb(255 255 255 / 0.1) 70%,
+			rgb(255 255 255 / 0) 100%
+		);
+		opacity: 0;
+		transform: scale(1.28);
+		transition: opacity 380ms var(--ease-house), transform 380ms
+			var(--ease-house);
+	}
+
+	.liquid-press:hover::before,
+	.liquid-press:focus-visible::before,
+	.group:hover .liquid-press-sync::before,
+	.group:focus-visible .liquid-press-sync::before {
+		opacity: 1;
+		--lq-angle: 300deg;
+	}
+
+	.liquid-press:hover::after,
+	.liquid-press:focus-visible::after,
+	.group:hover .liquid-press-sync::after,
+	.group:focus-visible .liquid-press-sync::after {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	/* The squeeze. rotateX with no perspective anywhere in the tree is an
+	   orthographic squash — height drops to cos(19°), width only to the scale.
+	   Do not add perspective; it turns this into a 3D flip. */
+	.liquid-press:active,
+	.group:active .liquid-press-sync {
+		rotate: x 19deg;
+		scale: 0.965;
+		transition-duration: 120ms;
+	}
+
+	/* Vaso paints its refraction into an absolutely-positioned child, so the
+	   rim needs to sit above it rather than behind. */
+	.liquid-press > [data-vaso],
+	.liquid-press-sync > [data-vaso] {
+		z-index: 0;
 	}
 }

@@ -130,7 +130,10 @@ export function YouTubeFacade({
 		>
 			{poster}
 			<span className="absolute inset-0 grid place-items-center bg-black/10 transition-colors duration-200 ease-house group-hover:bg-black/25">
-				<GlassButtonSurface size={64} className="translate-x-[1px]">
+				<GlassButtonSurface
+					size={64}
+					className="liquid-press-sync translate-x-[1px]"
+				>
 					<PlayGlyph />
 				</GlassButtonSurface>
 			</span>
