@@ -1,10 +1,21 @@
 #!/usr/bin/env python3
-"""Run the STE 4-condition experiment against the OpenAI Chat Completions API.
-Key is injected via `vaulted run --with-global OPENAI_API_KEY`. The key is used
-only in the Authorization header and is never printed.
+"""The script we ran for the OpenAI side of the STE 4-condition experiment.
+Set OPENAI_API_KEY in the environment. The key is used only in the
+Authorization header and is never printed.
+
+Not runnable from the kit alone: it needs `prompts.json` (the 6 task prompts)
+and the four condition system prompts (`sys_baseline.md`, `sys_banwords.md`,
+`sys_orwell.md`, `skill_ste.md`) next to this script. Those files were not
+published; the shapes are documented in experiment-results.md.
 """
 import urllib.request, urllib.error, json, os, time, sys, collections
-import ste_lint
+import importlib.util
+
+_ste_spec = importlib.util.spec_from_file_location(
+    "ste_lint",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "ste-lint.py"))
+ste_lint = importlib.util.module_from_spec(_ste_spec)
+_ste_spec.loader.exec_module(ste_lint)
 
 HERE = os.path.dirname(os.path.abspath(__file__)); os.chdir(HERE)
 MODEL = sys.argv[1] if len(sys.argv) > 1 else "gpt-5.5"

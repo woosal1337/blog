@@ -42,7 +42,7 @@ export function ViewAllButton({
 			href={href}
 			aria-label={label}
 			data-sound="forward"
-			className={cn("inline-block rounded-[999px]", className)}
+			className={cn("liquid-press inline-block rounded-[999px]", className)}
 		>
 			<GlassButtonSurface size={40}>
 				<ForwardArrowIcon />

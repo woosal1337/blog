@@ -36,7 +36,7 @@ export function ThemeSwitcher({ className }: { className?: string }) {
 						data-sound="toggle"
 						onClick={() => setTheme(option.value)}
 						className={cn(
-							"rounded-pill px-3 py-1 text-caption transition-colors duration-200 ease-house",
+							"liquid-press rounded-pill px-3 py-1 text-caption transition-colors duration-200 ease-house",
 							selected
 								? "bg-action text-white"
 								: "text-muted-foreground hover:text-foreground",

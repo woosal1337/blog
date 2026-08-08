@@ -67,7 +67,8 @@ export function PostTopBar() {
 				type="button"
 				onClick={copy}
 				aria-label={copied ? "Link copied" : "Copy link to this post"}
-				className="inline-block rounded-[999px]"
+				data-sound="toggle"
+				className="liquid-press inline-block rounded-[999px]"
 			>
 				<GlassButtonSurface size={40}>
 					{copied ? <CheckIcon /> : <LinkIcon />}
