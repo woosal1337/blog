@@ -1,16 +1,27 @@
 #!/usr/bin/env python3
-"""Run the STE 4-condition experiment against the OpenAI Chat Completions API.
-Key is injected via `vaulted run --with-global OPENAI_API_KEY`. The key is used
-only in the Authorization header and is never printed.
+"""The script we ran for the OpenAI side of the STE 4-condition experiment.
+Set OPENAI_API_KEY in the environment. The key is used only in the
+Authorization header and is never printed.
+
+Not runnable from the kit alone: it needs `prompts.json` (the 6 task prompts)
+and the four condition system prompts (`sys_baseline.md`, `sys_banwords.md`,
+`sys_orwell.md`, `skill_ste.md`) next to this script. Those files were not
+published; the shapes are documented in experiment-results.md.
 """
 import urllib.request, urllib.error, json, os, time, sys, collections
-import ste_lint
+import importlib.util
+
+_ste_spec = importlib.util.spec_from_file_location(
+    "ste_lint",
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "ste-lint.py"))
+ste_lint = importlib.util.module_from_spec(_ste_spec)
+_ste_spec.loader.exec_module(ste_lint)
 
 HERE = os.path.dirname(os.path.abspath(__file__)); os.chdir(HERE)
 MODEL = sys.argv[1] if len(sys.argv) > 1 else "gpt-5.5"
 LIMIT = int(sys.argv[2]) if len(sys.argv) > 2 else 999
 CONDS = {"baseline":"sys_baseline.md","banwords":"sys_banwords.md","orwell":"sys_orwell.md","ste":"skill_ste.md"}
-prompts = json.load(open("prompts.json"))[:LIMIT]
+prompts = json.load(open("prompts.json", encoding="utf-8"))[:LIMIT]
 os.makedirs("outputs_openai", exist_ok=True)
 KEY = os.environ.get("OPENAI_API_KEY", "")
 if not KEY:
@@ -37,10 +48,10 @@ results = {c: {} for c in CONDS}
 t0 = time.time()
 for p in prompts:
     for c, sf in CONDS.items():
-        out = call(open(sf).read(), p["prompt"])
+        out = call(open(sf, encoding="utf-8").read(), p["prompt"])
         if out is None:
             print(f"[FAIL] {p['id']}/{c}", flush=True); continue
-        open(f"outputs_openai/{p['id']}__{c}.txt", "w").write(out)
+        open(f"outputs_openai/{p['id']}__{c}.txt", "w", encoding="utf-8").write(out)
         L = ste_lint.lint(out); results[c][p["id"]] = L
         print(f"[ok] {p['id']:15}/{c:9} words={L['words']:4d} total={L['total']:3d} "
               f"per100w={L['total_per100w']:6.2f} em={L['em_dash(slop-marker)']}", flush=True)
@@ -55,7 +66,7 @@ for c in order:
     cats = {k: sum(x["violations"].get(k,0) for x in L.values()) for k in CATS}
     agg[c] = {"words":words,"total":total,"per100w":round(total*100.0/words,2),"em":em,
               "cats_per100w":{k:round(v*100.0/words,2) for k,v in cats.items()}}
-json.dump({"model":MODEL,"agg":agg}, open("results_openai.json","w"), indent=2)
+json.dump({"model":MODEL,"agg":agg}, open("results_openai.json","w",encoding="utf-8"), indent=2)
 base = agg["baseline"]["per100w"] or 1
 lines = [f"# STE experiment results — OpenAI ({MODEL})","",
          "6 prompts x 4 conditions. Violations per 100 words (lower = cleaner). em-dash = true dash chars only.","",
@@ -69,6 +80,6 @@ for k in CATS:
 lines += ["",f"**Headline: STE cut violations by {round((1-agg['ste']['per100w']/base)*100)}% vs baseline "
           f"({base} -> {agg['ste']['per100w']} per 100 words). Ban-words {round((1-agg['banwords']['per100w']/base)*100)}%, "
           f"Orwell {round((1-agg['orwell']['per100w']/base)*100)}%.**"]
-open("results_openai.md","w").write("\n".join(lines))
+open("results_openai.md","w",encoding="utf-8").write("\n".join(lines))
 print("\n".join(lines[:8]))
 print(f"\nDONE in {time.time()-t0:.0f}s ({MODEL}) -> results_openai.md, outputs_openai/")

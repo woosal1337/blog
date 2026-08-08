@@ -144,7 +144,7 @@ export function ContourPlayground() {
 						<button
 							type="button"
 							onClick={() => downloadSvg(svg, `${filenameBase}.svg`)}
-							className="h-10 rounded-[10px] border border-line font-ui text-[13px] text-ink-soft transition-colors duration-200 ease-house hover:border-line-strong hover:text-ink"
+							className="liquid-press h-10 rounded-[10px] border border-line font-ui text-[13px] text-ink-soft transition-colors duration-200 ease-house hover:border-line-strong hover:text-ink"
 						>
 							Download SVG
 						</button>
@@ -157,7 +157,7 @@ export function ContourPlayground() {
 									transparentPng ? null : BACKGROUND_COLOR,
 								)
 							}
-							className="h-10 rounded-[10px] border border-line font-ui text-[13px] text-ink-soft transition-colors duration-200 ease-house hover:border-line-strong hover:text-ink"
+							className="liquid-press h-10 rounded-[10px] border border-line font-ui text-[13px] text-ink-soft transition-colors duration-200 ease-house hover:border-line-strong hover:text-ink"
 						>
 							Download PNG
 						</button>

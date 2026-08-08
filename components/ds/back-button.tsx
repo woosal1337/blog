@@ -42,7 +42,7 @@ export function BackButton({
 			href={href}
 			aria-label={label}
 			data-sound="back"
-			className={cn("inline-block rounded-[999px]", className)}
+			className={cn("liquid-press inline-block rounded-[999px]", className)}
 		>
 			<GlassButtonSurface size={40}>
 				<BackIcon />
