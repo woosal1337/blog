@@ -139,6 +139,7 @@ if __name__ == "__main__":
     files = [a for a in args if a not in ("--strict", "--json")]
     worst = 0.0
     if not files:
+        sys.stdin.reconfigure(encoding="utf-8")
         r = lint(sys.stdin.read(), strict=strict)
         print(json.dumps(r, indent=2))
         worst = r["total_per100w"]
@@ -146,7 +147,7 @@ if __name__ == "__main__":
         exp = []
         for f in files: exp += sorted(glob.glob(f)) if any(c in f for c in "*?[") else [f]
         for f in exp:
-            with open(f) as fh: r = lint(fh.read(), strict=strict)
+            with open(f, encoding="utf-8") as fh: r = lint(fh.read(), strict=strict)
             worst = max(worst, r["total_per100w"])
             if as_json:
                 print(json.dumps({"file": f, **r}, indent=2))
