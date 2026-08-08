@@ -38,7 +38,8 @@ VERBS
 SENTENCES
 - One instruction per sentence, unless two actions happen at the same time (5.2). Max 20 words (instruction, 5.1), max 25 (descriptive, 6.3).
 - When a condition comes before its command, divide them with a comma (5.4): "If the test fails, read the log."
-- Do not drop words or articles to compress (4.2, 4.5): "Remove the bolts from the panel", never "Remove bolts from panel". No contractions.
+- Do not drop words to compress (4.2): "Remove the bolts from the panel", never "Remove bolts from panel". No contractions.
+- When applicable, use an article (a, an, the) or a demonstrative adjective (this, these) before a noun (4.5) — the standard's qualifier included. Do not add articles to general statements or abstract concepts ("Solvents can cause damage to paint"). In a series of items, the article before the first noun is enough.
 - Connect related sentences with plain connectors — then, but, thus, as a result (4.4). STE is short sentences, not disconnected ones.
 
 NOUNS
@@ -50,6 +51,7 @@ PUNCTUATION
 
 STRUCTURE
 - One topic per paragraph (6.5), max six sentences (6.6). For steps, use a numbered vertical list, one action per item, imperative form. Put a condition before its command.
+- A list item can be a label, not a sentence (a flow list, a changelog line, a feature bullet). Keep a label in its short form ("Frontend receives session JWT"). Do not expand a label into a sentence only to give it an article.
 - Safety text (strict mode): WARNING = risk of injury, CAUTION = risk of damage, NOTE = information only, never an instruction (7.1, 5.5). Start with the command or condition, then give the risk (7.2, 7.3). Put it directly before the step it protects, not at the top of the procedure.
 
 ## Guards
@@ -78,7 +80,7 @@ Fix the reported categories and lint again — at most two passes. Report the fi
 
 If you cannot run commands, use this checklist:
 
-1. Any sentence over 20 words? Split it.
+1. Any instruction over 20 words, or any other sentence over 25? Split it.
 2. Any semicolon? Replace with a period.
 3. Any contraction? Expand it.
 4. Any present perfect ("has/have received") or modal stack? Use a simple tense.
@@ -87,6 +89,7 @@ If you cannot run commands, use this checklist:
 7. Any multi-word noun of four or more words? Unpack it.
 8. Any dropped article ("Remove bolts from panel")? Restore it.
 9. Same thing named two ways? Pick one name.
+10. Any label expanded into a sentence only to add an article? Make it a label again.
 
 ## Scope
 
