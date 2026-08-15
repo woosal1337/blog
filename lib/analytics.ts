@@ -15,14 +15,11 @@ export const OA_DASHBOARD_URL = "https://oa.chele.bi";
 export const OA_TRACKING_KEY = "oa_pk_WPcvR3jtpIrcB5E6Ya6jxeM0d_mf049I";
 
 /**
- * The read-only dashboard behind /stats.
- *
- * The slug is the capability: anybody holding it reads the shared surfaces, so
- * rotating it in the dashboard is what revokes a link that got out. Visitor
- * identity is deliberately not among those surfaces.
+ * Reporting lives in the OpenAnalytics dashboard at OA_DASHBOARD_URL, behind a
+ * login. This site sends events; it does not publish them. There is
+ * deliberately no share slug here and no public stats route — if one is ever
+ * wanted, it is a decision to make on purpose rather than a constant to add.
  */
-export const OA_SHARE_SLUG = "s6udoutx8nj7zmhu0d26";
-export const OA_SHARE_URL = `${OA_DASHBOARD_URL}/share/${OA_SHARE_SLUG}`;
 
 /**
  * Event names sent from this site.

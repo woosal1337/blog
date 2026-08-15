@@ -21,7 +21,6 @@ const ELSEWHERE = [
 	},
 	{ href: "mailto:ege@chele.bi", label: "Email", external: true },
 	{ href: "/blog/rss.xml", label: "RSS", external: false },
-	{ href: "/stats", label: "Stats", external: false },
 ] as const;
 
 export type BreadcrumbItem = {
