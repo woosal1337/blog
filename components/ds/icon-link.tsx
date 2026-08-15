@@ -1,3 +1,4 @@
+import { outboundProps } from "@/lib/analytics";
 import { postIconSrc } from "@/lib/blog-utils";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -206,6 +207,7 @@ export function IconLink({
 				target={href.startsWith("http") ? "_blank" : undefined}
 				rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
 				className={cls}
+				{...outboundProps(href)}
 			>
 				{inner}
 			</a>

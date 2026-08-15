@@ -1,5 +1,6 @@
 import { NAV_ITEMS } from "@/components/ds/nav-items";
 import { Shell } from "@/components/ds/shell";
+import { OA_EVENTS, eventProps, outboundProps } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -20,6 +21,7 @@ const ELSEWHERE = [
 	},
 	{ href: "mailto:ege@chele.bi", label: "Email", external: true },
 	{ href: "/blog/rss.xml", label: "RSS", external: false },
+	{ href: "/stats", label: "Stats", external: false },
 ] as const;
 
 export type BreadcrumbItem = {
@@ -120,13 +122,20 @@ export function SiteFooter() {
 												: undefined
 										}
 										className={quietLink}
+										{...outboundProps(item.href)}
 									>
 										{item.label}
 									</a>
 								</li>
 							) : (
 								<li key={item.label}>
-									<Link href={item.href} className={quietLink}>
+									<Link
+										href={item.href}
+										className={quietLink}
+										{...(item.href.endsWith(".xml")
+											? eventProps(OA_EVENTS.rss)
+											: {})}
+									>
 										{item.label}
 									</Link>
 								</li>

@@ -1,6 +1,7 @@
 "use client";
 
 import { GlassButtonSurface } from "@/components/ds/glass-button";
+import { OA_EVENTS, eventProps } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import { formatTimecode } from "@/lib/video-utils";
 import Image from "next/image";
@@ -123,6 +124,7 @@ export function YouTubeFacade({
 			onFocus={warmPlayerOrigins}
 			aria-label={`Play “${title}”`}
 			data-sound="card"
+			{...eventProps(OA_EVENTS.videoPlay, { video: videoId, title })}
 			className={cn(
 				frame,
 				"group cursor-pointer transition-colors duration-200 ease-house hover:border-line-strong",

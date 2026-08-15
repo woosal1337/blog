@@ -16,6 +16,7 @@ import { IconLink, LinkLeadingIcon } from "@/components/ds/icon-link";
 import { Kbd, KbdGroup } from "@/components/ds/kbd";
 import { Tag } from "@/components/ds/tag";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
+import { outboundProps } from "@/lib/analytics";
 import { slugify } from "@/lib/blog-utils";
 import { cn } from "@/lib/utils";
 import type { MDXComponents } from "mdx/types";
@@ -276,6 +277,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 						className={cn(
 							"group/link whitespace-nowrap text-ink underline decoration-line underline-offset-[3px] transition-colors duration-200 ease-house hover:decoration-ink-soft",
 						)}
+						{...outboundProps(href)}
 						{...props}
 					>
 						<LinkLeadingIcon href={href} />

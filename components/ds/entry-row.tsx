@@ -1,3 +1,4 @@
+import { OA_EVENTS, eventProps, outboundProps } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import type * as React from "react";
@@ -79,14 +80,22 @@ export function EntryRow({
 				target="_blank"
 				rel="noopener noreferrer"
 				className={classes}
+				{...outboundProps(href)}
 			>
 				{inner}
 			</a>
 		);
 	}
 
+	// One event name for every post, rather than one path per post: a funnel
+	// step is a single exact key, so "a post was opened" has to be one string
+	// or it cannot be the last step of anything.
+	const rowEvent = href.startsWith("/blog/")
+		? eventProps(OA_EVENTS.postOpen, { post: href.slice("/blog/".length) })
+		: {};
+
 	return (
-		<Link href={href} className={classes}>
+		<Link href={href} className={classes} {...rowEvent}>
 			{inner}
 		</Link>
 	);

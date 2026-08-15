@@ -1,3 +1,4 @@
+import { outboundProps } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import type * as React from "react";
@@ -43,6 +44,7 @@ export function CTALink({
 				target="_blank"
 				rel="noopener noreferrer"
 				className={classes}
+				{...outboundProps(href)}
 			>
 				{inner}
 			</a>

@@ -1,6 +1,7 @@
 import { SoundProvider } from "@/components/providers/sound-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { OA_COLLECTOR_URL, OA_TRACKING_KEY } from "@/lib/analytics";
 import { SITE_DESCRIPTION, SITE_HANDLE, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { Analytics } from "@vercel/analytics/react";
 import { GeistMono } from "geist/font/mono";
@@ -88,6 +89,20 @@ export default function RootLayout({
 			className={`dark ${GeistSans.variable} ${GeistMono.variable}`}
 			suppressHydrationWarning
 		>
+			<head>
+				{/*
+				 * Self-hosted OpenAnalytics. It patches the history API, so App
+				 * Router navigations count as pageviews with no extra code, and
+				 * it reports Core Web Vitals on the first hidden without help.
+				 * The key is public and write-only — see lib/analytics.ts.
+				 */}
+				<script
+					async
+					src={`${OA_COLLECTOR_URL}/oa.js`}
+					data-key={OA_TRACKING_KEY}
+					data-collector={OA_COLLECTOR_URL}
+				/>
+			</head>
 			<body>
 				{/* Film-grain noise over the black bg. opacity + baseFrequency are the tuning knobs. */}
 				<svg
