@@ -182,6 +182,11 @@ const AGENTS: LabItem[] = [
 		desc: "The agentic IDE. Claude Code runs inside it over ACP, on my own fork of the adapter so the agents' work stays visible.",
 		href: "https://air.dev",
 	},
+	{
+		name: "Zed",
+		desc: "The editor. ACP started here, so the same agents attach over the protocol itself rather than through an adapter I have to maintain.",
+		href: "https://zed.dev",
+	},
 ];
 
 const MCPS: LabItem[] = [
@@ -204,24 +209,19 @@ const MCPS: LabItem[] = [
 		image: "/folio-logo.png",
 	},
 	{
-		name: "Feeder",
-		desc: "RSS reader. Agents read my feeds and manage collections over MCP, so a briefing is a conversation, not a tab.",
-		href: "https://feeder.co",
-	},
-	{
 		name: "Bucketmark",
 		desc: "Link bookmarking. Agents save and sort links into buckets over MCP, so a good link doesn't just die in a chat log.",
 		href: "https://bucketmark.cobanov.dev",
 		image: "/bucketmark-logo.png",
 	},
+	{
+		name: "Wispr Flow",
+		desc: "Voice dictation, with a notetaker beside it. Agents read the meetings, notes and briefs over MCP, and never the dictations.",
+		href: "https://wisprflow.ai",
+	},
 ];
 
 const KNOWLEDGE: LabItem[] = [
-	{
-		name: "Notion",
-		desc: "The source of truth. Research, worklogs and references land here, and agents read and write it over MCP.",
-		href: "https://notion.so",
-	},
 	{
 		name: "Obsidian",
 		desc: "Local vault for personal notes and journaling. Deliberately not wired to MCP, some things are just for me.",
