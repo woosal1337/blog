@@ -20,16 +20,16 @@ export const X_FEED: SocialFeed = {
 	href: "https://x.com/woosal1337",
 	items: [
 		{
-			text: "i just started a youtube channel. this is the first video.",
-			date: "Jul 24",
+			text: "peak animation experience.",
+			date: "Aug 18",
 		},
 		{
-			text: "on its way to becoming the best ADE so far, and almost no one is aware of it at all too @getsome_air",
-			date: "Jul 22",
+			text: "the best self hosted analytics tool you can use in your websites if you are looking for simplicity and accuracy. @openanalyticshq",
+			date: "Aug 18",
 		},
 		{
-			text: "infinite canvases ftw",
-			date: "Jul 17",
+			text: "sana simdi ne mesajlar geliyordur…",
+			date: "Aug 18",
 		},
 	],
 };
