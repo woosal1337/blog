@@ -163,7 +163,7 @@ export const allProjects: Array<{
 }> = [
 	{
 		name: "mood",
-		desc: "Design reference on one infinite plane. 2,664 images and 65 videos that pan in every direction and never reach an edge.",
+		desc: "Design reference on one infinite plane. Images and video from designers, studios and galleries that pan in every direction and never reach an edge.",
 		href: "https://mood.chele.bi",
 		logo: "/mood-logo.png",
 		external: true,
