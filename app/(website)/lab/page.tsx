@@ -7,9 +7,9 @@ import { createPageMetadata } from "@/lib/seo";
 import Image from "next/image";
 
 export const metadata = createPageMetadata({
-	title: "Homelab, AI Engineering Setup, and Self-Hosted Infrastructure",
+	title: "Lab",
 	description:
-		"The lab Ege Chelebi runs day to day: the AI coding agents, MCP servers, skills, and knowledge tools he works with, and the self-hosted infrastructure underneath them.",
+		"The lab Ege Vusal Chelebi runs day to day: the AI coding agents, MCP servers, skills, and knowledge tools he works with, and the self-hosted infrastructure underneath them.",
 	socialDescription:
 		"The lab: the agents, MCP servers, skills, and knowledge tools I use every day, and the infrastructure underneath.",
 	path: "/lab",

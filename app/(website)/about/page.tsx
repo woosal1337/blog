@@ -17,9 +17,9 @@ import {
 } from "@/lib/utils";
 
 export const metadata = createPageMetadata({
-	title: "About Ege Chelebi — AI Engineer and Open-Source Developer",
+	title: "About Ege Vusal Chelebi — AI Engineer and Open-Source Developer",
 	description:
-		"Meet Ege Chelebi, an AI engineer at Refik Anadol Studio building generative-art systems, agent infrastructure, and open-source developer tools.",
+		"Meet Ege Vusal Chelebi, an AI engineer at Refik Anadol Studio building generative-art systems, agent infrastructure, and open-source developer tools.",
 	socialDescription:
 		"AI engineer building generative-art systems, agent infrastructure, and open-source developer tools.",
 	path: "/about",
@@ -155,7 +155,7 @@ export default function AboutPage() {
 					<BackButton className="mb-8" />
 					<Reveal immediate>
 						<h1 className="mb-6 font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
-							About Ege Chelebi
+							About Ege Vusal Chelebi
 						</h1>
 						<div className="space-y-5 font-ui text-[16px] leading-[1.65] text-ink-soft">
 							<p>

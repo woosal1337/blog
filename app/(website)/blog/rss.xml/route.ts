@@ -1,7 +1,7 @@
 import { getAllPosts } from "@/lib/blog";
 import { SITE_URL } from "@/lib/seo";
 
-const FEED_TITLE = "Ege Chelebi · AI Engineering Blog";
+const FEED_TITLE = "Ege Vusal Chelebi · AI Engineering Blog";
 const FEED_DESCRIPTION =
 	"Essays on AI agents, context engineering, local-first software, developer tools, memory systems, and applied research.";
 

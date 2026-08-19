@@ -10,7 +10,7 @@ import { getAllEpisodes } from "@/lib/videos";
 export const metadata = createPageMetadata({
 	title: "Videos on AI Engineering, Agents, and Claim Tests",
 	description:
-		"Video essays and claim tests by AI engineer Ege Chelebi on AI agents, context engineering, and applied research — each episode published with the skill, linter, or data behind it.",
+		"Video essays and claim tests by AI engineer Ege Vusal Chelebi on AI agents, context engineering, and applied research — each episode published with the skill, linter, or data behind it.",
 	socialDescription:
 		"Claim tests and deep dives on AI engineering and agents, each published with the skill, linter, or data behind it.",
 	path: "/videos",

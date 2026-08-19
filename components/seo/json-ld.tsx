@@ -97,7 +97,7 @@ export function BlogIndexJsonLd({ posts }: { posts: BlogPostMeta[] }) {
 				url: absoluteUrl("/blog"),
 				name: "AI Engineering, Agents, and Local-First Tools",
 				description:
-					"Essays by Ege Chelebi on AI agents, context engineering, local-first software, developer tools, memory systems, and applied research.",
+					"Essays by Ege Vusal Chelebi on AI agents, context engineering, local-first software, developer tools, memory systems, and applied research.",
 				inLanguage: "en",
 				isPartOf: { "@id": WEBSITE_ID },
 				author: { "@id": PERSON_ID },

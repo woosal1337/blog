@@ -10,9 +10,9 @@ import { allProjects } from "@/lib/utils";
 export const metadata = createPageMetadata({
 	title: "AI Systems and Open-Source Developer Projects",
 	description:
-		"AI systems, local-first developer tools, agent infrastructure, and open-source software designed and built by Ege Chelebi.",
+		"AI systems, local-first developer tools, agent infrastructure, and open-source software designed and built by Ege Vusal Chelebi.",
 	socialDescription:
-		"AI systems, local-first developer tools, agent infrastructure, and open-source software built by Ege Chelebi.",
+		"AI systems, local-first developer tools, agent infrastructure, and open-source software built by Ege Vusal Chelebi.",
 	path: "/projects",
 });
 

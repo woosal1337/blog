@@ -73,7 +73,7 @@ export function EpisodeHeader({
 					rel="author"
 					className="text-ink-mute transition-colors duration-200 ease-house hover:text-ink"
 				>
-					Ege Chelebi
+					Ege Vusal Chelebi
 				</Link>
 			</p>
 			<h1 className="mt-4 font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">

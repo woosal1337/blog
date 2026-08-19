@@ -19,7 +19,7 @@ import { allProjects } from "@/lib/utils";
 import { getAllEpisodes } from "@/lib/videos";
 
 export const metadata = createPageMetadata({
-	title: "Ege Chelebi — AI Engineer, Developer, and Researcher",
+	title: "Ege Vusal Chelebi — AI Engineer, Developer, and Researcher",
 	description: SITE_DESCRIPTION,
 	socialDescription:
 		"AI engineer at Refik Anadol Studio building thoughtful tools across generative art, open source, and applied AI.",
@@ -53,7 +53,7 @@ export default async function HomePage() {
 			<WebsiteJsonLd />
 			<div className="mx-auto max-w-column px-6 pt-16 sm:pt-28">
 				<ProfileLockup
-					name="Ege Chelebi"
+					name="Ege Vusal Chelebi"
 					tagline="AI engineer at Refik Anadol Studio"
 					avatar="/yuta-avatar.png"
 				/>

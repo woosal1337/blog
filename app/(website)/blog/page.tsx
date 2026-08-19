@@ -12,7 +12,7 @@ import { createPageMetadata } from "@/lib/seo";
 export const metadata = createPageMetadata({
 	title: "AI Engineering, Agents & Local-First Tools",
 	description:
-		"Essays by AI engineer Ege Chelebi on AI agents, context engineering, local-first software, developer tools, memory systems, and applied research.",
+		"Essays by AI engineer Ege Vusal Chelebi on AI agents, context engineering, local-first software, developer tools, memory systems, and applied research.",
 	socialDescription:
 		"Essays on AI agents, context engineering, local-first software, developer tools, and applied research.",
 	path: "/blog",

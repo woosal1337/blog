@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 	metadataBase: new URL(SITE_URL),
 	applicationName: SITE_NAME,
 	title: {
-		default: "Ege Chelebi — AI Engineer, Developer, and Researcher",
-		template: "%s · Ege Chelebi",
+		default: "Ege Vusal Chelebi — AI Engineer, Developer, and Researcher",
+		template: "%s · Ege Vusal Chelebi",
 	},
 	description: SITE_DESCRIPTION,
 	alternates: {
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 				url: "/og",
 				width: 1200,
 				height: 630,
-				alt: "Ege Chelebi — AI engineer, developer, and researcher",
+				alt: "Ege Vusal Chelebi — AI engineer, developer, and researcher",
 			},
 		],
 	},
