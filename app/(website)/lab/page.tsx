@@ -9,9 +9,9 @@ import Image from "next/image";
 export const metadata = createPageMetadata({
 	title: "Homelab, AI Engineering Setup, and Self-Hosted Infrastructure",
 	description:
-		"The lab Ege Chelebi runs day to day: the AI coding agents, MCP servers, and knowledge tools he works with, and the self-hosted infrastructure underneath them.",
+		"The lab Ege Chelebi runs day to day: the AI coding agents, MCP servers, skills, and knowledge tools he works with, and the self-hosted infrastructure underneath them.",
 	socialDescription:
-		"The lab: the agents, MCP servers, and knowledge tools I use every day, and the infrastructure underneath.",
+		"The lab: the agents, MCP servers, skills, and knowledge tools I use every day, and the infrastructure underneath.",
 	path: "/lab",
 });
 
@@ -72,7 +72,7 @@ function Tile({ name, href, iconHref, image, bleed, code }: LabItem) {
 		<div className="relative grid size-12 shrink-0 place-items-center">
 			{code ? (
 				<div className="relative grid size-10 place-items-center rounded-[10px] bg-white/[0.03]">
-					<span className="font-mono text-[12px] tracking-wide text-ink-mute">
+					<span className="font-mono text-[11px] leading-none tracking-tight text-ink-mute">
 						{code}
 					</span>
 					<TileFrame />
@@ -173,11 +173,6 @@ function LabGroup({
 
 const AGENTS: LabItem[] = [
 	{
-		name: "Warp",
-		desc: "The terminal, and my main driver. The same CLI agents run inside it, they just get a faster shell around them.",
-		href: "https://www.warp.dev",
-	},
-	{
 		name: "JetBrains Air",
 		desc: "The agentic IDE. Claude Code runs inside it over ACP, on my own fork of the adapter so the agents' work stays visible.",
 		href: "https://air.dev",
@@ -191,22 +186,10 @@ const AGENTS: LabItem[] = [
 
 const MCPS: LabItem[] = [
 	{
-		name: "Vaulted",
-		desc: "Local-first secrets manager. Agents run commands with real secrets injected, the values never enter their context.",
-		href: "https://vaulted.chele.bi",
-		image: "/vaulted-logo.png",
-	},
-	{
 		name: "Elliptic",
 		desc: "Agent-native project management. Agents run projects, tasks and meetings over MCP on your own keys.",
 		href: "https://github.com/woosal1337/elliptic",
 		image: "/elliptic-logo.png",
-	},
-	{
-		name: "Folio",
-		desc: "Local meeting recorder. Ships its own MCP server, so agents get read-only access to transcripts, tasks and memory over stdio.",
-		href: "https://folio.chele.bi",
-		image: "/folio-logo.png",
 	},
 	{
 		name: "Bucketmark",
@@ -218,6 +201,32 @@ const MCPS: LabItem[] = [
 		name: "Wispr Flow",
 		desc: "Voice dictation, with a notetaker beside it. Agents read the meetings, notes and briefs over MCP, and never the dictations.",
 		href: "https://wisprflow.ai",
+	},
+];
+
+const SKILLS: LabItem[] = [
+	{
+		name: "ste-writing",
+		desc: "Rewrites prose into Simplified Technical English, so docs and commit messages read like a person wrote them rather than a model. Strict mode for procedures, flavoured for everything else.",
+		href: "/videos/the-cure-for-ai-slop/kit/ste-writing-skill",
+		code: "/ste",
+	},
+	{
+		name: "elliptic",
+		desc: "Teaches an agent the Elliptic workspace over MCP: the domain model, the org discipline, and the mistakes that quietly land a write in the wrong workspace.",
+		href: "https://github.com/woosal1337/elliptic",
+		code: "/ell",
+	},
+	{
+		name: "herdr",
+		desc: "Drives Herdr, the terminal multiplexer for coding agents. An agent reads neighbouring panes and starts work in them, and refuses to try from outside a Herdr session.",
+		href: "https://herdr.dev",
+		code: "/hrd",
+	},
+	{
+		name: "i-have-adhd",
+		desc: "Reshapes output for an ADHD reader: the next action first, numbered steps, real time estimates. Off until it is asked for, and it stays on until it is told to stop.",
+		code: "/adhd",
 	},
 ];
 
@@ -240,7 +249,8 @@ export default function LabPage() {
 							The lab
 						</h1>
 						<p className="mt-3 font-ui text-[15px] leading-relaxed text-ink-mute">
-							The agents, MCP servers, and knowledge tools I use every day.
+							The agents, MCP servers, skills, and knowledge tools I use every
+							day.
 						</p>
 						<div className="group relative mt-6 h-[190px] overflow-hidden rounded-[14px] border border-line bg-[#060606]">
 							<OrbitField />
@@ -257,6 +267,12 @@ export default function LabPage() {
 
 					<LabGroup label="MCP">
 						{MCPS.map((row) => (
+							<LabRow key={row.name} {...row} />
+						))}
+					</LabGroup>
+
+					<LabGroup label="Skills">
+						{SKILLS.map((row) => (
 							<LabRow key={row.name} {...row} />
 						))}
 					</LabGroup>

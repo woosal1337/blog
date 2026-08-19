@@ -1,6 +1,6 @@
 import { NAV_ITEMS } from "@/components/ds/nav-items";
 import { Shell } from "@/components/ds/shell";
-import { OA_EVENTS, eventProps, outboundProps } from "@/lib/analytics";
+import { outboundProps } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -20,7 +20,6 @@ const ELSEWHERE = [
 		external: true,
 	},
 	{ href: "mailto:ege@chele.bi", label: "Email", external: true },
-	{ href: "/blog/rss.xml", label: "RSS", external: false },
 ] as const;
 
 export type BreadcrumbItem = {
@@ -100,7 +99,7 @@ export function SiteFooter() {
 					>
 						{/* eslint-disable-next-line @next/next/no-img-element */}
 						<img
-							src="/contour-logo/contour-logo-white.svg"
+							src="/yuta-avatar.png"
 							alt="ege"
 							width={160}
 							height={160}
@@ -128,13 +127,7 @@ export function SiteFooter() {
 								</li>
 							) : (
 								<li key={item.label}>
-									<Link
-										href={item.href}
-										className={quietLink}
-										{...(item.href.endsWith(".xml")
-											? eventProps(OA_EVENTS.rss)
-											: {})}
-									>
+									<Link href={item.href} className={quietLink}>
 										{item.label}
 									</Link>
 								</li>

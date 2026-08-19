@@ -162,15 +162,6 @@ export const allProjects: Array<{
 	date?: string;
 }> = [
 	{
-		name: "Vaulted",
-		desc: "Local-first .env and secrets manager, MCP-native. Encrypted on your machine, secrets your coding agent can use but never sees.",
-		href: "/blog/vaulted",
-		logo: "/vaulted-logo.png",
-		external: false,
-		isNew: true,
-		date: "2026-07-02",
-	},
-	{
 		name: "Elliptic",
 		desc: "Jira for your agents. An agent-native platform where humans and agents run projects, tasks and meetings together.",
 		href: "/blog/elliptic",

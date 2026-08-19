@@ -9,7 +9,6 @@ const ICON = "mr-[0.32em] inline-block h-[0.95em] w-[0.95em] align-[-0.12em]";
 const BLOG_ICON_OVERRIDES: Record<string, string> = {
 	elliptic: "/elliptic-logo.png",
 	folio: "/folio-logo.png",
-	vaulted: "/vaulted-logo.png",
 };
 
 function blogIconSrc(href: string): string | null {

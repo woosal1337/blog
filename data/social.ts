@@ -64,10 +64,5 @@ export const GITHUB_FALLBACK: SocialFeed = {
 			date: "Jul 23",
 			meta: "★ 5",
 		},
-		{
-			text: "vaulted · Local-first .env and secrets manager, MCP-native",
-			date: "Jul 23",
-			meta: "★ 2",
-		},
 	],
 };
