@@ -162,6 +162,15 @@ export const allProjects: Array<{
 	date?: string;
 }> = [
 	{
+		name: "mood",
+		desc: "Design reference on one infinite plane. 2,664 images and 65 videos that pan in every direction and never reach an edge.",
+		href: "https://mood.chele.bi",
+		logo: "/mood-logo.png",
+		external: true,
+		isNew: true,
+		date: "2026-08-19",
+	},
+	{
 		name: "Elliptic",
 		desc: "Jira for your agents. An agent-native platform where humans and agents run projects, tasks and meetings together.",
 		href: "/blog/elliptic",
