@@ -103,7 +103,7 @@ export function SiteFooter() {
 							alt="ege"
 							width={160}
 							height={160}
-							className="size-40"
+							className="h-auto w-40"
 						/>
 					</Link>
 
