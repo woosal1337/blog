@@ -16,6 +16,21 @@ const nextConfig = {
 				destination: "/blog/elliptic",
 				permanent: true,
 			},
+			// The ep01 kit was split into ste-writing/ (the skill) and
+			// experiment/ (the test data). The flat URLs are in the wild.
+			...Object.entries({
+				"ste-writing-skill": "ste-writing/SKILL",
+				"ste-lint.py": "ste-writing/ste-lint.py",
+				"ste-recurring-errors": "ste-writing/ste-recurring-errors",
+				"experiment-results": "experiment/results-cross-model",
+				"experiment-results-openai": "experiment/results-openai",
+				"before-after-samples": "experiment/before-after-samples",
+				"run-openai.py": "experiment/run-openai.py",
+			}).map(([from, to]) => ({
+				source: `/videos/the-cure-for-ai-slop/kit/${from}`,
+				destination: `/videos/the-cure-for-ai-slop/kit/${to}`,
+				permanent: true,
+			})),
 		];
 	},
 	logging: {

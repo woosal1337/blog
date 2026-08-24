@@ -119,11 +119,31 @@ export async function EpisodeKitList({
 	const files = listKitFiles(kit.dir);
 	if (!files.length) return null;
 
-	const top = files.filter((file) => !file.dir);
+	// The blurb keys are the running order of the kit: a folder reads in the
+	// order it was written, not in the order the filesystem hands it back.
+	const order = Object.keys(kit.blurbs ?? {});
+	const rank = (key: string) => {
+		const index = order.indexOf(key);
+		return index === -1 ? Number.MAX_SAFE_INTEGER : index;
+	};
+
+	const top = files
+		.filter((file) => !file.dir)
+		.sort((a, b) => rank(a.path) - rank(b.path));
 	const groups = new Map<string, typeof files>();
 	for (const file of files.filter((f) => f.dir)) {
 		groups.set(file.dir, [...(groups.get(file.dir) ?? []), file]);
 	}
+
+	const orderedGroups = Array.from(groups.entries())
+		.map(
+			([dir, groupFiles]) =>
+				[
+					dir,
+					[...groupFiles].sort((a, b) => rank(a.path) - rank(b.path)),
+				] as const,
+		)
+		.sort(([a], [b]) => rank(`${a}/`) - rank(`${b}/`));
 
 	return (
 		<section className="not-prose">
@@ -131,8 +151,9 @@ export async function EpisodeKitList({
 				The kit
 			</h2>
 			<p className="mb-5 font-ui text-[15px] leading-relaxed text-ink-mute">
-				Everything the episode promises in the description — the skill, the
-				linter, and the full test data. Read it here or clone the folder.
+				Everything the episode promises in the description, in two folders: the
+				skill you install, and the test data behind the numbers. Read it here or
+				clone the folder.
 			</p>
 			<div className="flex flex-col">
 				{top.map((file) => (
@@ -146,26 +167,31 @@ export async function EpisodeKitList({
 				))}
 			</div>
 
-			{Array.from(groups.entries()).map(([dir, groupFiles]) => (
-				<div key={dir} className="mt-7">
-					<p className="mb-1 font-ui text-[13px] text-ink-mute">
-						{kit.blurbs?.[`${dir}/`] ?? `${dir}/`}
-					</p>
-					<div className="flex flex-wrap gap-x-4 gap-y-1">
+			{orderedGroups.map(([dir, groupFiles]) => (
+				<div key={dir} className="mt-8">
+					<p className="font-mono text-[13px] text-ink-soft">{dir}/</p>
+					{kit.blurbs?.[`${dir}/`] ? (
+						<p className="mt-1 mb-2 font-ui text-[13px] leading-relaxed text-ink-mute">
+							{kit.blurbs[`${dir}/`]}
+						</p>
+					) : (
+						<div className="mb-2" />
+					)}
+					<div className="flex flex-col border-l border-line pl-3">
 						{groupFiles.map((file) => (
-							<Link
+							<EntryRow
 								key={file.path}
 								href={kitFileHref(slug, file.path)}
-								className="font-mono text-[13px] text-ink-mute underline decoration-line underline-offset-[3px] transition-colors duration-200 ease-house hover:text-ink"
-							>
-								{file.name}
-							</Link>
+								title={file.name}
+								icon={CODE_EXTS.has(file.ext) ? <CodeGlyph /> : undefined}
+								meta={kit.blurbs?.[file.path] ?? formatBytes(file.bytes)}
+							/>
 						))}
 					</div>
 				</div>
 			))}
 
-			<p className="mt-4 font-ui text-[15px]">
+			<p className="mt-8 font-ui text-[15px]">
 				<IconLink href={kit.repoUrl}>The Kit</IconLink>
 			</p>
 		</section>

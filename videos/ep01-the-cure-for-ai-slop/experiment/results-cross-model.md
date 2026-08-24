@@ -34,4 +34,4 @@ Two model families, run the same way: **Claude sonnet** (via headless `claude -p
 
 > Give the model a writing system and slop drops by half or more on every model I tried. STE was the best or tied-best. The popular move — banning words one at a time — is the least reliable: it did almost nothing on Claude and a fair amount on GPT, which is exactly what you'd expect from a fix that treats symptoms instead of giving the model a system.
 
-Reproduce: `run-openai.py` (OpenAI) and `scratchpad/ste/run.py` (Claude). Per-model detail: `experiment-results-openai.md`.
+Reproduce: `run-openai.py` (OpenAI) and `scratchpad/ste/run.py` (Claude). Per-model detail: `results-openai.md`.

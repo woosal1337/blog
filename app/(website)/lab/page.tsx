@@ -208,7 +208,7 @@ const SKILLS: LabItem[] = [
 	{
 		name: "ste-writing",
 		desc: "Rewrites prose into Simplified Technical English, so docs and commit messages read like a person wrote them rather than a model. Strict mode for procedures, flavoured for everything else.",
-		href: "/videos/the-cure-for-ai-slop/kit/ste-writing-skill",
+		href: "/videos/the-cure-for-ai-slop/kit/ste-writing/SKILL",
 		code: "/ste",
 	},
 	{

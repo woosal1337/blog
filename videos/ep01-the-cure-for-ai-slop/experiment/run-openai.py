@@ -6,14 +6,14 @@ Authorization header and is never printed.
 Not runnable from the kit alone: it needs `prompts.json` (the 6 task prompts)
 and the four condition system prompts (`sys_baseline.md`, `sys_banwords.md`,
 `sys_orwell.md`, `skill_ste.md`) next to this script. Those files were not
-published; the shapes are documented in experiment-results.md.
+published; the shapes are documented in results-cross-model.md.
 """
 import urllib.request, urllib.error, json, os, time, sys, collections
 import importlib.util
 
 _ste_spec = importlib.util.spec_from_file_location(
     "ste_lint",
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), "ste-lint.py"))
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "ste-writing", "ste-lint.py"))
 ste_lint = importlib.util.module_from_spec(_ste_spec)
 _ste_spec.loader.exec_module(ste_lint)
 
