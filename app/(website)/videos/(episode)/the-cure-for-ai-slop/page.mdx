@@ -78,11 +78,17 @@ export const meta = {
 			"ste-writing/":
 				"The agent skill. A complete skill directory — symlink the folder into ~/.claude/skills/ and ask for STE.",
 			"ste-writing/SKILL.md":
-				"The distilled ASD-STE100 skill — strict mode for procedures, flavored mode for prose",
+				"The skill, version 2.0 — layer 1 is the ASD-STE100 words, layer 2 is the shape of a reply",
 			"ste-writing/ste-lint.py":
 				"The heuristic anti-slop linter: the machine-checkable subset of STE",
 			"ste-writing/ste-recurring-errors.md":
 				"The spec's own list of the 39 most frequent STE writer errors, with approved replacements",
+			"ste-writing/hooks/":
+				"The two Claude Code hooks that make the skill standing rather than on-request.",
+			"ste-writing/hooks/ste-inject.sh":
+				"Puts the rule card into context on every turn, so the style survives a forgotten skill load",
+			"ste-writing/hooks/ste-gate.py":
+				"Lints the reply and scores it. Three bands, and one block per turn — the fix for the duplicate reply",
 			"experiment/":
 				"The claim test behind the numbers — 6 writing tasks × 4 conditions, on two model families.",
 			"experiment/results-cross-model.md":

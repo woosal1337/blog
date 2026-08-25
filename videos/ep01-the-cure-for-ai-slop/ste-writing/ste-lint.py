@@ -7,6 +7,11 @@ import re, sys, json, glob, os
 # episode date); v1 and v2 totals are close but not directly comparable.
 SCORE_VERSION = 2
 
+# Shape v1: the Layer 2 checks (skill 2.0). These count the ORDER of a reply to
+# a person, not the words. They are reported apart from the score and never
+# enter `total`, so `total_per100w` keeps one meaning across skill versions.
+SHAPE_VERSION = 1
+
 MARKETING = ["seamless","seamlessly","robust","powerful","cutting-edge","effortless","effortlessly",
     "world-class","next-generation","revolutionary","blazing","lightning-fast","elegant","delightful",
     "turnkey","best-in-class","state-of-the-art","game-changing","first-class","battle-tested",
@@ -33,6 +38,25 @@ STATIVE = r"(?:closed|opened?|damaged|completed?|installed|connected|required|ex
 FUNC_WORDS = set("""a an the this that these those of for to in on at by with from as and or but if
 when then than not no is are was were be been being am do does did has have had will would can could
 may might must should shall it its their your our his her they we you i""".split())
+
+# --- Layer 2 (shape) word lists -------------------------------------------
+# An opener is counted in the first sentence only. Everything else is counted
+# over the whole text.
+OPENERS = ["great question","good question","let me","i'll","i will","sure","certainly",
+    "absolutely","looking at your","to answer your question","happy to help",
+    "i'd be happy to","that's a great","first,","alright","okay so","let's"]
+CLOSERS = ["let me know if","hope this helps","hope that helps","happy to clarify",
+    "feel free to ask","feel free to reach","anything else","if you have any questions",
+    "if you have any other questions","i'm here to help","do not hesitate","don't hesitate"]
+RECAP = ["to summarize","in summary","to recap","as a recap","in conclusion","to sum up",
+    "i have now","i've now","overall,"]
+# Only hedges that carry no fact. A qualifier that bounds a claim is not here.
+HEDGE = ["perhaps","arguably","presumably","conceivably","ostensibly","somewhat",
+    "kind of","sort of","more or less","it seems that","it appears that","fairly straightforward"]
+VAGUE = ["some work","a bit of work","a while","shortly","fairly soon","a few moments",
+    "not too long","some time","in no time","quite quick","pretty quick"]
+SOFTENER = ["uh oh","oh no","there seems to be a problem","there seems to be an issue",
+    "unfortunately","i apologize","apologies","my apologies","sorry about that"]
 
 def strip_code(t):
     t = re.sub(r"```.*?```", " ", t, flags=re.S)
@@ -80,6 +104,47 @@ def noun_trains(text):
                 run = []
     return hits
 
+def count_in(fragment, phrases):
+    """Presence count over one fragment - each phrase counts at most one time."""
+    low = fragment.lower().replace("’", "'")
+    n = 0; hits = []
+    for ph in phrases:
+        if re.search(r"(?<![a-z])" + re.escape(ph) + r"(?![a-z])", low):
+            n += 1; hits.append(ph)
+    return n, hits
+
+
+def long_lists(raw):
+    """Runs of more than five consecutive list items (Layer 2 cap). A table row
+    starts with a pipe, so a reference table never counts."""
+    n = 0; run = 0
+    for line in raw.split("\n"):
+        if re.match(r"^\s*(?:[-*+]|\d+[.)])\s+", line):
+            run += 1
+        elif not line.strip():
+            continue
+        else:
+            if run > 5: n += 1
+            run = 0
+    if run > 5: n += 1
+    return n
+
+
+def shape(raw):
+    """Layer 2 counts. Applies to a reply to a person, not to a reference doc."""
+    text = strip_code(raw).replace("’", "'")
+    sents = sentences(text)
+    s = {}
+    s["preamble_opener"] = count_in(sents[0], OPENERS)[0] if sents else 0
+    s["closer"], ch = count_ci(text, CLOSERS)
+    s["recap_marker"], rh = count_ci(text, RECAP)
+    s["hedge"], hh = count_ci(text, HEDGE)
+    s["vague_estimate"], vh = count_ci(text, VAGUE)
+    s["error_softener"], sh = count_ci(text, SOFTENER)
+    s["action_list(>5)"] = long_lists(re.sub(r"```.*?```", "\n", raw, flags=re.S))
+    return s, list(dict.fromkeys(ch + rh + hh + vh + sh))[:6]
+
+
 def lint(text, strict=False):
     raw = text
     text = strip_code(text)
@@ -113,12 +178,16 @@ def lint(text, strict=False):
         v["strict_banned_word"] = n_strict
         v["em_dash"] = em
     total = sum(v.values())
+    sh, sh_samples = shape(raw)
     return {
         "score_version": SCORE_VERSION,
+        "shape_version": SHAPE_VERSION,
         "mode": "strict" if strict else "flavored",
         "words": words, "sentences": len(sents),
         "violations": v, "total": total,
         "total_per100w": round(total*100.0/words, 2),
+        "shape": sh, "shape_total": sum(sh.values()),
+        "sample_shape": sh_samples,
         "em_dash(slop-marker)": em,
         "noun_train(>=4w,marker)": len(trains),
         "longest_sentence_words": (max(longs)[0] if longs else max((wc(s) for s in sents), default=0)),
@@ -131,27 +200,38 @@ if __name__ == "__main__":
     args = sys.argv[1:]
     strict = "--strict" in args
     as_json = "--json" in args
+    show_shape = "--shape" in args
     fail_over = None
-    if "--fail-over" in args:
-        i = args.index("--fail-over")
-        fail_over = float(args[i + 1])
-        del args[i:i + 2]
-    files = [a for a in args if a not in ("--strict", "--json")]
+    fail_shape = None
+    for flag in ("--fail-over", "--fail-shape"):
+        if flag in args:
+            i = args.index(flag)
+            value = float(args[i + 1])
+            if flag == "--fail-over": fail_over = value
+            else: fail_shape = value
+            del args[i:i + 2]
+    files = [a for a in args if a not in ("--strict", "--json", "--shape")]
     worst = 0.0
+    worst_shape = 0
     if not files:
         sys.stdin.reconfigure(encoding="utf-8")
         r = lint(sys.stdin.read(), strict=strict)
         print(json.dumps(r, indent=2))
         worst = r["total_per100w"]
+        worst_shape = r["shape_total"]
     else:
         exp = []
         for f in files: exp += sorted(glob.glob(f)) if any(c in f for c in "*?[") else [f]
         for f in exp:
             with open(f, encoding="utf-8") as fh: r = lint(fh.read(), strict=strict)
             worst = max(worst, r["total_per100w"])
+            worst_shape = max(worst_shape, r["shape_total"])
             if as_json:
                 print(json.dumps({"file": f, **r}, indent=2))
             else:
-                print(f"{os.path.basename(f):32} words={r['words']:4d} total={r['total']:3d} per100w={r['total_per100w']:6.2f} em_dash={r['em_dash(slop-marker)']:2d}")
+                tail = f" shape={r['shape_total']:2d}" if show_shape else ""
+                print(f"{os.path.basename(f):32} words={r['words']:4d} total={r['total']:3d} per100w={r['total_per100w']:6.2f} em_dash={r['em_dash(slop-marker)']:2d}{tail}")
     if fail_over is not None and worst > fail_over:
+        sys.exit(1)
+    if fail_shape is not None and worst_shape > fail_shape:
         sys.exit(1)

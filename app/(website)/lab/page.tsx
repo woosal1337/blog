@@ -207,7 +207,7 @@ const MCPS: LabItem[] = [
 const SKILLS: LabItem[] = [
 	{
 		name: "ste-writing",
-		desc: "Rewrites prose into Simplified Technical English, so docs and commit messages read like a person wrote them rather than a model. Strict mode for procedures, flavoured for everything else.",
+		desc: "Two layers, always on. The words become Simplified Technical English, so docs and commit messages read like a person wrote them. The shape puts the next action on line one, for a reader with ADHD who will not find it in paragraph four.",
 		href: "/videos/the-cure-for-ai-slop/kit/ste-writing/SKILL",
 		code: "/ste",
 	},
@@ -222,11 +222,6 @@ const SKILLS: LabItem[] = [
 		desc: "Drives Herdr, the terminal multiplexer for coding agents. An agent reads neighbouring panes and starts work in them, and refuses to try from outside a Herdr session.",
 		href: "https://herdr.dev",
 		code: "/hrd",
-	},
-	{
-		name: "i-have-adhd",
-		desc: "Reshapes output for an ADHD reader: the next action first, numbered steps, real time estimates. Off until it is asked for, and it stays on until it is told to stop.",
-		code: "/adhd",
 	},
 ];
 
