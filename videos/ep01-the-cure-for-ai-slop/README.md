@@ -48,11 +48,11 @@ needs a voice.
 Any agent the [skills CLI](https://skills.sh) supports, one command:
 
 ```
-npx skills add woosal1337/ste-writing-skill
+npx skills add woosal1337/blog
 ```
 
-That repo is a mirror of this folder, published for the skills.sh registry.
-This folder stays the source of truth.
+The command reads this repo itself. The CLI finds the skill in this folder,
+so there is no mirror and no second repo to keep in sync.
 
 Claude Code, with the full enforcement stack:
 

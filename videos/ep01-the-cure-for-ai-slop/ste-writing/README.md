@@ -1,6 +1,6 @@
 # ste-writing
 
-[![skills.sh](https://skills.sh/b/woosal1337/ste-writing-skill)](https://skills.sh/woosal1337/ste-writing-skill)
+[![skills.sh](https://skills.sh/b/woosal1337/blog)](https://skills.sh/woosal1337/blog)
 
 An agent skill that removes AI slop with a writing system, not a banned-word
 list. Layer 1 rewrites the words into ASD-STE100 Simplified Technical English,
@@ -27,7 +27,7 @@ The full experiment, the data, and the 17-minute episode:
 The skill alone, for any agent the [skills CLI](https://skills.sh) supports:
 
 ```
-npx skills add woosal1337/ste-writing-skill
+npx skills add woosal1337/blog
 ```
 
 Claude Code, with the full enforcement stack (recommended):
@@ -91,6 +91,7 @@ specification is free from [asd-ste100.org](https://asd-ste100.org).
 
 ## Provenance
 
-Built for the episode "The cure for AI slop is a 1986 aircraft manual". The
-canonical source lives in the blog repo at
-`videos/ep01-the-cure-for-ai-slop/ste-writing/`, and this repo mirrors it.
+Built for the episode "The cure for AI slop is a 1986 aircraft manual". This
+folder lives in the blog repo at `videos/ep01-the-cure-for-ai-slop/ste-writing/`
+and is the canonical source. The skills CLI installs it straight from there —
+no mirror, no second repo.
