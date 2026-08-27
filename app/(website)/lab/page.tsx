@@ -208,6 +208,11 @@ const MCPS: LabItem[] = [
 		href: "https://wisprflow.ai",
 	},
 	{
+		name: "media-mcp",
+		desc: "My own server for X, YouTube and Instagram. Agents read a thread, transcribe a video with local Whisper, and take frames only where the audio fails.",
+		href: "https://github.com/woosal1337/media-mcp",
+	},
+	{
 		name: "Aperture",
 		desc: "Tailscale's private AI platform, self-hosted on my own tailnet. Models, MCP servers and agents meet behind one network identity, so no API key has to be handed out to reach them.",
 		href: "https://aperture.tailscale.com",
