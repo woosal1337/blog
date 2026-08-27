@@ -216,9 +216,9 @@ const MCPS: LabItem[] = [
 
 const SKILLS: LabItem[] = [
 	{
-		name: "ste-writing",
+		name: "asd-ste100",
 		desc: "Two layers, always on. The words become Simplified Technical English, so docs and commit messages read like a person wrote them. The shape puts the next action on line one, for a reader with ADHD who will not find it in paragraph four.",
-		href: "/videos/the-cure-for-ai-slop/kit/ste-writing/SKILL",
+		href: "/videos/the-cure-for-ai-slop/kit/asd-ste100/SKILL",
 		code: "/ste",
 	},
 	{

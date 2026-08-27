@@ -6,7 +6,7 @@ date: 2026-07-21
 ---
 # Real before/after samples (for on-screen use)
 
-Actual `claude-sonnet` outputs from the [experiment](results-cross-model.md), same prompt, baseline system prompt vs the [ste-writing skill](../ste-writing/SKILL.md). Scores are heuristic anti-slop violations per 100 words (lower is cleaner).
+Actual `claude-sonnet` outputs from the [experiment](results-cross-model.md), same prompt, baseline system prompt vs the [asd-ste100 skill](../asd-ste100/SKILL.md). Scores are heuristic anti-slop violations per 100 words (lower is cleaner).
 
 ## README intro — the hero example
 

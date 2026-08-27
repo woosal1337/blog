@@ -1,4 +1,4 @@
-# ste-writing
+# asd-ste100
 
 [![skills.sh](https://skills.sh/b/woosal1337/blog)](https://skills.sh/woosal1337/blog)
 
@@ -32,7 +32,7 @@ install, no settings edit:
 
 ```
 /plugin marketplace add woosal1337/blog
-/plugin install ste-writing@chele-bi
+/plugin install asd-ste100@chele-bi
 ```
 
 **Any agent the [skills CLI](https://skills.sh) supports.** This installs the
@@ -41,7 +41,7 @@ style through settings:
 
 ```
 bunx skills add woosal1337/blog
-python3 ~/.claude/skills/ste-writing/install.py
+python3 ~/.claude/skills/asd-ste100/install.py
 ```
 
 **No tooling at all.** Paste `SKILL.md` into the system prompt. The skill
@@ -115,6 +115,6 @@ specification is free from [asd-ste100.org](https://asd-ste100.org).
 ## Provenance
 
 Built for the episode "The cure for AI slop is a 1986 aircraft manual". This
-folder lives in the blog repo at `videos/ep01-the-cure-for-ai-slop/ste-writing/`
+folder lives in the blog repo at `videos/ep01-the-cure-for-ai-slop/asd-ste100/`
 and is the canonical source. The skills CLI installs it straight from there —
 no mirror, no second repo.

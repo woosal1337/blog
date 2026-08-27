@@ -1,5 +1,5 @@
 ---
-name: ste-writing
+name: asd-ste100
 description: ASD-STE100 Simplified Technical English, and the reply shape a reader with ADHD can act on. A standing style rule, not an on-request tool. Layer 1 governs the words of every text a human reads — chat replies, docs, READMEs, commit messages, PR text, code comments, error messages, release notes, tool descriptions, task trackers, wiki pages. Layer 2 governs the order of a reply to a person — the next action first, numbered steps, real time estimates, no preamble and no closer. Neither layer touches code, identifiers, or command syntax. Load it before you write prose, and also when asked to remove "AI slop", make writing clear or plain, enforce a controlled style, or review text for STE violations. Two word modes — strict (procedures, runbooks, safety text, error messages) and STE-flavored (general prose, the default).
 license: MIT (see LICENSE; the ASD-STE100 specification itself is not covered)
 metadata:
@@ -8,7 +8,7 @@ metadata:
   replaces: i-have-adhd
 ---
 
-# ste-writing 2.0
+# asd-ste100 2.0
 
 Two layers. Both are always on.
 
@@ -183,7 +183,7 @@ An installed gate lints the reply after the model sends it. A block then makes t
 Before a final reply of more than 60 words, and before you write prose to a file:
 
 1. Write the draft to a scratch file.
-2. Run `python3 scripts/ste-lint.py --fail-over 2.5 draft.md` (installed path: `~/.claude/skills/ste-writing/scripts/ste-lint.py`).
+2. Run `python3 scripts/ste-lint.py --fail-over 2.5 draft.md` (installed path: `~/.claude/skills/asd-ste100/scripts/ste-lint.py`).
 3. Fix the reported categories. Lint one more time. Two passes, no more.
 4. Send the reply one time.
 

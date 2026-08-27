@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Installer for the ste-writing skill. One command arms every layer.
+"""Installer for the asd-ste100 skill. One command arms every layer.
 
     python3 install.py              install or repair
     python3 install.py --dry-run    show the plan, write nothing
@@ -8,8 +8,8 @@
 
 What it wires, for Claude Code:
 
-1. ~/.claude/skills/ste-writing        symlink to this directory
-2. ~/.claude/output-styles/ste-writing.md   symlink to output-style.md
+1. ~/.claude/skills/asd-ste100        symlink to this directory
+2. ~/.claude/output-styles/asd-ste100.md   symlink to output-style.md
 3. ~/.claude/settings.json             four hook entries plus outputStyle
 
 The four hooks:
@@ -34,9 +34,9 @@ SRC = os.path.dirname(os.path.abspath(__file__))
 HOME = os.path.expanduser("~")
 CLAUDE = os.path.join(HOME, ".claude")
 SETTINGS = os.path.join(CLAUDE, "settings.json")
-STYLE_NAME = "ste-writing"
+STYLE_NAME = "asd-ste100"
 
-HOOK_DIR = '"$HOME/.claude/skills/ste-writing/hooks'
+HOOK_DIR = '"$HOME/.claude/skills/asd-ste100/hooks'
 HOOKS = {
     "UserPromptSubmit": {
         "marker": "ste-inject",
@@ -120,7 +120,7 @@ def drop_link(link, actions, dry):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Install the ste-writing skill.")
+    parser = argparse.ArgumentParser(description="Install the asd-ste100 skill.")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--uninstall", action="store_true")
     parser.add_argument("--no-output-style", action="store_true")
@@ -128,7 +128,7 @@ def main():
     dry = args.dry_run
     actions = []
 
-    skill_link = os.path.join(CLAUDE, "skills", "ste-writing")
+    skill_link = os.path.join(CLAUDE, "skills", "asd-ste100")
     style_link = os.path.join(CLAUDE, "output-styles", STYLE_NAME + ".md")
 
     try:
@@ -168,7 +168,7 @@ def main():
             hooks[event] = kept + [spec["entry"]]
         if args.no_output_style:
             pass
-        elif settings.get("outputStyle") in (None, STYLE_NAME):
+        elif settings.get("outputStyle") in (None, STYLE_NAME, "ste-writing"):
             actions.append("set      outputStyle = {}".format(STYLE_NAME))
             settings["outputStyle"] = STYLE_NAME
         else:

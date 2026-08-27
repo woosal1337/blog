@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""UserPromptSubmit hook for the ste-writing skill. Three jobs:
+"""UserPromptSubmit hook for the asd-ste100 skill. Three jobs:
 
 1. Put the rule card into context on every turn, so the discipline does not
    depend on the model remembering to load the skill.
@@ -8,7 +8,7 @@
    of the reply on screen.
 3. Reset the turn's tool-call counter, which ste-refresh.py increments.
 
-Canonical copy: the ep01 kit, ste-writing/hooks/ste-inject.py
+Canonical copy: the ep01 kit, asd-ste100/hooks/ste-inject.py
 """
 import hashlib
 import json
@@ -24,12 +24,12 @@ def find_lint():
     settings-route install all resolve."""
     root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     for path in (os.path.join(root, "scripts", "ste-lint.py"),
-                 os.path.expanduser("~/.claude/skills/ste-writing/scripts/ste-lint.py")):
+                 os.path.expanduser("~/.claude/skills/asd-ste100/scripts/ste-lint.py")):
         if os.path.exists(path):
             return path
     return None
 
-CARD = """<ste-writing-standing-rule>
+CARD = """<asd-ste100-standing-rule>
 ASD-STE100 governs every word the reader sees in this reply, and in any prose
 you write to a file: chat text, commit messages, docs, code comments, PR text,
 error messages, task trackers, wiki pages. It never applies to code,
@@ -61,8 +61,8 @@ LAYER 2 - the shape (a reply to a person, a task, a PR description)
 Lint the draft BEFORE you send it. A Stop hook lints it after, and a block puts
 a second copy of the same answer on the reader's screen:
   python3 {lint} --fail-over 2.5 FILE
-Full rules, both modes, and the four layer conflicts: load the ste-writing skill.
-</ste-writing-standing-rule>""".format(lint=find_lint() or "scripts/ste-lint.py")
+Full rules, both modes, and the four layer conflicts: load the asd-ste100 skill.
+</asd-ste100-standing-rule>""".format(lint=find_lint() or "scripts/ste-lint.py")
 
 
 def key_for(session):
@@ -84,7 +84,7 @@ def feedback(session):
         pass
     if not warn:
         return None
-    lines = ["<ste-writing-feedback>",
+    lines = ["<asd-ste100-feedback>",
              "Your last reply scored {} violations per 100 words. The target "
              "is {}.".format(warn.get("score"), warn.get("limit"))]
     if warn.get("top"):
@@ -97,7 +97,7 @@ def feedback(session):
     lines.append("Longest sentence: {} words.".format(
         warn.get("longest_sentence_words", 0)))
     lines.append("Lint the draft of this reply before you send it.")
-    lines.append("</ste-writing-feedback>")
+    lines.append("</asd-ste100-feedback>")
     return "\n".join(lines)
 
 

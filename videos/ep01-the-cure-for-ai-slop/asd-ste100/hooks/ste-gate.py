@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stop hook for the ste-writing skill. Lints the final assistant message and
+"""Stop hook for the asd-ste100 skill. Lints the final assistant message and
 decides what to do about the score.
 
 Why this file is more than one `if`:
@@ -23,7 +23,7 @@ second reply on screen.
 The real fix is in the skill: lint the draft before you send it. Then the gate
 stays silent.
 
-Canonical copy: the ep01 kit, ste-writing/hooks/ste-gate.py
+Canonical copy: the ep01 kit, asd-ste100/hooks/ste-gate.py
 """
 import hashlib
 import json
@@ -39,7 +39,7 @@ def find_lint():
     settings-route install all resolve."""
     root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     for path in (os.path.join(root, "scripts", "ste-lint.py"),
-                 os.path.expanduser("~/.claude/skills/ste-writing/scripts/ste-lint.py")):
+                 os.path.expanduser("~/.claude/skills/asd-ste100/scripts/ste-lint.py")):
         if os.path.exists(path):
             return path
     return None

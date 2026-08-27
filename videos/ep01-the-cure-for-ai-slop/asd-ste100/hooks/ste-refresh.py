@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PostToolUse hook for the ste-writing skill. Two jobs:
+"""PostToolUse hook for the asd-ste100 skill. Two jobs:
 
 1. The distance problem. The turn-start card injects the rule, but a long
    working turn puts dozens of tool calls between that card and the final
@@ -15,7 +15,7 @@
 Both jobs inject context. Neither blocks. The turn counter is reset by
 ste-inject.sh on each user prompt.
 
-Canonical copy: the ep01 kit, ste-writing/hooks/ste-refresh.py
+Canonical copy: the ep01 kit, asd-ste100/hooks/ste-refresh.py
 """
 import hashlib
 import json
@@ -29,7 +29,7 @@ def find_lint():
     settings-route install all resolve."""
     root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     for path in (os.path.join(root, "scripts", "ste-lint.py"),
-                 os.path.expanduser("~/.claude/skills/ste-writing/scripts/ste-lint.py")):
+                 os.path.expanduser("~/.claude/skills/asd-ste100/scripts/ste-lint.py")):
         if os.path.exists(path):
             return path
     return None
@@ -46,7 +46,7 @@ MAX_BYTES = 200_000
 # Paths where the advisory stays silent. Blog posts and episode pages have a
 # voice. The experiment files are published data. The skill files quote
 # violations on purpose. A scratchpad draft is linted by the model itself.
-SKIP = ["/blog/", "(episode)", "/experiment/", "/ste-writing/",
+SKIP = ["/blog/", "(episode)", "/experiment/", "/asd-ste100/",
         "/scratchpad/", "/memory/", "/ste-gate/", "/output-styles/"]
 
 CARD = (

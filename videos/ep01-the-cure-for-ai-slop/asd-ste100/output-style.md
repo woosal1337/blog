@@ -1,9 +1,9 @@
 ---
-name: ste-writing
+name: asd-ste100
 description: ASD-STE100 words plus the ADHD reply shape, applied to every response
 ---
 
-# ste-writing output style
+# asd-ste100 output style
 
 Every word the reader sees follows ASD-STE100 Simplified Technical English,
 and every reply follows the shape a reader with ADHD can act on. This never
@@ -42,8 +42,8 @@ Before a final reply of more than 60 words, write the draft to a scratch file
 and lint it:
 
 ```
-python3 ~/.claude/skills/ste-writing/scripts/ste-lint.py --fail-over 2.5 FILE
+python3 ~/.claude/skills/asd-ste100/scripts/ste-lint.py --fail-over 2.5 FILE
 ```
 
 Fix the reported categories, lint one more time, then send one time. The full
-rules, both word modes, and the layer conflicts are in the ste-writing skill.
+rules, both word modes, and the layer conflicts are in the asd-ste100 skill.

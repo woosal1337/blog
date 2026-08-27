@@ -4,11 +4,11 @@ Everything the episode promises "in the description": the agent skill, the
 linter, and the full first-party test data. Nothing here needs more than
 Python 3.
 
-The kit has two parts. `ste-writing/` is the thing you install. `experiment/`
+The kit has two parts. `asd-ste100/` is the thing you install. `experiment/`
 is the evidence that it works.
 
 ```
-ste-writing/     the agent skill - one installer arms every layer
+asd-ste100/     the agent skill - one installer arms every layer
   SKILL.md                  the skill itself, version 2.0, two layers
   README.md                 the skill's own front page, as published
   LICENSE                   MIT for the kit, the spec stays ASD's
@@ -31,7 +31,7 @@ experiment/      the claim test - 6 writing tasks x 4 conditions, 2 models
 
 ## The skill
 
-`ste-writing/` is a complete skill directory. Version 2.0 has two layers.
+`asd-ste100/` is a complete skill directory. Version 2.0 has two layers.
 
 **Layer 1 is the words.** `SKILL.md` holds the distilled ASD-STE100 rules in
 two modes: strict for procedures, error messages and safety text, and flavored
@@ -58,7 +58,7 @@ so there is no mirror and no second repo to keep in sync.
 Claude Code, with the full enforcement stack:
 
 ```
-python3 ste-writing/install.py
+python3 asd-ste100/install.py
 ```
 
 The installer symlinks the skill and the output style, adds the four hook
@@ -67,19 +67,19 @@ idempotent, a second run repairs the install, and `--uninstall` removes
 exactly what it added. If you only want the skill, the old way still works:
 
 ```
-ln -s "$PWD/ste-writing" ~/.claude/skills/ste-writing
+ln -s "$PWD/asd-ste100" ~/.claude/skills/asd-ste100
 ```
 
-Any other agent: paste `ste-writing/SKILL.md` into the system prompt or the
+Any other agent: paste `asd-ste100/SKILL.md` into the system prompt or the
 custom instructions. The skill works without the linter. The linter closes the
 loop.
 
 ## The linter
 
 ```
-python3 ste-writing/scripts/ste-lint.py your-draft.md            # flavored: general prose
-python3 ste-writing/scripts/ste-lint.py --strict your-draft.md   # strict: adds the STE word set, counts em dashes
-python3 ste-writing/scripts/ste-lint.py --shape your-draft.md    # add the Layer 2 counts
+python3 asd-ste100/scripts/ste-lint.py your-draft.md            # flavored: general prose
+python3 asd-ste100/scripts/ste-lint.py --strict your-draft.md   # strict: adds the STE word set, counts em dashes
+python3 asd-ste100/scripts/ste-lint.py --shape your-draft.md    # add the Layer 2 counts
 ```
 
 Score is violations per 100 words - lower is cleaner. Lint a draft, apply the

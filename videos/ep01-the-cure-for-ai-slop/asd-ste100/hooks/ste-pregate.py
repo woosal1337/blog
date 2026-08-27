@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PreToolUse hook for the ste-writing skill. The pre-send gate.
+"""PreToolUse hook for the asd-ste100 skill. The pre-send gate.
 
 The Stop gate has a structural cost: it runs after the reply is on the
 reader's screen, so a block puts a second copy there. This gate has no such
@@ -17,7 +17,7 @@ Everything fails open. A parse miss, a broken linter, or a short text lets
 the call through. The deny fires only over the same ceiling the Stop gate
 uses, so the two gates agree on what is bad enough to stop.
 
-Canonical copy: the ep01 kit, ste-writing/hooks/ste-pregate.py
+Canonical copy: the ep01 kit, asd-ste100/hooks/ste-pregate.py
 """
 import json
 import os
@@ -31,7 +31,7 @@ def find_lint():
     settings-route install all resolve."""
     root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
     for path in (os.path.join(root, "scripts", "ste-lint.py"),
-                 os.path.expanduser("~/.claude/skills/ste-writing/scripts/ste-lint.py")):
+                 os.path.expanduser("~/.claude/skills/asd-ste100/scripts/ste-lint.py")):
         if os.path.exists(path):
             return path
     return None
