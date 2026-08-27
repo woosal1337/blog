@@ -40,7 +40,11 @@ def commit_message(command):
     Covers -m arguments (single or double quoted) and a heredoc body. An
     amend, fixup, or squash with no new message passes untouched.
     """
-    if not re.search(r"\bgit\b[^|;&]*\bcommit\b", command):
+    # "git", then at most four arguments, then "commit". The lookbehind
+    # stops a match inside ".git", so prose like "--exclude .git ... then
+    # commit and push" cannot turn a non-commit command into a gated one.
+    # The bounded chain still covers "git -c key=value commit".
+    if not re.search(r"(?<![\w./-])git\s+(?:[^\s|;&]+\s+){0,4}commit\b", command):
         return None
     if re.search(r"--(?:no-edit|fixup|squash)\b", command):
         return None

@@ -48,7 +48,7 @@ needs a voice.
 Any agent the [skills CLI](https://skills.sh) supports, one command:
 
 ```
-npx skills add woosal1337/blog
+bunx skills add woosal1337/blog
 ```
 
 The command reads this repo itself. The CLI finds the skill in this folder,

@@ -27,7 +27,7 @@ The full experiment, the data, and the 17-minute episode:
 The skill alone, for any agent the [skills CLI](https://skills.sh) supports:
 
 ```
-npx skills add woosal1337/blog
+bunx skills add woosal1337/blog
 ```
 
 Claude Code, with the full enforcement stack (recommended):
