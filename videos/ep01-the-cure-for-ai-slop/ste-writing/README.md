@@ -24,20 +24,43 @@ The full experiment, the data, and the 17-minute episode:
 
 ## Install
 
-The skill alone, for any agent the [skills CLI](https://skills.sh) supports:
+Pick one route. Do not stack them - two routes double the hooks.
+
+**Claude Code, as a plugin.** This folder is a standard plugin: the skill at
+the root, the hooks declared in `hooks/hooks.json`. They self-register on
+install, no settings edit:
+
+```
+/plugin marketplace add woosal1337/blog
+/plugin install ste-writing@chele-bi
+```
+
+**Any agent the [skills CLI](https://skills.sh) supports.** This installs the
+skill files. On Claude Code, `install.py` then arms the hooks and the output
+style through settings:
 
 ```
 bunx skills add woosal1337/blog
-```
-
-Claude Code, with the full enforcement stack (recommended):
-
-```
 python3 ~/.claude/skills/ste-writing/install.py
 ```
 
-No tooling at all: paste `SKILL.md` into the system prompt. The skill works
-without the linter. The linter closes the loop.
+**No tooling at all.** Paste `SKILL.md` into the system prompt. The skill
+works without the linter. The linter closes the loop.
+
+## Layout
+
+The folder follows the [Agent Skills spec](https://agentskills.io) and the
+Claude Code plugin format at the same time:
+
+```
+SKILL.md                     the skill - name, description, the two layers
+scripts/ste-lint.py          executable code, per the spec convention
+references/ste-recurring-errors.md   docs loaded on demand
+hooks/hooks.json             the plugin's hook declarations
+hooks/ste-*.py               the four hook programs
+.claude-plugin/plugin.json   the plugin manifest
+install.py, output-style.md  the settings route, for non-plugin installs
+```
 
 ## What the enforcement stack adds
 
@@ -63,9 +86,9 @@ ceiling forces one rewrite, one time per turn.
 ## The linter
 
 ```
-python3 ste-lint.py draft.md            # flavored: general prose, target under 2.5
-python3 ste-lint.py --strict draft.md   # strict: procedures and error messages
-python3 ste-lint.py --shape draft.md    # add the Layer 2 reply-shape counts
+python3 scripts/ste-lint.py draft.md            # flavored: general prose, target under 2.5
+python3 scripts/ste-lint.py --strict draft.md   # strict: procedures and error messages
+python3 scripts/ste-lint.py --shape draft.md    # add the Layer 2 reply-shape counts
 ```
 
 The score is violations per 100 words. `--json` gives machine-readable

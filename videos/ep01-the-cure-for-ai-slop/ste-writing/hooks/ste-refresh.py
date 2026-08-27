@@ -23,7 +23,19 @@ import os
 import subprocess
 import sys
 
-LINT = os.path.expanduser("~/.claude/skills/ste-writing/ste-lint.py")
+def find_lint():
+    """The linter ships next to this skill. Look there first, then at the
+    installed path, so the plugin cache, a skills-CLI copy, and the
+    settings-route install all resolve."""
+    root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    for path in (os.path.join(root, "scripts", "ste-lint.py"),
+                 os.path.expanduser("~/.claude/skills/ste-writing/scripts/ste-lint.py")):
+        if os.path.exists(path):
+            return path
+    return None
+
+
+LINT = find_lint()
 STATE = os.path.expanduser("~/.claude/ste-gate")
 
 EVERY = 12          # tool calls between two cards
@@ -43,9 +55,8 @@ CARD = (
     "max 20 words for an instruction, no contractions, no semicolons, keep "
     "the articles. Layer 2: the next action first, numbered steps, no "
     "preamble, no recap, no closer. If the reply runs over 60 words, lint "
-    "the draft first: python3 ~/.claude/skills/ste-writing/ste-lint.py "
-    "--fail-over 2.5 FILE"
-)
+    "the draft first: python3 {} --fail-over 2.5 FILE"
+).format(LINT or "scripts/ste-lint.py")
 
 
 def count_path(session):
@@ -107,7 +118,7 @@ def main():
         payload = json.load(sys.stdin)
     except Exception:
         return 0
-    if not os.path.exists(LINT):
+    if not LINT:
         return 0
     notes = []
     if bump(payload.get("session_id") or "") % EVERY == 0:

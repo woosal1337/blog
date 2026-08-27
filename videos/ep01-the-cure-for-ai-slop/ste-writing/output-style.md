@@ -42,7 +42,7 @@ Before a final reply of more than 60 words, write the draft to a scratch file
 and lint it:
 
 ```
-python3 ~/.claude/skills/ste-writing/ste-lint.py --fail-over 2.5 FILE
+python3 ~/.claude/skills/ste-writing/scripts/ste-lint.py --fail-over 2.5 FILE
 ```
 
 Fix the reported categories, lint one more time, then send one time. The full

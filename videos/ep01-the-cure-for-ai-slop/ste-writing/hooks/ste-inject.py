@@ -17,6 +17,18 @@ import sys
 
 STATE = os.path.expanduser("~/.claude/ste-gate")
 
+
+def find_lint():
+    """The linter ships next to this skill. Look there first, then at the
+    installed path, so the plugin cache, a skills-CLI copy, and the
+    settings-route install all resolve."""
+    root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    for path in (os.path.join(root, "scripts", "ste-lint.py"),
+                 os.path.expanduser("~/.claude/skills/ste-writing/scripts/ste-lint.py")):
+        if os.path.exists(path):
+            return path
+    return None
+
 CARD = """<ste-writing-standing-rule>
 ASD-STE100 governs every word the reader sees in this reply, and in any prose
 you write to a file: chat text, commit messages, docs, code comments, PR text,
@@ -48,9 +60,9 @@ LAYER 2 - the shape (a reply to a person, a task, a PR description)
 
 Lint the draft BEFORE you send it. A Stop hook lints it after, and a block puts
 a second copy of the same answer on the reader's screen:
-  python3 ~/.claude/skills/ste-writing/ste-lint.py --fail-over 2.5 FILE
+  python3 {lint} --fail-over 2.5 FILE
 Full rules, both modes, and the four layer conflicts: load the ste-writing skill.
-</ste-writing-standing-rule>"""
+</ste-writing-standing-rule>""".format(lint=find_lint() or "scripts/ste-lint.py")
 
 
 def key_for(session):

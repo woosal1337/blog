@@ -25,7 +25,19 @@ import re
 import subprocess
 import sys
 
-LINT = os.path.expanduser("~/.claude/skills/ste-writing/ste-lint.py")
+def find_lint():
+    """The linter ships next to this skill. Look there first, then at the
+    installed path, so the plugin cache, a skills-CLI copy, and the
+    settings-route install all resolve."""
+    root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    for path in (os.path.join(root, "scripts", "ste-lint.py"),
+                 os.path.expanduser("~/.claude/skills/ste-writing/scripts/ste-lint.py")):
+        if os.path.exists(path):
+            return path
+    return None
+
+
+LINT = find_lint()
 
 BLOCK_AT = 4.0        # same ceiling as the Stop gate
 SHAPE_BLOCK_AT = 4
@@ -77,7 +89,7 @@ def main():
         payload = json.load(sys.stdin)
     except Exception:
         return 0
-    if not os.path.exists(LINT):
+    if not LINT:
         return 0
     tool = payload.get("tool_name") or ""
     tool_input = payload.get("tool_input") or {}

@@ -13,7 +13,7 @@ import importlib.util
 
 _ste_spec = importlib.util.spec_from_file_location(
     "ste_lint",
-    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "ste-writing", "ste-lint.py"))
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "ste-writing", "scripts", "ste-lint.py"))
 ste_lint = importlib.util.module_from_spec(_ste_spec)
 _ste_spec.loader.exec_module(ste_lint)
 

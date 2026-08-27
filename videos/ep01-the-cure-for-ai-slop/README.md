@@ -12,8 +12,9 @@ ste-writing/     the agent skill - one installer arms every layer
   SKILL.md                  the skill itself, version 2.0, two layers
   README.md                 the skill's own front page, as published
   LICENSE                   MIT for the kit, the spec stays ASD's
-  ste-lint.py               the heuristic anti-slop linter
-  ste-recurring-errors.md   the spec's list of the 39 most frequent errors
+  scripts/ste-lint.py       the heuristic anti-slop linter
+  references/ste-recurring-errors.md   the 39 most frequent writer errors
+  hooks/hooks.json          the plugin's hook declarations, self-registering
   install.py                wires the skill, the style, and the four hooks
   output-style.md           the condensed rule as a Claude Code output style
   hooks/ste-inject.py       the rule card in context, every turn
@@ -34,7 +35,7 @@ experiment/      the claim test - 6 writing tasks x 4 conditions, 2 models
 
 **Layer 1 is the words.** `SKILL.md` holds the distilled ASD-STE100 rules in
 two modes: strict for procedures, error messages and safety text, and flavored
-for general prose. `ste-recurring-errors.md` is the spec's own list of the 39
+for general prose. `references/ste-recurring-errors.md` is the spec's own list of the 39
 words writers reach for on autopilot, with the approved replacement for each.
 
 **Layer 2 is the shape.** STE fixes a sentence. It does nothing about the
@@ -76,9 +77,9 @@ loop.
 ## The linter
 
 ```
-python3 ste-writing/ste-lint.py your-draft.md            # flavored: general prose
-python3 ste-writing/ste-lint.py --strict your-draft.md   # strict: adds the STE word set, counts em dashes
-python3 ste-writing/ste-lint.py --shape your-draft.md    # add the Layer 2 counts
+python3 ste-writing/scripts/ste-lint.py your-draft.md            # flavored: general prose
+python3 ste-writing/scripts/ste-lint.py --strict your-draft.md   # strict: adds the STE word set, counts em dashes
+python3 ste-writing/scripts/ste-lint.py --shape your-draft.md    # add the Layer 2 counts
 ```
 
 Score is violations per 100 words - lower is cleaner. Lint a draft, apply the

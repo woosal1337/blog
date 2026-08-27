@@ -1,0 +1,15 @@
+{
+	"name": "chele-bi",
+	"description": "Skills and plugins from chele.bi - the ste-writing skill with its linter and hooks, published with the episodes that built them.",
+	"owner": {
+		"name": "Ege Chelebi",
+		"url": "https://chele.bi"
+	},
+	"plugins": [
+		{
+			"name": "ste-writing",
+			"source": "./videos/ep01-the-cure-for-ai-slop/ste-writing",
+			"description": "ASD-STE100 words plus the ADHD reply shape, with a linter and four self-registering hooks. Removes AI slop with a writing system, not a banned-word list."
+		}
+	]
+}

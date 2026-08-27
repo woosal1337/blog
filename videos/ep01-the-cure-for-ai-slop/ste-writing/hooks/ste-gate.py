@@ -33,7 +33,19 @@ import subprocess
 import sys
 import time
 
-LINT = os.path.expanduser("~/.claude/skills/ste-writing/ste-lint.py")
+def find_lint():
+    """The linter ships next to this skill. Look there first, then at the
+    installed path, so the plugin cache, a skills-CLI copy, and the
+    settings-route install all resolve."""
+    root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    for path in (os.path.join(root, "scripts", "ste-lint.py"),
+                 os.path.expanduser("~/.claude/skills/ste-writing/scripts/ste-lint.py")):
+        if os.path.exists(path):
+            return path
+    return None
+
+
+LINT = find_lint()
 STATE = os.path.expanduser("~/.claude/ste-gate")
 
 TARGET = 2.5           # flavored target, violations per 100 words
@@ -176,7 +188,7 @@ def main():
         return 0
     session = payload.get("session_id") or ""
     path = payload.get("transcript_path")
-    if not path or not os.path.exists(path) or not os.path.exists(LINT):
+    if not path or not os.path.exists(path) or not LINT:
         return 0
 
     sweep()

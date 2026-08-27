@@ -75,7 +75,7 @@ STRUCTURE
 
 ## Word modes
 
-- **strict** — procedures, runbooks, safety text, error messages: apply every rule and both length caps, plus the strict word set: but (not however), because (not since, for causes), can (not may), must (not should/shall), use or with (not using), obey (not follow, for instructions), push (not press, for physical controls). The spec's own list of the 39 most frequent writer errors is in [ste-recurring-errors.md](ste-recurring-errors.md).
+- **strict** — procedures, runbooks, safety text, error messages: apply every rule and both length caps, plus the strict word set: but (not however), because (not since, for causes), can (not may), must (not should/shall), use or with (not using), obey (not follow, for instructions), push (not press, for physical controls). The spec's own list of the 39 most frequent writer errors is in [ste-recurring-errors.md](references/ste-recurring-errors.md).
 - **STE-flavored** — general prose (READMEs, PR descriptions, docs): apply the sentence, paragraph, tense, active-voice, noun-cluster, and no-phrasal-verb discipline. Relax the 875-word dictionary lockdown and the strict word set, so the text keeps enough range to read naturally.
 
 Flavored is the default.
@@ -183,14 +183,14 @@ An installed gate lints the reply after the model sends it. A block then makes t
 Before a final reply of more than 60 words, and before you write prose to a file:
 
 1. Write the draft to a scratch file.
-2. Run `python3 ste-lint.py --fail-over 2.5 draft.md` (installed path: `~/.claude/skills/ste-writing/ste-lint.py`).
+2. Run `python3 scripts/ste-lint.py --fail-over 2.5 draft.md` (installed path: `~/.claude/skills/ste-writing/scripts/ste-lint.py`).
 3. Fix the reported categories. Lint one more time. Two passes, no more.
 4. Send the reply one time.
 
 ```
-python3 ste-lint.py draft.md            # flavored target: under 2.5 per 100 words
-python3 ste-lint.py --strict draft.md   # strict target: under 1.5 per 100 words
-python3 ste-lint.py --shape draft.md    # add the Layer 2 counts
+python3 scripts/ste-lint.py draft.md            # flavored target: under 2.5 per 100 words
+python3 scripts/ste-lint.py --strict draft.md   # strict target: under 1.5 per 100 words
+python3 scripts/ste-lint.py --shape draft.md    # add the Layer 2 counts
 ```
 
 Report the final score with the text. Do not present text as clean without a lint run.
