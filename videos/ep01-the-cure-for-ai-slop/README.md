@@ -10,6 +10,8 @@ is the evidence that it works.
 ```
 ste-writing/     the agent skill - one installer arms every layer
   SKILL.md                  the skill itself, version 2.0, two layers
+  README.md                 the skill's own front page, as published
+  LICENSE                   MIT for the kit, the spec stays ASD's
   ste-lint.py               the heuristic anti-slop linter
   ste-recurring-errors.md   the spec's list of the 39 most frequent errors
   install.py                wires the skill, the style, and the four hooks
@@ -43,7 +45,16 @@ it in. Layer 1 applies to every text a human reads. Layer 2 applies to a reply,
 a task, or a PR description - not to a reference doc, and not to writing that
 needs a voice.
 
-Claude Code, one command, and every layer below is armed:
+Any agent the [skills CLI](https://skills.sh) supports, one command:
+
+```
+npx skills add woosal1337/ste-writing-skill
+```
+
+That repo is a mirror of this folder, published for the skills.sh registry.
+This folder stays the source of truth.
+
+Claude Code, with the full enforcement stack:
 
 ```
 python3 ste-writing/install.py

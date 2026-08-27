@@ -87,7 +87,9 @@ def strip_ste(groups):
 
 
 def ensure_link(link, target, actions, dry):
-    if os.path.islink(link) and os.path.realpath(link) == os.path.realpath(target):
+    if os.path.exists(link) and os.path.realpath(link) == os.path.realpath(target):
+        # Already in place. This also covers the skills CLI, which puts the
+        # directory at the agent path itself - never link a path to itself.
         actions.append("ok       {} already points here".format(link))
         return
     if os.path.islink(link):
