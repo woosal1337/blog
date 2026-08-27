@@ -8,12 +8,16 @@ The kit has two parts. `ste-writing/` is the thing you install. `experiment/`
 is the evidence that it works.
 
 ```
-ste-writing/     the agent skill - drop the folder into your skills directory
+ste-writing/     the agent skill - one installer arms every layer
   SKILL.md                  the skill itself, version 2.0, two layers
   ste-lint.py               the heuristic anti-slop linter
   ste-recurring-errors.md   the spec's list of the 39 most frequent errors
-  hooks/ste-inject.sh       puts the rule card in context on every turn
-  hooks/ste-gate.py         lints the reply and scores it, three bands
+  install.py                wires the skill, the style, and the four hooks
+  output-style.md           the condensed rule as a Claude Code output style
+  hooks/ste-inject.py       the rule card in context, every turn
+  hooks/ste-refresh.py      a short card every 12 tool calls, mid-turn
+  hooks/ste-pregate.py      lints a commit message before the command runs
+  hooks/ste-gate.py         lints the finished reply, three bands
 
 experiment/      the claim test - 6 writing tasks x 4 conditions, 2 models
   results-cross-model.md    the headline numbers, and what did not hold
@@ -39,7 +43,16 @@ it in. Layer 1 applies to every text a human reads. Layer 2 applies to a reply,
 a task, or a PR description - not to a reference doc, and not to writing that
 needs a voice.
 
-Claude Code, or any CLI that reads a skill directory:
+Claude Code, one command, and every layer below is armed:
+
+```
+python3 ste-writing/install.py
+```
+
+The installer symlinks the skill and the output style, adds the four hook
+entries to `~/.claude/settings.json`, and backs the old file up first. It is
+idempotent, a second run repairs the install, and `--uninstall` removes
+exactly what it added. If you only want the skill, the old way still works:
 
 ```
 ln -s "$PWD/ste-writing" ~/.claude/skills/ste-writing
@@ -72,22 +85,27 @@ Skill 2.0 added the Layer 2 counts under `shape`, with `shape_version: 1`. They
 stay out of `total`, so `total_per100w` still means what it meant, and the
 numbers below still compare.
 
-## The hooks
+## The enforcement layers
 
-The skill tells a model what to do. A hook makes it happen without you asking.
-Two of them, for Claude Code, in `ste-writing/hooks/`:
+A skill is advisory. The model can forget it, and on a long turn it does. The
+installer therefore arms every deterministic layer the harness offers, from
+the system prompt down to a hard gate:
 
-```json
-"UserPromptSubmit": [{"hooks": [
-  {"type": "command", "command": "bash ~/.claude/skills/ste-writing/hooks/ste-inject.sh"}
-]}],
-"Stop": [{"hooks": [
-  {"type": "command", "command": "python3 ~/.claude/skills/ste-writing/hooks/ste-gate.py"}
-]}]
-```
+| Layer | Mechanism | When it fires | What it guarantees |
+|---|---|---|---|
+| style | `output-style.md` | every request | the rule sits in the system prompt itself |
+| card | `ste-inject.py` | every user turn | the rule enters context, and the last score comes back |
+| refresh | `ste-refresh.py` | every 12 tool calls | the rule stays near the reply on a long turn |
+| pre-send | `ste-pregate.py` | before a commit or board write | bad prose never lands anywhere |
+| file check | `ste-refresh.py` | after a Write of an md file | a written doc gets its score in the same turn |
+| gate | `ste-gate.py` | when the reply ends | every finished reply is linted, three bands |
 
-`ste-inject.sh` puts the rule card into context on every turn, so the style does
-not depend on the model loading the skill first.
+The pre-send gate is the strongest layer, and it is worth understanding why.
+It runs BEFORE the tool call, so a deny costs nothing on screen. The model
+reads the lint report, fixes the text, and makes the same call again. The
+reader sees one clean commit. Prose that goes through a tool call can be made
+fully deterministic this way. The reply itself cannot, which is what the Stop
+gate is for.
 
 `ste-gate.py` lints the reply after the model sends it. Here is the part that
 took a second version to get right. The reply is already on the reader's screen

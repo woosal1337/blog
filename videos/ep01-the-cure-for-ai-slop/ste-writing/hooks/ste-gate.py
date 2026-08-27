@@ -74,6 +74,7 @@ def write_warn(session, report):
         "top": ["{} {}".format(k, v) for k, v in top],
         "shape_total": report.get("shape_total", 0),
         "shape_top": list(shape)[:3],
+        "long_samples": (report.get("sample_long_sentence") or [])[:2],
         "longest_sentence_words": report.get("longest_sentence_words", 0),
     }
     try:
@@ -211,7 +212,8 @@ def main():
     mark_blocked(session, turn)
     hits = {k: v for k, v in (report.get("violations") or {}).items() if v}
     shape = {k: v for k, v in (report.get("shape") or {}).items() if v}
-    samples = (report.get("sample_banned") or []) + (report.get("sample_marketing") or [])
+    samples = (report.get("sample_banned") or []) + (report.get("sample_marketing") or []) \
+        + (report.get("sample_long_sentence") or [])
     print(json.dumps({
         "decision": "block",
         "reason": (

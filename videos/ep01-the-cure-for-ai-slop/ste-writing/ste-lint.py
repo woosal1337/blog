@@ -208,6 +208,8 @@ def lint(text, strict=False):
         "sample_marketing": list(dict.fromkeys(mh))[:6],
         "sample_banned": list(dict.fromkeys(bh))[:6],
         "sample_noun_train": trains[:3],
+        "sample_long_sentence": ["{}w: {}".format(n, s[:70]) for n, s in
+                                 sorted(longs, key=lambda x: -x[0])[:2]],
     }
 
 if __name__ == "__main__":
