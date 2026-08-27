@@ -173,6 +173,11 @@ function LabGroup({
 
 const AGENTS: LabItem[] = [
 	{
+		name: "Herdr",
+		desc: "The runtime the agents live in. A background server owns their terminals, so a closed lid never stops the work, and every pane reports whether its agent is working, blocked or idle.",
+		href: "https://herdr.dev",
+	},
+	{
 		name: "JetBrains Air",
 		desc: "The agentic IDE. Claude Code runs inside it over ACP, on my own fork of the adapter so the agents' work stays visible.",
 		href: "https://air.dev",
