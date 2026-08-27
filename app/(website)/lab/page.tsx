@@ -202,6 +202,11 @@ const MCPS: LabItem[] = [
 		desc: "Voice dictation, with a notetaker beside it. Agents read the meetings, notes and briefs over MCP, and never the dictations.",
 		href: "https://wisprflow.ai",
 	},
+	{
+		name: "Aperture",
+		desc: "Tailscale's private AI platform, self-hosted on my own tailnet. Models, MCP servers and agents meet behind one network identity, so no API key has to be handed out to reach them.",
+		href: "https://aperture.tailscale.com",
+	},
 ];
 
 const SKILLS: LabItem[] = [
