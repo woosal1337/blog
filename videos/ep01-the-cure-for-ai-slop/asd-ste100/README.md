@@ -1,6 +1,8 @@
 # asd-ste100
 
-[![skills.sh](https://skills.sh/b/woosal1337/blog)](https://skills.sh/woosal1337/blog)
+[![skills.sh](https://skills.sh/b/woosal1337/blog)](https://www.skills.sh/woosal1337/blog/asd-ste100)
+
+Listed at [skills.sh/woosal1337/blog/asd-ste100](https://www.skills.sh/woosal1337/blog/asd-ste100).
 
 An agent skill that removes AI slop with a writing system, not a banned-word
 list. Layer 1 rewrites the words into ASD-STE100 Simplified Technical English,
@@ -43,6 +45,9 @@ style through settings:
 bunx skills add woosal1337/blog
 python3 ~/.claude/skills/asd-ste100/install.py
 ```
+
+The registry page for that command is the listing above. It reads this repo
+directly, so the page and the folder never drift apart.
 
 **No tooling at all.** Paste `SKILL.md` into the system prompt. The skill
 works without the linter. The linter closes the loop.

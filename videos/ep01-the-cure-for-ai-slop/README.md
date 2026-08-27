@@ -52,6 +52,9 @@ Any agent the [skills CLI](https://skills.sh) supports, one command:
 bunx skills add woosal1337/blog
 ```
 
+The listing behind that command is
+[skills.sh/woosal1337/blog/asd-ste100](https://www.skills.sh/woosal1337/blog/asd-ste100).
+
 The command reads this repo itself. The CLI finds the skill in this folder,
 so there is no mirror and no second repo to keep in sync.
 
