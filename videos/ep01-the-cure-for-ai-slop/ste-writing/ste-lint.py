@@ -63,6 +63,21 @@ def strip_code(t):
     t = re.sub(r"`[^`]*`", " ", t)
     return t
 
+
+def paragraphs(raw):
+    """Split into paragraphs AFTER the fenced blocks are gone.
+
+    A code block that holds a blank line used to be split first, which left two
+    fragments with one fence each. strip_code matches a PAIR, so it removed
+    neither, and every line of code then counted as a sentence. A config block
+    with 9 blank lines scored 9 long paragraphs against 50 words of prose.
+    A fence becomes a paragraph break, so the real paragraphs stay apart.
+    """
+    t = re.sub(r"```.*?```", "\n\n", raw, flags=re.S)
+    t = re.sub(r"^[ \t]*```.*$", "\n", t, flags=re.M)   # a fence with no partner
+    t = re.sub(r"`[^`]*`", " ", t)
+    return [p for p in re.split(r"\n\s*\n", t) if p.strip()]
+
 def sentences(text):
     out = []
     for line in text.split("\n"):
@@ -167,8 +182,7 @@ def lint(text, strict=False):
     v["banned_word"], bh = count_ci(text, BANNED)
     v["marketing_adjective"], mh = count_ci(text, MARKETING)
     v["modal_hedge"], _ = count_ci(text, MODAL_HEDGE)
-    paras = [p for p in re.split(r"\n\s*\n", raw) if p.strip()]
-    v["long_paragraph(>6s)"] = sum(1 for p in paras if len(sentences(strip_code(p))) > 6)
+    v["long_paragraph(>6s)"] = sum(1 for p in paragraphs(raw) if len(sentences(p)) > 6)
     em = raw.count("—") + raw.count("–")
     trains = noun_trains(text)
     if strict:
