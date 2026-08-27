@@ -235,6 +235,14 @@ const SKILLS: LabItem[] = [
 	},
 ];
 
+const NETWORK: LabItem[] = [
+	{
+		name: "Tailscale",
+		desc: "The private network under all of it. Machines, agents and services meet on the tailnet, so no box needs an open port on the internet.",
+		href: "https://tailscale.com",
+	},
+];
+
 const KNOWLEDGE: LabItem[] = [
 	{
 		name: "Obsidian",
@@ -278,6 +286,12 @@ export default function LabPage() {
 
 					<LabGroup label="Skills">
 						{SKILLS.map((row) => (
+							<LabRow key={row.name} {...row} />
+						))}
+					</LabGroup>
+
+					<LabGroup label="Network">
+						{NETWORK.map((row) => (
 							<LabRow key={row.name} {...row} />
 						))}
 					</LabGroup>
