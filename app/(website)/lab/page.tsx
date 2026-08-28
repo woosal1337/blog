@@ -227,6 +227,12 @@ const SKILLS: LabItem[] = [
 		code: "/ste",
 	},
 	{
+		name: "design-taste-frontend",
+		desc: "Anti-slop frontend design, for landing pages, portfolios and redesigns. It reads the brief before it picks an aesthetic, reaches for a real design system where one fits, and finishes on a ban list of the tells that give a generated page away.",
+		href: "https://www.tasteskill.dev",
+		code: "/tst",
+	},
+	{
 		name: "elliptic",
 		desc: "Teaches an agent the Elliptic workspace over MCP: the domain model, the org discipline, and the mistakes that quietly land a write in the wrong workspace.",
 		href: "https://github.com/woosal1337/elliptic",
