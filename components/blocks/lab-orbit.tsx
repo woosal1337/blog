@@ -155,9 +155,15 @@ export function LabOrbit({ className }: { className?: string }) {
 			aria-label="The lab, the machines, containers, MCP servers and tools I use every day"
 			className={className}
 		>
-			<div className="group flex h-full flex-col rounded-[16px] border border-line bg-[#0a0a0a] p-1 transition-colors duration-200 ease-house hover:border-line-strong">
+			<div className="group flex h-full flex-col rounded-[16px] border border-line bg-[#060606] p-1 transition-colors duration-200 ease-house hover:border-line-strong">
 				<div className="relative h-[150px] overflow-hidden rounded-[12px] bg-[#060606]">
 					<OrbitField />
+					{/* The art dissolves into the card before the text starts, so the
+					    animation never runs up against the title. */}
+					<div
+						className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-[#060606]"
+						aria-hidden="true"
+					/>
 				</div>
 				<div className="px-3.5 pb-3 pt-3.5">
 					<p className="font-ui text-[15px] font-medium text-ink">Lab</p>

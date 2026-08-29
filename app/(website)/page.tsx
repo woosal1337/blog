@@ -1,4 +1,5 @@
 import { BooksShelf } from "@/components/blocks/books-shelf";
+import { GalleryReel } from "@/components/blocks/gallery-reel";
 import { LabOrbit } from "@/components/blocks/lab-orbit";
 import { SocialIcons } from "@/components/blocks/social-icons";
 import { EpisodeCard } from "@/components/ds/episode-card";
@@ -175,6 +176,7 @@ export default async function HomePage() {
 				)}
 
 				<LabOrbit className="mt-10 block" />
+				<GalleryReel className="mt-4 block" />
 			</div>
 
 			<section className="mt-24 pb-24">

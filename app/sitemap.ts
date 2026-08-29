@@ -1,4 +1,5 @@
 import { getAllPosts } from "@/lib/blog";
+import { getAllSets } from "@/lib/gallery";
 import { absoluteUrl } from "@/lib/seo";
 import { getAllEpisodes, kitFileHref, listKitFiles } from "@/lib/videos";
 import type { MetadataRoute } from "next";
@@ -9,6 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		"/blog",
 		"/projects",
 		"/videos",
+		"/gallery",
 		"/about",
 		"/lab",
 	].map((route) => ({
@@ -27,6 +29,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		lastModified: episode.date.split("T")[0],
 	}));
 
+	const sets = await getAllSets();
+	const setRoutes = sets.map((set) => ({
+		url: absoluteUrl(`/gallery/${set.slug}`),
+		lastModified: set.date.split("T")[0],
+	}));
+
 	const kitRoutes = episodes.flatMap((episode) =>
 		episode.kit
 			? listKitFiles(episode.kit.dir).map((file) => ({
@@ -36,5 +44,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			: [],
 	);
 
-	return [...staticRoutes, ...postRoutes, ...episodeRoutes, ...kitRoutes];
+	return [
+		...staticRoutes,
+		...postRoutes,
+		...episodeRoutes,
+		...setRoutes,
+		...kitRoutes,
+	];
 }

@@ -277,6 +277,32 @@
 		}
 	}
 
+	/* The gallery reel. Each strip repeats every 680 user units, so a shift of
+	   exactly 680 loops with no seam. The global reduced-motion rule above
+	   stops both. */
+	@keyframes reel-drift-left {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(-680px);
+		}
+	}
+	@keyframes reel-drift-right {
+		from {
+			transform: translateX(-680px);
+		}
+		to {
+			transform: translateX(0);
+		}
+	}
+	.reel-a {
+		animation: reel-drift-left 46s linear infinite;
+	}
+	.reel-b {
+		animation: reel-drift-right 72s linear infinite;
+	}
+
 	.dim-list:hover > .dim-row {
 		opacity: 0.5;
 	}
@@ -322,9 +348,7 @@
 		isolation: isolate;
 		rotate: x 0deg;
 		scale: 1;
-		transition:
-			rotate 320ms var(--ease-house),
-			scale 320ms var(--ease-house);
+		transition: rotate 320ms var(--ease-house), scale 320ms var(--ease-house);
 		-webkit-tap-highlight-color: transparent;
 	}
 
