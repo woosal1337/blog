@@ -89,12 +89,6 @@ export default function RootLayout({
 			suppressHydrationWarning
 		>
 			<head>
-				{/*
-				 * Self-hosted OpenAnalytics. It patches the history API, so App
-				 * Router navigations count as pageviews with no extra code, and
-				 * it reports Core Web Vitals on the first hidden without help.
-				 * The key is public and write-only — see lib/analytics.ts.
-				 */}
 				<script
 					async
 					src={`${OA_COLLECTOR_URL}/oa.js`}
@@ -103,7 +97,6 @@ export default function RootLayout({
 				/>
 			</head>
 			<body>
-				{/* Film-grain noise over the black bg. opacity + baseFrequency are the tuning knobs. */}
 				<svg
 					aria-hidden="true"
 					className="pointer-events-none fixed inset-0 z-[100] h-full w-full opacity-[0.06] mix-blend-screen"

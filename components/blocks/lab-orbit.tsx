@@ -158,8 +158,6 @@ export function LabOrbit({ className }: { className?: string }) {
 			<div className="group flex h-full flex-col rounded-[16px] border border-line bg-[#060606] p-1 transition-colors duration-200 ease-house hover:border-line-strong">
 				<div className="relative h-[150px] overflow-hidden rounded-[12px] bg-[#060606]">
 					<OrbitField />
-					{/* The art dissolves into the card before the text starts, so the
-					    animation never runs up against the title. */}
 					<div
 						className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-[#060606]"
 						aria-hidden="true"

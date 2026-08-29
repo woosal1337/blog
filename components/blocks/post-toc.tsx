@@ -11,10 +11,6 @@ type TocEntry = {
 	level: number;
 };
 
-// Marker geometry and spring from ncdai's LineNav
-// (https://chanhdai.com/components/line-nav): the hairline expands
-// 24px -> 40px on hover and active state. h3 entries get a shorter
-// "minor tick" that expands by the same amount.
 const majorLine = {
 	normal: { width: 24 },
 	active: { width: 40 },
@@ -35,9 +31,6 @@ export function PostToc() {
 	const [activeId, setActiveId] = useState<string | null>(null);
 	const navRef = useRef<HTMLElement>(null);
 
-	// Re-collect on every route change: the (post) layout persists across
-	// client-side navigation between posts, so a mount-only effect would keep
-	// showing the previous article's headings.
 	// biome-ignore lint/correctness/useExhaustiveDependencies: pathname is the re-run trigger
 	useEffect(() => {
 		const article = document.querySelector("article");
@@ -55,17 +48,12 @@ export function PostToc() {
 
 		if (!nodes.length) return;
 
-		// Active = the last heading scrolled past a line near the top of the
-		// viewport. This stays correct when a TOC link is clicked (the heading
-		// jumps to the top) and while scrolling up or down.
 		const TOP = 140;
 		const update = () => {
 			let current = nodes[0].id;
 			for (const node of nodes) {
 				if (node.getBoundingClientRect().top <= TOP) current = node.id;
 			}
-			// At the very bottom of the page, force the final heading active so
-			// short trailing sections can still highlight.
 			const atBottom =
 				window.innerHeight + window.scrollY >=
 				document.documentElement.scrollHeight - 2;
@@ -82,7 +70,6 @@ export function PostToc() {
 		};
 	}, [pathname]);
 
-	// Keep the active item visible inside the scrollable nav on long TOCs.
 	useEffect(() => {
 		if (!activeId) return;
 		navRef.current
@@ -96,14 +83,11 @@ export function PostToc() {
 		<nav
 			ref={navRef}
 			aria-label="Table of contents"
-			// py keeps the first/last label (which overflows its hairline row
-			// vertically) from being clipped by the scroll container
 			className="no-scrollbar flex max-h-[calc(100vh-8rem)] flex-col gap-2 overflow-y-auto py-3"
 		>
 			{entries.map((entry, index) => (
 				<Fragment key={entry.id}>
 					<TocItem entry={entry} active={entry.id === activeId} />
-					{/* double hairline "ruler" texture between titles */}
 					{index < entries.length - 1 && (
 						<>
 							<span aria-hidden="true" className="block h-px w-6 bg-ink/20" />
@@ -132,9 +116,6 @@ const TocItem = memo(function TocItem({
 			animate={active ? "active" : "normal"}
 			whileHover="hover"
 			className={cn(
-				// hairline-height row: the label centers vertically on its tick,
-				// keeping every line in the nav on an even ruler rhythm.
-				// after: enlarges the hit target without loosening that rhythm
 				"group relative flex h-px items-center gap-3 after:absolute after:inset-x-0 after:-inset-y-3",
 				entry.level === 3 && "pl-3",
 			)}

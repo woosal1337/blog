@@ -3,10 +3,7 @@
 import { cn } from "@/lib/utils";
 import * as React from "react";
 
-// Inset the first/last item to the page's editorial column (max-w-column 680px
-// + px-6 24px), so the slider's left edge lines up with the section label above.
 const SHELL_INLINE = "max(24px, calc((100vw - 680px) / 2 + 24px))";
-// Soft fade at both edges so the row dissolves into the page — an infinite feel.
 const EDGE_FADE =
 	"linear-gradient(to right, transparent, black 96px, black calc(100% - 96px), transparent)";
 
@@ -31,9 +28,6 @@ export function Gallery({
 		active: false,
 		moved: false,
 	});
-	// Keep the row hidden (visibility only — layout still measures) until it's
-	// centred, so the default left position never paints and no jump shows. The
-	// reveal itself rides the page-enter fade, matching every other section.
 	const [ready, setReady] = React.useState(!startCentered);
 
 	React.useEffect(() => {
@@ -44,8 +38,6 @@ export function Gallery({
 		setReady(true);
 	}, [startCentered]);
 
-	// Mouse/pen drag-to-scroll; touch already pans natively. A small threshold
-	// keeps plain clicks working, and a real drag suppresses the click behind it.
 	const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
 		if (e.pointerType === "touch" || e.button !== 0) return;
 		const el = ref.current;

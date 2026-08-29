@@ -4,12 +4,6 @@ import { BIO_TERMS, type BioLogo } from "@/data/bio";
 import { cn } from "@/lib/utils";
 import * as React from "react";
 
-/**
- * Where each mark lands, measured from the centre of the phrase. The values are
- * fixed, so the cluster looks scattered but never moves between renders.
- */
-// A mark stands about 64px tall and hangs down from its own top edge, so a y
-// closer than -70 would cover the phrase itself.
 const SCATTER = [
 	{ x: -58, y: -84, r: -7 },
 	{ x: 56, y: -74, r: 6 },
@@ -33,7 +27,6 @@ function faviconFor(href: string): string | undefined {
 	}
 }
 
-/** One mark in the cluster: the icon tile, and the name under it. */
 function Mark({
 	logo,
 	index,
@@ -44,8 +37,6 @@ function Mark({
 
 	return (
 		<span
-			// The burst. Closed, every mark sits on the phrase at a fifth of its
-			// size. Open, it travels to its own spot at full size.
 			className="absolute left-1/2 top-0 block"
 			style={{
 				transform: open
@@ -65,7 +56,6 @@ function Mark({
 				}}
 			>
 				<span
-					// A glyph mark is the flag alone, so it needs no label column.
 					className={cn(
 						"flex flex-col items-center gap-1.5",
 						logo.glyph ? "w-11" : "w-[92px]",
@@ -88,8 +78,6 @@ function Mark({
 						) : null}
 					</span>
 					<span
-						// The name stays in the DOM for a screen reader, even when the
-						// flag carries the meaning on screen.
 						className={cn(
 							logo.glyph
 								? "sr-only"
@@ -104,11 +92,6 @@ function Mark({
 	);
 }
 
-/**
- * A phrase in the bio that shows who is behind it. Hover, focus, or tap it, and
- * the marks burst out of the phrase and settle above it. Everything else in the
- * paragraph dims, so the phrase and its marks are the only thing left to read.
- */
 export function BioTerm({
 	id,
 	children,
@@ -123,7 +106,6 @@ export function BioTerm({
 		<span
 			className="relative inline-block"
 			onPointerEnter={(e) => {
-				// A touch tap fires this too, and the tap handler already ran.
 				if (e.pointerType !== "touch") setActive(id);
 			}}
 			onPointerLeave={(e) => {
@@ -156,10 +138,6 @@ export function BioTerm({
 	);
 }
 
-/**
- * The paragraph the terms live in. It holds which term is open, and dims every
- * word that is not part of it.
- */
 export function BioProse({
 	children,
 	className,
@@ -172,8 +150,6 @@ export function BioProse({
 			<div
 				className={cn(
 					"relative transition-colors duration-400 ease-house",
-					// The raised layer lifts this paragraph and its marks over the
-					// heading above, and the scrim then softens everything under it.
 					active ? "z-30 text-ink-mute/40" : "text-ink-soft",
 					className,
 				)}

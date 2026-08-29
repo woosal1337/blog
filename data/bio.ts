@@ -1,15 +1,7 @@
-// The companies behind each hoverable phrase in the bio. One entry for each
-// term id used by <BioTerm> on the About page and the landing page.
-//
-// iconSrc is optional. Without it the component falls back to the site's
-// favicon trick, the same one about/page.tsx uses for its resume rows.
-
 export type BioLogo = {
 	name: string;
-	/** Drives the favicon fallback. Leave it out when the entry uses a glyph. */
 	href?: string;
 	iconSrc?: string;
-	/** An emoji, shown in place of an icon. Used by the language flags. */
 	glyph?: string;
 };
 
@@ -50,7 +42,6 @@ export const BIO_TERMS: Record<string, BioLogo[]> = {
 			iconSrc: "/icons/refikanadol.gif",
 		},
 	],
-	// The landing page collapses the three earlier jobs into one phrase.
 	before: [
 		{ name: "Ahlatcı Holding", href: "https://www.ahlatci.com.tr/" },
 		{ name: "Anadolu Ajansı", href: "https://aa.com.tr/" },

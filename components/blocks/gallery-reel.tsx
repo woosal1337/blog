@@ -1,8 +1,6 @@
 import Link from "next/link";
 import type * as React from "react";
 
-// The strip repeats every 680 units, so drawing it twice and translating by
-// exactly 680 makes the loop seamless. Both keyframes live in globals.css.
 const SPAN = 680;
 
 const A = {
@@ -24,16 +22,15 @@ const B = {
 	frameH: 20,
 };
 
-const A_COUNT = SPAN / A.pitch; // 5
-const B_COUNT = SPAN / B.pitch; // 10
+const A_COUNT = SPAN / A.pitch;
+const B_COUNT = SPAN / B.pitch;
 const SPROCKET_PITCH = 34;
-const SPROCKET_COUNT = SPAN / SPROCKET_PITCH; // 20
+const SPROCKET_COUNT = SPAN / SPROCKET_PITCH;
 
 function range(n: number): number[] {
 	return Array.from({ length: n }, (_, i) => i);
 }
 
-/** Sprocket holes along one edge of a strip. */
 function Perforations({
 	y,
 	w,
@@ -58,10 +55,6 @@ function Perforations({
 	);
 }
 
-/**
- * One abstract photograph. Five motifs cycle, so the strip reads as pictures
- * without drawing anything literal. Every shape stays inside the frame box.
- */
 function FrameArt({
 	k,
 	x,
@@ -73,7 +66,6 @@ function FrameArt({
 	const cy = y + h / 2;
 
 	switch (k % 5) {
-		// A horizon under a low sun.
 		case 0:
 			return (
 				<g opacity="0.62">
@@ -93,7 +85,6 @@ function FrameArt({
 					/>
 				</g>
 			);
-		// Three ridges.
 		case 1:
 			return (
 				<g opacity="0.62" fill="none" stroke="currentColor" strokeWidth="1.2">
@@ -105,7 +96,6 @@ function FrameArt({
 					/>
 				</g>
 			);
-		// A portrait.
 		case 2:
 			return (
 				<g opacity="0.62" fill="none" stroke="currentColor" strokeWidth="1.2">
@@ -115,7 +105,6 @@ function FrameArt({
 					/>
 				</g>
 			);
-		// A long exposure.
 		case 3:
 			return (
 				<g opacity="0.52">
@@ -132,7 +121,6 @@ function FrameArt({
 					))}
 				</g>
 			);
-		// A contact sheet.
 		default:
 			return (
 				<g opacity="0.52">
@@ -153,7 +141,6 @@ function FrameArt({
 	}
 }
 
-/** One repeat of a strip: its two sprocket rows, its frames, and its edges. */
 function Strip({
 	cfg,
 	count,
@@ -226,13 +213,7 @@ function Strip({
 	);
 }
 
-/**
- * The gallery mark: two film strips drifting past each other. Monotone through
- * currentColor, animated in CSS, and paused while the pointer rests on the box.
- * The global reduced-motion rule stops both strips.
- */
 export function ReelField({ className }: { className?: string }) {
-	// Soft edges, the same dissolve the shelf slider uses.
 	const fade =
 		"linear-gradient(to right, transparent, black 72px, black calc(100% - 72px), transparent)";
 
@@ -267,10 +248,6 @@ export function ReelField({ className }: { className?: string }) {
 	);
 }
 
-/**
- * The landing-page card. Same frame as LabOrbit, so the two boxes read as one
- * pair in the column.
- */
 export function GalleryReel({ className }: { className?: string }) {
 	return (
 		<Link
@@ -281,8 +258,6 @@ export function GalleryReel({ className }: { className?: string }) {
 			<div className="group flex h-full flex-col rounded-[16px] border border-line bg-[#060606] p-1 transition-colors duration-200 ease-house hover:border-line-strong">
 				<div className="relative h-[150px] overflow-hidden rounded-[12px] bg-[#060606]">
 					<ReelField />
-					{/* The art dissolves into the card before the text starts, so the
-					    animation never runs up against the title. */}
 					<div
 						className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-[#060606]"
 						aria-hidden="true"

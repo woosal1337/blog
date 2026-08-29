@@ -1,7 +1,6 @@
 import { postIconSrc } from "@/lib/blog-utils";
 import { cn } from "@/lib/utils";
 
-/** The post's generated contour mark — transparent ground, white line work. */
 export function PostGlyph({
 	slug,
 	className,

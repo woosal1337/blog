@@ -16,10 +16,6 @@ export type SetCardProps = {
 	className?: string;
 };
 
-/**
- * Index card for one gallery set. The cover plays when it is a clip, so the
- * index moves the same way the set page does.
- */
 export function SetCard({
 	href,
 	title,

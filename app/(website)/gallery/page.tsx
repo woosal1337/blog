@@ -20,8 +20,6 @@ export const metadata = createPageMetadata({
 
 export default async function GalleryPage() {
 	const sets = await getAllSets();
-	// Every frame from every set, newest set first. The set stays reachable
-	// from the frame's dialog.
 	const frames: BentoFrame[] = sets.flatMap((set) =>
 		set.frames.map((frame) => ({
 			...frame,

@@ -17,11 +17,6 @@ export type BentoFrame = GalleryFrame & {
 	setDate: string;
 };
 
-/**
- * Tile size, from the frame's own shape. A wide picture takes two columns, a
- * tall one takes two rows, and every fifth square becomes a block, so the grid
- * never settles into a plain checkerboard.
- */
 function spanFor(frame: GalleryFrame, index: number): string {
 	if (frame.full) return "col-span-2 row-span-2";
 	const ratio = frame.width / frame.height;
@@ -52,10 +47,6 @@ function TileMedia({ frame }: { frame: BentoFrame }) {
 	);
 }
 
-/**
- * Consecutive runs of one date become one band. The list arrives sorted newest
- * first, so a run is every frame added to the blog on that day.
- */
 function groupByDate(frames: BentoFrame[]): {
 	date: string;
 	frames: BentoFrame[];
@@ -86,10 +77,7 @@ export function GalleryBento({
 							</h2>
 							<span className="h-px flex-1 bg-line" aria-hidden="true" />
 						</div>
-						<div
-							// grid-flow-dense backfills the holes a mixed-span grid leaves.
-							className="mt-4 grid auto-rows-[150px] grid-flow-dense grid-cols-2 gap-3 sm:auto-rows-[170px] md:grid-cols-4"
-						>
+						<div className="mt-4 grid auto-rows-[150px] grid-flow-dense grid-cols-2 gap-3 sm:auto-rows-[170px] md:grid-cols-4">
 							{band.frames.map((frame, index) => (
 								<button
 									key={`${frame.setSlug}-${frame.src}`}
@@ -115,10 +103,7 @@ export function GalleryBento({
 				onOpenChange={(open) => !open && setSelected(null)}
 			>
 				{selected && (
-					// A bare lightbox: no card, no padding, no caption. `[&>div]:p-0`
-					// clears the padding SheetDialogContent wraps its children in.
 					<SheetDialogContent className="w-auto max-w-[min(94vw,1400px)] border-0 bg-transparent [&>div]:p-0">
-						{/* Radix needs a title. The picture is the content, so hide it. */}
 						<SheetDialogTitle className="sr-only">
 							{selected.alt}
 						</SheetDialogTitle>
@@ -126,8 +111,6 @@ export function GalleryBento({
 							className="relative mx-auto overflow-hidden rounded-[12px]"
 							style={{
 								aspectRatio: `${selected.width} / ${selected.height}`,
-								// Viewport units, never a percentage. The dialog shrinks to fit
-								// this box, so a percentage here would resolve against itself.
 								width: `min(94vw, 1400px, calc(82vh * ${selected.width} / ${selected.height}))`,
 							}}
 						>

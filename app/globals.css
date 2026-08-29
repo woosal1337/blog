@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
- * Oak-style terminal theme. Black paper, off-white ink, neutral-700 hairlines,
- * zero radius, Geist Mono everywhere. Dark only — light values mirror dark so a
- * stray `:root` consumer never flashes white.
- */
 @layer base {
 	:root,
 	.dark {
@@ -27,7 +22,6 @@
 		--popover: 16 16 16;
 		--popover-foreground: 245 245 245;
 
-		/* primary === white pill button (white bg, black text) */
 		--primary: 245 245 245;
 		--primary-foreground: 0 0 0;
 
@@ -46,7 +40,6 @@
 		--input: 64 64 64;
 		--ring: 245 245 245;
 
-		/* monochrome: links and actions are white */
 		--link: 245 245 245;
 		--action: 245 245 245;
 		--action-hover: 255 255 255;
@@ -56,11 +49,8 @@
 		--scrim: 16 16 16;
 		--radius: 0px;
 
-		/* The one house easing curve, mirrored from tailwind.config.ts so raw
-		   CSS can reach it instead of re-typing the literal. */
 		--ease-house: cubic-bezier(0.16, 1, 0.3, 1);
 
-		/* code blocks: bright neutral text (white), dim meta (no warm tint) */
 		--term-bg: 16 16 16;
 		--term-line: 38 38 38;
 		--term-ink: 236 236 236;
@@ -122,7 +112,6 @@
 }
 
 @layer components {
-	/* Code blocks rendered as soft panels: rounded, warm ink. */
 	figure[data-rehype-pretty-code-figure] {
 		margin: 1.6em 0;
 		border: 1px solid rgb(var(--line));
@@ -203,7 +192,6 @@
 		display: none;
 	}
 
-	/* Uppercase tracked label/eyebrow. Prefix with // or $ in markup. */
 	.mono-label {
 		font-size: 12px;
 		line-height: 1.33;
@@ -212,7 +200,6 @@
 		color: rgb(var(--ink-soft));
 	}
 
-	/* Crisp pixel rendering for pixel-art SVG/IMG marks. */
 	.pixelated {
 		image-rendering: pixelated;
 		image-rendering: crisp-edges;
@@ -277,9 +264,6 @@
 		}
 	}
 
-	/* The gallery reel. Each strip repeats every 680 user units, so a shift of
-	   exactly 680 loops with no seam. The global reduced-motion rule above
-	   stops both. */
 	@keyframes reel-drift-left {
 		from {
 			transform: translateX(0);
@@ -303,16 +287,12 @@
 		animation: reel-drift-right 72s linear infinite;
 	}
 
-	/* Behind an open bio cluster. It softens the page so a mark never fights
-	   the heading it lands on. Uses --paper, so light mode follows. */
 	.bio-scrim {
 		background: rgb(var(--paper) / 0.82);
 		-webkit-backdrop-filter: blur(6px);
 		backdrop-filter: blur(6px);
 	}
 
-	/* The bio cluster keeps drifting while a phrase stays open. The global
-	   reduced-motion rule above stops it. */
 	@keyframes bio-float {
 		0%,
 		100% {
@@ -337,12 +317,6 @@
 	}
 }
 
-/*
- * Liquid glass press treatment.
- *
- * Registering the angle lets the conic rim interpolate instead of snapping —
- * an unregistered custom property is a plain string to the animation engine.
- */
 @property --lq-angle {
 	syntax: "<angle>";
 	inherits: false;
@@ -350,21 +324,6 @@
 }
 
 @layer components {
-	/*
-	 * .liquid-press  — put it on the interactive element itself.
-	 * .liquid-press-sync — put it on a visual child when the real click target
-	 *                      is an ancestor carrying Tailwind's `group`.
-	 *
-	 * Geometry is untouched: no size, padding, radius or layout is set here.
-	 * Only motion and two pointer-transparent pseudo layers.
-	 *
-	 * The squeeze uses the independent `rotate`/`scale` properties rather than
-	 * `transform`. Several of these controls already carry Tailwind transform
-	 * utilities (-translate-y-1/2 on the carousel arrows, translate-x-[1px] on
-	 * the play button) and utilities sit in a later cascade layer than
-	 * components — a `transform` here would lose to them and silently do
-	 * nothing. rotate/scale are separate properties, so they compose instead.
-	 */
 	.liquid-press,
 	.liquid-press-sync {
 		position: relative;
@@ -375,8 +334,6 @@
 		-webkit-tap-highlight-color: transparent;
 	}
 
-	/* Rim: a 1px conic ring that sweeps around the border on hover.
-	   mask-composite cuts the centre out so only the outline paints. */
 	.liquid-press::before,
 	.liquid-press-sync::before {
 		content: "";
@@ -405,8 +362,6 @@
 			var(--ease-house);
 	}
 
-	/* Flow: a soft ring of light that gathers from the edge inward on hover
-	   and relaxes back outward when the pointer leaves. */
 	.liquid-press::after,
 	.liquid-press-sync::after {
 		content: "";
@@ -443,9 +398,6 @@
 		transform: scale(1);
 	}
 
-	/* The squeeze. rotateX with no perspective anywhere in the tree is an
-	   orthographic squash — height drops to cos(19°), width only to the scale.
-	   Do not add perspective; it turns this into a 3D flip. */
 	.liquid-press:active,
 	.group:active .liquid-press-sync {
 		rotate: x 19deg;
@@ -453,8 +405,6 @@
 		transition-duration: 120ms;
 	}
 
-	/* Vaso paints its refraction into an absolutely-positioned child, so the
-	   rim needs to sit above it rather than behind. */
 	.liquid-press > [data-vaso],
 	.liquid-press-sync > [data-vaso] {
 		z-index: 0;

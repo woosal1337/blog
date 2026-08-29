@@ -1,18 +1,11 @@
-// Types and helpers for the /gallery section. This file stays free of
-// node:fs so a client component can import it. Server-only discovery lives
-// in lib/gallery.ts, the same split as video-utils.ts and videos.ts.
-
 export type GalleryFrame = {
-	/** Image path, or the mp4 path when kind is "video". */
 	src: string;
 	kind?: "image" | "video";
 	alt: string;
-	/** Video only. The still that holds the frame before playback starts. */
 	poster?: string;
 	width: number;
 	height: number;
 	caption?: string;
-	/** Let one frame run the full width of the grid. */
 	full?: boolean;
 };
 
@@ -22,7 +15,6 @@ export type GallerySetFrontmatter = {
 	summary: string;
 	seoDescription?: string;
 	socialDescription?: string;
-	/** Where the set was shot, or what made it. Shown under the title. */
 	place?: string;
 	cover: GalleryFrame;
 	frames: GalleryFrame[];

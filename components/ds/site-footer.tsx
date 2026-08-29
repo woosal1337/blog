@@ -20,7 +20,6 @@ const ELSEWHERE = [
 		external: true,
 	},
 	{ href: "mailto:ege@chele.bi", label: "Email", external: true },
-	// A plain anchor, not a Link. The route returns XML, so a prefetch is waste.
 	{ href: "/blog/rss.xml", label: "RSS", external: true },
 ] as const;
 

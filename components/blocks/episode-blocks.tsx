@@ -119,8 +119,6 @@ export async function EpisodeKitList({
 	const files = listKitFiles(kit.dir);
 	if (!files.length) return null;
 
-	// The blurb keys are the running order of the kit: a folder reads in the
-	// order it was written, not in the order the filesystem hands it back.
 	const order = Object.keys(kit.blurbs ?? {});
 	const rank = (key: string) => {
 		const index = order.indexOf(key);

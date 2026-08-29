@@ -12,8 +12,6 @@ const MODELS = [
 	{ name: "DeepSeek V4 Pro", at128k: 71.56, at1m: 59.11 },
 ];
 
-// Two-slot categorical pair validated against the page surface #101010
-// (all checks pass, worst CVD pair ΔE 69.8).
 const C_128K = "#3987e5";
 const C_1M = "#199e70";
 
@@ -75,7 +73,6 @@ export function ContextRotChart() {
 		}
 	}, []);
 
-	// Keep the tooltip inside the card horizontally on narrow screens.
 	const tooltipX =
 		row === null
 			? 0
@@ -127,7 +124,6 @@ export function ContextRotChart() {
 							onKeyDown={onKeyDown}
 							onBlur={() => setRow(null)}
 						>
-							{/* vertical gridlines + x ticks */}
 							{TICKS.map((v) => (
 								<g key={v} className="text-line">
 									<line
@@ -150,7 +146,6 @@ export function ContextRotChart() {
 								</g>
 							))}
 
-							{/* rows */}
 							{MODELS.map((m, i) => {
 								const y = rowY(i);
 								const delta = m.at1m - m.at128k;
@@ -223,13 +218,11 @@ export function ContextRotChart() {
 							})}
 						</svg>
 
-						{/* tooltip */}
 						{row !== null && (
 							<div
 								className="pointer-events-none absolute z-10 rounded-[10px] border border-line bg-paper px-3 py-2"
 								style={{
 									left: `${(tooltipX / W) * 100}%`,
-									// The top rows have no room above them, so flip below.
 									top: `${((rowY(row) + (row < 3 ? 10 : -10)) / H) * 100}%`,
 									transform:
 										row < 3

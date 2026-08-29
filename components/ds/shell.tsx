@@ -5,9 +5,6 @@ const widths = {
 	shell: "max-w-shell",
 	article: "max-w-article",
 	wide: "max-w-wide",
-	// The editorial reading column — same width used by the landing page,
-	// footer, and post template. Use this for any page that should match
-	// their layout width.
 	column: "max-w-column",
 } as const;
 

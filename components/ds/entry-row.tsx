@@ -34,7 +34,6 @@ type EntryRowProps = {
 	href: string;
 	external?: boolean;
 	icon?: React.ReactNode;
-	/** Let the icon stand on its own, without the bordered tile. */
 	bareIcon?: boolean;
 };
 
@@ -87,9 +86,6 @@ export function EntryRow({
 		);
 	}
 
-	// One event name for every post, rather than one path per post: a funnel
-	// step is a single exact key, so "a post was opened" has to be one string
-	// or it cannot be the last step of anything.
 	const rowEvent = href.startsWith("/blog/")
 		? eventProps(OA_EVENTS.postOpen, { post: href.slice("/blog/".length) })
 		: {};

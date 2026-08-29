@@ -3,10 +3,6 @@ import { type GalleryFrame, isVideoFrame, setDate } from "@/lib/gallery-utils";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-/**
- * One tile. A still renders through next/image, a clip through LoopingVideo.
- * Both sit in the same bordered box, so a mixed grid reads as one surface.
- */
 export function Frame({
 	frame,
 	sizes = "(max-width: 768px) 100vw, 640px",
@@ -52,10 +48,6 @@ export function Frame({
 	);
 }
 
-/**
- * The set body. Two columns from `sm` up, and a frame marked `full` takes the
- * whole row. Nothing here is client code except the clips themselves.
- */
 export function Frames({
 	frames,
 	className,
