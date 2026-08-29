@@ -1,3 +1,4 @@
+import { BioProse, BioTerm } from "@/components/blocks/bio-prose";
 import { BooksShelf } from "@/components/blocks/books-shelf";
 import { GalleryReel } from "@/components/blocks/gallery-reel";
 import { LabOrbit } from "@/components/blocks/lab-orbit";
@@ -59,7 +60,7 @@ export default async function HomePage() {
 					avatar="/yuta-avatar.png"
 				/>
 
-				<div className="mt-7 space-y-4 font-ui text-[16px] leading-[1.65] text-ink-soft">
+				<BioProse className="mt-7 space-y-4 font-ui text-[16px] leading-[1.65]">
 					<p>
 						I&apos;m an AI engineer at{" "}
 						<IconLink
@@ -70,9 +71,11 @@ export default async function HomePage() {
 						</IconLink>
 						, working where code meets large scale{" "}
 						<span className={em}>generative</span> art while contributing to{" "}
-						<span className={em}>open source</span> on the side.
+						<span className={em}>open source</span> on the side.{" "}
+						<BioTerm id="before">Before that</BioTerm>, payments, stealth
+						fintech, and newsroom.
 					</p>
-				</div>
+				</BioProse>
 
 				<div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-ui text-[15px]">
 					<span className="inline-flex items-center gap-2">

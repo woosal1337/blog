@@ -1,4 +1,5 @@
 import { AsciiDonut } from "@/components/blocks/ascii/ascii-donut";
+import { BioProse, BioTerm } from "@/components/blocks/bio-prose";
 import { BackButton } from "@/components/ds/back-button";
 import { IconLink } from "@/components/ds/icon-link";
 import { Reveal } from "@/components/ds/reveal";
@@ -25,14 +26,6 @@ export const metadata = createPageMetadata({
 	path: "/about",
 	absoluteTitle: true,
 });
-
-function Lang({ flag, children }: { flag: string; children: string }) {
-	return (
-		<span role="img" aria-label={children} title={children}>
-			{flag}
-		</span>
-	);
-}
 
 function RowIcon({ href, iconSrc }: { href?: string; iconSrc?: string }) {
 	let src = iconSrc;
@@ -157,39 +150,29 @@ export default function AboutPage() {
 						<h1 className="mb-6 font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
 							About Ege Vusal Chelebi
 						</h1>
-						<div className="space-y-5 font-ui text-[16px] leading-[1.65] text-ink-soft">
+						<BioProse className="space-y-5 font-ui text-[16px] leading-[1.65]">
 							<p>
-								I&apos;m Ege. I work as an AI engineer at{" "}
-								<IconLink
-									href="https://refikanadolstudio.com/"
-									iconSrc="/icons/refikanadol.gif"
-								>
-									Refik Anadol Studio
-								</IconLink>
-								, and I love contributing to the open source products on the
-								side. Before that I shipped stealth fintech at{" "}
-								<IconLink href="https://www.etrapay.com/">Etrapay</IconLink> /{" "}
-								<IconLink href="https://www.ahlatci.com.tr/">
-									Ahlatcı Holding
-								</IconLink>
-								, consulted for{" "}
-								<IconLink href="https://aa.com.tr/">Anadolu Ajansı</IconLink>.
-								In the past I founded companies providing E2E blockchain and
-								software products for B2B clients in Miami, Dubai, and Istanbul.
+								I&apos;m Ege. I work as an AI engineer at a{" "}
+								<BioTerm id="studio">studio</BioTerm> where code meets large
+								scale generative art, and I contribute to open source on the
+								side. Before that I shipped{" "}
+								<BioTerm id="payments">blockchain payments</BioTerm>, built a{" "}
+								<BioTerm id="fintech">stealth fintech</BioTerm>, and consulted
+								for a <BioTerm id="newsroom">newsroom</BioTerm>. Earlier still I
+								founded companies that delivered blockchain and software
+								products to B2B clients in Miami, Dubai, and Istanbul.
 							</p>
 							<p>
 								I studied CS at{" "}
-								<IconLink href="https://www.medipol.edu.tr/">Medipol</IconLink>,
-								finished the bachelor&apos;s in 2024 and started the
-								master&apos;s the same year. I speak{" "}
-								<span className="whitespace-nowrap">
-									<Lang flag="🇬🇧">English</Lang> <Lang flag="🇹🇷">Turkish</Lang>{" "}
-									<Lang flag="🇦🇿">Azerbaijani</Lang>{" "}
-									<Lang flag="🇷🇺">Russian</Lang>
-								</span>
-								.
+								<BioTerm id="university">the same university</BioTerm> twice,
+								and finished the bachelor&apos;s in 2024 before I started the
+								master&apos;s the same year.{" "}
+								<BioTerm id="hackathons">Hackathons</BioTerm> taught me to ship
+								in two days, and two{" "}
+								<BioTerm id="fellowships">fellowships</BioTerm> paid for the
+								rest. I speak <BioTerm id="languages">four languages</BioTerm>.
 							</p>
-						</div>
+						</BioProse>
 
 						<AsciiDonut className="mt-4 h-[200px] w-full" />
 					</Reveal>

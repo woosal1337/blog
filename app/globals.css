@@ -303,6 +303,29 @@
 		animation: reel-drift-right 72s linear infinite;
 	}
 
+	/* Behind an open bio cluster. It softens the page so a mark never fights
+	   the heading it lands on. Uses --paper, so light mode follows. */
+	.bio-scrim {
+		background: rgb(var(--paper) / 0.82);
+		-webkit-backdrop-filter: blur(6px);
+		backdrop-filter: blur(6px);
+	}
+
+	/* The bio cluster keeps drifting while a phrase stays open. The global
+	   reduced-motion rule above stops it. */
+	@keyframes bio-float {
+		0%,
+		100% {
+			transform: translate(0, 0);
+		}
+		50% {
+			transform: translate(5px, -7px);
+		}
+	}
+	.bio-float {
+		animation: bio-float 8s ease-in-out infinite;
+	}
+
 	.dim-list:hover > .dim-row {
 		opacity: 0.5;
 	}
