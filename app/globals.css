@@ -306,6 +306,62 @@
 		animation: bio-float 8s ease-in-out infinite;
 	}
 
+	.flare {
+		position: fixed;
+		z-index: 60;
+		display: block;
+		width: 0;
+		height: 0;
+		pointer-events: none;
+		color: rgb(var(--ink));
+	}
+	.flare-ring {
+		position: absolute;
+		left: 0;
+		top: 0;
+		display: block;
+		translate: -50% -50%;
+		border: 1.5px solid currentColor;
+		border-radius: 999px;
+		animation: flare-ring 460ms var(--ease-house) forwards;
+	}
+	.flare i {
+		position: absolute;
+		left: 0;
+		top: 0;
+		display: block;
+		width: 1.5px;
+		height: 9px;
+		margin-left: -0.75px;
+		background: currentColor;
+		border-radius: 999px;
+		rotate: var(--a);
+		transform-origin: 50% 0;
+		animation: flare-spoke 520ms var(--ease-house) forwards;
+	}
+	@keyframes flare-ring {
+		from {
+			width: 4px;
+			height: 4px;
+			opacity: 0.5;
+		}
+		to {
+			width: 54px;
+			height: 54px;
+			opacity: 0;
+		}
+	}
+	@keyframes flare-spoke {
+		from {
+			transform: translateY(4px) scaleY(0.35);
+			opacity: 0.75;
+		}
+		to {
+			transform: translateY(26px) scaleY(1);
+			opacity: 0;
+		}
+	}
+
 	.dim-list:hover > .dim-row {
 		opacity: 0.5;
 	}

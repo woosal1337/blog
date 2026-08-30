@@ -1,3 +1,4 @@
+import { ClickFlare } from "@/components/providers/click-flare";
 import { SoundProvider } from "@/components/providers/sound-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -123,6 +124,7 @@ export default function RootLayout({
 					<TooltipProvider>{children}</TooltipProvider>
 				</ThemeProvider>
 				<SoundProvider />
+				<ClickFlare />
 				<Analytics />
 			</body>
 		</html>
