@@ -38,7 +38,7 @@ export function createPageMetadata({
 	absoluteTitle = false,
 }: PageMetadataOptions): Metadata {
 	const canonical = absoluteUrl(path);
-	const image = absoluteUrl("/og");
+	const image = absoluteUrl("/og-card.jpg");
 
 	return {
 		title: absoluteTitle ? { absolute: title } : title,
