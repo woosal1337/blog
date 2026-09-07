@@ -1,10 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Vaso } from "vaso";
+import { MetalFx, useMetalBend } from "metal-fx";
+import { useTheme } from "next-themes";
+import { useEffect, useRef, useState } from "react";
 
-const GLASS_BTN =
-	"rounded-[999px] border border-line text-ink-soft transition-colors duration-200 ease-house hover:border-line-strong hover:text-ink";
+const METAL_BASELINE = 32;
+
+const ICON =
+	"grid place-items-center rounded-[999px] text-ink-soft transition-colors duration-200 ease-house hover:text-ink";
 
 export function GlassButtonSurface({
 	size = 40,
@@ -15,22 +19,43 @@ export function GlassButtonSurface({
 	className?: string;
 	children: React.ReactNode;
 }) {
-	return (
-		<Vaso
-			width={size}
-			height={size}
-			radius={size / 2}
-			blur={0.4}
-			depth={2.5}
-			dispersion={0.18}
-			className={cn(GLASS_BTN, className)}
-		>
+	const root = useRef<HTMLDivElement>(null);
+	useMetalBend(root);
+
+	const { resolvedTheme } = useTheme();
+	const [mounted, setMounted] = useState(false);
+	useEffect(() => setMounted(true), []);
+
+	const icon = (
+		<span className={ICON} style={{ width: size, height: size }}>
+			{children}
+		</span>
+	);
+
+	if (!mounted) {
+		return (
 			<span
-				className="grid place-items-center"
-				style={{ width: size, height: size }}
+				className={cn(
+					"metal-btn inline-block rounded-[999px] border border-line",
+					className,
+				)}
 			>
-				{children}
+				{icon}
 			</span>
-		</Vaso>
+		);
+	}
+
+	return (
+		<MetalFx
+			ref={root}
+			preset="chromatic"
+			variant="circle"
+			theme={resolvedTheme === "light" ? "light" : "dark"}
+			innerShadow
+			scale={size / METAL_BASELINE}
+			className={cn("metal-btn rounded-[999px]", className)}
+		>
+			{icon}
+		</MetalFx>
 	);
 }

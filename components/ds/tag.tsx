@@ -1,3 +1,4 @@
+import { MetalNewBadge } from "@/components/ds/new-badge";
 import { cn } from "@/lib/utils";
 import type * as React from "react";
 
@@ -18,16 +19,7 @@ export function Tag({
 }
 
 export function NewLabel({ className }: { className?: string }) {
-	return (
-		<span
-			className={cn(
-				"inline-flex items-center rounded-[999px] bg-ink px-2 py-[2px] font-ui text-[10px] font-semibold uppercase tracking-[0.1em] text-paper",
-				className,
-			)}
-		>
-			new
-		</span>
-	);
+	return <MetalNewBadge className={className} />;
 }
 
 export function SoonLabel({ className }: { className?: string }) {

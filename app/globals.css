@@ -465,4 +465,15 @@
 	.liquid-press-sync > [data-vaso] {
 		z-index: 0;
 	}
+
+	.liquid-press:has(.metal-btn)::before,
+	.liquid-press:has(.metal-btn)::after,
+	.liquid-press-sync.metal-btn::before,
+	.liquid-press-sync.metal-btn::after {
+		content: none;
+	}
+
+	.metal-btn {
+		overflow: visible;
+	}
 }
