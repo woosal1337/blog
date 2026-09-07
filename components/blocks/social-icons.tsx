@@ -1,5 +1,6 @@
 "use client";
 
+import { GeniusRecord } from "@/components/blocks/genius-record";
 import {
 	GeniusIcon,
 	GithubIcon,
@@ -147,7 +148,16 @@ export function SocialIcons({
 								{feed.handle}
 							</span>
 						</div>
-						{feed.gallery && feed.gallery.length > 0 ? (
+						{feed.records && feed.records.length > 0 ? (
+							<div
+								key={platform}
+								className="animate-in fade-in-0 slide-in-from-bottom-1 flex justify-center gap-6 px-4 py-4 duration-200 [animation-timing-function:cubic-bezier(0.16,1,0.3,1)]"
+							>
+								{feed.records.map((record) => (
+									<GeniusRecord key={record.name} record={record} />
+								))}
+							</div>
+						) : feed.gallery && feed.gallery.length > 0 ? (
 							<div
 								key={platform}
 								className="animate-in fade-in-0 slide-in-from-bottom-1 grid grid-cols-3 gap-1.5 p-3 duration-200 [animation-timing-function:cubic-bezier(0.16,1,0.3,1)]"
@@ -191,7 +201,8 @@ export function SocialIcons({
 							className={cn(
 								"px-4 py-2 font-mono text-[10.5px] uppercase tracking-[0.14em] text-ink-mute",
 								(feed.items.length > 0 ||
-									(feed.gallery && feed.gallery.length > 0)) &&
+									(feed.gallery && feed.gallery.length > 0) ||
+									(feed.records && feed.records.length > 0)) &&
 									"border-t border-line/70",
 							)}
 						>

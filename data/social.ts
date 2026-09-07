@@ -6,12 +6,18 @@ export type SocialItem = {
 	meta?: string;
 };
 
+export type SocialRecord = {
+	name: string;
+	glyph: "transcriber" | "annotator";
+};
+
 export type SocialFeed = {
 	label: string;
 	handle: string;
 	href: string;
 	items: SocialItem[];
 	gallery?: string[];
+	records?: SocialRecord[];
 };
 
 export const X_FEED: SocialFeed = {
@@ -72,4 +78,8 @@ export const GENIUS_FEED: SocialFeed = {
 	handle: "@woosal",
 	href: "https://genius.com/woosal",
 	items: [],
+	records: [
+		{ name: "Apprentice Transcriber", glyph: "transcriber" },
+		{ name: "Adept Annotator", glyph: "annotator" },
+	],
 };
