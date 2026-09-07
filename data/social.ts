@@ -1,4 +1,4 @@
-export type SocialPlatform = "x" | "instagram" | "github";
+export type SocialPlatform = "x" | "instagram" | "github" | "genius";
 
 export type SocialItem = {
 	text: string;
@@ -65,4 +65,11 @@ export const GITHUB_FALLBACK: SocialFeed = {
 			meta: "★ 5",
 		},
 	],
+};
+
+export const GENIUS_FEED: SocialFeed = {
+	label: "Genius",
+	handle: "@woosal",
+	href: "https://genius.com/woosal",
+	items: [],
 };

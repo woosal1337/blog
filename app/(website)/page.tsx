@@ -13,7 +13,7 @@ import { StoryCard } from "@/components/ds/story-card";
 import { NewLabel } from "@/components/ds/tag";
 import { ViewAllButton } from "@/components/ds/view-all-button";
 import { WebsiteJsonLd } from "@/components/seo/json-ld";
-import { INSTAGRAM_FEED, X_FEED } from "@/data/social";
+import { GENIUS_FEED, INSTAGRAM_FEED, X_FEED } from "@/data/social";
 import { formatTag, getAllPosts } from "@/lib/blog";
 import { getGithubFeed } from "@/lib/github";
 import { SITE_DESCRIPTION, createPageMetadata } from "@/lib/seo";
@@ -48,6 +48,7 @@ export default async function HomePage() {
 		x: X_FEED,
 		instagram: INSTAGRAM_FEED,
 		github: await getGithubFeed(),
+		genius: GENIUS_FEED,
 	};
 
 	return (

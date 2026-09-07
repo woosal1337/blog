@@ -1,13 +1,23 @@
 "use client";
 
-import { GithubIcon, InstagramIcon, XIcon } from "@/components/ds/icon-link";
+import {
+	GeniusIcon,
+	GithubIcon,
+	InstagramIcon,
+	XIcon,
+} from "@/components/ds/icon-link";
 import type { SocialFeed, SocialPlatform } from "@/data/social";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import * as React from "react";
 
-const ORDER: SocialPlatform[] = ["x", "instagram", "github"];
-const ICONS = { x: XIcon, instagram: InstagramIcon, github: GithubIcon };
+const ORDER: SocialPlatform[] = ["x", "instagram", "github", "genius"];
+const ICONS = {
+	x: XIcon,
+	instagram: InstagramIcon,
+	github: GithubIcon,
+	genius: GeniusIcon,
+};
 const OFFSET_X = 18;
 const OFFSET_Y = 22;
 const MARGIN = 12;
