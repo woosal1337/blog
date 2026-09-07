@@ -173,7 +173,7 @@ export const allProjects: Array<{
 		date: "2026-09-07",
 	},
 	{
-		name: "lens",
+		name: "Lens",
 		desc: "Read your Instagram data export in the browser. The page parses the files on your machine, with no upload, no account and no server.",
 		href: "https://lens.chele.bi",
 		logo: "/lens-logo.png",
