@@ -156,18 +156,37 @@ export const allProjects: Array<{
 	logo?: string;
 
 	logoInverts?: boolean;
+	logoWide?: boolean;
 	external: boolean;
 	isNew?: boolean;
 	comingSoon?: boolean;
 	date?: string;
 }> = [
 	{
+		name: "index",
+		desc: "A design corpus your agent can read. A searchable catalog of libraries, systems and references, served through the site and a public API.",
+		href: "https://index.chele.bi",
+		logo: "/index-logo.png",
+		logoWide: true,
+		external: true,
+		isNew: true,
+		date: "2026-09-07",
+	},
+	{
+		name: "lens",
+		desc: "Read your Instagram data export in the browser. The page parses the files on your machine, with no upload, no account and no server.",
+		href: "https://lens.chele.bi",
+		logo: "/lens-logo.png",
+		external: true,
+		isNew: true,
+		date: "2026-08-31",
+	},
+	{
 		name: "mood",
 		desc: "Design reference on one infinite plane. Images and video from designers, studios and galleries that pan in every direction and never reach an edge.",
 		href: "https://mood.chele.bi",
 		logo: "/mood-logo.png",
 		external: true,
-		isNew: true,
 		date: "2026-08-19",
 	},
 	{

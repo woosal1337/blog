@@ -97,6 +97,7 @@ export default async function HomePage() {
 									external={featured[0].external}
 									logo={featured[0].logo}
 									logoInverts={featured[0].logoInverts}
+									logoWide={featured[0].logoWide}
 									badge={featured[0].isNew ? <NewLabel /> : undefined}
 									date={
 										featured[0].date ? cardDate(featured[0].date) : undefined
@@ -112,6 +113,7 @@ export default async function HomePage() {
 										external={featured[1].external}
 										logo={featured[1].logo}
 										logoInverts={featured[1].logoInverts}
+										logoWide={featured[1].logoWide}
 										date={
 											featured[1].date ? cardDate(featured[1].date) : undefined
 										}

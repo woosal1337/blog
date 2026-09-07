@@ -57,6 +57,7 @@ export default function ProjectsPage() {
 								external={project.external}
 								logo={project.logo}
 								logoInverts={project.logoInverts}
+								logoWide={project.logoWide}
 								badge={
 									project.comingSoon ? (
 										<SoonLabel />

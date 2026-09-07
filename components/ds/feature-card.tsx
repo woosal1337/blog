@@ -10,6 +10,7 @@ type FeatureCardProps = {
 	external?: boolean;
 	logo?: string;
 	logoInverts?: boolean;
+	logoWide?: boolean;
 	badge?: React.ReactNode;
 	date?: string;
 	className?: string;
@@ -22,6 +23,7 @@ export function FeatureCard({
 	external,
 	logo,
 	logoInverts,
+	logoWide,
 	badge,
 	date,
 	className,
@@ -33,10 +35,11 @@ export function FeatureCard({
 					<Image
 						src={logo}
 						alt={`${title} logo`}
-						width={48}
+						width={logoWide ? 128 : 48}
 						height={48}
 						className={cn(
-							"size-12 object-contain",
+							"object-contain",
+							logoWide ? "h-12 w-32" : "size-12",
 							logoInverts && "invert dark:invert-0",
 						)}
 					/>
