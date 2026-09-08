@@ -12,6 +12,8 @@ export type EpisodeSource = {
 export type EpisodeKit = {
 	dir: string;
 	repoUrl: string;
+	/** One sentence above the file list. Falls back to the ep01 wording. */
+	intro?: string;
 	blurbs?: Record<string, string>;
 };
 

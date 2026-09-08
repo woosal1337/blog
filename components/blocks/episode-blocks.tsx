@@ -149,9 +149,8 @@ export async function EpisodeKitList({
 				The kit
 			</h2>
 			<p className="mb-5 font-ui text-[15px] leading-relaxed text-ink-mute">
-				Everything the episode promises in the description, in two folders: the
-				skill you install, and the test data behind the numbers. Read it here or
-				clone the folder.
+				{kit.intro ??
+					"Everything the episode promises in the description, in two folders: the skill you install, and the test data behind the numbers. Read it here or clone the folder."}
 			</p>
 			<div className="flex flex-col">
 				{top.map((file) => (

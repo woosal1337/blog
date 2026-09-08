@@ -56,7 +56,9 @@ export async function generateMetadata({
 	const { episode, file } = loaded;
 	const name = file.split("/").pop() ?? file;
 	const title = `${name} — ${episode.title} kit`;
-	const description = `${name} from the kit published with “${episode.title}”: the skill, linter, and test data behind the episode.`;
+	const description = episode.kit?.intro
+		? `${name} from the kit published with “${episode.title}”. ${episode.kit.intro}`
+		: `${name} from the kit published with “${episode.title}”: the skill, linter, and test data behind the episode.`;
 
 	return {
 		title: { absolute: title },

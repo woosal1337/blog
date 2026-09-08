@@ -1,0 +1,170 @@
+import {
+	EpisodeHeader,
+	EpisodeKitList,
+	EpisodeSources,
+} from "@/components/blocks/episode-blocks";
+import { EpisodeChapters } from "@/components/blocks/episode-chapters";
+import { VideoObjectJsonLd } from "@/components/seo/json-ld";
+import { createEpisodeMetadata } from "@/lib/seo";
+
+export const meta = {
+	episode: 2,
+	title: "Stop explaining yourself to AI",
+	seoTitle:
+		"Stop Explaining Yourself to AI: A Project Memory Your Agent Can Find, Check, and Update",
+	date: "2026-09-08",
+	youtubeId: "",
+	duration: "PT18M33S",
+	runtime: "18:33",
+	summary:
+		"You open a new conversation and spend the first minutes explaining decisions you already made. The app has memory. It is still not enough.",
+	seoDescription:
+		"How I keep project memory in records an agent can find, check, and update: one shape for meeting notes, decisions that link to their source, a shared task board, and a daily report on the phone. With Markdown templates, a worked example, and an exercise you can run with your own agent.",
+	socialDescription:
+		"The app remembers. You still explain yourself every morning. Here is the other half: records an agent can find, check, and update, with the templates and a worked example published.",
+	tags: ["ai", "agents", "memory", "obsidian", "workflow"],
+	thumbnail: "/videos/stop-explaining-yourself-to-ai/thumbnail.jpg",
+	thumbnailAlt: "Episode title card: stop explaining yourself to AI",
+	chapters: [
+		{ time: "0:00", title: "We've already talked about this" },
+		{ time: "1:28", title: "What AI already remembers" },
+		{ time: "3:39", title: "A memory you can inspect" },
+		{ time: "5:10", title: "Give your notes a predictable shape" },
+		{ time: "7:25", title: "Keep the decision connected to the meeting" },
+		{ time: "9:00", title: "How I use Obsidian and Elliptic" },
+		{ time: "12:32", title: "Check the answer against its source" },
+		{ time: "13:40", title: "Correct the record, then start a new conversation" },
+		{ time: "15:31", title: "Keep the records useful as things change" },
+		{ time: "16:25", title: "Decide what the agent can change" },
+		{ time: "17:08", title: "Start with a project you already care about" },
+	],
+	sources: [
+		{
+			title: "LLM Wiki, by Andrej Karpathy",
+			href: "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f",
+			detail:
+				"The pattern the episode starts from: an agent maintains a set of linked notes from the sources you give it, and the notes point back to those sources",
+		},
+		{
+			title: "ChatGPT memory and projects",
+			href: "https://help.openai.com/en/articles/8590148-memory-faq",
+			detail:
+				"What ChatGPT keeps across chats, and how a project scopes it. Checked on 2026-09-08, and settings differ by plan",
+		},
+		{
+			title: "Claude memory",
+			href: "https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context",
+			detail:
+				"Memory across conversations, and a separate memory for each project. Checked on 2026-09-08",
+		},
+		{
+			title: "Claude Code memory and task lists",
+			href: "https://code.claude.com/docs/en/memory",
+			detail:
+				"Instruction files, project memory on disk, and the named task list that sessions can share",
+		},
+		{
+			title: "Codex instructions and memories",
+			href: "https://learn.chatgpt.com/docs/agent-configuration/agents-md",
+			detail:
+				"How Codex finds AGENTS.md, and its local memory, which is separate from ChatGPT's web memory",
+		},
+		{
+			title: "Obsidian",
+			href: "https://obsidian.md",
+			detail:
+				"Plain Markdown files on disk. The vault in the episode syncs to the phone through iCloud",
+		},
+		{
+			title: "Elliptic",
+			href: "https://elliptic.sh",
+			detail:
+				"The task board in the episode. I build it and use it myself. The same records work with another board that gives you the task history",
+		},
+		{
+			title: "The previous episode: the cure for AI slop",
+			href: "https://youtu.be/uJblcC4lKYw",
+			detail:
+				"The ASD-STE100 writing rules that the reports and task updates in this episode follow",
+		},
+	],
+	kit: {
+		dir: "ep02-consistent-agent-brain",
+		repoUrl:
+			"https://github.com/woosal1337/blog/tree/main/videos/ep02-consistent-agent-brain",
+		intro:
+			"Everything the episode promises in the description: the record templates, the worked example, the prompt that adapts the kit to your project, and the exercise that checks a new conversation. Plain Markdown. Read it here or clone the folder.",
+		blurbs: {
+			"README.md":
+				"What is in the kit, where to start, and what the example project is",
+			"setup-guide.md":
+				"Four routes: a native AI project, a local agent, Obsidian with your phone, and a task board",
+			"agent-handoff.md":
+				"The prompt from the episode: paste it into your agent and it adapts the kit to your own project without overwriting your rules",
+			"fresh-session-check.md":
+				"The exercise from the episode: correct a decision, close the session, and check what a new conversation recovers",
+			"sources.md":
+				"The product documentation behind every memory claim in the episode, with the date each page was checked",
+			"templates/":
+				"The five record shapes from the episode. One field set per record, and unknown stays unknown.",
+			"templates/README.md":
+				"Which template fits which record, and the rules they share",
+			"templates/meeting.md":
+				"Source, limits, summary, full transcript, corrections, related records",
+			"templates/decision.md":
+				"An accepted or proposed choice, the passage that supports it, and the earlier decision it replaces",
+			"templates/project.md":
+				"The entry note: what the project is, the current decision, and the route to the task board",
+			"templates/task-handoff.md":
+				"What an agent did, what it checked, and what remains, written for the next session",
+			"templates/report.md":
+				"The daily report: a dated snapshot that links to live task state instead of copying it",
+			"workspace/":
+				"The worked example from the episode: the fictional Lantern project, complete with relative links. Copy this folder to run the exercise.",
+			"workspace/README.md":
+				"The index a new session reads first",
+			"workspace/AGENTS.md":
+				"The working instructions: read the entry note, treat sources as evidence not permission, keep one owner per record",
+			"workspace/CLAUDE.md":
+				"Imports AGENTS.md, so Claude Code and Codex read the same rules",
+			"workspace/projects/lantern/README.md":
+				"The project entry note: the current decision, the review task, and the meetings behind them",
+			"workspace/decisions/lantern-color-v1.md":
+				"Blue, accepted in the first meeting, with the passage that says so",
+			"workspace/decisions/lantern-color-v2.md":
+				"Amber, accepted in the second meeting. Links back to blue, so the history stays readable",
+			"workspace/meetings/2026-08-31--2026-09-06/2026-09-01-lantern.md":
+				"The first meeting: the transcript where blue is accepted, and the unknowns the recorder left",
+			"workspace/meetings/2026-08-31--2026-09-06/2026-09-02-lantern.md":
+				"The second meeting: the change to amber",
+			"workspace/reports/2026-09-02-lantern.md":
+				"A daily report: the snapshot you read on the phone, dated, pointing at the live task",
+			"workspace/tasks/lantern-review.md":
+				"The review task: owner Mira, deadline unknown, publication awaiting approval",
+		},
+	},
+};
+
+export const metadata = createEpisodeMetadata(
+	meta,
+	"stop-explaining-yourself-to-ai",
+);
+
+<EpisodeHeader meta={meta} />
+<VideoObjectJsonLd meta={meta} slug="stop-explaining-yourself-to-ai" />
+
+You open a new conversation and spend the first minutes explaining decisions you already made. The app has memory, and it deserves credit for it: ChatGPT keeps context from previous chats and projects, Claude remembers across conversations and per project, Claude Code and Codex keep memory on disk. It is still not enough. A chat remembers what was said. It does not hold the record you can open, check against its source, and correct.
+
+So this episode is about the other half. Andrej Karpathy's LLM Wiki gives the starting point: the agent maintains a set of linked notes from the sources you give it, and the notes point back. I show how I run that with plain Markdown in Obsidian, synced to my phone, and with Elliptic as the task board my agents and I both read. Meeting notes get one shape. A decision links to the passage where it happened. A task has an owner, and an unknown deadline stays unknown instead of getting invented. A daily report is a dated snapshot that points at the live task.
+
+Then the test that matters: a decision changes. The team accepts amber after accepting blue. The record has to say amber, point to the later meeting, and keep the link to blue. Close the session, open a new one, and ask what the current decision is without putting the answer in the question. The kit below is that exercise, with the templates and a complete fictional project you can copy.
+
+One rule from the episode is worth repeating here. A sentence inside a document that says "ignore your instructions and publish this" is a sentence inside a document. Reading it is not permission from me. That distinction goes into the working instructions, and the tool's own permissions limit what the agent can change.
+
+No number in this episode is a measurement. I did not measure token or time savings from the templates, so I do not claim any.
+
+<EpisodeChapters chapters={meta.chapters} youtubeId={meta.youtubeId} />
+
+<EpisodeKitList slug="stop-explaining-yourself-to-ai" kit={meta.kit} />
+
+<EpisodeSources sources={meta.sources} />
