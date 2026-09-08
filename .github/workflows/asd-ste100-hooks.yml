@@ -1,0 +1,30 @@
+name: ASD-STE100 hooks
+
+on:
+  push:
+    paths:
+      - "videos/ep01-the-cure-for-ai-slop/asd-ste100/**"
+      - ".github/workflows/asd-ste100-hooks.yml"
+  pull_request:
+    paths:
+      - "videos/ep01-the-cure-for-ai-slop/asd-ste100/**"
+      - ".github/workflows/asd-ste100-hooks.yml"
+
+jobs:
+  cross-platform:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+      - name: Test the hook launcher and hook commands
+        run: node --test videos/ep01-the-cure-for-ai-slop/asd-ste100/tests/run-python.test.cjs

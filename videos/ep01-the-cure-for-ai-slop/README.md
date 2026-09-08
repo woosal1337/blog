@@ -15,6 +15,7 @@ asd-ste100/     the agent skill - one installer arms every layer
   scripts/ste-lint.py       the heuristic anti-slop linter
   references/ste-recurring-errors.md   the 39 most frequent writer errors
   hooks/hooks.json          the plugin's hook declarations, self-registering
+  hooks/run-python.cjs      selects a Python 3 command on each operating system
   install.py                wires the skill, the style, and the four hooks
   output-style.md           the condensed rule as a Claude Code output style
   hooks/ste-inject.py       the rule card in context, every turn
@@ -61,7 +62,7 @@ so there is no mirror and no second repo to keep in sync.
 Claude Code, with the full enforcement stack:
 
 ```
-python3 asd-ste100/install.py
+node asd-ste100/hooks/run-python.cjs asd-ste100/install.py
 ```
 
 The installer symlinks the skill and the output style, adds the four hook
@@ -80,9 +81,9 @@ loop.
 ## The linter
 
 ```
-python3 asd-ste100/scripts/ste-lint.py your-draft.md            # flavored: general prose
-python3 asd-ste100/scripts/ste-lint.py --strict your-draft.md   # strict: adds the STE word set, counts em dashes
-python3 asd-ste100/scripts/ste-lint.py --shape your-draft.md    # add the Layer 2 counts
+node asd-ste100/hooks/run-python.cjs asd-ste100/scripts/ste-lint.py your-draft.md            # flavored: general prose
+node asd-ste100/hooks/run-python.cjs asd-ste100/scripts/ste-lint.py --strict your-draft.md   # strict: adds the STE word set, counts em dashes
+node asd-ste100/hooks/run-python.cjs asd-ste100/scripts/ste-lint.py --shape your-draft.md    # add the Layer 2 counts
 ```
 
 Score is violations per 100 words - lower is cleaner. Lint a draft, apply the
