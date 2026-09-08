@@ -43,7 +43,7 @@ export default async function HomePage() {
 	const posts = await getAllPosts();
 	const writing = posts.slice(0, 2);
 	const featured = allProjects.slice(0, 2);
-	const [latest] = await getAllEpisodes();
+	const [latest, previous] = await getAllEpisodes();
 	const feeds = {
 		x: X_FEED,
 		instagram: INSTAGRAM_FEED,
@@ -161,7 +161,7 @@ export default async function HomePage() {
 				{latest && (
 					<section className="mt-14 flex flex-col">
 						<SectionLabel>Watch</SectionLabel>
-						<div className="mt-5">
+						<div className="mt-5 flex flex-col gap-4">
 							<EpisodeCard
 								wide
 								isNew
@@ -173,6 +173,20 @@ export default async function HomePage() {
 								thumbnailAlt={latest.thumbnailAlt}
 								runtime={latest.runtime}
 							/>
+							{previous && (
+								<PeekFade>
+									<EpisodeCard
+										wide
+										href={`/videos/${previous.slug}`}
+										title={previous.title}
+										summary={previous.summary}
+										date={cardDate(previous.date)}
+										thumbnail={previous.thumbnail}
+										thumbnailAlt={previous.thumbnailAlt}
+										runtime={previous.runtime}
+									/>
+								</PeekFade>
+							)}
 						</div>
 						<div className="mt-6 flex justify-center">
 							<ViewAllButton href="/videos" label="All episodes" />
