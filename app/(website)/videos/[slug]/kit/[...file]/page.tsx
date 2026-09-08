@@ -1,5 +1,6 @@
 import { BackButton } from "@/components/ds/back-button";
 import { Section, Shell } from "@/components/ds/shell";
+import { outboundProps } from "@/lib/analytics";
 import { rehypePrettyCodeOptions } from "@/lib/mdx-options.mjs";
 import { absoluteUrl } from "@/lib/seo";
 import {
@@ -175,6 +176,7 @@ export default async function KitFilePage({ params }: KitPageProps) {
 						<span className="text-line">·</span>
 						<a
 							href={`${kit.repoUrl}/${file}`}
+							{...outboundProps(`${kit.repoUrl}/${file}`)}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="transition-colors duration-200 ease-house hover:text-ink"

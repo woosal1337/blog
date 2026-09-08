@@ -86,9 +86,12 @@ export function EntryRow({
 		);
 	}
 
+	const kitFile = href.match(/^\/videos\/([^/]+)\/kit\/(.+)$/);
 	const rowEvent = href.startsWith("/blog/")
 		? eventProps(OA_EVENTS.postOpen, { post: href.slice("/blog/".length) })
-		: {};
+		: kitFile
+			? eventProps(OA_EVENTS.kitOpen, { episode: kitFile[1], file: kitFile[2] })
+			: {};
 
 	return (
 		<Link href={href} className={classes} {...rowEvent}>

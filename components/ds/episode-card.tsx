@@ -1,4 +1,5 @@
 import { NewLabel } from "@/components/ds/tag";
+import { OA_EVENTS, eventProps } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -52,6 +53,7 @@ export function EpisodeCard({
 	return (
 		<Link
 			href={href}
+			{...eventProps(OA_EVENTS.episodeOpen, { episode: href.split("/").pop() })}
 			data-sound="card"
 			className={cn(
 				"group block overflow-hidden rounded-[16px] border border-line bg-[#0a0a0a] transition-colors duration-200 ease-house hover:border-line-strong",

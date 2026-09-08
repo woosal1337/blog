@@ -1,3 +1,4 @@
+import { OA_EVENTS, eventProps } from "@/lib/analytics";
 import {
 	type EpisodeChapter,
 	chapterSeconds,
@@ -49,6 +50,11 @@ export function EpisodeChapters({
 								target="_blank"
 								rel="noopener noreferrer"
 								className="group -mx-2 block rounded-[10px] px-2 py-[7px] transition-colors duration-200 ease-house hover:bg-white/[0.02]"
+								{...eventProps(OA_EVENTS.chapterOpen, {
+									video: youtubeId,
+									chapter: chapter.title,
+									time: chapter.time,
+								})}
 							>
 								<span className="inline-block transition-transform duration-200 ease-house group-hover:translate-x-0.5">
 									{label}

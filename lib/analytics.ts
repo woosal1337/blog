@@ -9,6 +9,9 @@ export const OA_EVENTS = {
 	rss: "rss_click",
 	projectOpen: "project_open",
 	postOpen: "post_open",
+	episodeOpen: "episode_open",
+	chapterOpen: "chapter_open",
+	kitOpen: "kit_open",
 } as const;
 
 export function eventProps(
