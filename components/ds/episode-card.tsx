@@ -1,3 +1,4 @@
+import { GlassButtonSurface } from "@/components/ds/glass-button";
 import { NewLabel } from "@/components/ds/tag";
 import { OA_EVENTS, eventProps } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -73,10 +74,13 @@ export function EpisodeCard({
 					}
 					className="object-cover"
 				/>
-				<span className="absolute inset-0 grid place-items-center opacity-0 transition-opacity duration-200 ease-house group-hover:opacity-100">
-					<span className="grid size-12 place-items-center rounded-[999px] border border-white/20 bg-black/55 text-white backdrop-blur-[3px]">
+				<span className="absolute inset-0 grid place-items-center opacity-0 transition-opacity duration-200 ease-house group-hover:opacity-100 group-focus-visible:opacity-100">
+					<GlassButtonSurface
+						size={48}
+						className="liquid-press-sync translate-x-[1px]"
+					>
 						<PlayGlyph />
-					</span>
+					</GlassButtonSurface>
 				</span>
 				{runtime ? (
 					<span className="absolute bottom-3 right-3 rounded-[6px] bg-black/70 px-1.5 py-0.5 font-ui text-[12px] tabular-nums text-white backdrop-blur-[2px]">

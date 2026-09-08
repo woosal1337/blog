@@ -6,6 +6,7 @@ import useEmblaCarousel, {
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import * as React from "react";
 
+import { GlassButtonSurface } from "@/components/ds/glass-button";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -205,7 +206,7 @@ const CarouselPrevious = React.forwardRef<
 			variant={variant}
 			size={size}
 			className={cn(
-				"liquid-press absolute h-8 w-8 rounded-full",
+				"liquid-press absolute h-8 w-8 rounded-full border-0 bg-transparent p-0 hover:bg-transparent hover:text-inherit",
 				orientation === "horizontal"
 					? "left-2 top-1/2 -translate-y-1/2"
 					: "-top-12 left-1/2 -translate-x-1/2 rotate-90",
@@ -215,7 +216,9 @@ const CarouselPrevious = React.forwardRef<
 			onClick={scrollPrev}
 			{...props}
 		>
-			<ArrowLeft className="h-4 w-4" />
+			<GlassButtonSurface size={32}>
+				<ArrowLeft className="h-4 w-4" aria-hidden="true" />
+			</GlassButtonSurface>
 			<span className="sr-only">Previous slide</span>
 		</Button>
 	);
@@ -234,7 +237,7 @@ const CarouselNext = React.forwardRef<
 			variant={variant}
 			size={size}
 			className={cn(
-				"liquid-press absolute h-8 w-8 rounded-full",
+				"liquid-press absolute h-8 w-8 rounded-full border-0 bg-transparent p-0 hover:bg-transparent hover:text-inherit",
 				orientation === "horizontal"
 					? "right-2 top-1/2 -translate-y-1/2"
 					: "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
@@ -244,7 +247,9 @@ const CarouselNext = React.forwardRef<
 			onClick={scrollNext}
 			{...props}
 		>
-			<ArrowRight className="h-4 w-4" />
+			<GlassButtonSurface size={32}>
+				<ArrowRight className="h-4 w-4" aria-hidden="true" />
+			</GlassButtonSurface>
 			<span className="sr-only">Next slide</span>
 		</Button>
 	);
