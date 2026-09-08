@@ -1,10 +1,10 @@
 "use client";
 
-import { SiteFooter } from "@/components/ds/site-footer";
 import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 
-export function ConditionalFooter() {
+export function ConditionalFooter({ children }: { children: ReactNode }) {
 	const pathname = usePathname();
 	if (pathname !== "/") return null;
-	return <SiteFooter />;
+	return children;
 }

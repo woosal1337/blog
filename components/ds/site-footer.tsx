@@ -1,3 +1,4 @@
+import { AnimatedContourLogo } from "@/components/ds/animated-contour-logo";
 import { NAV_ITEMS } from "@/components/ds/nav-items";
 import { Shell } from "@/components/ds/shell";
 import { outboundProps } from "@/lib/analytics";
@@ -98,14 +99,7 @@ export function SiteFooter() {
 						aria-label="The story of this mark"
 						className="flex justify-center transition-opacity duration-200 ease-house hover:opacity-80"
 					>
-						{/* eslint-disable-next-line @next/next/no-img-element */}
-						<img
-							src="/contour-logo/contour-logo-white.svg"
-							alt="ege"
-							width={160}
-							height={160}
-							className="h-auto w-40"
-						/>
+						<AnimatedContourLogo className="size-40" trigger="visible" />
 					</Link>
 
 					<FooterColumn align="right">

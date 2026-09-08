@@ -1,4 +1,5 @@
 import { ConditionalFooter } from "@/components/ds/conditional-footer";
+import { SiteFooter } from "@/components/ds/site-footer";
 import { SITE_DESCRIPTION, SITE_IMAGE, SITE_NAME, SITE_URL } from "@/lib/seo";
 import type { Metadata } from "next";
 
@@ -45,7 +46,9 @@ export default function WebsiteLayout({
 	return (
 		<div className="flex min-h-screen flex-col">
 			<main className="flex-1">{children}</main>
-			<ConditionalFooter />
+			<ConditionalFooter>
+				<SiteFooter />
+			</ConditionalFooter>
 		</div>
 	);
 }

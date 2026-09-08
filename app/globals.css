@@ -239,6 +239,75 @@
 		}
 	}
 
+	.contour-logo-motion,
+	.contour-logo-motion__art,
+	.contour-logo-motion svg {
+		display: block;
+	}
+	.contour-logo-motion__art,
+	.contour-logo-motion svg {
+		width: 100%;
+		height: 100%;
+	}
+	.contour-logo-motion path {
+		stroke-dasharray: 1;
+		stroke-dashoffset: 0;
+	}
+
+	@keyframes contour-ring-draw {
+		from {
+			opacity: 0;
+			stroke-dashoffset: 1;
+		}
+		5% {
+			opacity: 1;
+		}
+		to {
+			opacity: 1;
+			stroke-dashoffset: 0;
+		}
+	}
+	@media (prefers-reduced-motion: no-preference) {
+		.contour-logo-motion[data-drawing="false"] path {
+			opacity: 0;
+			stroke-dashoffset: 1;
+		}
+		.contour-logo-motion[data-drawing="true"] path {
+			animation: contour-ring-draw 1.2s var(--ease-house) both;
+		}
+		.contour-logo-motion[data-drawing="true"] path:nth-child(1) {
+			animation-delay: 400ms;
+		}
+		.contour-logo-motion[data-drawing="true"] path:nth-child(2) {
+			animation-delay: 544ms;
+		}
+		.contour-logo-motion[data-drawing="true"] path:nth-child(3) {
+			animation-delay: 688ms;
+		}
+		.contour-logo-motion[data-drawing="true"] path:nth-child(4) {
+			animation-delay: 832ms;
+		}
+		.contour-logo-motion[data-drawing="true"] path:nth-child(5) {
+			animation-delay: 976ms;
+		}
+		.contour-logo-motion[data-drawing="true"] path:nth-child(6) {
+			animation-delay: 1120ms;
+		}
+		.contour-logo-motion[data-drawing="true"] path:nth-child(7) {
+			animation-delay: 1264ms;
+		}
+		.contour-logo-motion[data-drawing="true"] path:nth-child(8) {
+			animation-delay: 1408ms;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.contour-logo-motion path {
+			animation: none;
+			opacity: 1;
+			stroke-dashoffset: 0;
+		}
+	}
+
 	@keyframes reveal-rise {
 		from {
 			opacity: 0;

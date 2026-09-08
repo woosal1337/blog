@@ -58,7 +58,6 @@ export default async function HomePage() {
 				<ProfileLockup
 					name="Ege Vusal Chelebi"
 					tagline="AI engineer at Refik Anadol Studio"
-					avatar="/contour-logo/contour-logo-white.svg"
 				/>
 
 				<BioProse className="mt-7 space-y-4 font-ui text-[16px] leading-[1.65]">
