@@ -2,7 +2,13 @@ import { SoundProvider } from "@/components/providers/sound-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { OA_COLLECTOR_URL, OA_TRACKING_KEY } from "@/lib/analytics";
-import { SITE_DESCRIPTION, SITE_HANDLE, SITE_NAME, SITE_URL } from "@/lib/seo";
+import {
+	SITE_DESCRIPTION,
+	SITE_HANDLE,
+	SITE_IMAGE,
+	SITE_NAME,
+	SITE_URL,
+} from "@/lib/seo";
 import { Analytics } from "@vercel/analytics/react";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
@@ -36,11 +42,12 @@ export const metadata: Metadata = {
 	},
 	icons: {
 		icon: [
-			{ url: "/favicon.ico?v=3", sizes: "any" },
-			{ url: "/favicon.png?v=3", sizes: "32x32", type: "image/png" },
+			{ url: "/favicon.ico?v=4", sizes: "any" },
+			{ url: "/favicon.png?v=4", sizes: "32x32", type: "image/png" },
+			{ url: "/favicon.svg?v=4", sizes: "any", type: "image/svg+xml" },
 		],
 		apple: [
-			{ url: "/apple-touch-icon.png?v=3", sizes: "180x180", type: "image/png" },
+			{ url: "/apple-touch-icon.png?v=4", sizes: "180x180", type: "image/png" },
 		],
 	},
 	openGraph: {
@@ -50,7 +57,7 @@ export const metadata: Metadata = {
 		type: "website",
 		images: [
 			{
-				url: "/og",
+				url: SITE_IMAGE,
 				width: 1200,
 				height: 630,
 				alt: "Ege Vusal Chelebi — AI engineer, developer, and researcher",
@@ -73,7 +80,7 @@ export const metadata: Metadata = {
 		site: SITE_HANDLE,
 		creator: SITE_HANDLE,
 		description: SITE_DESCRIPTION,
-		images: ["/og"],
+		images: [SITE_IMAGE],
 	},
 };
 

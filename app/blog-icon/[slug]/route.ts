@@ -9,7 +9,7 @@ export async function GET(
 ) {
 	const post = await getPostMeta(params.slug);
 	if (!post) {
-		return Response.redirect(new URL("/favicon.svg?v=2", request.url), 307);
+		return Response.redirect(new URL("/favicon.svg?v=4", request.url), 307);
 	}
 
 	const svg = await generateContour(post.title, "#f5f5f5", {

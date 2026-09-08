@@ -1,5 +1,5 @@
 import { ConditionalFooter } from "@/components/ds/conditional-footer";
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
+import { SITE_DESCRIPTION, SITE_IMAGE, SITE_NAME, SITE_URL } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 		type: "website",
 		images: [
 			{
-				url: "/og",
+				url: SITE_IMAGE,
 				width: 1200,
 				height: 630,
 				alt: "Ege Vusal Chelebi — AI engineer, developer, and researcher",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 	twitter: {
 		card: "summary_large_image",
 		description: SITE_DESCRIPTION,
-		images: ["/og"],
+		images: [SITE_IMAGE],
 	},
 };
 

@@ -100,7 +100,7 @@ export function SiteFooter() {
 					>
 						{/* eslint-disable-next-line @next/next/no-img-element */}
 						<img
-							src="/yuta-avatar.png"
+							src="/contour-logo/contour-logo-white.svg"
 							alt="ege"
 							width={160}
 							height={160}

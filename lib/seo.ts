@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 export const SITE_URL = "https://www.chele.bi";
 export const SITE_NAME = "Ege Vusal Chelebi";
 export const SITE_HANDLE = "@woosal1337";
+export const SITE_IMAGE = "/og-card.jpg?v=4";
 export const SITE_DESCRIPTION =
 	"Ege Vusal Chelebi is an AI engineer at Refik Anadol Studio, building thoughtful tools where code meets large-scale generative art — with writing on agent-native development, open source, and applied AI.";
 
@@ -38,7 +39,7 @@ export function createPageMetadata({
 	absoluteTitle = false,
 }: PageMetadataOptions): Metadata {
 	const canonical = absoluteUrl(path);
-	const image = absoluteUrl("/og-card.jpg");
+	const image = absoluteUrl(SITE_IMAGE);
 
 	return {
 		title: absoluteTitle ? { absolute: title } : title,
