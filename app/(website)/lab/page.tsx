@@ -178,11 +178,6 @@ const AGENTS: LabItem[] = [
 		href: "https://herdr.dev",
 	},
 	{
-		name: "JetBrains Air",
-		desc: "The agentic IDE. Claude Code runs inside it over ACP, on my own fork of the adapter so the agents' work stays visible.",
-		href: "https://air.dev",
-	},
-	{
 		name: "Zed",
 		desc: "The editor. ACP started here, so the same agents attach over the protocol itself rather than through an adapter I have to maintain.",
 		href: "https://zed.dev",
@@ -197,12 +192,6 @@ const MCPS: LabItem[] = [
 		image: "/elliptic-logo.png",
 	},
 	{
-		name: "Bucketmark",
-		desc: "Link bookmarking. Agents save and sort links into buckets over MCP, so a good link doesn't just die in a chat log.",
-		href: "https://bucketmark.cobanov.dev",
-		image: "/bucketmark-logo.png",
-	},
-	{
 		name: "Wispr Flow",
 		desc: "Voice dictation, with a notetaker beside it. Agents read the meetings, notes and briefs over MCP, and never the dictations.",
 		href: "https://wisprflow.ai",
@@ -211,11 +200,6 @@ const MCPS: LabItem[] = [
 		name: "media-mcp",
 		desc: "My own server for X, YouTube and Instagram. Agents read a thread, transcribe a video with local Whisper, and take frames only where the audio fails.",
 		href: "https://github.com/woosal1337/media-mcp",
-	},
-	{
-		name: "Aperture",
-		desc: "Tailscale's private AI platform, self-hosted on my own tailnet. Models, MCP servers and agents meet behind one network identity, so no API key has to be handed out to reach them.",
-		href: "https://aperture.tailscale.com",
 	},
 ];
 
