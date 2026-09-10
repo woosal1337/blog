@@ -178,9 +178,9 @@ const AGENTS: LabItem[] = [
 		href: "https://herdr.dev",
 	},
 	{
-		name: "Zed",
-		desc: "The editor. ACP started here, so the same agents attach over the protocol itself rather than through an adapter I have to maintain.",
-		href: "https://zed.dev",
+		name: "Warp.dev",
+		desc: "The terminal. Claude Code and Codex run here as command-line tools.",
+		href: "https://www.warp.dev",
 	},
 ];
 
