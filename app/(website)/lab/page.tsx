@@ -178,7 +178,7 @@ const AGENTS: LabItem[] = [
 		href: "https://herdr.dev",
 	},
 	{
-		name: "Warp.dev",
+		name: "Warp",
 		desc: "The terminal. Claude Code and Codex run here as command-line tools.",
 		href: "https://www.warp.dev",
 	},
