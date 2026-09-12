@@ -27,7 +27,15 @@ export const metadata = createPageMetadata({
 	absoluteTitle: true,
 });
 
-function RowIcon({ href, iconSrc }: { href?: string; iconSrc?: string }) {
+function RowIcon({
+	href,
+	iconSrc,
+	className,
+}: {
+	href?: string;
+	iconSrc?: string;
+	className?: string;
+}) {
 	let src = iconSrc;
 	if (!src && href) {
 		try {
@@ -46,7 +54,7 @@ function RowIcon({ href, iconSrc }: { href?: string; iconSrc?: string }) {
 			width={16}
 			height={16}
 			loading="lazy"
-			className="size-4 shrink-0 rounded-[3px]"
+			className={cn("size-4 shrink-0 rounded-[3px]", className)}
 		/>
 	);
 }
@@ -54,6 +62,7 @@ function RowIcon({ href, iconSrc }: { href?: string; iconSrc?: string }) {
 type ResumeRowProps = {
 	href?: string;
 	iconSrc?: string;
+	iconClassName?: string;
 	title: string;
 	right: string;
 	subtitle?: React.ReactNode;
@@ -64,6 +73,7 @@ type ResumeRowProps = {
 function ResumeRow({
 	href,
 	iconSrc,
+	iconClassName,
 	title,
 	right,
 	subtitle,
@@ -79,7 +89,9 @@ function ResumeRow({
 							●
 						</span>
 					)}
-					{(iconSrc || href) && <RowIcon href={href} iconSrc={iconSrc} />}
+					{(iconSrc || href) && (
+						<RowIcon href={href} iconSrc={iconSrc} className={iconClassName} />
+					)}
 					<span className="font-ui text-[15px] font-medium text-ink">
 						{title}
 					</span>
@@ -208,6 +220,16 @@ export default function AboutPage() {
 							<ResumeRow
 								key={fellowship.org}
 								href={fellowship.url}
+								iconSrc={
+									fellowship.org === "Türkiye Girişimcilik Vakfı"
+										? "/icons/girisimcilik-vakfi.png"
+										: undefined
+								}
+								iconClassName={
+									fellowship.org === "Türkiye Girişimcilik Vakfı"
+										? "h-4 w-6 rounded-none object-contain"
+										: undefined
+								}
 								title={`${fellowship.title} · ${fellowship.org}`}
 								right={fellowship.period}
 								subtitle={fellowship.description}
