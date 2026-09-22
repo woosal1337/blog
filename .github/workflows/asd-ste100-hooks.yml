@@ -27,4 +27,6 @@ jobs:
         with:
           python-version: "3.11"
       - name: Test the hook launcher and hook commands
-        run: node --test videos/ep01-the-cure-for-ai-slop/asd-ste100/tests/run-python.test.cjs
+        run: node --test videos/ep01-the-cure-for-ai-slop/asd-ste100/tests/run-python.test.cjs videos/ep01-the-cure-for-ai-slop/asd-ste100/tests/linter-e2e.test.cjs
+      - name: Test the linter and command line
+        run: python -m unittest discover -s videos/ep01-the-cure-for-ai-slop/asd-ste100/tests -p "test_*.py" -v

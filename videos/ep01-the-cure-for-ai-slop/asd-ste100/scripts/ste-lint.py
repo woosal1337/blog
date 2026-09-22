@@ -59,9 +59,59 @@ SOFTENER = ["uh oh","oh no","there seems to be a problem","there seems to be an 
     "unfortunately","i apologize","apologies","my apologies","sorry about that"]
 
 def strip_code(t):
-    t = re.sub(r"```.*?```", " ", t, flags=re.S)
+    t = re.sub(r"```.*?```", "\n\n", t, flags=re.S)
     t = re.sub(r"`[^`]*`", " ", t)
     return t
+
+
+def strip_front_matter(text):
+    return re.sub(r"\A\ufeff?---[ \t]*\r?\n.*?^(?:---|\.\.\.)[ \t]*(?:\r?\n|\Z)",
+                  "", text, count=1, flags=re.S | re.M)
+
+
+def strip_emphasis(text):
+    pattern = r"(?<![\\\w])(\*{1,3}|_{1,3})(?=[^\s*_])(.+?)(?<=[^\s\\*_])\1(?!\w)"
+    while True:
+        stripped = re.sub(pattern, r"\2", text, flags=re.S)
+        if stripped == text:
+            return text
+        text = stripped
+
+
+def prose_blocks(text):
+    blocks = []
+    pending = []
+    quote_depth = 0
+
+    def flush():
+        if pending:
+            blocks.append(" ".join(pending))
+            pending.clear()
+
+    for line in strip_emphasis(text).splitlines():
+        s = line.strip()
+        quote = re.match(r"^(?:>[ \t]*)+", s)
+        depth = quote.group().count(">") if quote else 0
+        if depth != quote_depth:
+            flush()
+            quote_depth = depth
+        if quote:
+            s = s[quote.end():]
+        if not s or re.fullmatch(r"(?:[-*_][ \t]*){3,}|=+", s):
+            flush()
+            continue
+        heading = re.match(r"^#{1,6}\s+", s)
+        item = re.match(r"^(?:[-*+]|\d+[.)])\s+", s)
+        if heading or s.startswith("|"):
+            flush()
+            blocks.append(s[heading.end():] if heading else s)
+        else:
+            if item:
+                flush()
+                s = s[item.end():]
+            pending.append(s)
+    flush()
+    return blocks
 
 
 def paragraphs(raw):
@@ -80,12 +130,7 @@ def paragraphs(raw):
 
 def sentences(text):
     out = []
-    for line in text.split("\n"):
-        s = line.strip()
-        if not s: continue
-        s = re.sub(r"^\s*#{1,6}\s*", "", s)
-        s = re.sub(r"^\s*(?:[-*+]|\d+[.)])\s+", "", s)
-        if not s: continue
+    for s in prose_blocks(text):
         parts = re.split(r"(?<=[.!?:])\s+(?=[A-Z0-9\"'\-])", s)
         for p in parts:
             p = p.strip()
@@ -147,7 +192,7 @@ def long_lists(raw):
 
 def shape(raw):
     """Layer 2 counts. Applies to a reply to a person, not to a reference doc."""
-    text = strip_code(raw).replace("’", "'")
+    text = "\n\n".join(prose_blocks(strip_code(raw))).replace("’", "'")
     sents = sentences(text)
     s = {}
     s["preamble_opener"] = count_in(sents[0], OPENERS)[0] if sents else 0
@@ -161,15 +206,17 @@ def shape(raw):
 
 
 def lint(text, strict=False):
-    raw = text
-    text = strip_code(text)
+    raw = strip_front_matter(text)
+    text = "\n\n".join(prose_blocks(strip_code(raw)))
     sents = sentences(text)
     words = sum(wc(s) for s in sents) or 1
     v = {}
     longs = [(wc(s), s) for s in sents if wc(s) > 20]
     v["long_sentence(>20w)"] = len(longs)
     v["semicolon"] = text.count(";")
-    v["contraction"] = len(re.findall(r"\b\w+['’](?:t|re|ve|ll|d|s|m)\b", text))
+    v["contraction"] = len(re.findall(
+        r"\b(?:\w+['’](?:t|re|ve|ll|d|m)|(?:it|he|she|that|what|who|where|when|why|how|there|here|let)['’]s)\b",
+        text, re.I))
     passive_parts = re.findall(rf"\b{BE}\s+(\w+ed|{PP_IRREG})\b", text, re.I)
     v["passive_voice"] = sum(1 for p in passive_parts if not re.fullmatch(STATIVE, p, re.I)) \
         + len(re.findall(rf"\b{BE}\s+{STATIVE}\s+by\b", text, re.I))
@@ -229,6 +276,7 @@ if __name__ == "__main__":
     files = [a for a in args if a not in ("--strict", "--json", "--shape")]
     worst = 0.0
     worst_shape = 0
+    read_error = False
     if not files:
         sys.stdin.reconfigure(encoding="utf-8")
         r = lint(sys.stdin.read(), strict=strict)
@@ -237,9 +285,24 @@ if __name__ == "__main__":
         worst_shape = r["shape_total"]
     else:
         exp = []
-        for f in files: exp += sorted(glob.glob(f)) if any(c in f for c in "*?[") else [f]
+        for f in files:
+            if any(c in f for c in "*?["):
+                matches = sorted(glob.glob(f))
+                if not matches:
+                    print(f"ste-lint: {f}: No files match the pattern.", file=sys.stderr)
+                    read_error = True
+                exp += matches
+            else:
+                exp.append(f)
         for f in exp:
-            with open(f, encoding="utf-8") as fh: r = lint(fh.read(), strict=strict)
+            try:
+                with open(f, encoding="utf-8") as fh:
+                    source = fh.read()
+            except (OSError, UnicodeError) as error:
+                print(f"ste-lint: {f}: {error}", file=sys.stderr)
+                read_error = True
+                continue
+            r = lint(source, strict=strict)
             worst = max(worst, r["total_per100w"])
             worst_shape = max(worst_shape, r["shape_total"])
             if as_json:
@@ -247,7 +310,7 @@ if __name__ == "__main__":
             else:
                 tail = f" shape={r['shape_total']:2d}" if show_shape else ""
                 print(f"{os.path.basename(f):32} words={r['words']:4d} total={r['total']:3d} per100w={r['total_per100w']:6.2f} em_dash={r['em_dash(slop-marker)']:2d}{tail}")
-    if fail_over is not None and worst > fail_over:
+    if read_error or (fail_over is not None and worst > fail_over):
         sys.exit(1)
     if fail_shape is not None and worst_shape > fail_shape:
         sys.exit(1)
