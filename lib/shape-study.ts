@@ -6,7 +6,21 @@ export interface StudyLine {
 }
 
 export const STUDY_DURATION = 48;
+export const STUDY_FPS = 20;
+export const STUDY_PIXEL_RATIO = 1.5;
 const TAU = Math.PI * 2;
+
+export function studySampleScale(width: number): number {
+	return width < 400 ? 0.4 : 0.6;
+}
+
+export function batchStudyLines(lines: StudyLine[]): StudyLine[][] {
+	const batches: StudyLine[][] = Array.from({ length: 17 }, () => []);
+	for (const line of lines) {
+		batches[Math.round(line.opacity * 16)].push(line);
+	}
+	return batches;
+}
 
 export function studyPhase(seconds: number): number {
 	return (
@@ -21,6 +35,7 @@ export function shapeStudyLines(
 	phase: number,
 	width: number,
 	height: number,
+	sampleScale = 1,
 ): StudyLine[] {
 	const lines: StudyLine[] = [];
 	const addLine = (
@@ -29,8 +44,9 @@ export function shapeStudyLines(
 		point: (position: number) => [number, number],
 	) => {
 		const points: number[] = [];
-		for (let i = 0; i <= count; i++) {
-			const [x, y] = point(i / count);
+		const samples = Math.max(2, Math.round(count * sampleScale));
+		for (let i = 0; i <= samples; i++) {
+			const [x, y] = point(i / samples);
 			points.push(x, y);
 		}
 		lines.push({ points, opacity });
@@ -78,6 +94,10 @@ export function shapeStudyLines(
 
 	if (study === "orbit") {
 		const size = Math.min(width * 0.4, height * 0.85);
+		const tilt = 0.36 + 0.12 * Math.sin(phase);
+		const turn = -0.3 + 0.17 * Math.cos(phase);
+		const cosTurn = Math.cos(turn);
+		const sinTurn = Math.sin(turn);
 		for (let line = 0; line < 56; line++) {
 			const v = line / 55;
 			addLine(160, 0.24 + Math.sin(v * Math.PI) * 0.6, (u) => {
@@ -87,13 +107,11 @@ export function shapeStudyLines(
 					v * 0.34 +
 					0.065 * Math.sin(angle * 3 + phase + v * 4) +
 					0.035 * Math.cos(angle * 5 - phase * 2);
-				const tilt = 0.36 + 0.12 * Math.sin(phase);
 				const x = Math.cos(angle) * radius;
 				const y = Math.sin(angle) * radius * tilt;
-				const turn = -0.3 + 0.17 * Math.cos(phase);
 				return [
-					width * 0.5 + size * (x * Math.cos(turn) - y * Math.sin(turn)),
-					height * 0.46 + size * (x * Math.sin(turn) + y * Math.cos(turn)),
+					width * 0.5 + size * (x * cosTurn - y * sinTurn),
+					height * 0.46 + size * (x * sinTurn + y * cosTurn),
 				];
 			});
 		}

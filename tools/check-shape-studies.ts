@@ -2,9 +2,12 @@ import assert from "node:assert/strict";
 import { performance } from "node:perf_hooks";
 import {
 	STUDY_DURATION,
+	STUDY_FPS,
 	type ShapeStudy,
+	batchStudyLines,
 	shapeStudyLines,
 	studyPhase,
+	studySampleScale,
 } from "../lib/shape-study";
 
 const studies: ShapeStudy[] = ["mesh", "ribbons", "orbit", "rings"];
@@ -79,9 +82,73 @@ for (const study of studies) {
 	}
 }
 
+let largestDeviation = 0;
+for (const study of studies) {
+	for (const [width, height] of sizes) {
+		const scale = studySampleScale(width);
+		const first = shapeStudyLines(study, studyPhase(0), width, height, scale);
+		assert.deepEqual(
+			shapeStudyLines(study, studyPhase(STUDY_DURATION), width, height, scale),
+			first,
+			`${study}: the lower-detail loop must close`,
+		);
+		for (let seconds = 0; seconds < STUDY_DURATION; seconds += 3) {
+			const dense = shapeStudyLines(study, studyPhase(seconds), width, height);
+			const lean = shapeStudyLines(
+				study,
+				studyPhase(seconds),
+				width,
+				height,
+				scale,
+			);
+			const points = (lines: typeof dense) =>
+				lines.reduce((total, line) => total + line.points.length / 2, 0);
+			assert.ok(
+				points(lean) * STUDY_FPS < points(dense) * 30 * 0.5,
+				`${study}: cut the original point workload by at least half`,
+			);
+			const batches = batchStudyLines(lean);
+			assert.equal(batches.flat().length, dense.length);
+			assert.ok(batches.filter((batch) => batch.length).length <= 12);
+			for (let line = 0; line < dense.length; line++) {
+				const reference = dense[line].points;
+				const simplified = lean[line].points;
+				const segments = simplified.length / 2 - 1;
+				for (let point = 0; point < reference.length / 2; point++) {
+					const referenceX = reference[point * 2];
+					if (referenceX < width * 0.08 || referenceX > width * 0.92) {
+						continue;
+					}
+					const position = (point / (reference.length / 2 - 1)) * segments;
+					const left = Math.min(segments - 1, Math.floor(position));
+					const weight = position - left;
+					const x =
+						simplified[left * 2] * (1 - weight) +
+						simplified[(left + 1) * 2] * weight;
+					const y =
+						simplified[left * 2 + 1] * (1 - weight) +
+						simplified[(left + 1) * 2 + 1] * weight;
+					const deviation = Math.hypot(
+						x - referenceX,
+						y - reference[point * 2 + 1],
+					);
+					largestDeviation = Math.max(largestDeviation, deviation);
+					assert.ok(
+						deviation < 1,
+						`${study}: preserve the central curves within 1px`,
+					);
+				}
+			}
+		}
+	}
+}
+
 console.log(
 	`${studies.length} studies passed across ${frames} frames and ${sizes.length} sizes.`,
 );
 console.log(
 	`Slowest geometry frame: ${longestFrame.toFixed(2)} ms on this machine.`,
+);
+console.log(
+	`Largest central curve deviation: ${largestDeviation.toFixed(2)} px.`,
 );

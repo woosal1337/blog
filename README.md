@@ -44,7 +44,7 @@ Requires Node >= 20 and Bun. No environment variables required.
 
 ## Credits
 
-The animated line studies in `components/blocks/shape-study.tsx` use original geometry inspired by [Book of Shapes](https://bookofshapes.com/). Each page has its own composition. The 48-second loop repeats automatically without controls. Reduced motion shows a static view. Run `bun tools/check-shape-studies.ts` to check loop continuity and canvas bounds.
+The animated line studies in `components/blocks/shape-study.tsx` use original geometry inspired by [Book of Shapes](https://bookofshapes.com/). Each page has its own composition. The 48-second loop repeats automatically without controls. Reduced motion shows a static view. The renderer groups strokes, scales curve detail to the width, and draws at 20 frames per second. The background grain uses a static texture. Run `bun tools/check-shape-studies.ts` to check loop continuity and canvas bounds.
 
 The earlier ASCII components in `components/blocks/ascii/` remain from [cobanov/soft-club-ui](https://github.com/cobanov/soft-club-ui) (MIT). The table-of-contents marker geometry follows [ncdai's LineNav](https://chanhdai.com/components/line-nav).
 
