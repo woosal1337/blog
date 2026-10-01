@@ -1,4 +1,4 @@
-import { AsciiPlasma } from "@/components/blocks/ascii/ascii-plasma";
+import { ShapeStudy } from "@/components/blocks/shape-study";
 import { BackButton } from "@/components/ds/back-button";
 import { EntryRow } from "@/components/ds/entry-row";
 import { Reveal } from "@/components/ds/reveal";
@@ -82,7 +82,7 @@ export default async function BlogIndexPage() {
 								</header>
 							</Reveal>
 							<Reveal immediate className="mb-6">
-								<AsciiPlasma className="h-[160px]" />
+								<ShapeStudy study="mesh" className="h-[180px] sm:h-[220px]" />
 							</Reveal>
 							<Reveal immediate>
 								<StoryCard

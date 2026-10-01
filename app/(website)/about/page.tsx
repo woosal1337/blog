@@ -1,5 +1,5 @@
-import { AsciiDonut } from "@/components/blocks/ascii/ascii-donut";
 import { BioProse, BioTerm } from "@/components/blocks/bio-prose";
+import { ShapeStudy } from "@/components/blocks/shape-study";
 import { BackButton } from "@/components/ds/back-button";
 import { IconLink } from "@/components/ds/icon-link";
 import { Reveal } from "@/components/ds/reveal";
@@ -186,7 +186,10 @@ export default function AboutPage() {
 							</p>
 						</BioProse>
 
-						<AsciiDonut className="mt-4 h-[200px] w-full" />
+						<ShapeStudy
+							study="rings"
+							className="mt-6 h-[230px] w-full sm:h-[280px]"
+						/>
 					</Reveal>
 				</Shell>
 			</Section>

@@ -44,7 +44,9 @@ Requires Node >= 20 and Bun. No environment variables required.
 
 ## Credits
 
-The live ASCII surfaces in `components/blocks/ascii/` — donut, flow, plasma, tunnel — are ported from [cobanov/soft-club-ui](https://github.com/cobanov/soft-club-ui) (MIT) and retuned monochrome against this site's tokens. The table-of-contents marker geometry follows [ncdai's LineNav](https://chanhdai.com/components/line-nav).
+The animated line studies in `components/blocks/shape-study.tsx` use original geometry inspired by [Book of Shapes](https://bookofshapes.com/). Each page has its own composition. The 48-second loop repeats automatically without controls. Reduced motion shows a static view. Run `bun tools/check-shape-studies.ts` to check loop continuity and canvas bounds.
+
+The earlier ASCII components in `components/blocks/ascii/` remain from [cobanov/soft-club-ui](https://github.com/cobanov/soft-club-ui) (MIT). The table-of-contents marker geometry follows [ncdai's LineNav](https://chanhdai.com/components/line-nav).
 
 ## License
 

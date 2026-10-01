@@ -1,4 +1,4 @@
-import { AsciiFlow } from "@/components/blocks/ascii/ascii-flow";
+import { ShapeStudy } from "@/components/blocks/shape-study";
 import { BackButton } from "@/components/ds/back-button";
 import { FeatureCard } from "@/components/ds/feature-card";
 import { Reveal } from "@/components/ds/reveal";
@@ -41,7 +41,7 @@ export default function ProjectsPage() {
 					</header>
 				</Reveal>
 				<Reveal immediate className="mb-8">
-					<AsciiFlow className="h-[220px]" />
+					<ShapeStudy study="ribbons" className="h-[200px] sm:h-[240px]" />
 				</Reveal>
 				<div className="grid gap-4 sm:grid-cols-2">
 					{allProjects.map((project, index) => (

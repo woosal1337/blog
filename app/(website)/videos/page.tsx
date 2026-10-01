@@ -1,4 +1,4 @@
-import { AsciiTunnel } from "@/components/blocks/ascii/ascii-tunnel";
+import { ShapeStudy } from "@/components/blocks/shape-study";
 import { BackButton } from "@/components/ds/back-button";
 import { EpisodeCard } from "@/components/ds/episode-card";
 import { Reveal } from "@/components/ds/reveal";
@@ -48,7 +48,7 @@ export default async function VideosPage() {
 					</Reveal>
 
 					<Reveal immediate className="mb-6">
-						<AsciiTunnel className="h-[180px]" />
+						<ShapeStudy study="orbit" className="h-[190px] sm:h-[230px]" />
 					</Reveal>
 
 					{episodes.length === 0 ? (
