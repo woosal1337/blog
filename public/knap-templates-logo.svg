@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Knap Templates</title>
+  <path fill="#ececec" fill-rule="evenodd" d="M12 8h26l14 14v34H12V8Zm9 16v24h6v-8l3-3 8 11h7L34 32l10-8h-8l-9 8v-8h-6Z"/>
+  <path fill="#959595" d="M38 8v14h14L38 8Z"/>
+</svg>

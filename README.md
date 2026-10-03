@@ -44,6 +44,8 @@ Requires Node >= 20 and Bun. No environment variables required.
 
 ## Credits
 
+The [My Tesla](https://github.com/woosal1337/my-tesla/blob/main/docs/images/logo.svg) and [TRDS](https://trds.chele.bi/varliklar/kiris-isaret.svg) card marks follow their project identities. The Knap Templates mark is an original folded-page design.
+
 The animated line studies in `components/blocks/shape-study.tsx` use original geometry inspired by [Book of Shapes](https://bookofshapes.com/). Each page has its own composition. The 48-second loop repeats automatically without controls. Reduced motion shows a static view. The renderer groups strokes, scales curve detail to the width, and draws at 20 frames per second. The background grain uses a static texture. Run `bun tools/check-shape-studies.ts` to check loop continuity and canvas bounds.
 
 The earlier ASCII components in `components/blocks/ascii/` remain from [cobanov/soft-club-ui](https://github.com/cobanov/soft-club-ui) (MIT). The table-of-contents marker geometry follows [ncdai's LineNav](https://chanhdai.com/components/line-nav).
