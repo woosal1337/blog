@@ -163,6 +163,32 @@ export const allProjects: Array<{
 	date?: string;
 }> = [
 	{
+		name: "My Tesla",
+		desc: "Self-hosted, read-only dashboard for TeslaMate data. Drives, charging, battery health and stats, in the style of the Tesla app.",
+		href: "https://mytesla.chele.bi",
+		logo: "/my-tesla-logo.png",
+		external: true,
+		isNew: true,
+		date: "2026-09-30",
+	},
+	{
+		name: "Knap Templates",
+		desc: "Obsidian plugin that renders Knap templates into standard Markdown notes, with JSON data and a live preview.",
+		href: "https://github.com/woosal1337/knap-templates",
+		logo: "/knap-templates-logo.png",
+		external: true,
+		isNew: true,
+		date: "2026-09-12",
+	},
+	{
+		name: "Kiriş",
+		desc: "Open-source design system for Turkish public services. Components, design tokens and guidance, with React and Vue wrappers.",
+		href: "https://trds.chele.bi",
+		logo: "/trds-logo.png",
+		external: true,
+		date: "2026-09-07",
+	},
+	{
 		name: "index",
 		desc: "A design corpus your agent can read. A searchable catalog of libraries, systems and references, served through the site and a public API.",
 		href: "https://index.chele.bi",
