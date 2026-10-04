@@ -5,7 +5,13 @@ import re, sys, json, glob, os
 # banned list, adds a noun-train marker and a --strict mode. The episode's
 # published numbers were measured with score v1 (this file's git history at the
 # episode date); v1 and v2 totals are close but not directly comparable.
-SCORE_VERSION = 2
+#
+# Score v3: text in quotation marks stays out of the score. A quote is text
+# the reply cites (the original phrase in a review, an error string, a user's
+# words), not text the writer wrote. v2 counted it, so a review that quoted
+# ten violations scored as ten violations and the Stop gate blocked it. Use
+# --count-quotes for the v2 behavior.
+SCORE_VERSION = 3
 
 # Shape v1: the Layer 2 checks (skill 2.0). These count the ORDER of a reply to
 # a person, not the words. They are reported apart from the score and never
@@ -61,6 +67,23 @@ SOFTENER = ["uh oh","oh no","there seems to be a problem","there seems to be an 
 def strip_code(t):
     t = re.sub(r"```.*?```", "\n\n", t, flags=re.S)
     t = re.sub(r"`[^`]*`", " ", t)
+    return t
+
+
+# A quoted span stays on one line, so a stray quote mark cannot swallow a
+# paragraph. A single quote opens only after a non-word character and closes
+# only before one, so a contraction or a possessive never opens or closes it.
+QUOTE_SPANS = [
+    r'"[^"\n]+"',
+    r"\u201c[^\u201d\n]+\u201d",
+    r"(?<![\w'])'(?=\S)(?:[^'\n]|(?<=\w)'(?=\w))+?(?<=\S)'(?!\w)",
+    r"\u2018(?=\S)(?:[^\u2018\u2019\n]|(?<=\w)\u2019(?=\w))+?(?<=\S)\u2019(?!\w)",
+]
+
+
+def strip_quotes(t):
+    for pattern in QUOTE_SPANS:
+        t = re.sub(pattern, " ", t)
     return t
 
 
@@ -190,9 +213,10 @@ def long_lists(raw):
     return n
 
 
-def shape(raw):
+def shape(raw, count_quotes=False):
     """Layer 2 counts. Applies to a reply to a person, not to a reference doc."""
-    text = "\n\n".join(prose_blocks(strip_code(raw))).replace("’", "'")
+    body = strip_code(raw) if count_quotes else strip_quotes(strip_code(raw))
+    text = "\n\n".join(prose_blocks(body)).replace("’", "'")
     sents = sentences(text)
     s = {}
     s["preamble_opener"] = count_in(sents[0], OPENERS)[0] if sents else 0
@@ -205,8 +229,10 @@ def shape(raw):
     return s, list(dict.fromkeys(ch + rh + hh + vh + sh))[:6]
 
 
-def lint(text, strict=False):
+def lint(text, strict=False, count_quotes=False):
     raw = strip_front_matter(text)
+    if not count_quotes:
+        raw = strip_quotes(raw)
     text = "\n\n".join(prose_blocks(strip_code(raw)))
     sents = sentences(text)
     words = sum(wc(s) for s in sents) or 1
@@ -239,7 +265,7 @@ def lint(text, strict=False):
         v["strict_banned_word"] = n_strict
         v["em_dash"] = em
     total = sum(v.values())
-    sh, sh_samples = shape(raw)
+    sh, sh_samples = shape(raw, count_quotes=True)
     return {
         "score_version": SCORE_VERSION,
         "shape_version": SHAPE_VERSION,
@@ -264,6 +290,7 @@ if __name__ == "__main__":
     strict = "--strict" in args
     as_json = "--json" in args
     show_shape = "--shape" in args
+    count_quotes = "--count-quotes" in args
     fail_over = None
     fail_shape = None
     for flag in ("--fail-over", "--fail-shape"):
@@ -273,13 +300,13 @@ if __name__ == "__main__":
             if flag == "--fail-over": fail_over = value
             else: fail_shape = value
             del args[i:i + 2]
-    files = [a for a in args if a not in ("--strict", "--json", "--shape")]
+    files = [a for a in args if a not in ("--strict", "--json", "--shape", "--count-quotes")]
     worst = 0.0
     worst_shape = 0
     read_error = False
     if not files:
         sys.stdin.reconfigure(encoding="utf-8")
-        r = lint(sys.stdin.read(), strict=strict)
+        r = lint(sys.stdin.read(), strict=strict, count_quotes=count_quotes)
         print(json.dumps(r, indent=2))
         worst = r["total_per100w"]
         worst_shape = r["shape_total"]
@@ -302,7 +329,7 @@ if __name__ == "__main__":
                 print(f"ste-lint: {f}: {error}", file=sys.stderr)
                 read_error = True
                 continue
-            r = lint(source, strict=strict)
+            r = lint(source, strict=strict, count_quotes=count_quotes)
             worst = max(worst, r["total_per100w"])
             worst_shape = max(worst_shape, r["shape_total"])
             if as_json:

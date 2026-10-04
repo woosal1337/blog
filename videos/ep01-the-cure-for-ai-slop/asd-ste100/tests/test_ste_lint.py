@@ -197,6 +197,54 @@ class RuleCompatibilityTests(unittest.TestCase):
         self.assertEqual(result["total_per100w"], 0)
 
 
+REVIEW = (
+    "1. \"Great question!\" is a preamble. Delete it.\n\n"
+    "2. \"we have leveraged\" is present perfect. Use \"we use\".\n\n"
+    "3. 'robust, cutting-edge' is a marketing phrase. Delete it.\n\n"
+    "4. “prior to” is a banned phrase. Use “before”.\n\n"
+    "5. ‘we don’t facilitate’ has a contraction. Write ‘we do not help’.\n"
+)
+
+
+class QuoteTests(unittest.TestCase):
+    def test_quoted_text_stays_out_of_the_score(self):
+        result = STE.lint(REVIEW)
+        self.assertEqual(result["total"], 0)
+        self.assertEqual(result["shape_total"], 0)
+
+    def test_count_quotes_keeps_the_v2_behavior(self):
+        self.assertGreater(STE.lint(REVIEW, count_quotes=True)["total"], 5)
+
+    def test_text_outside_quotes_still_counts(self):
+        result = STE.lint("We have leveraged \"the tool\" to facilitate the build.")
+        self.assertEqual(result["violations"]["complex_tense"], 1)
+        self.assertEqual(result["violations"]["banned_word"], 1)
+
+    def test_contractions_and_possessives_do_not_open_a_quote(self):
+        for text in (
+            "Read the users' files and the kids' toys. We don't leverage it.",
+            "It's the team's plan. We can't leverage it.",
+        ):
+            with self.subTest(text=text):
+                self.assertEqual(STE.lint(text)["violations"]["banned_word"], 1)
+
+    def test_a_quote_does_not_cross_a_line(self):
+        result = STE.lint("He said \"fine\nwe leverage it\" here.")
+        self.assertEqual(result["violations"]["banned_word"], 1)
+
+    def test_command_line_flag_restores_quote_counting(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "review.md"
+            path.write_text(REVIEW, encoding="utf-8")
+            reports = [
+                json.loads(subprocess.run([sys.executable, str(LINTER), "--json", *flag, str(path)],
+                                          capture_output=True, text=True).stdout)
+                for flag in ([], ["--count-quotes"])
+            ]
+        self.assertEqual(reports[0]["total"], 0)
+        self.assertGreater(reports[1]["total"], 5)
+
+
 class CommandLineTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix="ste-input-tests-")
