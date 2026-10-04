@@ -160,6 +160,18 @@ class MarkdownTests(unittest.TestCase):
         result = STE.lint(" ".join(["Read the guide."] * 7))
         self.assertEqual(result["violations"]["long_paragraph(>6s)"], 1)
 
+    def test_a_list_is_not_one_long_paragraph(self):
+        for marker in ("-", "*", "1.", "2)"):
+            text = "\n".join(f"{marker} Read the guide." for _ in range(8))
+            with self.subTest(marker=marker):
+                self.assertEqual(STE.lint(text)["violations"]["long_paragraph(>6s)"], 0)
+        text = "## Steps\nRead the guide. Read the log. Read the file.\n## Notes\nOpen the file. Close the file. Read the file. Save the file."
+        self.assertEqual(STE.lint(text)["violations"]["long_paragraph(>6s)"], 0)
+
+    def test_one_long_list_item_still_counts(self):
+        result = STE.lint("1. " + " ".join(["Read the guide."] * 7) + "\n2. Read the log.")
+        self.assertEqual(result["violations"]["long_paragraph(>6s)"], 1)
+
     def test_shape_counts_stay_separate(self):
         result = STE.lint("\n".join(f"{n}. Read the guide." for n in range(1, 7)))
         self.assertEqual(result["shape"]["action_list(>5)"], 1)

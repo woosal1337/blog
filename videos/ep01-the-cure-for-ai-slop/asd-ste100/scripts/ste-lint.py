@@ -10,7 +10,8 @@ import re, sys, json, glob, os
 # the reply cites (the original phrase in a review, an error string, a user's
 # words), not text the writer wrote. v2 counted it, so a review that quoted
 # ten violations scored as ten violations and the Stop gate blocked it. Use
-# --count-quotes for the v2 behavior.
+# --count-quotes for the v2 behavior. A list item and a heading also start
+# their own paragraph now, so a list no longer counts as one long paragraph.
 SCORE_VERSION = 3
 
 # Shape v1: the Layer 2 checks (skill 2.0). These count the ORDER of a reply to
@@ -149,6 +150,10 @@ def paragraphs(raw):
     t = re.sub(r"```.*?```", "\n\n", raw, flags=re.S)
     t = re.sub(r"^[ \t]*```.*$", "\n", t, flags=re.M)   # a fence with no partner
     t = re.sub(r"`[^`]*`", " ", t)
+    # A list item and a heading start their own block. A list is not a
+    # paragraph, so eight one-line items must not count as one paragraph of
+    # eight sentences. One item that runs past six sentences still counts.
+    t = re.sub(r"\n(?=[ \t]*(?:(?:[-*+]|\d+[.)])[ \t]|#{1,6}[ \t]))", "\n\n", t)
     return [p for p in re.split(r"\n\s*\n", t) if p.strip()]
 
 def sentences(text):
