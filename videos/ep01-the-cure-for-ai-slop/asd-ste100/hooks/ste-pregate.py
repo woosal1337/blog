@@ -47,15 +47,16 @@ TEXT_FIELDS = ("title", "description", "body", "content")
 
 
 HEREDOC = re.compile(
-    r"<<-?[ \t]*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1[^\n]*\n(.*?)\n[ \t]*\2[ \t]*(?=\n|\)|$)",
+    r"<<-?[ \t]*(['\"]?)([A-Za-z_][A-Za-z0-9_]*)\1[^\n]*\n(.*?)\n[ \t]*\2[ \t]*(?=\n|[);&|}]|$)",
     re.S)
 # "git" at a command position, then at most four arguments, then "commit".
 # A command position is the start of the command, or the point after a
-# separator, a pipe, a subshell, or a command substitution. The bounded chain
-# still covers "git -c key=value commit".
+# separator, a pipe, a brace group, a subshell, or a command substitution.
+# The bounded chain still covers "git -c key=value commit". "commit-tree"
+# is a different command and does not match.
 GIT_COMMIT = re.compile(
-    r"(?:^|[;&|(\n]|\$\()[ \t]*(?:[A-Za-z_][A-Za-z0-9_]*=\S*[ \t]+)*"
-    r"git[ \t]+(?:[^\s|;&]+[ \t]+){0,4}commit\b")
+    r"(?:^|[;&|{(\n]|\$\()[ \t]*(?:[A-Za-z_][A-Za-z0-9_]*=\S*[ \t]+)*"
+    r"git[ \t]+(?:[^\s|;&]+[ \t]+){0,4}commit(?![\w-])")
 
 
 def mask(command, heredocs):
@@ -107,7 +108,7 @@ def commit_message(command):
     for hit in GIT_COMMIT.finditer(masked):
         found = True
         start = hit.end()
-        stop = re.search(r"\n|;|&&|\|\|?", masked[start:])
+        stop = re.search(r"[\n;&|}]", masked[start:])
         end = start + stop.start() if stop else len(masked)
         # A heredoc marker on the commit line owns the body below that line.
         line_heredocs = [m for m in heredocs if start <= m.start() < end]

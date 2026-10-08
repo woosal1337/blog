@@ -36,6 +36,18 @@ class CommitDetectionTests(unittest.TestCase):
             with self.subTest(command=command):
                 self.assertEqual(GATE.commit_message(command), "Fix the bug")
 
+    def test_commit_boundaries_stay_exact(self):
+        cases = (
+            ('git commit -m "One" & git commit -m "Two"', "One\n\nTwo"),
+            ('git commit -m "One" && git commit -m "Two"', "One\n\nTwo"),
+            ('{ git commit -m "Fix the bug"; }', "Fix the bug"),
+            ("git commit -F - <<EOF\nFix the bug.\nEOF; echo done", "Fix the bug."),
+            ('git commit -m "Fix the bug" 2>&1', "Fix the bug"),
+        )
+        for command, message in cases:
+            with self.subTest(command=command):
+                self.assertEqual(GATE.commit_message(command), message)
+
     def test_heredoc_of_the_commit_is_gated(self):
         command = 'git commit -m "$(cat <<\'EOF\'\nFix the bug.\n\nAdd a mutex.\nEOF\n)"'
         self.assertEqual(GATE.commit_message(command), "Fix the bug.\n\nAdd a mutex.")
@@ -48,6 +60,7 @@ class CommitDetectionTests(unittest.TestCase):
             'echo "then run git commit and push"',
             "python3 -c \"print('git commit -m x')\"",
             "grep -r 'git commit' docs/",
+            'git commit-tree HEAD -m "Fix the bug"',
         ):
             with self.subTest(command=command):
                 self.assertIsNone(GATE.commit_message(command))

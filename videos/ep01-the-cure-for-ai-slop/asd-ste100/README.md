@@ -118,7 +118,11 @@ File errors go to standard error. The linter checks the remaining files and
 exits 1 after the batch. Unmatched file patterns also cause exit 1.
 JSON reports for readable files keep the same format.
 
-The rule sets remain `score_version: 2` and `shape_version: 1`.
+Version 2.0.4 sets `score_version: 3`. Quoted text stays out of the score.
+Use `--count-quotes` for the version 2 count. A list item and a heading each
+start their own paragraph. One list item with more than six sentences still
+counts. `shape_version` stays 1.
+
 These fixes can change scores for the same document. Use the same Git revision
 of the linter for both sides of a comparison. The episode tables keep their
 historical measurements.
