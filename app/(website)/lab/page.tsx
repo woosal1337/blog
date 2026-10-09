@@ -178,6 +178,11 @@ const AGENTS: LabItem[] = [
 		href: "https://herdr.dev",
 	},
 	{
+		name: "Pi",
+		desc: "A minimal agent harness. Extensions, skills, and prompt templates shape it to the work.",
+		href: "https://pi.dev",
+	},
+	{
 		name: "Warp",
 		desc: "The terminal. Claude Code and Codex run here as command-line tools.",
 		href: "https://www.warp.dev",
@@ -196,11 +201,6 @@ const MCPS: LabItem[] = [
 		desc: "Voice dictation, with a notetaker beside it. Agents read the meetings, notes and briefs over MCP, and never the dictations.",
 		href: "https://wisprflow.ai",
 	},
-	{
-		name: "media-mcp",
-		desc: "My own server for X, YouTube and Instagram. Agents read a thread, transcribe a video with local Whisper, and take frames only where the audio fails.",
-		href: "https://github.com/woosal1337/media-mcp",
-	},
 ];
 
 const SKILLS: LabItem[] = [
@@ -211,40 +211,10 @@ const SKILLS: LabItem[] = [
 		code: "/ste",
 	},
 	{
-		name: "design-taste-frontend",
-		desc: "Anti-slop frontend design, for landing pages, portfolios and redesigns. It reads the brief before it picks an aesthetic, reaches for a real design system where one fits, and finishes on a ban list of the tells that give a generated page away.",
-		href: "https://www.tasteskill.dev",
-		code: "/tst",
-	},
-	{
 		name: "better-interface",
 		desc: "Reviews a screen across accessibility, color, layout, typography, polish and writing. It routes each problem to the right skill, then returns one ranked verdict.",
 		href: "https://github.com/jakubkrehel/skills/blob/main/skills/better-interface/SKILL.md",
 		code: "/btr",
-	},
-	{
-		name: "break",
-		desc: "Stress-tests one component on a temporary page with the hostile inputs it can really receive, then reports what visibly fails.",
-		href: "https://github.com/jakubkrehel/skills/blob/main/skills/break/SKILL.md",
-		code: "/brk",
-	},
-	{
-		name: "explain-interface",
-		desc: 'Answers "how was this built?" from a URL or screenshot. It reads the layers behind an effect, or reconstructs them when source code is unavailable.',
-		href: "https://github.com/jakubkrehel/skills/blob/main/skills/explain-interface/SKILL.md",
-		code: "/xpl",
-	},
-	{
-		name: "interface-review",
-		desc: "Reviews the interface in uncommitted work, the current branch or a pull request. It checks the change itself, not the whole product.",
-		href: "https://github.com/jakubkrehel/skills/blob/main/skills/interface-review/SKILL.md",
-		code: "/rev",
-	},
-	{
-		name: "variant",
-		desc: "Builds several real versions of one UI piece behind a picker, so I can compare them in context and keep the winner.",
-		href: "https://github.com/jakubkrehel/skills/blob/main/skills/variant/SKILL.md",
-		code: "/var",
 	},
 	{
 		name: "elliptic",
