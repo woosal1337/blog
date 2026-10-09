@@ -4,6 +4,7 @@ import { Reveal } from "@/components/ds/reveal";
 import { SectionLabel } from "@/components/ds/section-label";
 import { Section, Shell } from "@/components/ds/shell";
 import { createPageMetadata } from "@/lib/seo";
+import { Computer } from "lucide-react";
 import Image from "next/image";
 
 export const metadata = createPageMetadata({
@@ -23,6 +24,7 @@ type LabItem = {
 	image?: string;
 	bleed?: boolean;
 	code?: string;
+	pc?: boolean;
 };
 
 function faviconFor(href: string): string | undefined {
@@ -125,9 +127,16 @@ function Tile({ name, href, iconHref, image, bleed, code }: LabItem) {
 }
 
 function LabRow(item: LabItem) {
-	const { name, desc, href } = item;
+	const { name, desc, href, pc } = item;
 	const inner = (
 		<>
+			{pc && (
+				<Computer
+					className="mt-0.5 size-4 shrink-0 self-start text-ink-mute"
+					strokeWidth={1.5}
+					aria-hidden="true"
+				/>
+			)}
 			<div className="min-w-0 flex-1">
 				<p className="font-ui text-[15px] font-medium text-ink">{name}</p>
 				{desc && (
@@ -136,11 +145,12 @@ function LabRow(item: LabItem) {
 					</p>
 				)}
 			</div>
-			<Tile {...item} />
+			{pc ? null : <Tile {...item} />}
 		</>
 	);
-	const classes =
-		"-mx-3 flex items-center justify-between gap-6 rounded-[10px] px-3 py-3 transition-colors duration-200 ease-house";
+	const classes = pc
+		? "-mx-3 flex items-start gap-3 rounded-[10px] px-3 py-3"
+		: "-mx-3 flex items-center justify-between gap-6 rounded-[10px] px-3 py-3 transition-colors duration-200 ease-house";
 	if (!href) return <div className={classes}>{inner}</div>;
 	return (
 		<a
@@ -224,7 +234,22 @@ const SKILLS: LabItem[] = [
 	},
 ];
 
-const NETWORK: LabItem[] = [
+const HOMELAB: LabItem[] = [
+	{
+		name: "Rika",
+		desc: "Apple M5, 10 cores. Integrated GPU. 24 GB RAM.",
+		pc: true,
+	},
+	{
+		name: "Sukuna",
+		desc: "Ryzen 7 7800X3D. RTX 4070 Ti SUPER. 16 GB RAM.",
+		pc: true,
+	},
+	{
+		name: "Igris",
+		desc: "Core i9-13900HX. RTX 4090 Laptop. 64 GB RAM.",
+		pc: true,
+	},
 	{
 		name: "Tailscale",
 		desc: "The private network under all of it. Machines, agents and services meet on the tailnet, so no box needs an open port on the internet.",
@@ -279,8 +304,8 @@ export default function LabPage() {
 						))}
 					</LabGroup>
 
-					<LabGroup label="Network">
-						{NETWORK.map((row) => (
+					<LabGroup label="Homelab">
+						{HOMELAB.map((row) => (
 							<LabRow key={row.name} {...row} />
 						))}
 					</LabGroup>
