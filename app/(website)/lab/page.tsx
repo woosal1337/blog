@@ -211,12 +211,6 @@ const SKILLS: LabItem[] = [
 		code: "/ste",
 	},
 	{
-		name: "better-interface",
-		desc: "Reviews a screen across accessibility, color, layout, typography, polish and writing. It routes each problem to the right skill, then returns one ranked verdict.",
-		href: "https://github.com/jakubkrehel/skills/blob/main/skills/better-interface/SKILL.md",
-		code: "/btr",
-	},
-	{
 		name: "elliptic",
 		desc: "Teaches an agent the Elliptic workspace over MCP: the domain model, the org discipline, and the mistakes that quietly land a write in the wrong workspace.",
 		href: "https://github.com/woosal1337/elliptic",
@@ -227,12 +221,6 @@ const SKILLS: LabItem[] = [
 		desc: "Drives Herdr, the terminal multiplexer for coding agents. An agent reads neighbouring panes and starts work in them, and refuses to try from outside a Herdr session.",
 		href: "https://herdr.dev",
 		code: "/hrd",
-	},
-	{
-		name: "Herdr Gram",
-		desc: "Agents send me push notifications and files through Herdr. They also receive work I queued for them.",
-		href: "https://herdr.dev",
-		code: "/grm",
 	},
 ];
 
