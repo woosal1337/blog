@@ -68,11 +68,20 @@ function TileFrame() {
 	);
 }
 
-function Tile({ name, href, iconHref, image, bleed, code }: LabItem) {
+function Tile({ name, href, iconHref, image, bleed, code, pc }: LabItem) {
 	const favicon = faviconFor(iconHref ?? href ?? "");
 	return (
 		<div className="relative grid size-12 shrink-0 place-items-center">
-			{code ? (
+			{pc ? (
+				<div className="relative grid size-10 place-items-center rounded-[10px] bg-white/[0.03]">
+					<Computer
+						className="size-4 text-ink-mute"
+						strokeWidth={1.5}
+						aria-hidden="true"
+					/>
+					<TileFrame />
+				</div>
+			) : code ? (
 				<div className="relative grid size-10 place-items-center rounded-[10px] bg-white/[0.03]">
 					<span className="font-mono text-[11px] leading-none tracking-tight text-ink-mute">
 						{code}
@@ -127,16 +136,9 @@ function Tile({ name, href, iconHref, image, bleed, code }: LabItem) {
 }
 
 function LabRow(item: LabItem) {
-	const { name, desc, href, pc } = item;
+	const { name, desc, href } = item;
 	const inner = (
 		<>
-			{pc && (
-				<Computer
-					className="size-4 shrink-0 text-ink-mute"
-					strokeWidth={1.5}
-					aria-hidden="true"
-				/>
-			)}
 			<div className="min-w-0 flex-1">
 				<p className="font-ui text-[15px] font-medium text-ink">{name}</p>
 				{desc && (
@@ -145,12 +147,11 @@ function LabRow(item: LabItem) {
 					</p>
 				)}
 			</div>
-			{pc ? null : <Tile {...item} />}
+			<Tile {...item} />
 		</>
 	);
-	const classes = pc
-		? "-mx-3 flex items-center gap-3 rounded-[10px] px-3 py-3"
-		: "-mx-3 flex items-center justify-between gap-6 rounded-[10px] px-3 py-3 transition-colors duration-200 ease-house";
+	const classes =
+		"-mx-3 flex items-center justify-between gap-6 rounded-[10px] px-3 py-3 transition-colors duration-200 ease-house";
 	if (!href) return <div className={classes}>{inner}</div>;
 	return (
 		<a
