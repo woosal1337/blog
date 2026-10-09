@@ -1,3 +1,4 @@
+import { type LabChip, LabChipRow } from "@/components/blocks/lab-chip-row";
 import { OrbitField } from "@/components/blocks/lab-orbit";
 import { BackButton } from "@/components/ds/back-button";
 import { Reveal } from "@/components/ds/reveal";
@@ -25,6 +26,7 @@ type LabItem = {
 	bleed?: boolean;
 	code?: string;
 	pc?: boolean;
+	chips?: LabChip[];
 };
 
 function faviconFor(href: string): string | undefined {
@@ -136,7 +138,16 @@ function Tile({ name, href, iconHref, image, bleed, code, pc }: LabItem) {
 }
 
 function LabRow(item: LabItem) {
-	const { name, desc, href } = item;
+	const { name, desc, href, chips } = item;
+	const classes =
+		"-mx-3 flex items-center justify-between gap-6 rounded-[10px] px-3 py-3 transition-colors duration-200 ease-house";
+	if (chips && chips.length > 0) {
+		return (
+			<LabChipRow name={name} desc={desc} chips={chips} className={classes}>
+				<Tile {...item} />
+			</LabChipRow>
+		);
+	}
 	const inner = (
 		<>
 			<div className="min-w-0 flex-1">
@@ -150,8 +161,6 @@ function LabRow(item: LabItem) {
 			<Tile {...item} />
 		</>
 	);
-	const classes =
-		"-mx-3 flex items-center justify-between gap-6 rounded-[10px] px-3 py-3 transition-colors duration-200 ease-house";
 	if (!href) return <div className={classes}>{inner}</div>;
 	return (
 		<a
@@ -240,16 +249,25 @@ const HOMELAB: LabItem[] = [
 		name: "Rika",
 		desc: "Apple M5, 10 cores. Integrated GPU. 24 GB RAM.",
 		pc: true,
+		chips: [{ name: "Apple", href: "https://www.apple.com" }],
 	},
 	{
 		name: "Sukuna",
 		desc: "Ryzen 7 7800X3D. RTX 4070 Ti SUPER. 16 GB RAM.",
 		pc: true,
+		chips: [
+			{ name: "AMD", href: "https://www.amd.com" },
+			{ name: "NVIDIA", href: "https://www.nvidia.com" },
+		],
 	},
 	{
 		name: "Igris",
 		desc: "Core i9-13900HX. RTX 4090 Laptop. 64 GB RAM.",
 		pc: true,
+		chips: [
+			{ name: "Intel", href: "https://www.intel.com" },
+			{ name: "NVIDIA", href: "https://www.nvidia.com" },
+		],
 	},
 	{
 		name: "Tailscale",
