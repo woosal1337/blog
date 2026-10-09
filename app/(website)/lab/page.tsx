@@ -132,7 +132,7 @@ function LabRow(item: LabItem) {
 		<>
 			{pc && (
 				<Computer
-					className="mt-0.5 size-4 shrink-0 self-start text-ink-mute"
+					className="size-4 shrink-0 text-ink-mute"
 					strokeWidth={1.5}
 					aria-hidden="true"
 				/>
@@ -149,7 +149,7 @@ function LabRow(item: LabItem) {
 		</>
 	);
 	const classes = pc
-		? "-mx-3 flex items-start gap-3 rounded-[10px] px-3 py-3"
+		? "-mx-3 flex items-center gap-3 rounded-[10px] px-3 py-3"
 		: "-mx-3 flex items-center justify-between gap-6 rounded-[10px] px-3 py-3 transition-colors duration-200 ease-house";
 	if (!href) return <div className={classes}>{inner}</div>;
 	return (
