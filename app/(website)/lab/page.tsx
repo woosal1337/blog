@@ -203,6 +203,11 @@ const AGENTS: LabItem[] = [
 		href: "https://pi.dev",
 	},
 	{
+		name: "Zeron",
+		desc: "The workspace for the agents. Claude Code, Codex, and Pi run on the machines. I drive the same session from the phone.",
+		href: "https://zeron.sh",
+	},
+	{
 		name: "Warp",
 		desc: "The terminal. Claude Code and Codex run here as command-line tools.",
 		href: "https://www.warp.dev",
