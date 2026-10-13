@@ -163,6 +163,15 @@ export const allProjects: Array<{
 	date?: string;
 }> = [
 	{
+		name: "ade",
+		desc: "One profile for the agent setup across 10 coding agents. It captures MCP servers, skills, instructions, settings and plugins, then plans each change and applies it with a backup.",
+		href: "https://ade.chele.bi",
+		logo: "/ade-logo.svg",
+		external: true,
+		isNew: true,
+		date: "2026-10-11",
+	},
+	{
 		name: "My Tesla",
 		desc: "A self-hosted dashboard for TeslaMate. Drives, charging, battery health and routes, with a read-only connection to your car data.",
 		href: "https://mytesla.chele.bi",
@@ -193,8 +202,7 @@ export const allProjects: Array<{
 		name: "index",
 		desc: "A design corpus your agent can read. A searchable catalog of libraries, systems and references, served through the site and a public API.",
 		href: "https://index.chele.bi",
-		logo: "/index-logo.png",
-		logoWide: true,
+		logo: "/index-mark.png",
 		external: true,
 		isNew: true,
 		date: "2026-09-07",
