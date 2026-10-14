@@ -1,8 +1,12 @@
 {
-  "name": "asd-ste100-opencode-plugin",
-  "version": "0.1.0",
-  "description": "ASD-STE100 standing-rule injection and end-of-turn lint for opencode",
-  "type": "module",
-  "main": "plugin.js",
-  "private": true
+	"name": "asd-ste100-opencode-plugin",
+	"version": "0.2.0",
+	"description": "ASD-STE100 standing-rule injection, pre-send gate and end-of-turn lint for opencode V1 and V2",
+	"type": "module",
+	"main": "index.js",
+	"exports": {
+		".": "./index.js",
+		"./plugin.js": "./plugin.js"
+	},
+	"private": true
 }

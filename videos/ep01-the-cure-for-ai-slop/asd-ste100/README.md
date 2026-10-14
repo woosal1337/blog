@@ -48,7 +48,7 @@ node "$HOME/.claude/skills/asd-ste100/hooks/run-python.cjs" "$HOME/.claude/skill
 The registry page for that command is the listing above. It reads this repo
 directly, so the page and the folder never drift apart.
 
-**opencode.** A separate installer and a real, documented gap — see
+**opencode.** A separate installer, for opencode V2 and V1. See
 [`opencode/README.md`](opencode/README.md):
 
 ```
@@ -73,8 +73,8 @@ hooks/ste-*.py               the four Claude Code hook programs
 hooks/oc-*.py                three more, for the opencode port - see opencode/
 .claude-plugin/plugin.json   the plugin manifest
 install.py, output-style.md  the settings route, for non-plugin installs
-opencode/                    the opencode port - a real gap found, documented
-                              in opencode/README.md, not hidden
+opencode/                    the opencode port, V2 and V1 - see
+                              opencode/README.md
 ```
 
 ## What the enforcement stack adds
@@ -162,9 +162,10 @@ blog post, an essay, marketing copy — is out of scope on purpose. STE is
 deliberately flat.
 
 The skill file works with every agent the skills CLI supports. The hooks and
-the installer were Claude Code only until 2026-09-11 — `opencode/` ports
-three of the four to opencode, with one real gap found and documented rather
-than hidden. See `opencode/README.md`.
+the installer were Claude Code only until 2026-09-11. `opencode/` ports all
+four hooks to opencode V2. On opencode V1, two of them run through a hooks
+bridge. The Stop gate cannot force a same-turn rewrite on opencode. It warns
+on the next turn. See `opencode/README.md`.
 
 ## License
 

@@ -1,11 +1,72 @@
 # asd-ste100 on opencode
 
-A port of the four Claude Code hooks to opencode. Built and tested live,
-2026-09-11 — every claim below is either confirmed against a real opencode
-run, or marked as not yet confirmed. Nothing here is assumed from reading
-source alone.
+A port of the four Claude Code hooks to opencode. It works on opencode V2
+(2.x) and on opencode V1 (1.18.29 and newer). Each claim below was tested
+on a real opencode run, or it is marked as not confirmed.
 
-## Setup
+## opencode V2
+
+V2 has a new plugin API, and V1 plugins do not load in it. V2 also has
+native tool hooks, so V2 needs no Claude Code hooks bridge. The plugin
+handles all four hooks itself:
+
+| Claude Code hook | V2 plugin hook | Script | State on V2 2.0.29 |
+|---|---|---|---|
+| UserPromptSubmit | session `prompt` (once a turn) + `context` (each model request) | `oc-inject.py` | confirmed live |
+| PreToolUse | tool `execute.before`. A throw stops the call | `ste-pregate.py` | confirmed live, it BLOCKS |
+| PostToolUse | tool `execute.after`. The note goes into the tool result | `ste-refresh.py` | confirmed live |
+| Stop | event `session.execution.succeeded` | `oc-gate.py` | confirmed live, warns on the next turn |
+
+Test evidence, 2026-10-14, opencode 2.0.29, a local Qwen model behind an
+OpenAI-compatible proxy that logged each request:
+
+- Each agent request had exactly one system message, with the rule card
+  merged into it.
+- A commit message at 22.22 violations per 100 words was stopped before
+  the shell ran. The model got the gate reason. No commit landed.
+- A write of a bad `notes.md` file added the `ste:` score note to the tool
+  result that the model read next.
+- A chatty reply scored 5.41. `oc-gate.py` wrote the warn file. The next
+  turn in the same session showed the `<asd-ste100-feedback>` block, and
+  the file was then cleared.
+
+What changed from V1, and why:
+
+- V2 loads a plugin DIRECTORY. A path to a single file gets the warning
+  "configured plugin path must be a directory" and does not load. The
+  installer now registers the directory. `index.js` is the entry.
+- V2 has no `session.idle` event. The turn ends with
+  `session.execution.succeeded`. The reply text comes from
+  `session.text.ended`.
+- `opencode run` stops the server about 0.2 seconds after the turn ends.
+  That killed the gate script. The gate now runs as a detached process.
+- The Stop gate still cannot force a same-turn rewrite. V2 events are
+  notification-only, the same as V1.
+
+Plugin options, in an object entry of the `plugins` array:
+
+```json
+{ "package": "/path/to/plugins/asd-ste100", "options": { "kit": "/path/to/asd-ste100", "toolHooks": false } }
+```
+
+`kit` is the kit root (default `<opencode config dir>/asd-ste100`).
+`toolHooks: false` turns off the PreToolUse and PostToolUse ports, for a
+setup that runs them in another plugin. Do not run them twice.
+
+One system message, always. The card is appended to the last system part.
+The plugin never adds a second system message. A llama.cpp Qwen chat
+template fails on a second system message ("System message must be at the
+beginning"). Cloud backends accept it.
+
+## opencode V1
+
+V1 uses the `server()` function of the same default export. The V1 notes
+below are from the first port, 2026-09-11. One fix since then: V1 1.18.31
+did not send the card to the model when the plugin replaced
+`output.system` with a new array. The plugin now changes that array in
+place. Confirmed live on 1.18.31, 2026-10-14.
+
+## Setup (V1 and V2)
 
 1. Add `opencode-claude-hooks` to the dependencies list in
    `~/.config/opencode/package.json`, then run `npm install` in that
@@ -15,11 +76,12 @@ source alone.
    `~/.config/opencode/opencode.json` (its resolved
    `node_modules/.../dist/index.js` path).
 2. `python3 opencode/install-opencode.py` — wires everything below.
+   On V2 the bridge is not used. Step 1 is for V1 only.
 3. Restart opencode. Kill any already-running background `opencode` process
    first. This port's own testing found one still holding a stale config in
    memory from before an edit.
 
-## Status, by hook
+## V1 status, by hook (2026-09-11)
 
 | Hook | State | Evidence |
 |---|---|---|
@@ -107,8 +169,10 @@ one turn later, not the same turn.
 
 ## Files
 
-- `plugins/asd-ste100/package.json`, `plugin.js` — the opencode plugin
-  itself. Reads `~/.config/opencode/asd-ste100/hooks/{oc-inject,oc-gate}.py`
+- `plugins/asd-ste100/package.json`, `index.js` — the opencode plugin
+  itself, one default export for V2 (`id`, `setup`) and V1 (`server`).
+  `plugin.js` re-exports it, so an old V1 entry that names `plugin.js`
+  still loads on V1. Reads `~/.config/opencode/asd-ste100/hooks/{oc-inject,oc-gate}.py`
   via `execFileSync`, same fail-open rule as every original hook: a broken
   linter or a missing script skips the feature, never blocks a turn.
 - `install-opencode.py` — idempotent installer, mirrors `../install.py`'s

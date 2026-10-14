@@ -26,11 +26,17 @@ What it wires, for opencode:
                                            ste-refresh.py UNCHANGED — full
                                            parity with the Claude Code side.
 4. ~/.config/opencode/opencode.json       "plugin" array gets the path to
-                                           opencode/plugins/asd-ste100/plugin.js
-                                           appended. That plugin covers the
-                                           two events the bridge does not
-                                           forward — see README.md for the
-                                           real gap on the Stop side.
+                                           the kit's opencode/plugins/asd-ste100
+                                           DIRECTORY, through link 1.
+                                           opencode V1 and V2 both read that
+                                           array and both load a directory.
+                                           V2 refuses a path to a single file,
+                                           so an old .../plugin.js entry is
+                                           replaced. On V1 the plugin covers
+                                           the two events the bridge does not
+                                           forward. On V2 it covers all four
+                                           hooks, and the bridge entries in
+                                           hooks.json are not used.
 
 The script is idempotent. A second run repairs the install rather than
 duplicating entries. Every JSON file this script writes is backed up once,
@@ -49,7 +55,11 @@ OPENCODE_JSON = os.path.join(OPENCODE_DIR, "opencode.json")
 HOOKS_JSON = os.path.join(OPENCODE_DIR, "hooks.json")
 KIT_LINK = os.path.join(OPENCODE_DIR, "asd-ste100")
 SKILL_LINK = os.path.join(OPENCODE_DIR, "skills", "asd-ste100")
-PLUGIN_PATH = os.path.join(OPENCODE_DIR, "plugins", "asd-ste100", "plugin.js")
+# Through the kit link, so the registered plugin is always the repo copy.
+PLUGIN_PATH = os.path.join(KIT_LINK, "opencode", "plugins", "asd-ste100")
+# The first port registered a copied plugin.js. opencode V2 refuses a path
+# to a single file ("configured plugin path must be a directory").
+LEGACY_PLUGIN_PATH = os.path.join(OPENCODE_DIR, "plugins", "asd-ste100", "plugin.js")
 
 MARKER = "asd-ste100"
 
@@ -167,6 +177,10 @@ def main():
         actions.append("set      PreToolUse + PostToolUse in hooks.json")
 
         plugins = oc_config.setdefault("plugin", [])
+        if LEGACY_PLUGIN_PATH in plugins:
+            plugins.remove(LEGACY_PLUGIN_PATH)
+            actions.append("replace  {} (opencode V2 loads a directory only)".format(
+                LEGACY_PLUGIN_PATH))
         if not any(isinstance(p, str) and p == PLUGIN_PATH for p in plugins):
             plugins.append(PLUGIN_PATH)
             actions.append("add      {} to opencode.json plugin array".format(PLUGIN_PATH))
