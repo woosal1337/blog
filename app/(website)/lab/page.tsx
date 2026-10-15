@@ -11,9 +11,9 @@ import Image from "next/image";
 export const metadata = createPageMetadata({
 	title: "Lab",
 	description:
-		"The lab Ege Vusal Chelebi runs day to day: the AI coding agents, MCP servers, skills, and knowledge tools he works with, and the self-hosted infrastructure underneath them.",
+		"The lab Ege Vusal Chelebi runs day to day: the AI coding agents, skills, and knowledge tools he works with, and the self-hosted infrastructure underneath them.",
 	socialDescription:
-		"The lab: the agents, MCP servers, skills, and knowledge tools I use every day, and the infrastructure underneath.",
+		"The lab: the agents, skills, and knowledge tools I use every day, and the infrastructure underneath.",
 	path: "/lab",
 });
 
@@ -197,55 +197,14 @@ const AGENTS: LabItem[] = [
 		desc: "The runtime the agents live in. A background server owns their terminals, so a closed lid never stops the work, and every pane reports whether its agent is working, blocked or idle.",
 		href: "https://herdr.dev",
 	},
-	{
-		name: "Pi",
-		desc: "A minimal agent harness. Extensions, skills, and prompt templates shape it to the work.",
-		href: "https://pi.dev",
-	},
-	{
-		name: "Zeron",
-		desc: "The workspace for the agents. Claude Code, Codex, and Pi run on the machines. I drive the same session from the phone.",
-		href: "https://zeron.sh",
-	},
-	{
-		name: "Warp",
-		desc: "The terminal. Claude Code and Codex run here as command-line tools.",
-		href: "https://www.warp.dev",
-	},
-];
-
-const MCPS: LabItem[] = [
-	{
-		name: "Elliptic",
-		desc: "Agent-native project management. Agents run projects, tasks and meetings over MCP on your own keys.",
-		href: "https://github.com/woosal1337/elliptic",
-		image: "/elliptic-logo.png",
-	},
-	{
-		name: "Wispr Flow",
-		desc: "Voice dictation, with a notetaker beside it. Agents read the meetings, notes and briefs over MCP, and never the dictations.",
-		href: "https://wisprflow.ai",
-	},
 ];
 
 const SKILLS: LabItem[] = [
 	{
-		name: "asd-ste100",
-		desc: "Two layers, always on. The words become Simplified Technical English, so docs and commit messages read like a person wrote them. The shape puts the next action on line one, for a reader with ADHD who will not find it in paragraph four.",
-		href: "/videos/the-cure-for-ai-slop/kit/asd-ste100/SKILL",
-		code: "/ste",
-	},
-	{
-		name: "elliptic",
-		desc: "Teaches an agent the Elliptic workspace over MCP: the domain model, the org discipline, and the mistakes that quietly land a write in the wrong workspace.",
-		href: "https://github.com/woosal1337/elliptic",
-		code: "/ell",
-	},
-	{
-		name: "herdr",
-		desc: "Drives Herdr, the terminal multiplexer for coding agents. An agent reads neighbouring panes and starts work in them, and refuses to try from outside a Herdr session.",
-		href: "https://herdr.dev",
-		code: "/hrd",
+		name: "ponytail",
+		desc: "Lazy senior dev mode, always on in Claude Code and Grok. The agent makes the smallest change that fully solves the task: reuse what exists, stdlib first, no code nobody asked for.",
+		href: "https://github.com/DietrichGebert/ponytail",
+		code: "/pny",
 	},
 ];
 
@@ -300,8 +259,7 @@ export default function LabPage() {
 							The lab
 						</h1>
 						<p className="mt-3 font-ui text-[15px] leading-relaxed text-ink-mute">
-							The agents, MCP servers, skills, and knowledge tools I use every
-							day.
+							The agents, skills, and knowledge tools I use every day.
 						</p>
 						<div className="group relative mt-6 h-[190px] overflow-hidden rounded-[14px] border border-line bg-[#060606]">
 							<OrbitField />
@@ -312,12 +270,6 @@ export default function LabPage() {
 				<div className="mt-12">
 					<LabGroup label="ADE" first>
 						{AGENTS.map((row) => (
-							<LabRow key={row.name} {...row} />
-						))}
-					</LabGroup>
-
-					<LabGroup label="MCP">
-						{MCPS.map((row) => (
 							<LabRow key={row.name} {...row} />
 						))}
 					</LabGroup>
