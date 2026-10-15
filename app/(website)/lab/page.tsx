@@ -197,6 +197,11 @@ const AGENTS: LabItem[] = [
 		desc: "The runtime the agents live in. A background server owns their terminals, so a closed lid never stops the work, and every pane reports whether its agent is working, blocked or idle.",
 		href: "https://herdr.dev",
 	},
+	{
+		name: "Alacritty",
+		desc: "The terminal. Fast and GPU-accelerated, with no tabs or splits of its own.",
+		href: "https://alacritty.org",
+	},
 ];
 
 const SKILLS: LabItem[] = [
