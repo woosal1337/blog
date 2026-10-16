@@ -84,7 +84,11 @@ def bump(session):
 
 
 def md_report(payload):
-    if payload.get("tool_name") not in ("Write", "Edit"):
+    # opencode's own write/edit tool ids are lowercase, confirmed live,
+    # 2026-09-11 (matches the same "bash" vs "Bash" split as
+    # ste-pregate.py). Accept both cases, this copy runs under the
+    # opencode-claude-hooks bridge on either client.
+    if (payload.get("tool_name") or "").lower() not in ("write", "edit"):
         return None
     path = (payload.get("tool_input") or {}).get("file_path") or ""
     if not path.endswith(".md") or any(s in path for s in SKIP):
