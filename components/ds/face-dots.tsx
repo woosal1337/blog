@@ -3,10 +3,8 @@
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 
-// Dots across the square; 48 keeps each dot visible at the 64px header size.
 const GRID = 48;
 
-// Close to the house curve cubic-bezier(0.16, 1, 0.3, 1).
 const ease = (t: number) => (t >= 1 ? 1 : 1 - 2 ** (-10 * Math.max(t, 0)));
 
 type Dot = {
@@ -88,7 +86,6 @@ export function FaceDots({ className }: { className?: string }) {
 						y,
 						alpha,
 						phase: Math.random() * Math.PI * 2,
-						// Settle top to bottom, after the page fade.
 						delay: 0.3 + (row / GRID) * 0.6 + Math.random() * 0.3,
 						fromX: x + (Math.random() - 0.5) * size * 0.2,
 						fromY: y + (Math.random() - 0.5) * size * 0.2,
@@ -100,7 +97,6 @@ export function FaceDots({ className }: { className?: string }) {
 		};
 		image.src = "/portrait/face.png";
 
-		// Stop drawing while the header is scrolled out of view.
 		const observer = new IntersectionObserver(([entry]) => {
 			visible = entry.isIntersecting;
 			cancelAnimationFrame(frame);
