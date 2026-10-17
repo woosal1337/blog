@@ -9,7 +9,6 @@ import { IconLink } from "@/components/ds/icon-link";
 import { PeekFade } from "@/components/ds/peek-fade";
 import { ProfileLockup } from "@/components/ds/profile-lockup";
 import { SectionLabel } from "@/components/ds/section-label";
-import { SiTerm } from "@/components/ds/si-term";
 import { StoryCard } from "@/components/ds/story-card";
 import { NewLabel } from "@/components/ds/tag";
 import { ViewAllButton } from "@/components/ds/view-all-button";
@@ -56,14 +55,16 @@ export default async function HomePage() {
 		<>
 			<WebsiteJsonLd />
 			<div className="mx-auto max-w-column px-6 pt-16 sm:pt-28">
-				<ProfileLockup
-					name="Ege Vusal Chelebi"
-					tagline={
-						<>
-							<SiTerm /> engineer at Refik Anadol Studio
-						</>
-					}
-				/>
+				<BioProse>
+					<ProfileLockup
+						name="Ege Vusal Chelebi"
+						tagline={
+							<>
+								<BioTerm id="si">SI</BioTerm> engineer at Refik Anadol Studio
+							</>
+						}
+					/>
+				</BioProse>
 
 				<BioProse className="mt-7 space-y-4 font-ui text-[16px] leading-[1.65]">
 					<p>

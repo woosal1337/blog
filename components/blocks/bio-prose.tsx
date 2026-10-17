@@ -34,6 +34,7 @@ function Mark({
 }: { logo: BioLogo; index: number; open: boolean }) {
 	const spot = SCATTER[index % SCATTER.length];
 	const src = logo.iconSrc ?? (logo.href ? faviconFor(logo.href) : undefined);
+	const word = !logo.glyph && !src;
 
 	return (
 		<span
@@ -58,11 +59,16 @@ function Mark({
 				<span
 					className={cn(
 						"flex flex-col items-center gap-1.5",
-						logo.glyph ? "w-11" : "w-[92px]",
+						logo.glyph ? "w-11" : word ? "w-max" : "w-[92px]",
 					)}
 					style={{ rotate: `${spot.r}deg` }}
 				>
-					<span className="grid size-11 place-items-center rounded-[10px] bg-white">
+					<span
+						className={cn(
+							"grid h-11 place-items-center rounded-[10px] bg-white",
+							word ? "px-4 font-ui text-[15px] text-paper" : "w-11",
+						)}
+					>
 						{logo.glyph ? (
 							<span className="text-[26px] leading-none">{logo.glyph}</span>
 						) : src ? (
@@ -75,17 +81,21 @@ function Mark({
 								loading="lazy"
 								className="size-[26px]"
 							/>
-						) : null}
-					</span>
-					<span
-						className={cn(
-							logo.glyph
-								? "sr-only"
-								: "text-center font-ui text-[11px] leading-tight text-ink",
+						) : (
+							logo.name
 						)}
-					>
-						{logo.name}
 					</span>
+					{!word && (
+						<span
+							className={cn(
+								logo.glyph
+									? "sr-only"
+									: "text-center font-ui text-[11px] leading-tight text-ink",
+							)}
+						>
+							{logo.name}
+						</span>
+					)}
 				</span>
 			</span>
 		</span>

@@ -5,7 +5,6 @@ import { IconLink } from "@/components/ds/icon-link";
 import { Reveal } from "@/components/ds/reveal";
 import { SectionLabel } from "@/components/ds/section-label";
 import { Section, Shell } from "@/components/ds/shell";
-import { SiTerm } from "@/components/ds/si-term";
 import { Tag } from "@/components/ds/tag";
 import { ProfilePageJsonLd } from "@/components/seo/json-ld";
 import { formatTag } from "@/lib/blog-utils";
@@ -165,10 +164,10 @@ export default function AboutPage() {
 						</h1>
 						<BioProse className="space-y-5 font-ui text-[16px] leading-[1.65]">
 							<p>
-								I&apos;m Ege. I work as an <SiTerm /> engineer at a{" "}
-								<BioTerm id="studio">studio</BioTerm> where code meets large
-								scale generative art, and I contribute to open source on the
-								side. Before that I shipped{" "}
+								I&apos;m Ege. I work as an <BioTerm id="si">SI</BioTerm>{" "}
+								engineer at a <BioTerm id="studio">studio</BioTerm> where code
+								meets large scale generative art, and I contribute to open
+								source on the side. Before that I shipped{" "}
 								<BioTerm id="payments">blockchain payments</BioTerm>, built a{" "}
 								<BioTerm id="fintech">stealth fintech</BioTerm>, and consulted
 								for a <BioTerm id="newsroom">newsroom</BioTerm>. Earlier still I

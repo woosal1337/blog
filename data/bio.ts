@@ -6,6 +6,7 @@ export type BioLogo = {
 };
 
 export const BIO_TERMS: Record<string, BioLogo[]> = {
+	si: [{ name: "superintelligence" }],
 	university: [
 		{ name: "Medipol, MSc", href: "https://www.medipol.edu.tr/" },
 		{ name: "Medipol, BSc", href: "https://www.medipol.edu.tr/" },
