@@ -32,7 +32,7 @@ const person = {
 	name: SITE_NAME,
 	url: absoluteUrl("/about"),
 	image: absoluteUrl("/avatar.png"),
-	jobTitle: "AI Engineer",
+	jobTitle: "SI Engineer",
 	worksFor: {
 		"@type": "Organization",
 		name: "Refik Anadol Studio",

@@ -35,7 +35,7 @@ export const formattedDate = (date: string) =>
 
 export const workExperience = [
 	{
-		title: "AI Engineer",
+		title: "SI Engineer",
 		company: "Refik Anadol Studio",
 		url: "https://refikanadolstudio.com/",
 		type: "full-time",

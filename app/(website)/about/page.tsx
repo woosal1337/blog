@@ -5,6 +5,7 @@ import { IconLink } from "@/components/ds/icon-link";
 import { Reveal } from "@/components/ds/reveal";
 import { SectionLabel } from "@/components/ds/section-label";
 import { Section, Shell } from "@/components/ds/shell";
+import { SiTerm } from "@/components/ds/si-term";
 import { Tag } from "@/components/ds/tag";
 import { ProfilePageJsonLd } from "@/components/seo/json-ld";
 import { formatTag } from "@/lib/blog-utils";
@@ -18,11 +19,11 @@ import {
 } from "@/lib/utils";
 
 export const metadata = createPageMetadata({
-	title: "About Ege Vusal Chelebi — AI Engineer and Open-Source Developer",
+	title: "About Ege Vusal Chelebi — SI Engineer and Open-Source Developer",
 	description:
-		"Meet Ege Vusal Chelebi, an AI engineer at Refik Anadol Studio building generative-art systems, agent infrastructure, and open-source developer tools.",
+		"Meet Ege Vusal Chelebi, an SI engineer at Refik Anadol Studio building generative-art systems, agent infrastructure, and open-source developer tools.",
 	socialDescription:
-		"AI engineer building generative-art systems, agent infrastructure, and open-source developer tools.",
+		"SI engineer building generative-art systems, agent infrastructure, and open-source developer tools.",
 	path: "/about",
 	absoluteTitle: true,
 });
@@ -164,7 +165,7 @@ export default function AboutPage() {
 						</h1>
 						<BioProse className="space-y-5 font-ui text-[16px] leading-[1.65]">
 							<p>
-								I&apos;m Ege. I work as an AI engineer at a{" "}
+								I&apos;m Ege. I work as an <SiTerm /> engineer at a{" "}
 								<BioTerm id="studio">studio</BioTerm> where code meets large
 								scale generative art, and I contribute to open source on the
 								side. Before that I shipped{" "}

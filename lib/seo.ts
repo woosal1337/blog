@@ -7,7 +7,7 @@ export const SITE_NAME = "Ege Vusal Chelebi";
 export const SITE_HANDLE = "@woosal1337";
 export const SITE_IMAGE = "/og-card.jpg?v=4";
 export const SITE_DESCRIPTION =
-	"Ege Vusal Chelebi is an AI engineer at Refik Anadol Studio, building thoughtful tools where code meets large-scale generative art — with writing on agent-native development, open source, and applied AI.";
+	"Ege Vusal Chelebi is an SI engineer at Refik Anadol Studio, building thoughtful tools where code meets large-scale generative art — with writing on agent-native development, open source, and applied AI.";
 
 export const PERSON_ID = `${SITE_URL}/about#person`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
@@ -58,7 +58,7 @@ export function createPageMetadata({
 					url: image,
 					width: 1200,
 					height: 630,
-					alt: "Ege Vusal Chelebi — AI engineer, developer, and researcher",
+					alt: "Ege Vusal Chelebi — SI engineer, developer, and researcher",
 				},
 			],
 		},

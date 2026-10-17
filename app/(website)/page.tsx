@@ -9,6 +9,7 @@ import { IconLink } from "@/components/ds/icon-link";
 import { PeekFade } from "@/components/ds/peek-fade";
 import { ProfileLockup } from "@/components/ds/profile-lockup";
 import { SectionLabel } from "@/components/ds/section-label";
+import { SiTerm } from "@/components/ds/si-term";
 import { StoryCard } from "@/components/ds/story-card";
 import { NewLabel } from "@/components/ds/tag";
 import { ViewAllButton } from "@/components/ds/view-all-button";
@@ -21,10 +22,10 @@ import { allProjects } from "@/lib/utils";
 import { getAllEpisodes } from "@/lib/videos";
 
 export const metadata = createPageMetadata({
-	title: "Ege Vusal Chelebi — AI Engineer, Developer, and Researcher",
+	title: "Ege Vusal Chelebi — SI Engineer, Developer, and Researcher",
 	description: SITE_DESCRIPTION,
 	socialDescription:
-		"AI engineer at Refik Anadol Studio building thoughtful tools across generative art, open source, and applied AI.",
+		"SI engineer at Refik Anadol Studio building thoughtful tools across generative art, open source, and applied AI.",
 	path: "/",
 	absoluteTitle: true,
 });
@@ -57,12 +58,16 @@ export default async function HomePage() {
 			<div className="mx-auto max-w-column px-6 pt-16 sm:pt-28">
 				<ProfileLockup
 					name="Ege Vusal Chelebi"
-					tagline="AI engineer at Refik Anadol Studio"
+					tagline={
+						<>
+							<SiTerm /> engineer at Refik Anadol Studio
+						</>
+					}
 				/>
 
 				<BioProse className="mt-7 space-y-4 font-ui text-[16px] leading-[1.65]">
 					<p>
-						I&apos;m an AI engineer at{" "}
+						I&apos;m an SI engineer at{" "}
 						<IconLink
 							href="https://refikanadolstudio.com/"
 							iconSrc="/icons/refikanadol.gif"
