@@ -41,9 +41,9 @@ export const metadata: Metadata = {
 		telephone: false,
 	},
 	icons: {
-		icon: [{ url: "/favicon.svg?v=5", sizes: "any", type: "image/svg+xml" }],
+		icon: [{ url: "/favicon.svg?v=6", sizes: "any", type: "image/svg+xml" }],
 		apple: [
-			{ url: "/apple-touch-icon.png?v=4", sizes: "180x180", type: "image/png" },
+			{ url: "/apple-touch-icon.png?v=5", sizes: "180x180", type: "image/png" },
 		],
 	},
 	openGraph: {
