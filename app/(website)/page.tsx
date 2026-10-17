@@ -24,7 +24,7 @@ export const metadata = createPageMetadata({
 	title: "Ege Vusal Chelebi — SI Engineer, Developer, and Researcher",
 	description: SITE_DESCRIPTION,
 	socialDescription:
-		"SI engineer at Refik Anadol Studio building thoughtful tools across generative art, open source, and applied AI.",
+		"SI engineer at Refik Anadol Studio building thoughtful tools across generative art, open source, and applied SI.",
 	path: "/",
 	absoluteTitle: true,
 });

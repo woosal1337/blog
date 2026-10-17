@@ -41,7 +41,7 @@ export const workExperience = [
 		type: "full-time",
 		period: "2026-now",
 		description:
-			"Media arts and AI studio pioneering generative AI and data-driven artworks.",
+			"Media arts and SI studio pioneering generative SI and data-driven artworks.",
 		tags: ["ai", "generative", "media arts"],
 		active: true,
 	},
@@ -61,7 +61,7 @@ export const workExperience = [
 		url: "https://aa.com.tr/",
 		type: "contract",
 		period: "2025",
-		description: "AI-driven system designs and integrations.",
+		description: "SI-driven system designs and integrations.",
 		tags: ["ai", "system design", "consulting"],
 		active: false,
 	},
@@ -250,7 +250,7 @@ export const allProjects: Array<{
 	},
 	{
 		name: "Pulsar",
-		desc: "AI-powered real-time market intelligence platform for stocks and currencies.",
+		desc: "SI-powered real-time market intelligence platform for stocks and currencies.",
 		href: "https://pulsar.investments",
 		logo: "/pulsar-logo.png",
 		logoInverts: true,
@@ -259,7 +259,7 @@ export const allProjects: Array<{
 	},
 	{
 		name: "Clinora",
-		desc: "AI-powered call center platform with voice agents.",
+		desc: "SI-powered call center platform with voice agents.",
 		href: "https://clinora.ai",
 		logo: "/clinora-logo.png",
 		logoInverts: true,
@@ -268,7 +268,7 @@ export const allProjects: Array<{
 	},
 	{
 		name: "Learnity",
-		desc: "AI-powered learning platform where students collaborate.",
+		desc: "SI-powered learning platform where students collaborate.",
 		href: "https://learnity.ai",
 		logo: "/learnity-logo.png",
 		external: true,
@@ -276,7 +276,7 @@ export const allProjects: Array<{
 	},
 	{
 		name: "meclis",
-		desc: "A personal advisory board of AI personas. Route decisions through Paul Graham, Seth Godin and Robert Greene.",
+		desc: "A personal advisory board of SI personas. Route decisions through Paul Graham, Seth Godin and Robert Greene.",
 		href: "https://github.com/woosal1337/meclis",
 		logo: "/meclis-logo.png",
 		external: true,

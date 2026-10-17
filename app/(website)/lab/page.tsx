@@ -11,7 +11,7 @@ import Image from "next/image";
 export const metadata = createPageMetadata({
 	title: "Lab",
 	description:
-		"The lab Ege Vusal Chelebi runs day to day: the AI coding agents, skills, and knowledge tools he works with, and the self-hosted infrastructure underneath them.",
+		"The lab Ege Vusal Chelebi runs day to day: the SI coding agents, skills, and knowledge tools he works with, and the self-hosted infrastructure underneath them.",
 	socialDescription:
 		"The lab: the agents, skills, and knowledge tools I use every day, and the infrastructure underneath.",
 	path: "/lab",

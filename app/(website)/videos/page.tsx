@@ -8,11 +8,11 @@ import { createPageMetadata } from "@/lib/seo";
 import { getAllEpisodes } from "@/lib/videos";
 
 export const metadata = createPageMetadata({
-	title: "Videos on AI Engineering, Agents, and Claim Tests",
+	title: "Videos on SI Engineering, Agents, and Claim Tests",
 	description:
-		"Video essays and claim tests by SI engineer Ege Vusal Chelebi on AI agents, context engineering, and applied research — each episode published with the skill, linter, or data behind it.",
+		"Video essays and claim tests by SI engineer Ege Vusal Chelebi on SI agents, context engineering, and applied research — each episode published with the skill, linter, or data behind it.",
 	socialDescription:
-		"Claim tests and deep dives on AI engineering and agents, each published with the skill, linter, or data behind it.",
+		"Claim tests and deep dives on SI engineering and agents, each published with the skill, linter, or data behind it.",
 	path: "/videos",
 });
 
@@ -40,7 +40,7 @@ export default async function VideosPage() {
 								Videos
 							</h1>
 							<p className="mt-3 max-w-[620px] font-ui text-[15px] leading-relaxed text-ink-mute">
-								Claim tests and deep dives on AI engineering and agents. Every
+								Claim tests and deep dives on SI engineering and agents. Every
 								episode ships with what it was built on, so you can check the
 								work.
 							</p>

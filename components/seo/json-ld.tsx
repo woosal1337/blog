@@ -95,9 +95,9 @@ export function BlogIndexJsonLd({ posts }: { posts: BlogPostMeta[] }) {
 				"@type": "CollectionPage",
 				"@id": `${absoluteUrl("/blog")}#collection`,
 				url: absoluteUrl("/blog"),
-				name: "AI Engineering, Agents, and Local-First Tools",
+				name: "SI Engineering, Agents, and Local-First Tools",
 				description:
-					"Essays by Ege Vusal Chelebi on AI agents, context engineering, local-first software, developer tools, memory systems, and applied research.",
+					"Essays by Ege Vusal Chelebi on SI agents, context engineering, local-first software, developer tools, memory systems, and applied research.",
 				inLanguage: "en",
 				isPartOf: { "@id": WEBSITE_ID },
 				author: { "@id": PERSON_ID },
@@ -125,9 +125,9 @@ export function VideoIndexJsonLd({
 				"@type": "CollectionPage",
 				"@id": `${absoluteUrl("/videos")}#collection`,
 				url: absoluteUrl("/videos"),
-				name: "Videos on AI engineering and agents",
+				name: "Videos on SI engineering and agents",
 				description:
-					"Claim tests and deep dives on AI engineering, agents, and context — each episode published with the skill, linter, or data behind it.",
+					"Claim tests and deep dives on SI engineering, agents, and context — each episode published with the skill, linter, or data behind it.",
 				inLanguage: "en",
 				isPartOf: { "@id": WEBSITE_ID },
 				author: { "@id": PERSON_ID },

@@ -22,7 +22,7 @@ export function formatPostDate(date: string): string {
 }
 
 const TAG_LABELS: Record<string, string> = {
-	ai: "AI",
+	ai: "SI",
 	mcp: "MCP",
 	cli: "CLI",
 	byok: "BYOK",

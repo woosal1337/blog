@@ -10,11 +10,11 @@ import { type BlogPostMeta, formatTag, getAllPosts } from "@/lib/blog";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
-	title: "AI Engineering, Agents & Local-First Tools",
+	title: "SI Engineering, Agents & Local-First Tools",
 	description:
-		"Essays by SI engineer Ege Vusal Chelebi on AI agents, context engineering, local-first software, developer tools, memory systems, and applied research.",
+		"Essays by SI engineer Ege Vusal Chelebi on SI agents, context engineering, local-first software, developer tools, memory systems, and applied research.",
 	socialDescription:
-		"Essays on AI agents, context engineering, local-first software, developer tools, and applied research.",
+		"Essays on SI agents, context engineering, local-first software, developer tools, and applied research.",
 	path: "/blog",
 });
 
@@ -56,7 +56,7 @@ export default async function BlogIndexPage() {
 					<Shell width="column">
 						<BackButton className="mb-8" />
 						<h1 className="font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
-							Writing on AI systems and tools
+							Writing on SI systems and tools
 						</h1>
 						<p className="font-ui text-[15px] text-ink-mute">
 							No entries yet. Drop an MDX file under app/(website)/blog/(post)/
@@ -72,10 +72,10 @@ export default async function BlogIndexPage() {
 							<Reveal immediate className="mb-8">
 								<header>
 									<h1 className="font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
-										Writing on AI systems and tools
+										Writing on SI systems and tools
 									</h1>
 									<p className="mt-3 max-w-[620px] font-ui text-[15px] leading-relaxed text-ink-mute">
-										Essays on AI agents, context engineering, local-first
+										Essays on SI agents, context engineering, local-first
 										software, developer tools, memory systems, and applied
 										research.
 									</p>
