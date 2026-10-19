@@ -489,4 +489,43 @@
 	.metal-btn {
 		overflow: visible;
 	}
+
+	.glass-chip {
+		position: relative;
+		background: radial-gradient(
+				120% 90% at 50% 0%,
+				rgb(255 255 255 / 0.12),
+				rgb(255 255 255 / 0) 60%
+			), rgb(var(--paper-3));
+		box-shadow: inset 0 1px 0.5px rgb(255 255 255 / 0.3), 0 10px 24px -8px
+			rgb(0 0 0 / 0.7);
+	}
+
+	.glass-chip::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		padding: 2px;
+		border-radius: inherit;
+		pointer-events: none;
+		background: conic-gradient(
+			from 210deg,
+			#f4f5f7,
+			#9aa0a8 40deg,
+			#e6e8ec 78deg,
+			#ff9fd8 92deg,
+			#ffe39a 100deg,
+			#94e6ff 108deg,
+			#c9ccd2 124deg,
+			#7b818a 200deg,
+			#eef0f3 250deg,
+			#a3a8b0 305deg,
+			#f4f5f7
+		);
+		-webkit-mask: linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		-webkit-mask-composite: xor;
+		mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+		mask-composite: exclude;
+	}
 }

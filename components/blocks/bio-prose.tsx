@@ -65,24 +65,27 @@ function Mark({
 				>
 					<span
 						className={cn(
-							"grid h-11 place-items-center rounded-[10px] bg-white",
-							word ? "px-4 font-ui text-[15px] text-paper" : "w-11",
+							"glass-chip grid h-11 place-items-center rounded-[999px]",
+							word ? "px-4" : "w-11",
 						)}
 					>
 						{logo.glyph ? (
-							<span className="text-[26px] leading-none">{logo.glyph}</span>
+							<span className="text-[24px] leading-none">{logo.glyph}</span>
 						) : src ? (
 							// eslint-disable-next-line @next/next/no-img-element
 							<img
 								src={src}
 								alt=""
-								width={26}
-								height={26}
+								width={24}
+								height={24}
 								loading="lazy"
-								className="size-[26px]"
+								className={cn(
+									"size-6 rounded-[6px]",
+									logo.mono && "brightness-0 invert",
+								)}
 							/>
 						) : (
-							logo.name
+							<span className="font-ui text-[15px] text-ink">{logo.name}</span>
 						)}
 					</span>
 					{!word && (
