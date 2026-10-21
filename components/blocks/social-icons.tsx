@@ -6,14 +6,22 @@ import {
 	GithubIcon,
 	InstagramIcon,
 	XIcon,
+	YoutubeIcon,
 } from "@/components/ds/icon-link";
 import type { SocialFeed, SocialPlatform } from "@/data/social";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import * as React from "react";
 
-const ORDER: SocialPlatform[] = ["x", "instagram", "github", "genius"];
+const ORDER: SocialPlatform[] = [
+	"youtube",
+	"x",
+	"instagram",
+	"github",
+	"genius",
+];
 const ICONS = {
+	youtube: YoutubeIcon,
 	x: XIcon,
 	instagram: InstagramIcon,
 	github: GithubIcon,

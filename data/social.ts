@@ -1,4 +1,9 @@
-export type SocialPlatform = "x" | "instagram" | "github" | "genius";
+export type SocialPlatform =
+	| "youtube"
+	| "x"
+	| "instagram"
+	| "github"
+	| "genius";
 
 export type SocialItem = {
 	text: string;
@@ -18,6 +23,13 @@ export type SocialFeed = {
 	items: SocialItem[];
 	gallery?: string[];
 	records?: SocialRecord[];
+};
+
+export const YOUTUBE_FEED: SocialFeed = {
+	label: "YouTube",
+	handle: "@woosal",
+	href: "https://www.youtube.com/@woosal",
+	items: [],
 };
 
 export const X_FEED: SocialFeed = {

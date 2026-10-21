@@ -13,7 +13,12 @@ import { StoryCard } from "@/components/ds/story-card";
 import { NewLabel } from "@/components/ds/tag";
 import { ViewAllButton } from "@/components/ds/view-all-button";
 import { WebsiteJsonLd } from "@/components/seo/json-ld";
-import { GENIUS_FEED, INSTAGRAM_FEED, X_FEED } from "@/data/social";
+import {
+	GENIUS_FEED,
+	INSTAGRAM_FEED,
+	X_FEED,
+	YOUTUBE_FEED,
+} from "@/data/social";
 import { formatTag, getAllPosts } from "@/lib/blog";
 import { getGithubFeed } from "@/lib/github";
 import { SITE_DESCRIPTION, createPageMetadata } from "@/lib/seo";
@@ -43,8 +48,21 @@ export default async function HomePage() {
 	const posts = await getAllPosts();
 	const writing = posts.slice(0, 2);
 	const featured = allProjects.slice(0, 2);
-	const [latest, previous] = await getAllEpisodes();
+	const episodes = await getAllEpisodes();
+	const [latest, previous] = episodes;
 	const feeds = {
+		youtube: {
+			...YOUTUBE_FEED,
+			items: episodes.slice(0, 3).map((episode) => ({
+				text: episode.title,
+				date: new Date(episode.date).toLocaleDateString("en-US", {
+					month: "short",
+					day: "numeric",
+					timeZone: "UTC",
+				}),
+				meta: episode.runtime,
+			})),
+		},
 		x: X_FEED,
 		instagram: INSTAGRAM_FEED,
 		github: await getGithubFeed(),

@@ -96,6 +96,20 @@ export function XIcon({ className }: { className?: string }) {
 	);
 }
 
+export function YoutubeIcon({ className }: { className?: string }) {
+	return (
+		<svg
+			viewBox="0 0 16 16"
+			fill="currentColor"
+			aria-hidden="true"
+			focusable="false"
+			className={cn(ICON, "text-ink-soft", className)}
+		>
+			<path d="M15.67 4.13a2.01 2.01 0 0 0-1.42-1.42C13 2.37 8 2.37 8 2.37s-5 0-6.25.34A2.01 2.01 0 0 0 .33 4.13C0 5.38 0 8 0 8s0 2.62.33 3.87c.19.69.73 1.23 1.42 1.42C3 13.63 8 13.63 8 13.63s5 0 6.25-.34a2.01 2.01 0 0 0 1.42-1.42C16 10.62 16 8 16 8s0-2.62-.33-3.87ZM6.4 10.4V5.6L10.56 8 6.4 10.4Z" />
+		</svg>
+	);
+}
+
 export function InstagramIcon({ className }: { className?: string }) {
 	return (
 		<svg
