@@ -155,6 +155,7 @@ export default async function HomePage() {
 						<div className="mt-5 flex flex-col gap-4">
 							{writing[0] && (
 								<StoryCard
+									isNew
 									href={`/blog/${writing[0].slug}`}
 									title={writing[0].title}
 									summary={writing[0].summary}
