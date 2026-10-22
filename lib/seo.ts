@@ -141,7 +141,7 @@ export function createPostMetadata(
 	const image = absoluteUrl(`/blog-og/${slug}`);
 
 	return {
-		title: { absolute: title },
+		title: { absolute: meta.title },
 		description,
 		keywords: meta.tags,
 		authors: [{ name: SITE_NAME, url: absoluteUrl("/about") }],
