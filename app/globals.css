@@ -529,3 +529,12 @@
 		mask-composite: exclude;
 	}
 }
+
+/* shortcut: painted case only. logos, book covers, and youtube frames stay as drawn. */
+html,
+html *,
+html *::before,
+html *::after,
+html *::placeholder {
+	text-transform: lowercase !important;
+}

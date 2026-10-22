@@ -24,7 +24,9 @@ export async function GET(
 	const svg = await generateContour(title, "#f5f5f5");
 	const dataUri = `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
 
-	const shownTitle = title.length > 110 ? `${title.slice(0, 109)}…` : title;
+	const shownTitle = (
+		title.length > 110 ? `${title.slice(0, 109)}…` : title
+	).toLowerCase();
 	const titleSize = shownTitle.length > 55 ? 44 : 54;
 
 	const geistSemiBold = fs.readFileSync(
@@ -108,7 +110,7 @@ export async function GET(
 							color: "#787878",
 						}}
 					>
-						{date}
+						{date.toLowerCase()}
 					</div>
 				)}
 			</div>

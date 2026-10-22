@@ -1,3 +1,4 @@
+import { LowerTitle } from "@/components/ds/lower-title";
 import { SoundProvider } from "@/components/providers/sound-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -100,6 +101,7 @@ export default function RootLayout({
 				/>
 			</head>
 			<body>
+				<LowerTitle />
 				<div
 					aria-hidden="true"
 					className="pointer-events-none fixed inset-0 z-[100] opacity-[0.06]"

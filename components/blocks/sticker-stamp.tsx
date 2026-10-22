@@ -85,7 +85,7 @@ function toStickerMarkup(
 	while (walker.nextNode()) {
 		const node = walker.currentNode;
 		if (node.parentElement?.closest("text") && node.nodeValue) {
-			node.nodeValue = node.nodeValue.toUpperCase();
+			node.nodeValue = node.nodeValue.toLowerCase();
 		}
 	}
 	inlineLogoImages(clone, logoSvg);
