@@ -10,14 +10,20 @@ import {
 	Warn,
 } from "@/components/blocks/post-blocks";
 import { PostMeta } from "@/components/blocks/post-meta";
+import { PostPeek } from "@/components/blocks/post-peek";
 import { Quote } from "@/components/blocks/quote";
 import { RelatedPosts } from "@/components/blocks/related-posts";
-import { IconLink, LinkLeadingIcon } from "@/components/ds/icon-link";
+import {
+	IconLink,
+	LinkLeadingIcon,
+	blogIconSrc,
+} from "@/components/ds/icon-link";
 import { Kbd, KbdGroup } from "@/components/ds/kbd";
 import { Tag } from "@/components/ds/tag";
 import { ArticleJsonLd } from "@/components/seo/json-ld";
 import { outboundProps } from "@/lib/analytics";
-import { slugify } from "@/lib/blog-utils";
+import { getPostMeta } from "@/lib/blog";
+import { formatPostDate, slugify } from "@/lib/blog-utils";
 import { cn } from "@/lib/utils";
 import type { MDXComponents } from "mdx/types";
 import Image, { type ImageProps } from "next/image";
@@ -31,6 +37,44 @@ function textOf(node: unknown): string {
 		return textOf((node as any).props?.children);
 	}
 	return "";
+}
+
+const INTERNAL_LINK =
+	"text-ink underline decoration-line underline-offset-[3px] transition-colors duration-200 ease-house hover:decoration-ink-soft";
+
+async function PostReference({
+	href,
+	children,
+}: { href: string; children: React.ReactNode }) {
+	const slug = /^\/blog\/([^/?#]+)/.exec(href)?.[1];
+	const post = slug ? await getPostMeta(decodeURIComponent(slug)) : null;
+	const className = cn(INTERNAL_LINK, "whitespace-nowrap");
+	const label = (
+		<>
+			<LinkLeadingIcon href={href} />
+			{children}
+		</>
+	);
+
+	if (!post) {
+		return (
+			<Link href={href} className={className}>
+				{label}
+			</Link>
+		);
+	}
+	return (
+		<PostPeek
+			href={href}
+			title={post.title}
+			summary={post.socialDescription ?? post.summary}
+			detail={`${formatPostDate(post.date)} · ${post.readingMinutes} min read`}
+			iconSrc={blogIconSrc(href)}
+			className={className}
+		>
+			{label}
+		</PostPeek>
+	);
 }
 
 function HeadingAnchor({ id }: { id: string }) {
@@ -267,7 +311,9 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 			if (!href) {
 				return <span {...props}>{children}</span>;
 			}
-			const isBlogReference = href.startsWith("/blog/");
+			if (href.startsWith("/blog/")) {
+				return <PostReference href={href}>{children}</PostReference>;
+			}
 			if (href.startsWith("http")) {
 				return (
 					<a
@@ -286,14 +332,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
 				);
 			}
 			return (
-				<Link
-					href={href}
-					className={cn(
-						"text-ink underline decoration-line underline-offset-[3px] transition-colors duration-200 ease-house hover:decoration-ink-soft",
-						isBlogReference && "whitespace-nowrap",
-					)}
-				>
-					{isBlogReference ? <LinkLeadingIcon href={href} /> : null}
+				<Link href={href} className={INTERNAL_LINK}>
 					{children}
 				</Link>
 			);

@@ -11,7 +11,7 @@ const BLOG_ICON_OVERRIDES: Record<string, string> = {
 	folio: "/folio-logo.png",
 };
 
-function blogIconSrc(href: string): string | null {
+export function blogIconSrc(href: string): string | null {
 	try {
 		const url = new URL(href, "https://www.chele.bi");
 		if (url.hostname !== "chele.bi" && url.hostname !== "www.chele.bi") {
