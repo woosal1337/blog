@@ -42,6 +42,9 @@ export async function GET(
 				width: "100%",
 				height: "100%",
 				display: "flex",
+				flexDirection: "column",
+				justifyContent: "flex-end",
+				padding: "64px 72px",
 				backgroundColor: "#0a0a0a",
 				backgroundImage:
 					"radial-gradient(circle at 78% 50%, rgba(255,255,255,0.06), rgba(255,255,255,0) 55%)",
@@ -61,9 +64,6 @@ export async function GET(
 			/>
 			<div
 				style={{
-					position: "absolute",
-					left: 72,
-					bottom: 64,
 					display: "flex",
 					flexDirection: "column",
 					alignItems: "flex-start",
