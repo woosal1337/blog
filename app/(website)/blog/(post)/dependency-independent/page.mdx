@@ -1,0 +1,176 @@
+import { createPostMetadata } from "@/lib/seo";
+
+export const meta = {
+	title: "Dependency independent",
+	seoTitle: "Dependency Independent: Why Fewer Tools Make You Faster",
+	date: "2026-10-22",
+	summary:
+		"Adding a tool now takes one command. Keeping it costs you a little every day. Use what you already have, and do not switch apps for one missing feature.",
+	seoDescription:
+		"Why cheap tools make your work slower, the way more teams slow a big company, and why one missing feature is no reason to switch apps.",
+	socialDescription:
+		"Cheap tools did not make the work faster. One missing feature is no reason to switch apps.",
+	tags: ["workflow", "tools", "simplicity", "dependencies"],
+	cover: "/blog-cover/dependency-independent",
+	coverAlt:
+		"Contour artwork for Dependency Independent, about using fewer tools",
+};
+
+export const metadata = createPostMetadata(meta, "dependency-independent");
+
+<PostMeta meta={meta} />
+<ArticleJsonLd meta={meta} slug="dependency-independent" />
+
+Every day, I depend on a few more tools. You probably do too.
+
+Adding a tool used to take work. You had to find it, read the docs, learn it, and often pay for it. Now it takes one command. `npm install` adds a code package in seconds. A new app is one tap in the App Store. A plugin for one small rule is one click.
+
+An AI agent can now write you a new command-line tool during lunch. So tools no longer come only from a store. Anyone with a prompt can make one, you included.
+
+This feels like speed, but it slows you down. Each new tool makes the work a little slower, for the same reason a big company moves slower than a small one. More teams mean more handoffs. Your stack, the set of tools you use, is that company without the org chart.
+
+The other path is native. Before you add a tool, use what you already have. That means your operating system, plain files, the browser, and your programming language.
+
+*Cheap to add is not the same as fast to use.*
+
+## Cheap to add, expensive to keep
+
+At the same time, it got cheap to add a tool, build one, update one, and replace one with something newer. Each of these used to have a natural limit, because it took time, money, or skill. That limit is gone, but the cost to live with the tool did not change.
+
+That cost arrives later, in small amounts. Each time your work passes from one tool to another, you pay a small fee. You type a password again, fix a config file, and learn that an update moved a menu. You read docs that no longer match the screen. You ask which tool holds the real copy of your data. You pay all of this on the afternoon you just want to finish the job.
+
+Cheap updates and cheap replacements are the friendly trap. When it is easy to switch, people switch. A setup that changes tools every few months never gets fast, because speed comes from steps your hands already know. A new tool means new steps to learn. The install took five minutes, so it looks like progress.
+
+## The big company in your stack
+
+A big company is slow for a boring reason. A small change must pass through many people, many teams, and many approvals. No single person needs to be slow. The handoffs alone make the company slow.
+
+Each outside tool is like a team you did not hire and cannot manage. It has its own release dates and its own idea about where your files go. Sometimes it stops without a word, and you still wait for it. With enough of these tools, a one-line change starts like a change at a big company. First you learn which tool owns that part. Then you learn what else breaks if you touch it.
+
+Native keeps the change inside the system you already use. There is no handoff and no second roadmap.
+
+You know this from the airport. When you check a bag, you give your things to a system you do not run. The bag travels on its own schedule. At the other end, you wait at the carousel and hope it took the same flight. With only a carry-on, you walk straight to the exit. It is the same trip, with one handoff fewer.
+
+This is also why one missing feature is no reason to switch apps. What you already have usually does the job. The missing part is small, like a way to show a message, remember a setting, rename some files, or save a note where you can find it later. Still, you feel the pull to leave your whole setup for an app that already has that feature. Then you trade a small gap for a new handoff, and every task after that pays for it.
+
+Nobody moves house because the kitchen has one shelf too few. You add a shelf. So add the small thing where you are. If it is truly small, skip it. Switch to a new app only when the app you have is wrong at its core.
+
+## Slow on purpose
+
+Handoffs explain part of the delay at a big company. The rest is on purpose.
+
+A big company has enough developers, and it has AI too. It could release a hundred new features in a few weeks, as fast as anyone with a prompt. It usually does not. A slow launch does not mean the team is dumb or cannot write code fast.
+
+The goal is a product that does not become one more dependency for the people who use it. The main jobs must work inside the app itself, so nobody needs a second app to finish them. The product must also stay easy to maintain for years. That takes research, tests, and feedback from real people, and that is where the months go.
+
+Apple shows the pattern. In 2013, iOS 7 put a flashlight button in Control Center, and most flashlight apps lost their reason to exist. In 2024, iOS 18 added a Passwords app, so many people no longer needed a separate password manager. Each time, a job moved into the phone people already had, and people needed one app fewer.
+
+This is not a race to put everything into one app. An app with a hundred features nobody asked for is a junk drawer with a logo. The hard part is to choose the main jobs, build them well, and skip the rest.
+
+The same rule works for one person with an AI agent. The question is not how fast you can build a tool. The question is whether the tool removes a dependency or adds one.
+
+## The graveyard of old tools
+
+A tool you stop using rarely leaves on its own. The package stays, because removing it might break a script you last ran in March. The app stays, because you are not sure which files are inside it. The browser tab stays, because the export is a chore. The extension, the background server, and the tool you generated one Tuesday all stay, because they only print a warning at startup. A warning is easy to ignore.
+
+That pile is the slowdown, a year later. Each unused tool still loads. Each one can still fail in its own way. And when something breaks, each one makes the first question harder to answer. What is even running on this machine?
+
+I learned the size of my own pile when I wiped my Mac and reinstalled only what I missed. I wrote about it in [The agent native home](/blog/the-agent-native-home). After a few days, I missed almost none of the old installs. After a year of installs, the machine needed only a handful of tools. A reset is a test you cannot argue with. Anything you do not reinstall was never part of your work, only leftovers.
+
+The same leftovers collect away from the laptop. A second notes app. A second to-do app. A drawer of cables for devices you no longer own. A key on your key ring that opens nothing you can name, kept in case it opens something. A kitchen gadget for a job a knife already does.
+
+Life collects tools the way a code project collects packages. But life is worse at removing them, because nothing in your home keeps a list of what you own. The unused things become clutter, then a graveyard you pass every day. Each one still takes a little of your attention.
+
+## The stack you carry
+
+You use a stack of tools before you even open a laptop. It is everything you take out the door. There are three ways to carry it.
+
+The first way is a bag. A bag has room, so you put things in it. A charger, a spare cable, a power bank, two pairs of headphones, a pen, old receipts, and a book for some day. Each item made sense on the day you added it, and each one was free to add.
+
+The bag gets heavier every month. Your keys sink to the bottom. And the bag itself becomes one more thing you must not forget. A bag is `node_modules` with a strap. That is the folder where a JavaScript project keeps every package it installs.
+
+The second way is pockets, with the phone, keys, and wallet each in its own place. A pocket has no room for a "maybe," so nothing extra stays there. But each item is one more thing to remember. You check your pockets at the door, one item at a time, and you learn what you forgot at a locked door or a checkout. That is a stack of many small packages. None of them is heavy, but each one can get lost.
+
+The third way is to carry less. Leave the bag at home for a week and notice what you miss. Most days, nothing is missing. My Mac reset gave the same answer. What you needed already fit in your pockets. The rest was weight.
+
+Then the pockets emptied too. The phone replaced the wallet, the transit card, the boarding pass, the camera, the map, and more and more keys. The jobs stayed, but the objects left. That is the native move in its simplest form. You do not buy a better bag. You move the job into something you already carry, and the old object stays home.
+
+The key word is *already*. A universal remote promised to replace three remotes and became the fourth. An app that combines all your apps is the same remote.
+
+The phone is a real dependency, and you take it on purpose. Still, keep one card in the phone case. It is an exit you know works.
+
+*Carry what the day needs, not what the bag can hold.*
+
+## Dependency independent is not dependency free
+
+This is not an argument for an empty machine. It is also not an argument to write everything yourself. Some tools are the thing you came for, like an editor, a web host, a database, or an AI model. Take those.
+
+Dependency independent means something narrower. Your work should not depend on tools you do not control, for a job your current tools already do. That takes three habits, and each one is different.
+
+- **Direct.** Do the job yourself. Do not send it through a product whose only role is to sit in the middle.
+- **Native.** Use what you already have, such as the shell, the file system, git, your language's standard library, the browser, CSS, and SQLite.
+- **Fewer outside tools.** Each outside tool is a team at a handoff. Add one when it is the product you want. Skip it when it only adds one feature.
+
+*Use what you already have. Let a small feature stay small.*
+
+The habit that feels productive is the opposite. You see a gap, you install a product to fill it, and you get the whole life of that product with it. You get its account, its updates, its idea about your files, and one day its shutdown.
+
+Most people notice this trade only when the product goes bad. That is also when leaving costs the most. By then, the cheap replacement is a myth, because your work sits inside the thing you planned to replace.
+
+## Your work should outlive the app
+
+When the app dies, do you still have your work? That is the test. It matters more now, because replacing a tool is cheap, so people replace tools often. Your work has to survive the switch.
+
+Plain files, git, and SQLite outlive the apps around them. A handwritten recipe card still works after forty years. It never needed an account, an update, or a company that stayed in business.
+
+Apps are different. Google Reader closed in 2013, and its users had a few months to export their feeds. A note you cannot export is a note you do not own. A workflow that runs only inside one company's app is a workflow you rent.
+
+Native wins here for a boring reason. Your operating system and your files will still be here next year. Each app is a bet. Bets got cheap, so people make more of them.
+
+I would rather keep a plain file and a short path to it than a nicer app that can disappear. The app can be a little worse. The exit is not optional.
+
+## How to use it
+
+A tool is cheap only on the day you add it. After that, you pay a little every day. Use these six checks, in this order, to keep your stack small.
+
+1. **Say the job in one sentence.** If the sentence is short, a whole product is the wrong size. Write the small thing yourself, or use what you already have.
+2. **Try native before you install.** Give it twenty minutes. Try the shell, a plain file, a standard library function, a CSS rule, or a system feature you never tried. Many tools exist because nobody spent those twenty minutes.
+3. **Do not switch apps for one missing feature.** Add the feature where you are, or skip it. Leave only when the app is wrong at its core.
+4. **Ask what you lose if the tool disappears.** Look eighteen months ahead. If you lose only a convenience you can rebuild, keep the tool. If you lose the work itself, do not put the work there.
+5. **Plan the exit on the first day.** Use plain text, an export you already opened, or a format that works without the app. An exit you never tested is only a hope. A cheap replacement helps only if your work can move.
+6. **Remove tools on a schedule.** Check what starts with your computer. Check for packages your code no longer imports. A tool you cannot delete is a team you did not mean to hire.
+
+| The tempting choice | The direct choice |
+|---|---|
+| Another notes app | A folder of files you can open without any app |
+| A library for one small feature | That feature, built into the app you already have |
+| A command-line tool that wraps a command you know | The command |
+| A package for a fifteen-line helper | Those fifteen lines, in your own code |
+| A plugin for one rule | The rule, in the one file your tools already read |
+| A new app, because the current one lacks a feature | The feature, added or declined |
+| An app an AI generated for a one-off job | A script you delete when the job is done |
+
+The fourth row has a famous example. In March 2016, one developer removed left-pad, an 11-line package, from npm. Thousands of projects stopped building, Babel and React among them. npm restored the package within hours.
+
+The last row is the new trap. An AI can now generate a tool in minutes, so making one feels like progress. But often it is one more dependency, with your name on it. Owning the code beats renting a stranger's app. It does not beat having no tool at all. When the job is done, delete the script, because a tool you generated and forgot is still a handoff.
+
+## When to take the dependency
+
+Do not write your own version of the parts that punish mistakes. That means login and passwords, encryption, a parser for a file format you do not control, a database, and payments. The urge to go native is real here, and it is the wrong urge. At home, you change a light bulb yourself, but you call an electrician for the fuse box. Use the maintained tool. Keep your own data on your side, so a later switch does not take your work with it.
+
+Take the dependency when it is the product you want, not one extra feature. An editor is a product. A web host is a product. An AI model is a product. A library whose only job is one missing feature, inside a system that already does the rest, is a feature dressed as a product.
+
+Two questions keep this line clear.
+
+- Is this the thing I want, or an outside tool between me and something I already have?
+- If I take it, can I still leave with my work?
+
+If the first answer is "the thing I want" and the second answer is yes, add it. If either answer fails, stay native. Or keep the tool at a distance, with an exit you tested.
+
+## The default has to change
+
+Adding, building, updating, and replacing tools will stay cheap. The old limits will not return. If your default stays "add it," your stack becomes a big company, and big companies move slowly. Then the unused tools become a graveyard you still carry.
+
+Dependency independent is the other default. Prefer native, and prefer fewer outside tools. Move new jobs into what you already carry. Write a missing feature yourself in a few lines, or skip it. Keep your work in a form that survives the next cheap replacement. What remains is a setup you can still use on a tired day, without first remembering every team you hired by accident.
+
+<RelatedPosts currentSlug="dependency-independent" />
