@@ -224,8 +224,8 @@ export default async function HomePage() {
 			<section className="mt-24 pb-24">
 				<div className="mx-auto max-w-column px-6">
 					<SectionLabel>Wall</SectionLabel>
-					<FameShelf className="mt-6" />
 				</div>
+				<FameShelf className="mt-6" />
 			</section>
 		</>
 	);
