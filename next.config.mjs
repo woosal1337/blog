@@ -10,6 +10,8 @@ const nextConfig = {
 	async redirects() {
 		return [
 			{ source: "/setup", destination: "/lab", permanent: true },
+			{ source: "/gallery", destination: "/wall", permanent: true },
+			{ source: "/gallery/:path*", destination: "/wall", permanent: true },
 			{
 				source: "/blog/companyos",
 				destination: "/blog/elliptic",

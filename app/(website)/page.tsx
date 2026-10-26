@@ -1,6 +1,5 @@
 import { BioProse, BioTerm } from "@/components/blocks/bio-prose";
-import { BooksShelf } from "@/components/blocks/books-shelf";
-// import { GalleryReel } from "@/components/blocks/gallery-reel";
+import { FameShelf } from "@/components/blocks/fame-shelf";
 import { LabOrbit } from "@/components/blocks/lab-orbit";
 import { SocialIcons } from "@/components/blocks/social-icons";
 import { EpisodeCard } from "@/components/ds/episode-card";
@@ -220,14 +219,13 @@ export default async function HomePage() {
 				)}
 
 				<LabOrbit className="mt-10 block" />
-				{/* <GalleryReel className="mt-4 block" /> */}
 			</div>
 
 			<section className="mt-24 pb-24">
 				<div className="mx-auto max-w-column px-6">
-					<SectionLabel>Shelf</SectionLabel>
+					<SectionLabel>Wall</SectionLabel>
 				</div>
-				<BooksShelf className="mt-6" />
+				<FameShelf className="mt-6" />
 			</section>
 		</>
 	);

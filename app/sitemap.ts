@@ -1,5 +1,5 @@
+import { fame } from "@/data/fame";
 import { getAllPosts } from "@/lib/blog";
-import { getAllSets } from "@/lib/gallery";
 import { absoluteUrl } from "@/lib/seo";
 import { getAllEpisodes, kitFileHref, listKitFiles } from "@/lib/videos";
 import type { MetadataRoute } from "next";
@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		"/blog",
 		"/projects",
 		"/videos",
-		"/gallery",
+		"/wall",
 		"/about",
 		"/lab",
 	].map((route) => ({
@@ -29,10 +29,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		lastModified: episode.date.split("T")[0],
 	}));
 
-	const sets = await getAllSets();
-	const setRoutes = sets.map((set) => ({
-		url: absoluteUrl(`/gallery/${set.slug}`),
-		lastModified: set.date.split("T")[0],
+	const fameRoutes = fame.map((person) => ({
+		url: absoluteUrl(`/wall/${person.slug}`),
 	}));
 
 	const kitRoutes = episodes.flatMap((episode) =>
@@ -48,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 		...staticRoutes,
 		...postRoutes,
 		...episodeRoutes,
-		...setRoutes,
+		...fameRoutes,
 		...kitRoutes,
 	];
 }
