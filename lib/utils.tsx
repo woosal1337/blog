@@ -130,7 +130,7 @@ export const awards = [
 		name: "AÇIKHACK Blockchain",
 		place: "1st place",
 		year: "2022",
-		url: "https://www.turkiyeacikkaynakplatformu.com/turkce-dogal-dil-isleme-acikhack-hackathon-yarismasinda-summarify-birinci-oldu/",
+		url: "https://www.aa.com.tr/tr/bilim-teknoloji/bilisim-vadisi-hackathon-yarismasina-ev-sahipligi-yapti/2589261",
 		description: "Blockchain, NFT, metaverse hackathon, 41 teams.",
 	},
 	{

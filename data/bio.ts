@@ -29,7 +29,7 @@ export const BIO_TERMS: Record<string, BioLogo[]> = {
 		{ name: "Avalanche", href: "https://www.avax.network/" },
 		{
 			name: "AÇIKHACK",
-			href: "https://www.turkiyeacikkaynakplatformu.com/",
+			href: "https://www.aa.com.tr/tr/bilim-teknoloji/bilisim-vadisi-hackathon-yarismasina-ev-sahipligi-yapti/2589261",
 		},
 	],
 	fellowships: [
