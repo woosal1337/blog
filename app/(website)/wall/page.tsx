@@ -17,12 +17,12 @@ export default function WallPage() {
 			<Shell width="column">
 				<BackButton className="mb-8" />
 				<Reveal immediate>
-					<h1 className="mb-10 font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
+					<h1 className="font-ui text-[clamp(26px,4vw,34px)] font-semibold leading-[1.12] tracking-tight text-ink">
 						Shelf
 					</h1>
 				</Reveal>
+				<BooksShelf className="mt-10" />
 			</Shell>
-			<BooksShelf />
 		</Section>
 	);
 }

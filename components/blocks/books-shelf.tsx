@@ -1,6 +1,5 @@
 "use client";
 
-import { Gallery, GalleryItem } from "@/components/ds/gallery";
 import {
 	SheetDialog,
 	SheetDialogContent,
@@ -9,6 +8,7 @@ import {
 } from "@/components/ds/sheet-dialog";
 import { Tag } from "@/components/ds/tag";
 import { type Book, bookCategories, books } from "@/data/books";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -21,14 +21,19 @@ export function BooksShelf({ className }: { className?: string }) {
 
 	return (
 		<>
-			<Gallery ariaLabel="Shelf" className={className} startCentered>
+			<ul
+				className={cn(
+					"grid grid-cols-3 gap-x-4 gap-y-8 sm:grid-cols-4",
+					className,
+				)}
+			>
 				{books.map((book) => (
-					<GalleryItem key={`${book.title}-${book.author}`}>
+					<li key={`${book.title}-${book.author}`}>
 						<button
 							type="button"
 							data-sound="card"
 							onClick={() => setSelected(book)}
-							className="group w-[120px] text-left sm:w-[140px]"
+							className="group w-full text-left"
 						>
 							{book.cover ? (
 								<div className="relative aspect-[2/3] w-full overflow-hidden rounded-[12px] border border-line bg-paper transition-colors duration-240 ease-house group-hover:border-line-strong">
@@ -38,7 +43,7 @@ export function BooksShelf({ className }: { className?: string }) {
 										fill
 										loading="lazy"
 										quality={65}
-										sizes="140px"
+										sizes="(max-width: 640px) 30vw, 160px"
 										className="object-cover transition-opacity duration-240 ease-house group-hover:opacity-80"
 									/>
 								</div>
@@ -56,9 +61,9 @@ export function BooksShelf({ className }: { className?: string }) {
 								{book.author}
 							</span>
 						</button>
-					</GalleryItem>
+					</li>
 				))}
-			</Gallery>
+			</ul>
 
 			<SheetDialog
 				open={!!selected}
