@@ -7,7 +7,6 @@ import { FeatureCard } from "@/components/ds/feature-card";
 import { IconLink } from "@/components/ds/icon-link";
 import { PeekFade } from "@/components/ds/peek-fade";
 import { ProfileLockup } from "@/components/ds/profile-lockup";
-import { SectionLabel } from "@/components/ds/section-label";
 import { StoryCard } from "@/components/ds/story-card";
 import { NewLabel } from "@/components/ds/tag";
 import { ViewAllButton } from "@/components/ds/view-all-button";
@@ -110,8 +109,7 @@ export default async function HomePage() {
 
 				<div className="mt-24 grid gap-x-6 gap-y-14 sm:grid-cols-2">
 					<section className="flex flex-col">
-						<SectionLabel>Projects</SectionLabel>
-						<div className="mt-5 flex flex-col gap-4">
+						<div className="flex flex-col gap-4">
 							{featured[0] && (
 								<FeatureCard
 									title={featured[0].name}
@@ -150,8 +148,7 @@ export default async function HomePage() {
 					</section>
 
 					<section className="flex flex-col">
-						<SectionLabel>Writing</SectionLabel>
-						<div className="mt-5 flex flex-col gap-4">
+						<div className="flex flex-col gap-4">
 							{writing[0] && (
 								<StoryCard
 									isNew
@@ -184,8 +181,7 @@ export default async function HomePage() {
 
 				{latest && (
 					<section className="mt-14 flex flex-col">
-						<SectionLabel>Watch</SectionLabel>
-						<div className="mt-5 flex flex-col gap-4">
+						<div className="flex flex-col gap-4">
 							<EpisodeCard
 								wide
 								isNew
@@ -222,10 +218,7 @@ export default async function HomePage() {
 			</div>
 
 			<section className="mt-24 pb-24">
-				<div className="mx-auto max-w-column px-6">
-					<SectionLabel>Wall</SectionLabel>
-				</div>
-				<FameShelf className="mt-6" />
+				<FameShelf />
 			</section>
 		</>
 	);
