@@ -198,9 +198,14 @@ const AGENTS: LabItem[] = [
 		href: "https://herdr.dev",
 	},
 	{
-		name: "Alacritty",
-		desc: "The terminal. Fast and GPU-accelerated, with no tabs or splits of its own.",
-		href: "https://alacritty.org",
+		name: "Pi",
+		desc: "A minimal agent harness. Extensions, skills, and prompt templates shape it to the work.",
+		href: "https://pi.dev",
+	},
+	{
+		name: "Warp",
+		desc: "The terminal. Claude Code and Codex run here as command-line tools.",
+		href: "https://www.warp.dev",
 	},
 ];
 
@@ -210,6 +215,12 @@ const SKILLS: LabItem[] = [
 		desc: "Lazy senior dev mode, always on in Claude Code and Grok. The agent makes the smallest change that fully solves the task: reuse what exists, stdlib first, no code nobody asked for.",
 		href: "https://github.com/DietrichGebert/ponytail",
 		code: "/pny",
+	},
+	{
+		name: "herdr",
+		desc: "Drives Herdr, the terminal multiplexer for coding agents. An agent reads neighbouring panes and starts work in them, and refuses to try from outside a Herdr session.",
+		href: "https://herdr.dev",
+		code: "/hrd",
 	},
 ];
 
