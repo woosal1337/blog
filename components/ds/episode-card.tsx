@@ -74,7 +74,7 @@ export function EpisodeCard({
 					}
 					className="object-cover"
 				/>
-				<span className="absolute inset-0 grid place-items-center opacity-0 transition-opacity duration-200 ease-house group-hover:opacity-100 group-focus-visible:opacity-100">
+				<span className="absolute inset-0 grid place-items-center">
 					<GlassButtonSurface
 						size={48}
 						className="liquid-press-sync translate-x-[1px]"
