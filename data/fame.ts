@@ -122,6 +122,62 @@ export const fame: FamePerson[] = [
 		],
 	},
 	{
+		slug: "alan-turing",
+		name: "Alan Turing",
+		role: "Mathematician",
+		portrait: "/wall/alan-turing.jpg",
+		portraitAlt: "Alan Turing at sixteen, around 1928",
+		portraitPosition: "center 20%",
+		credit: {
+			author: "an unknown photographer",
+			sourceHref:
+				"https://commons.wikimedia.org/wiki/File:Alan_Turing_Aged_16.jpg",
+			license: "Public domain",
+			licenseHref: "https://creativecommons.org/publicdomain/mark/1.0/",
+			note: "The photograph is black and white, so hover does not add color.",
+		},
+		links: [
+			{
+				label: "Computing Machinery and Intelligence",
+				href: "https://academic.oup.com/mind/article/LIX/236/433/986238",
+			},
+			{ label: "Archive", href: "https://turingarchive.kings.cam.ac.uk/" },
+		],
+		paragraphs: [
+			"Alan Turing is here because he asked the question I work inside of, then turned it into something you could test instead of argue. I come back to him when a model looks clever and I have not said what clever would mean.",
+			"He was born in London in 1912, described the universal machine in 1936, worked on breaking Enigma at Bletchley Park, and wrote Computing Machinery and Intelligence in 1950. He was prosecuted for being gay in 1952 and died in 1954. This photograph is from when he was sixteen.",
+		],
+	},
+	{
+		slug: "carl-sagan",
+		name: "Carl Sagan",
+		role: "Astronomer",
+		portrait: "/wall/carl-sagan.jpg",
+		portraitAlt: "Carl Sagan standing beside a Viking lander, from NASA/JPL",
+		portraitPosition: "center 25%",
+		credit: {
+			author: "NASA/JPL",
+			sourceHref: "https://commons.wikimedia.org/wiki/File:Sagan_large.jpg",
+			license: "Public domain",
+			licenseHref: "https://creativecommons.org/publicdomain/mark/1.0/",
+			note: "Cropped from the original.",
+		},
+		links: [
+			{
+				label: "Pale Blue Dot",
+				href: "https://science.nasa.gov/resource/voyager-1s-pale-blue-dot/",
+			},
+			{
+				label: "Planetary Society",
+				href: "https://www.planetary.org/profiles/carl-sagan",
+			},
+		],
+		paragraphs: [
+			"Carl Sagan is here because he made the hardest ideas plain without making them small. Cosmos, the pale blue dot, the baloney detection kit. I read him when I want a claim to earn the belief I am giving it.",
+			"He was born in Brooklyn in 1934, worked on the Mariner, Viking, and Voyager missions, made Cosmos for PBS in 1980, and co-founded The Planetary Society. He died in 1996. In this photograph he stands next to a Viking lander.",
+		],
+	},
+	{
 		slug: "franz-kafka",
 		name: "Franz Kafka",
 		role: "Writer",
@@ -232,6 +288,30 @@ export const fame: FamePerson[] = [
 		paragraphs: [
 			"Plato is here because a dialogue will not let a word stay fuzzy. Someone asks what you meant. You find out you did not know. I read him when I am about to use a big word I have not defined.",
 			"He was a student of Socrates in Athens and wrote the dialogues in the fourth century BC. The Republic, the Apology, the cave. What we have of his face is a later bust, not a photograph.",
+		],
+	},
+	{
+		slug: "sun-tzu",
+		name: "Sun Tzu",
+		role: "Strategist",
+		portrait: "/wall/sun-tzu.jpg",
+		portraitAlt:
+			"Bronze statue of Sun Tzu holding a scroll at the Enchoen garden in Yurihama, Japan, photographed by 663highland",
+		portraitPosition: "center 20%",
+		credit: {
+			author: "663highland",
+			sourceHref: "https://commons.wikimedia.org/wiki/File:Enchoen27n3200.jpg",
+			license: "CC BY 2.5",
+			licenseHref: "https://creativecommons.org/licenses/by/2.5/",
+			note: "Modern statue at the Enchoen garden in Yurihama, Japan. No portrait from his lifetime survives.",
+		},
+		links: [
+			{ label: "The Art of War", href: "https://www.gutenberg.org/ebooks/132" },
+			{ label: "Original text", href: "https://ctext.org/art-of-war" },
+		],
+		paragraphs: [
+			"Sun Tzu is here because the book is mostly about not fighting. Know the ground, know yourself, and win before the battle starts. I read him when I am about to answer a problem with more force.",
+			"The Art of War is credited to a general of the state of Wu around 500 BC, though the text was probably put together later. Thirteen short chapters. What we have of his face is a modern statue, not a portrait.",
 		],
 	},
 ];
