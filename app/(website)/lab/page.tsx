@@ -2,7 +2,6 @@ import { type LabChip, LabChipRow } from "@/components/blocks/lab-chip-row";
 import { OrbitField } from "@/components/blocks/lab-orbit";
 import { BackButton } from "@/components/ds/back-button";
 import { Reveal } from "@/components/ds/reveal";
-import { SectionLabel } from "@/components/ds/section-label";
 import { Section, Shell } from "@/components/ds/shell";
 import { createPageMetadata } from "@/lib/seo";
 import { Computer } from "lucide-react";
@@ -175,18 +174,15 @@ function LabRow(item: LabItem) {
 }
 
 function LabGroup({
-	label,
 	children,
 	first = false,
 }: {
-	label: string;
 	children: React.ReactNode;
 	first?: boolean;
 }) {
 	return (
 		<div className={first ? undefined : "mt-10 border-t border-line pt-10"}>
-			<SectionLabel>{label}</SectionLabel>
-			<div className="mt-2 flex flex-col">{children}</div>
+			<div className="flex flex-col">{children}</div>
 		</div>
 	);
 }
@@ -284,25 +280,25 @@ export default function LabPage() {
 				</Reveal>
 
 				<div className="mt-12">
-					<LabGroup label="ADE" first>
+					<LabGroup first>
 						{AGENTS.map((row) => (
 							<LabRow key={row.name} {...row} />
 						))}
 					</LabGroup>
 
-					<LabGroup label="Skills">
+					<LabGroup>
 						{SKILLS.map((row) => (
 							<LabRow key={row.name} {...row} />
 						))}
 					</LabGroup>
 
-					<LabGroup label="Homelab">
+					<LabGroup>
 						{HOMELAB.map((row) => (
 							<LabRow key={row.name} {...row} />
 						))}
 					</LabGroup>
 
-					<LabGroup label="Knowledge">
+					<LabGroup>
 						{KNOWLEDGE.map((row) => (
 							<LabRow key={row.name} {...row} />
 						))}
