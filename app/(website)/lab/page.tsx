@@ -246,6 +246,24 @@ const HOMELAB: LabItem[] = [
 		],
 	},
 	{
+		name: "Toji",
+		desc: "Threadripper PRO 9975WX. RTX PRO 6000 Blackwell. 256 GB RAM.",
+		pc: true,
+		chips: [
+			{ name: "AMD", href: "https://www.amd.com" },
+			{ name: "NVIDIA", href: "https://www.nvidia.com" },
+		],
+	},
+	{
+		name: "Hope",
+		desc: "Core i9-14900K. RTX 5090. 64 GB RAM.",
+		pc: true,
+		chips: [
+			{ name: "Intel", href: "https://www.intel.com" },
+			{ name: "NVIDIA", href: "https://www.nvidia.com" },
+		],
+	},
+	{
 		name: "Tailscale",
 		desc: "The private network under all of it. Machines, agents and services meet on the tailnet, so no box needs an open port on the internet.",
 		href: "https://tailscale.com",
