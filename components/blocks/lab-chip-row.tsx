@@ -73,9 +73,10 @@ function Mark({
 							/>
 						) : null}
 					</span>
-					<span className="text-center font-ui text-[11px] leading-tight text-ink">
-						{chip.name}
-					</span>
+					<span
+						data-label={chip.name}
+						className="text-center font-ui text-[11px] leading-tight text-ink before:content-[attr(data-label)]"
+					/>
 				</span>
 			</span>
 		</span>
