@@ -193,16 +193,6 @@ const AGENTS: LabItem[] = [
 		desc: "The runtime the agents live in. A background server owns their terminals, so a closed lid never stops the work, and every pane reports whether its agent is working, blocked or idle.",
 		href: "https://herdr.dev",
 	},
-	{
-		name: "Pi",
-		desc: "A minimal agent harness. Extensions, skills, and prompt templates shape it to the work.",
-		href: "https://pi.dev",
-	},
-	{
-		name: "Warp",
-		desc: "The terminal. Claude Code and Codex run here as command-line tools.",
-		href: "https://www.warp.dev",
-	},
 ];
 
 const SKILLS: LabItem[] = [
@@ -217,6 +207,36 @@ const SKILLS: LabItem[] = [
 		desc: "Drives Herdr, the terminal multiplexer for coding agents. An agent reads neighbouring panes and starts work in them, and refuses to try from outside a Herdr session.",
 		href: "https://herdr.dev",
 		code: "/hrd",
+	},
+	{
+		name: "jakubkrehel/skills",
+		desc: "Interface skills by Jakub Krehel. The better-* set reviews accessibility, layout, writing, typography, color and UI polish, and the rest render every state of a component, stress test it, or explain how a site was built.",
+		href: "https://github.com/jakubkrehel/skills",
+		code: "/btr",
+	},
+	{
+		name: "make-interfaces-feel-better",
+		desc: "Jakub's earlier, lighter skill for the small details: border radius, optical alignment, shadows, tabular numbers, icon states.",
+		href: "https://github.com/jakubkrehel/make-interfaces-feel-better",
+		code: "/mif",
+	},
+	{
+		name: "emilkowalski/skills",
+		desc: "Emil Kowalski's design engineering in skill form. Build, review, prune and speed up animations, break a component with worst-case data, and make a web app feel native on a phone.",
+		href: "https://github.com/emilkowalski/skills",
+		code: "/eml",
+	},
+	{
+		name: "stageshow",
+		desc: "Faux product UI for marketing pages and docs. Browser windows, dashboards, phones and terminals, still or animated with a cursor.",
+		href: "https://github.com/benjitaylor/skills",
+		code: "/stg",
+	},
+	{
+		name: "security-audit",
+		desc: "Cloudflare's security review. Answers a quick question or runs a full audit of a codebase, API or service with a written report.",
+		href: "https://github.com/cloudflare/security-audit-skill",
+		code: "/sec",
 	},
 ];
 
