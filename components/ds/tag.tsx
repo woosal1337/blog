@@ -1,5 +1,5 @@
 import { MetalNewBadge } from "@/components/ds/new-badge";
-import { cn } from "@/lib/utils";
+import { cn, isNew } from "@/lib/utils";
 import type * as React from "react";
 
 export function Tag({
@@ -18,8 +18,12 @@ export function Tag({
 	);
 }
 
-export function NewLabel({ className }: { className?: string }) {
-	return <MetalNewBadge className={className} />;
+export function NewLabel({
+	date,
+	className,
+}: { date?: string; className?: string }) {
+	if (!isNew(date)) return null;
+	return <MetalNewBadge date={date} className={className} />;
 }
 
 export function SoonLabel({ className }: { className?: string }) {

@@ -119,7 +119,7 @@ export default async function HomePage() {
 									logo={featured[0].logo}
 									logoInverts={featured[0].logoInverts}
 									logoWide={featured[0].logoWide}
-									badge={featured[0].isNew ? <NewLabel /> : undefined}
+									badge={<NewLabel date={featured[0].date} />}
 									date={
 										featured[0].date ? cardDate(featured[0].date) : undefined
 									}
@@ -135,6 +135,7 @@ export default async function HomePage() {
 										logo={featured[1].logo}
 										logoInverts={featured[1].logoInverts}
 										logoWide={featured[1].logoWide}
+										badge={<NewLabel date={featured[1].date} />}
 										date={
 											featured[1].date ? cardDate(featured[1].date) : undefined
 										}
@@ -151,7 +152,7 @@ export default async function HomePage() {
 						<div className="flex flex-col gap-4">
 							{writing[0] && (
 								<StoryCard
-									isNew
+									publishedAt={writing[0].date}
 									href={`/blog/${writing[0].slug}`}
 									title={writing[0].title}
 									summary={writing[0].summary}
@@ -163,6 +164,7 @@ export default async function HomePage() {
 							{writing[1] && (
 								<PeekFade>
 									<StoryCard
+										publishedAt={writing[1].date}
 										href={`/blog/${writing[1].slug}`}
 										title={writing[1].title}
 										summary={writing[1].summary}
@@ -184,7 +186,7 @@ export default async function HomePage() {
 						<div className="flex flex-col gap-4">
 							<EpisodeCard
 								wide
-								isNew
+								publishedAt={latest.date}
 								href={`/videos/${latest.slug}`}
 								title={latest.title}
 								summary={latest.summary}
@@ -197,6 +199,7 @@ export default async function HomePage() {
 								<PeekFade>
 									<EpisodeCard
 										wide
+										publishedAt={previous.date}
 										href={`/videos/${previous.slug}`}
 										title={previous.title}
 										summary={previous.summary}

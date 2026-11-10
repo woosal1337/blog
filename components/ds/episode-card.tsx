@@ -30,7 +30,7 @@ export type EpisodeCardProps = {
 	thumbnail: string;
 	thumbnailAlt?: string;
 	runtime?: string;
-	isNew?: boolean;
+	publishedAt?: string;
 	featured?: boolean;
 	wide?: boolean;
 	className?: string;
@@ -44,7 +44,7 @@ export function EpisodeCard({
 	thumbnail,
 	thumbnailAlt,
 	runtime,
-	isNew = false,
+	publishedAt,
 	featured = false,
 	wide = false,
 	className,
@@ -89,7 +89,7 @@ export function EpisodeCard({
 				) : null}
 			</div>
 			<div className={cn("p-5", featured && "p-6")}>
-				{isNew && <NewLabel className="mb-2" />}
+				<NewLabel date={publishedAt} className="mb-2" />
 				<h3
 					className={cn(
 						"font-ui text-[17px] font-medium text-ink",

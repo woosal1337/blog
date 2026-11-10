@@ -87,7 +87,7 @@ export default async function BlogIndexPage() {
 							<Reveal immediate>
 								<StoryCard
 									featured
-									isNew
+									publishedAt={featured.date}
 									href={`/blog/${featured.slug}`}
 									title={featured.title}
 									summary={featured.summary}
@@ -101,6 +101,7 @@ export default async function BlogIndexPage() {
 									{rest.map((post, index) => (
 										<Reveal key={post.slug} delay={index % 2 === 0 ? 1 : 2}>
 											<StoryCard
+												publishedAt={post.date}
 												href={`/blog/${post.slug}`}
 												title={post.title}
 												summary={post.summary}

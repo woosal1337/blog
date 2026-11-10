@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn, isNew } from "@/lib/utils";
 import { MetalBadge } from "metal-fx";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
@@ -9,10 +9,15 @@ const BADGE_SCALE = 0.85;
 const BADGE_WIDTH = 45 * BADGE_SCALE;
 const BADGE_HEIGHT = 25 * BADGE_SCALE;
 
-export function MetalNewBadge({ className }: { className?: string }) {
+export function MetalNewBadge({
+	date,
+	className,
+}: { date?: string; className?: string }) {
 	const { resolvedTheme } = useTheme();
 	const [mounted, setMounted] = useState(false);
 	useEffect(() => setMounted(true), []);
+
+	if (mounted && !isNew(date)) return null;
 
 	return (
 		<span className={cn("inline-flex align-middle", className)}>

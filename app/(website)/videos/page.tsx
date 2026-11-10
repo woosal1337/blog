@@ -60,7 +60,7 @@ export default async function VideosPage() {
 							<Reveal immediate>
 								<EpisodeCard
 									featured
-									isNew
+									publishedAt={latest.date}
 									href={`/videos/${latest.slug}`}
 									title={latest.title}
 									summary={latest.summary}
@@ -75,6 +75,7 @@ export default async function VideosPage() {
 									{rest.map((episode, index) => (
 										<Reveal key={episode.slug} delay={index % 2 === 0 ? 1 : 2}>
 											<EpisodeCard
+												publishedAt={episode.date}
 												href={`/videos/${episode.slug}`}
 												title={episode.title}
 												summary={episode.summary}

@@ -61,9 +61,9 @@ export default function ProjectsPage() {
 								badge={
 									project.comingSoon ? (
 										<SoonLabel />
-									) : project.isNew ? (
-										<NewLabel />
-									) : undefined
+									) : (
+										<NewLabel date={project.date} />
+									)
 								}
 								date={project.date ? cardDate(project.date) : undefined}
 							/>

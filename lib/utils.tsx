@@ -27,6 +27,12 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
 }
 
+const NEW_FOR_MS = 7 * 24 * 60 * 60 * 1000;
+
+export function isNew(date?: string): boolean {
+	return date ? Date.now() - Date.parse(date) < NEW_FOR_MS : false;
+}
+
 export const formattedDate = (date: string) =>
 	new Date(date).toLocaleDateString("en-US", {
 		month: "long",
@@ -158,7 +164,6 @@ export const allProjects: Array<{
 	logoInverts?: boolean;
 	logoWide?: boolean;
 	external: boolean;
-	isNew?: boolean;
 	comingSoon?: boolean;
 	date?: string;
 }> = [
@@ -168,7 +173,6 @@ export const allProjects: Array<{
 		href: "https://ade.chele.bi",
 		logo: "/ade-logo.svg",
 		external: true,
-		isNew: true,
 		date: "2026-10-11",
 	},
 	{
@@ -177,7 +181,6 @@ export const allProjects: Array<{
 		href: "https://mytesla.chele.bi",
 		logo: "/my-tesla-logo.svg",
 		external: true,
-		isNew: true,
 		date: "2026-10-01",
 	},
 	{
@@ -186,7 +189,6 @@ export const allProjects: Array<{
 		href: "https://github.com/woosal1337/knap-templates",
 		logo: "/knap-templates-logo.svg",
 		external: true,
-		isNew: true,
 		date: "2026-09-12",
 	},
 	{
@@ -195,7 +197,6 @@ export const allProjects: Array<{
 		href: "https://trds.chele.bi",
 		logo: "/trds-logo.svg",
 		external: true,
-		isNew: true,
 		date: "2026-09-08",
 	},
 	{
@@ -204,7 +205,6 @@ export const allProjects: Array<{
 		href: "https://index.chele.bi",
 		logo: "/index-mark.png",
 		external: true,
-		isNew: true,
 		date: "2026-09-07",
 	},
 	{
@@ -213,7 +213,6 @@ export const allProjects: Array<{
 		href: "https://lens.chele.bi",
 		logo: "/lens-logo.png",
 		external: true,
-		isNew: true,
 		date: "2026-08-31",
 	},
 	{

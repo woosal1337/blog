@@ -13,7 +13,7 @@ export type StoryCardProps = {
 	label?: string;
 	cover?: string | null;
 
-	isNew?: boolean;
+	publishedAt?: string;
 
 	featured?: boolean;
 	className?: string;
@@ -26,7 +26,7 @@ export function StoryCard({
 	summary,
 	label,
 	cover,
-	isNew = false,
+	publishedAt,
 	featured = false,
 	className,
 }: StoryCardProps) {
@@ -65,7 +65,7 @@ export function StoryCard({
 					{label && (
 						<p className="font-ui text-[13px] text-ink-mute">{label}</p>
 					)}
-					{isNew && <NewLabel />}
+					<NewLabel date={publishedAt} />
 				</div>
 				<h3
 					className={cn(
