@@ -49,6 +49,53 @@ export const fame: FamePerson[] = [
 		],
 	},
 	{
+		slug: "george-hotz",
+		name: "George Hotz",
+		role: "Hacker",
+		portrait: "/wall/george-hotz.jpg",
+		portraitAlt:
+			"George Hotz on stage at TechCrunch Disrupt in 2016, photographed by Steve Jennings",
+		portraitPosition: "45% center",
+		credit: {
+			author: "Steve Jennings/Getty Images for TechCrunch",
+			sourceHref:
+				"https://commons.wikimedia.org/wiki/File:George_Hotz_at_TechCrunch_Disrupt.jpg",
+			license: "CC BY 2.0",
+			licenseHref: "https://creativecommons.org/licenses/by/2.0/",
+		},
+		links: [
+			{ label: "Blog", href: "https://geohot.github.io/blog/" },
+			{ label: "tinygrad", href: "https://tinygrad.org/" },
+		],
+		paragraphs: [
+			"George Hotz is here because he opens the box. The iPhone at seventeen, then the PlayStation 3, then a driving kit for the car and a small deep learning framework, most of it in the open and a lot of it live on stream. I come back to him when I am waiting for permission to start.",
+			"He was born in New Jersey in 1989, unlocked the first iPhone in 2007, and was sued by Sony over the PlayStation 3 in 2011. He founded comma.ai in 2015, which makes openpilot, and the tiny corp in 2022, which makes tinygrad. In this photograph he is on stage at TechCrunch Disrupt in 2016.",
+		],
+	},
+	{
+		slug: "lex-fridman",
+		name: "Lex Fridman",
+		role: "Podcaster and researcher",
+		portrait: "/wall/lex-fridman.jpg",
+		portraitAlt: "Lex Fridman teaching at MIT in 2018",
+		portraitPosition: "center 20%",
+		credit: {
+			author: "Lex Fridman",
+			sourceHref:
+				"https://commons.wikimedia.org/wiki/File:Lex_Fridman_teaching_at_MIT_in_2018.png",
+			license: "CC0",
+			licenseHref: "https://creativecommons.org/publicdomain/zero/1.0/",
+		},
+		links: [
+			{ label: "Podcast", href: "https://lexfridman.com/podcast/" },
+			{ label: "MIT Deep Learning", href: "https://deeplearning.mit.edu/" },
+		],
+		paragraphs: [
+			"Lex Fridman is here because he asks a simple question and then lets the other person finish. Three or four hours with one guest, and no hurry to get to a clip. I listen when I want to hear how someone thinks, not what they announced.",
+			"He was born in 1983 in the Soviet Union, grew up in Moscow, and moved to the United States as a kid. He took his PhD at Drexel, joined MIT to study how people drive with machines, taught the deep learning courses there, and started the podcast in 2018. In this photograph he is teaching at MIT that year.",
+		],
+	},
+	{
 		slug: "seth-godin",
 		name: "Seth Godin",
 		role: "Writer",
@@ -288,6 +335,34 @@ export const fame: FamePerson[] = [
 		paragraphs: [
 			"Plato is here because a dialogue will not let a word stay fuzzy. Someone asks what you meant. You find out you did not know. I read him when I am about to use a big word I have not defined.",
 			"He was a student of Socrates in Athens and wrote the dialogues in the fourth century BC. The Republic, the Apology, the cave. What we have of his face is a later bust, not a photograph.",
+		],
+	},
+	{
+		slug: "marcus-aurelius",
+		name: "Marcus Aurelius",
+		role: "Emperor and philosopher",
+		portrait: "/wall/marcus-aurelius.jpg",
+		portraitAlt:
+			"Roman marble bust of Marcus Aurelius in the Louvre, photographed by Marie-Lan Nguyen",
+		portraitPosition: "center 15%",
+		credit: {
+			author: "Marie-Lan Nguyen",
+			sourceHref:
+				"https://commons.wikimedia.org/wiki/File:Marcus_Aurelius_Louvre_MR561_n02.jpg",
+			license: "CC BY 2.5",
+			licenseHref: "https://creativecommons.org/licenses/by/2.5/",
+			note: "Roman marble bust in the Louvre, made around 161 to 169 AD.",
+		},
+		links: [
+			{ label: "Meditations", href: "https://www.gutenberg.org/ebooks/2680" },
+			{
+				label: "Stanford Encyclopedia",
+				href: "https://plato.stanford.edu/entries/marcus-aurelius/",
+			},
+		],
+		paragraphs: [
+			"Marcus Aurelius is here because the Meditations were not written for a reader. He ran an empire and kept notes to himself about doing the next thing well and not complaining about it. I read him when I am angry at something I do not control.",
+			"He was born in Rome in 121 and was emperor from 161 until he died in 180. He wrote the Meditations in Greek, much of it on campaign along the Danube. This bust was carved while he was alive.",
 		],
 	},
 	{
