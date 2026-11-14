@@ -193,6 +193,11 @@ const AGENTS: LabItem[] = [
 		desc: "The runtime the agents live in. A background server owns their terminals, so a closed lid never stops the work, and every pane reports whether its agent is working, blocked or idle.",
 		href: "https://herdr.dev",
 	},
+	{
+		name: "Zeron",
+		desc: "The window I drive the agents from. It runs Claude Code, Codex, Grok, Hermes and Pi on my machines, and any device I own can pilot the same live session.",
+		href: "https://zeron.sh",
+	},
 ];
 
 const SKILLS: LabItem[] = [
