@@ -143,6 +143,33 @@ export const fame: FamePerson[] = [
 		],
 	},
 	{
+		slug: "stephen-king",
+		name: "Stephen King",
+		role: "Writer",
+		portrait: "/wall/stephen-king.jpg",
+		portraitAlt: "Stephen King in 1984, photographed by Bernard Gotfryd",
+		portraitPosition: "center 20%",
+		credit: {
+			author: "Bernard Gotfryd",
+			sourceHref:
+				"https://commons.wikimedia.org/wiki/File:Stephen_King,_1984_(1).jpg",
+			license: "Public domain",
+			licenseHref: "https://creativecommons.org/publicdomain/mark/1.0/",
+			note: "Cropped from the original.",
+		},
+		links: [
+			{ label: "Site", href: "https://stephenking.com/" },
+			{
+				label: "On Writing",
+				href: "https://stephenking.com/works/nonfiction/on-writing-a-memoir-of-the-craft.html",
+			},
+		],
+		paragraphs: [
+			"Stephen King is here because he treats writing as a job you show up for. Two thousand words a day, door closed, and the first draft is for nobody else. I open his book On Writing when I am waiting for the mood instead of sitting down.",
+			"He was born in Portland, Maine in 1947 and taught high school English while he wrote Carrie, which came out in 1974. More than sixty novels followed, The Shining, It, and Misery among them. His book On Writing came out in 2000, and he finished it after a van hit him on a walk in 1999. This photograph is from 1984.",
+		],
+	},
+	{
 		slug: "nikola-tesla",
 		name: "Nikola Tesla",
 		role: "Inventor",
