@@ -208,6 +208,12 @@ const SKILLS: LabItem[] = [
 		code: "/pny",
 	},
 	{
+		name: "asd-ste100",
+		desc: "My skill from episode one, always on in Claude Code, Codex and Pi. Replies follow ASD-STE100, the controlled English of aircraft manuals, and put the next action first for a reader with ADHD. A linter and four hooks check every reply.",
+		href: "https://github.com/woosal1337/blog/tree/main/videos/ep01-the-cure-for-ai-slop/asd-ste100",
+		code: "/ste",
+	},
+	{
 		name: "herdr",
 		desc: "Drives Herdr, the terminal multiplexer for coding agents. An agent reads neighbouring panes and starts work in them, and refuses to try from outside a Herdr session.",
 		href: "https://herdr.dev",
