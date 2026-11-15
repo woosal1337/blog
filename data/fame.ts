@@ -252,6 +252,62 @@ export const fame: FamePerson[] = [
 		],
 	},
 	{
+		slug: "victor-hugo",
+		name: "Victor Hugo",
+		role: "Writer",
+		portrait: "/wall/victor-hugo.jpg",
+		portraitAlt: "Victor Hugo around 1884, photographed by Nadar",
+		portraitPosition: "center 20%",
+		credit: {
+			author: "Nadar",
+			sourceHref: "https://commons.wikimedia.org/wiki/File:Victor_Hugo_001.jpg",
+			license: "Public domain",
+			licenseHref: "https://creativecommons.org/publicdomain/mark/1.0/",
+			note: "The photograph is black and white, so hover does not add color.",
+		},
+		links: [
+			{ label: "Les Misérables", href: "https://www.gutenberg.org/ebooks/135" },
+			{
+				label: "Notre-Dame de Paris",
+				href: "https://www.gutenberg.org/ebooks/2610",
+			},
+		],
+		paragraphs: [
+			"Victor Hugo is here because he put the people at the bottom at the center of the book. A convict, a child of the street, a woman who sells her hair. I read him when I start to see people as numbers.",
+			"He was born in Besançon in 1802 and published Notre-Dame de Paris in 1831. He opposed Napoleon III and lived in exile for nineteen years, most of them on Guernsey, where he finished Les Misérables. The book came out in 1862. He came back to Paris in 1870 and died there in 1885. Nadar took this photograph around 1884.",
+		],
+	},
+	{
+		slug: "fyodor-dostoevsky",
+		name: "Fyodor Dostoevsky",
+		role: "Writer",
+		portrait: "/wall/fyodor-dostoevsky.jpg",
+		portraitAlt: "Fyodor Dostoevsky in 1876, photographed by Nikolai Dosse",
+		portraitPosition: "center 20%",
+		credit: {
+			author: "Nikolai Dosse",
+			sourceHref:
+				"https://commons.wikimedia.org/wiki/File:Dostoevskij_1876.jpg",
+			license: "Public domain",
+			licenseHref: "https://creativecommons.org/publicdomain/mark/1.0/",
+			note: "Cropped from the original. The photograph is black and white, so hover does not add color.",
+		},
+		links: [
+			{
+				label: "Crime and Punishment",
+				href: "https://www.gutenberg.org/ebooks/2554",
+			},
+			{
+				label: "The Brothers Karamazov",
+				href: "https://www.gutenberg.org/ebooks/28054",
+			},
+		],
+		paragraphs: [
+			"Fyodor Dostoevsky is here because he gives the worst idea its best lawyer. Raskolnikov, the Underground Man, Ivan Karamazov. He lets each one talk until you see where the idea goes. I read him when I am too sure that I am right.",
+			"He was born in Moscow in 1821. In 1849 he stood in front of a firing squad, and the reprieve came at the last minute. Four years in a labor camp in Siberia followed. Crime and Punishment, The Idiot, Demons, and The Brothers Karamazov came after that. He died in Saint Petersburg in 1881. This photograph is from 1876.",
+		],
+	},
+	{
 		slug: "franz-kafka",
 		name: "Franz Kafka",
 		role: "Writer",
