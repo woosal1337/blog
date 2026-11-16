@@ -335,6 +335,36 @@ export const fame: FamePerson[] = [
 		],
 	},
 	{
+		slug: "arthur-schopenhauer",
+		name: "Arthur Schopenhauer",
+		role: "Philosopher",
+		portrait: "/wall/arthur-schopenhauer.jpg",
+		portraitAlt: "Arthur Schopenhauer in 1859, photographed by Johann Schäfer",
+		portraitPosition: "center 20%",
+		credit: {
+			author: "Johann Schäfer",
+			sourceHref:
+				"https://commons.wikimedia.org/wiki/File:Arthur_Schopenhauer_by_J_Sch%C3%A4fer,_1859b.jpg",
+			license: "Public domain",
+			licenseHref: "https://creativecommons.org/publicdomain/mark/1.0/",
+			note: "The photograph is black and white, so hover does not add color.",
+		},
+		links: [
+			{
+				label: "The World as Will and Idea",
+				href: "https://www.gutenberg.org/ebooks/38427",
+			},
+			{
+				label: "The Wisdom of Life",
+				href: "https://www.gutenberg.org/ebooks/10741",
+			},
+		],
+		paragraphs: [
+			"Arthur Schopenhauer is here because he did not flatter the reader. The will wants, gets, and wants again, and he says so in plain sentences. I read him when I think the next goal will finally be enough.",
+			"He was born in Danzig in 1788 and published The World as Will and Representation in 1818, at thirty. Almost nobody read it for thirty years. He lived alone in Frankfurt with his poodles and continued to write, and the essays of 1851 made him known. He died in 1860. Nietzsche found the book in a shop in Leipzig in 1865. This photograph is from 1859.",
+		],
+	},
+	{
 		slug: "friedrich-nietzsche",
 		name: "Friedrich Nietzsche",
 		role: "Philosopher",
