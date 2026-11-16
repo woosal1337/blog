@@ -449,6 +449,37 @@ export const fame: FamePerson[] = [
 		],
 	},
 	{
+		slug: "alexander-the-great",
+		name: "Alexander the Great",
+		role: "King and general",
+		portrait: "/wall/alexander-the-great.jpg",
+		portraitAlt:
+			"Marble head of Alexander the Great from Pergamon in the Istanbul Archaeology Museums, photographed by Marie-Lan Nguyen",
+		portraitPosition: "center 20%",
+		credit: {
+			author: "Marie-Lan Nguyen",
+			sourceHref:
+				"https://commons.wikimedia.org/wiki/File:Alexander_the_Great_IAM_inv1138T_n2.jpg",
+			license: "CC BY 4.0",
+			licenseHref: "https://creativecommons.org/licenses/by/4.0/",
+			note: "Marble head from Pergamon in the Istanbul Archaeology Museums, made around 200 to 150 BC.",
+		},
+		links: [
+			{
+				label: "Arrian, Anabasis",
+				href: "https://www.gutenberg.org/ebooks/46976",
+			},
+			{
+				label: "Plutarch, Alexander",
+				href: "https://classics.mit.edu/Plutarch/alexandr.html",
+			},
+		],
+		paragraphs: [
+			"Alexander the Great is here because he did not wait until he was old enough. He was king at twenty and at the edge of the known world at thirty. I come back to him when a goal looks too large to start.",
+			"He was born in Pella in 356 BC, and Aristotle taught him. He took the throne of Macedon in 336 BC, defeated the Persian Empire, and reached India before his army refused to go further. He died in Babylon in 323 BC at thirty-two, and his generals divided the empire. This head was carved in Pergamon more than a century after he died.",
+		],
+	},
+	{
 		slug: "sun-tzu",
 		name: "Sun Tzu",
 		role: "Strategist",
