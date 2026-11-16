@@ -421,6 +421,37 @@ export const fame: FamePerson[] = [
 		],
 	},
 	{
+		slug: "aristotle",
+		name: "Aristotle",
+		role: "Philosopher",
+		portrait: "/wall/aristotle.jpg",
+		portraitAlt:
+			"Roman marble bust of Aristotle in the Palazzo Altemps, photographed by Marie-Lan Nguyen",
+		portraitPosition: "center 20%",
+		credit: {
+			author: "Marie-Lan Nguyen",
+			sourceHref:
+				"https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg",
+			license: "Public domain",
+			licenseHref: "https://creativecommons.org/publicdomain/mark/1.0/",
+			note: "Roman marble copy of a Greek bronze by Lysippos, in the Palazzo Altemps in Rome. The alabaster mantle is a modern addition.",
+		},
+		links: [
+			{
+				label: "Nicomachean Ethics",
+				href: "https://www.gutenberg.org/ebooks/8438",
+			},
+			{
+				label: "Stanford Encyclopedia",
+				href: "https://plato.stanford.edu/entries/aristotle/",
+			},
+		],
+		paragraphs: [
+			"Aristotle is here because he looked before he explained. He collected the animals, the constitutions, and the arguments, and then he sorted them. I read him when I want to build a theory before I have the data.",
+			"He was born in Stagira in 384 BC, studied at the Academy of Plato for twenty years, and taught Alexander. He started the Lyceum in Athens in 335 BC and wrote about logic, biology, ethics, and politics. He died in Chalcis in 322 BC. This bust is a Roman copy of a Greek bronze by Lysippos.",
+		],
+	},
+	{
 		slug: "marcus-aurelius",
 		name: "Marcus Aurelius",
 		role: "Emperor and philosopher",
@@ -501,6 +532,34 @@ export const fame: FamePerson[] = [
 		paragraphs: [
 			"Sun Tzu is here because the book is mostly about not fighting. Know the ground, know yourself, and win before the battle starts. I read him when I am about to answer a problem with more force.",
 			"The Art of War is credited to a general of the state of Wu around 500 BC, though the text was probably put together later. Thirteen short chapters. What we have of his face is a modern statue, not a portrait.",
+		],
+	},
+	{
+		slug: "niccolo-machiavelli",
+		name: "Niccolò Machiavelli",
+		role: "Diplomat and writer",
+		portrait: "/wall/niccolo-machiavelli.jpg",
+		portraitAlt: "Niccolò Machiavelli, painted by Santi di Tito",
+		portraitPosition: "center 20%",
+		credit: {
+			label: "Painting",
+			author: "Santi di Tito",
+			sourceHref:
+				"https://commons.wikimedia.org/wiki/File:Portrait_of_Niccol%C3%B2_Machiavelli_by_Santi_di_Tito.jpg",
+			license: "Public domain",
+			licenseHref: "https://creativecommons.org/publicdomain/mark/1.0/",
+			note: "The painting is in the Palazzo Vecchio in Florence. Cropped from the original.",
+		},
+		links: [
+			{ label: "The Prince", href: "https://www.gutenberg.org/ebooks/1232" },
+			{
+				label: "Discourses on Livy",
+				href: "https://www.gutenberg.org/ebooks/10827",
+			},
+		],
+		paragraphs: [
+			"Niccolò Machiavelli is here because he wrote down how power works, not how it should work. The Prince is a short report from a man who lost his job and kept his eyes open. I read him when I confuse what people say with what they do.",
+			"He was born in Florence in 1469 and served the republic as a secretary and diplomat for fourteen years. The Medici came back in 1512, removed him, and put him in prison for a short time. He wrote The Prince in 1513 on his farm near the city. The book came out in 1532, five years after he died. Santi di Tito painted this portrait after his death.",
 		],
 	},
 ];
