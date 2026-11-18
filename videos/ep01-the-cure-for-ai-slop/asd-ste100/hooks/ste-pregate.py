@@ -155,7 +155,10 @@ def main():
     tool = payload.get("tool_name") or ""
     tool_input = payload.get("tool_input") or {}
 
-    if tool == "Bash":
+    # opencode's own bash tool id is lowercase ("bash"), confirmed live,
+    # 2026-09-11 — Claude Code uses "Bash". Accept both, this copy runs
+    # under the opencode-claude-hooks bridge on either client.
+    if tool.lower() == "bash":
         text = commit_message(tool_input.get("command") or "")
         what = "commit message"
         retry = "run the same command again with the corrected message"

@@ -48,6 +48,13 @@ node "$HOME/.claude/skills/asd-ste100/hooks/run-python.cjs" "$HOME/.claude/skill
 The registry page for that command is the listing above. It reads this repo
 directly, so the page and the folder never drift apart.
 
+**opencode.** A separate installer, for opencode V2 and V1. See
+[`opencode/README.md`](opencode/README.md):
+
+```
+python3 opencode/install-opencode.py
+```
+
 **No tooling at all.** Paste `SKILL.md` into the system prompt. The skill
 works without the linter. The linter closes the loop.
 
@@ -60,11 +67,14 @@ Claude Code plugin format at the same time:
 SKILL.md                     the skill - name, description, the two layers
 scripts/ste-lint.py          executable code, per the spec convention
 references/ste-recurring-errors.md   docs loaded on demand
-hooks/hooks.json             the plugin's hook declarations
+hooks/hooks.json             the plugin's hook declarations (Claude Code)
 hooks/run-python.cjs         cross-platform Python 3 launcher
-hooks/ste-*.py               the four hook programs
+hooks/ste-*.py               the four Claude Code hook programs
+hooks/oc-*.py                three more, for the opencode port - see opencode/
 .claude-plugin/plugin.json   the plugin manifest
 install.py, output-style.md  the settings route, for non-plugin installs
+opencode/                    the opencode port, V2 and V1 - see
+                              opencode/README.md
 ```
 
 ## What the enforcement stack adds
@@ -151,8 +161,11 @@ touches code, identifiers, or command syntax. Writing that needs a voice — a
 blog post, an essay, marketing copy — is out of scope on purpose. STE is
 deliberately flat.
 
-The hooks and the installer are Claude Code only. The skill file itself works
-with every agent the skills CLI supports.
+The skill file works with every agent the skills CLI supports. The hooks and
+the installer were Claude Code only until 2026-09-11. `opencode/` ports all
+four hooks to opencode V2. On opencode V1, two of them run through a hooks
+bridge. The Stop gate cannot force a same-turn rewrite on opencode. It warns
+on the next turn. See `opencode/README.md`.
 
 ## License
 
