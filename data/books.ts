@@ -27,6 +27,13 @@ export const bookCategories: { key: BookCategory; label: string }[] = [
 
 export const books: Book[] = [
 	{
+		title: "Towards Light: A Philosophy of Life and Architecture",
+		author: "Tadao Ando",
+		cover: "/books/towardslight.png",
+		progress: 0,
+		category: "self-help",
+	},
+	{
 		title: "The Hitchhiker's Guide to Agentic AI",
 		author: "Haggai Roitman",
 		cover: "/books/hitchhikersagenticai.png",
