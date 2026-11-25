@@ -3,7 +3,12 @@ import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
 import { rehypePrettyCodeOptions } from "./lib/mdx-options.mjs";
 
+// STATIC_EXPORT=1 builds the static site for Cloudflare. Without it, the
+// build stays a Node server for Coolify on igris.
+const staticExport = process.env.STATIC_EXPORT === "1";
+
 const nextConfig = {
+	...(staticExport && { output: "export", trailingSlash: false }),
 	distDir: process.env.NEXT_DIST_DIR || ".next",
 	pageExtensions: ["mdx", "ts", "tsx"],
 	reactStrictMode: false,
@@ -41,6 +46,7 @@ const nextConfig = {
 		mdxRs: false,
 	},
 	images: {
+		unoptimized: staticExport,
 		minimumCacheTTL: 60 * 60 * 24 * 30,
 	},
 };

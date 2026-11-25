@@ -1,7 +1,12 @@
-import { getPostMeta } from "@/lib/blog";
+import { getAllSlugs, getPostMeta } from "@/lib/blog";
 import { generateContour } from "@/lib/contour";
 
 export const runtime = "nodejs";
+export const dynamic = "force-static";
+
+export function generateStaticParams() {
+	return getAllSlugs().map((slug) => ({ slug }));
+}
 
 export async function GET(
 	request: Request,
