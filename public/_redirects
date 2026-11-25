@@ -1,0 +1,12 @@
+# Cloudflare static redirects. Keep in step with redirects() in next.config.mjs.
+/setup /lab 308
+/gallery /wall 308
+/gallery/* /wall 308
+/blog/companyos /blog/elliptic 308
+/videos/the-cure-for-ai-slop/kit/ste-writing-skill /videos/the-cure-for-ai-slop/kit/ste-writing/SKILL 308
+/videos/the-cure-for-ai-slop/kit/ste-lint.py /videos/the-cure-for-ai-slop/kit/ste-writing/ste-lint.py 308
+/videos/the-cure-for-ai-slop/kit/ste-recurring-errors /videos/the-cure-for-ai-slop/kit/ste-writing/ste-recurring-errors 308
+/videos/the-cure-for-ai-slop/kit/experiment-results /videos/the-cure-for-ai-slop/kit/experiment/results-cross-model 308
+/videos/the-cure-for-ai-slop/kit/experiment-results-openai /videos/the-cure-for-ai-slop/kit/experiment/results-openai 308
+/videos/the-cure-for-ai-slop/kit/before-after-samples /videos/the-cure-for-ai-slop/kit/experiment/before-after-samples 308
+/videos/the-cure-for-ai-slop/kit/run-openai.py /videos/the-cure-for-ai-slop/kit/experiment/run-openai.py 308

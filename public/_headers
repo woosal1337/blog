@@ -1,0 +1,12 @@
+# The static export writes these image routes as files with no extension.
+/og
+  Content-Type: image/png
+/blog-og/*
+  Content-Type: image/png
+/blog-cover/*
+  Content-Type: image/png
+/blog-icon/*
+  Content-Type: image/svg+xml; charset=utf-8
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
