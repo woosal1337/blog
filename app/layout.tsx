@@ -10,7 +10,6 @@ import {
 	SITE_NAME,
 	SITE_URL,
 } from "@/lib/seo";
-import { Analytics } from "@vercel/analytics/react";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
@@ -118,7 +117,6 @@ export default function RootLayout({
 					<TooltipProvider>{children}</TooltipProvider>
 				</ThemeProvider>
 				<SoundProvider />
-				<Analytics />
 			</body>
 		</html>
 	);
