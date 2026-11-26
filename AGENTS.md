@@ -4,7 +4,7 @@ Guidance for AI coding agents working in this repository.
 
 ## Project Overview
 
-This is the personal portfolio and blog for `chele.bi`, built with Next.js 14 App Router, React 18, TypeScript, MDX, Tailwind CSS, and Biome. It deploys to Vercel.
+This is the personal portfolio and blog for `chele.bi`, built with Next.js 14 App Router, React 18, TypeScript, MDX, Tailwind CSS, and Biome. A static export deploys to Cloudflare Workers through the GitHub Actions workflow `.github/workflows/deploy-cloudflare.yml`.
 
 Use the existing design system and content patterns before adding new abstractions. Keep changes small and boring unless the task explicitly asks for a redesign or broader refactor.
 
@@ -19,7 +19,7 @@ Package manager is Bun. Runtime requires Node `>=20`.
 
 ## Architecture
 
-- `app/layout.tsx`, root layout. Wraps the app in providers and Vercel Analytics.
+- `app/layout.tsx`, root layout. Wraps the app in providers and loads the site analytics from `lib/analytics.ts`.
 - `app/(website)/`, main website route group, including the homepage, blog, projects, and about routes.
 - `components/ds/`, local design-system primitives. Prefer these before creating new UI components.
 - `components/blocks/`, domain-specific blocks such as post chrome, polaroids, and contribution graph.

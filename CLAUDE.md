@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Personal portfolio/blog website for chele.bi, built with Next.js 14 (App Router) and deployed on Vercel. Uses MDX for content pages, Tailwind CSS for styling, and Biome for linting/formatting.
+Personal portfolio/blog website for chele.bi, built with Next.js 14 (App Router) and deployed to Cloudflare Workers as a static export (`STATIC_EXPORT=1 bun run build`, workflow `.github/workflows/deploy-cloudflare.yml`). Uses MDX for content pages, Tailwind CSS for styling, and Biome for linting/formatting.
 
 ## Commands
 
@@ -17,7 +17,7 @@ Package manager is **Bun**. Runtime requires Node >= 20.
 
 ## Architecture
 
-- **`app/layout.tsx`** — Root layout wraps everything in ThemeProvider and TooltipProvider, plus Vercel Analytics.
+- **`app/layout.tsx`** — Root layout wraps everything in ThemeProvider and TooltipProvider, plus the site analytics from `lib/analytics.ts`.
 - **`app/(website)/`** — Main route group: home (`page.tsx`), blog, projects, videos, about. The website layout sets site-wide metadata.
 - **`app/(website)/videos/`** — YouTube episodes. Each episode is `(episode)/<slug>/page.mdx` with an exported `meta` (video id, chapters, sources, kit), discovered by `lib/videos.ts` the way `lib/blog.ts` discovers posts. `[slug]/kit/[...file]` renders the episode's kit — the files under the repo-root `videos/<dir>/` folder that the YouTube description links to — as pages at build time via `next-mdx-remote`. Keep `videos/` as the single source of truth; the published description URL points at it.
 - **`components/`** — organized into `ds/` (design-system primitives), `blocks/` (domain-specific: post chrome, polaroids, contribution graph), `ui/` (shadcn/ui primitives), `hooks/`, and `providers/` (theme provider wrapping `next-themes`).

@@ -9,7 +9,7 @@
 
 Personal blog and portfolio of [Ege Vusal Chelebi](https://www.chele.bi) ([@woosal1337](https://x.com/woosal1337)).
 
-A dark, editorial personal site — writing, projects, and a reading shelf — built with Next.js 14 (App Router), MDX, Tailwind CSS, and Biome, deployed on Vercel.
+A dark, editorial personal site — writing, projects, and a reading shelf — built with Next.js 14 (App Router), MDX, Tailwind CSS, and Biome, deployed to Cloudflare Workers as a static export.
 
 ## Highlights
 
