@@ -6,11 +6,12 @@ permissions:
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 concurrency:
-  group: deploy-cloudflare
-  cancel-in-progress: false
+  group: deploy-cloudflare-${{ github.event_name == 'pull_request' && github.ref || 'main' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   deploy:
@@ -31,6 +32,7 @@ jobs:
           STATIC_EXPORT: '1'
 
       - name: Deploy
+        if: github.event_name != 'pull_request'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
