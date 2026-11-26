@@ -198,6 +198,12 @@ const AGENTS: LabItem[] = [
 		desc: "The window I drive the agents from. It runs Claude Code, Codex, Grok, Hermes and Pi on my machines, and any device I own can pilot the same live session.",
 		href: "https://zeron.sh",
 	},
+	{
+		name: "Rex",
+		desc: "The terminal I work in. A server keeps every session, tab and pane, so a restart brings back the full history, and the agents open tabs and read panes through its CLI.",
+		href: "https://www.superlogical.com/rex",
+		image: "/icons/rex.png",
+	},
 ];
 
 const SKILLS: LabItem[] = [
