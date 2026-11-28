@@ -1,0 +1,197 @@
+import {
+	EpisodeHeader,
+	EpisodeSources,
+} from "@/components/blocks/episode-blocks";
+import { EpisodeChapters } from "@/components/blocks/episode-chapters";
+import { VideoObjectJsonLd } from "@/components/seo/json-ld";
+import { createEpisodeMetadata } from "@/lib/seo";
+
+export const meta = {
+	episode: 9,
+	title: "Is closed source dead?",
+	seoTitle:
+		"Is Closed Source Dead? REA, AI Reverse Engineering, GTA 6 and Agent-Built Photoshop Alternatives",
+	date: "2026-11-28",
+	youtubeId: "MxiSPxdiukk",
+	duration: "PT18M30S",
+	runtime: "18:30",
+	summary:
+		"REA lets an AI agent take apart programs you do not have the code for. Reading closed software got cheap. Building a rival got cheap too. Finishing did not.",
+	seoDescription:
+		"REA, a free tool with 25,000 GitHub stars in one day, lets an AI coding agent read a program without its source code. What that changes for closed software: what REA does, the game decompilations, the GTA 6 takedown of 3,007 repositories, free agent-built rivals to Photoshop, and what the stock market shows.",
+	socialDescription:
+		"Reading closed software got cheap. Building a first rival got cheap. Finishing did not. Every source is published.",
+	tags: ["ai", "agents", "reverse-engineering", "open-source", "adobe"],
+	thumbnail: "/videos/is-closed-source-dead/thumbnail.jpg",
+	thumbnailAlt: "Episode title card: is closed source dead?",
+	chapters: [
+		{ time: "0:00", title: "Closed source is dead" },
+		{ time: "1:15", title: "Interesting times" },
+		{ time: "3:16", title: "What REA is" },
+		{ time: "6:00", title: "Checking the claims" },
+		{ time: "8:48", title: "Games: where the line is" },
+		{ time: "10:47", title: "Building got cheap too" },
+		{ time: "13:40", title: "What the stock market says" },
+		{ time: "15:26", title: "What changes for closed software" },
+		{ time: "17:22", title: "Is closed source dead" },
+	],
+	sources: [
+		{
+			title: "The \"closed source is dead\" claim on X",
+			href: "https://x.com/RoundtableSpace/status/2109165852578992582",
+			detail:
+				"The claim the episode starts from, 2026-10-11",
+		},
+		{
+			title: "REA, Reverse Engineer Anything",
+			href: "https://github.com/morluto/rea",
+			detail:
+				"The tool the episode checks. MIT license. 480,938 stars and 42 releases on 2026-11-27",
+		},
+		{
+			title: "The REA disclaimer",
+			href: "https://github.com/morluto/rea/blob/main/DISCLAIMER.md",
+			detail:
+				"What REA is for, and what it refuses: DRM, license checks, anti-cheat, game cheats, changes to online services",
+		},
+		{
+			title: "REA on npm",
+			href: "https://api.npmjs.org/downloads/point/last-month/rea-agents",
+			detail:
+				"About 1.6 million downloads in the 30 days to 2026-11-26, automated installs included",
+		},
+		{
+			title: "Rory Tyer: interesting and fun times",
+			href: "https://x.com/RoryTyer/status/2108709365683552701",
+			detail:
+				"The four screenshots from 2026-10-10",
+		},
+		{
+			title: "AirDrop on Linux, by t4t5",
+			href: "https://x.com/t4t5/status/2108543714318582247",
+			detail:
+				"A Linux laptop that iPhones see as an AirDrop target",
+		},
+		{
+			title: "OpenDrop and OWL, Secure Mobile Networking Lab",
+			href: "https://github.com/seemoo-lab/opendrop",
+			detail:
+				"The 2019 reverse engineering of AirDrop and its Wi-Fi link, presented at USENIX Security 2019. OWL: https://github.com/seemoo-lab/owl",
+		},
+		{
+			title: "A native Plex app for an LG TV",
+			href: "https://www.reddit.com/r/ClaudeCode/comments/1x043yp/i_used_claude_code_to_reverseengineer_an_lg_tv/",
+			detail:
+				"Built with Ghidra and Claude Code. The profile screen went from about 30 seconds to about 3",
+		},
+		{
+			title: "Wes Bos: hacking $50 photo frames",
+			href: "https://wesbos.com/hacking-smart-photo-frames",
+			detail:
+				"Rooted photo frames turned into a family dashboard, with the guide",
+		},
+		{
+			title: "DHH: the ModRetro Chromatic, Codex edition",
+			href: "https://x.com/dhh/status/2108486183793623162",
+			detail:
+				"A new handheld for vibe coding games. Nobody hacked anything",
+		},
+		{
+			title: "Ghidra",
+			href: "https://github.com/NationalSecurityAgency/ghidra",
+			detail:
+				"The free reverse-engineering tool from the NSA",
+		},
+		{
+			title: "Gran Turismo 4 decompilation",
+			href: "https://github.com/gustavocanepa/gt4-decomp",
+			detail:
+				"30,370 of 30,874 functions match, and the full build passes a SHA-1 check. AI agents did most of the matching",
+		},
+		{
+			title: "A shooter rebuilt by AI agents, by momo5502",
+			href: "https://momo5502.com/posts/2026-10-09-game-decompilation/",
+			detail:
+				"About three months, 99% of the functions present, 83% byte-exact, 600 to 700 billion tokens. The code stays private",
+		},
+		{
+			title: "The Take-Two takedown notice",
+			href: "https://github.com/github/dmca/blob/master/2026/11/2026-11-24-take-two.md",
+			detail:
+				"Filed 2026-11-24 against the Leonida project. GitHub disabled 3,007 repositories",
+		},
+		{
+			title: "PhotoCraft",
+			href: "https://github.com/storytold/photocraft",
+			detail:
+				"A free, open-source image editor that an AI agent can control. Its team calls it a clean-room reimplementation of Photoshop",
+		},
+		{
+			title: "PhotoCraft parity file",
+			href: "https://github.com/storytold/photocraft/blob/main/docs/target-app-parity.md",
+			detail:
+				"The team's own estimate: about 45% ready for real work, beta at about 75%, 190 of 258 Photoshop files",
+		},
+		{
+			title: "The PhotoCraft team on Hacker News",
+			href: "https://news.ycombinator.com/item?id=50029110",
+			detail:
+				"\"No, we explicitly do not use reverse engineering. We do not decompile binaries.\"",
+		},
+		{
+			title: "Craft Anything",
+			href: "https://github.com/storytold/craft-anything",
+			detail:
+				"The same team's reading tool, with a clean-room mode and a Deep mode",
+		},
+		{
+			title: "Adobe Q3 FY2026 results",
+			href: "https://www.sec.gov/Archives/edgar/data/796343/000079634326000147/adbeex991q326.htm",
+			detail:
+				"The record quarter that ended 2026-08-28",
+		},
+		{
+			title: "Adobe MAX 2026: local MCP connections",
+			href: "https://news.adobe.com/news/2026/11/adobe-powers-new-era-of-creativity",
+			detail:
+				"Photoshop, Illustrator, Premiere and After Effects open to outside agents, in preview, 2026-11-10",
+		},
+		{
+			title: "Adobe Creative Cloud plans",
+			href: "https://www.adobe.com/creativecloud/plans.html",
+			detail:
+				"Photoshop $22.99 and Creative Cloud Pro $69.99 a month, US, annual billed monthly, before tax, checked 2026-11-27",
+		},
+		{
+			title: "Figma Q3 2026 results",
+			href: "https://www.sec.gov/Archives/edgar/data/0001579878/000162828026070133/q326pressrelease.htm",
+			detail:
+				"Revenue $391.4M, up 43%. The share fell about 17% the next day",
+		},
+		{
+			title: "Share prices",
+			href: "https://finance.yahoo.com/quote/ADBE/history/",
+			detail:
+				"Daily closing prices, 2025-12-31 to 2026-11-27, for Adobe, Figma, Salesforce, Autodesk and the Nasdaq 100 (QQQ). No data shows that REA or PhotoCraft moved any share price",
+		},
+	],
+};
+
+export const metadata = createEpisodeMetadata(meta, "is-closed-source-dead");
+
+<EpisodeHeader meta={meta} />
+<VideoObjectJsonLd meta={meta} slug="is-closed-source-dead" />
+
+REA is a free tool that gives an AI coding agent the tools to examine a program when you do not have its source code: Ghidra, IDA, or Hopper for desktop programs, plus readers for Electron apps, websites, Android apps, firmware, and game files. In October, it got more than 25,000 GitHub stars in one day. So, is closed source dead?
+
+No. Licenses and terms of use still apply. Most of what a modern app does runs on a company server, where no local tool can look. And on 24 November, one takedown notice from the publisher of GTA 6 removed 3,007 repositories from GitHub.
+
+What changed is the cost of two things. Reading the code that ships to your computer got cheap: a public project rebuilt Gran Turismo 4, and 30,370 of its 30,874 functions match the original. Building a first version of a rival got cheap too: one team now publishes free, agent-built apps that aim at the jobs of Photoshop, Premiere, Lightroom, Illustrator, Acrobat, Word, and Figma. PhotoCraft, the most advanced, says it is about 45% ready for real work.
+
+The stock market is a separate story. Adobe lost about a third of its value this year, Figma more than half, while the Nasdaq 100 rose about 6%. Most of the Adobe drop came before REA or PhotoCraft got attention. No data shows that either project moved a share price.
+
+My verdict: reading got cheap, building got cheap, finishing did not.
+
+<EpisodeChapters chapters={meta.chapters} youtubeId={meta.youtubeId} />
+
+<EpisodeSources sources={meta.sources} />

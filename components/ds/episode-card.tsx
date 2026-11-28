@@ -88,16 +88,9 @@ export function EpisodeCard({
 					</span>
 				) : null}
 			</div>
-			<div className={cn("p-5", featured && "p-6")}>
+			<div className="p-5">
 				<NewLabel date={publishedAt} className="mb-2" />
-				<h3
-					className={cn(
-						"font-ui text-[17px] font-medium text-ink",
-						featured && "text-[22px]",
-					)}
-				>
-					{title}
-				</h3>
+				<h3 className="font-ui text-[17px] font-medium text-ink">{title}</h3>
 				{summary && (
 					<p className="mt-2 line-clamp-2 font-ui text-[14px] leading-snug text-ink-mute">
 						{summary}
